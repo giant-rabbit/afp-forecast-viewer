@@ -268,6 +268,8 @@ figure.probleMedia {
         background-color: $app-bg-color;
         width: 24px !important;
         height: 10px !important;
+        cursor: initial;
+        border-radius: 0;
     }
     .vue-slider-mark-label {
         padding-left: 20px;

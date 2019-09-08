@@ -67,7 +67,7 @@ export default {
             clickToCloseNonZoomable: false,
             bgOpacity: 0.9,
             allowPanToNext: false,
-            mainClass: 'afp-forecast-display'
+            mainClass: 'afp-forecast-view'
         },
             PhotoSwipe,
             PhotoSwipeUI)

@@ -189,6 +189,7 @@ $rose-margin: 20px;
     transform: translate(-50%, -50%);
     font-size: 0.7rem;
     font-weight: bold;
+    margin: 0;
 }
 .north {
     left: 50%;
@@ -256,6 +257,7 @@ $rose-margin: 20px;
     font-size: 0.7rem;
     transform: translateY(-30%);
     padding-left: 0.3rem;
+    margin: 0;
 }
 
 .elevationLabelUpper {
