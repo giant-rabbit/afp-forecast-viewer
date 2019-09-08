@@ -1,5 +1,5 @@
 <template>
-    <div class="afp-forecast-view">
+    <div class="afp-forecast-view" :class="$style.container">
         <!-- Header -->
         <div :class="$style.row">
             <div :class="$style.metaColumn">
@@ -140,6 +140,10 @@ export default {
         line-height: 1;
         padding-right: $spacer * 0.5;
     }
+}
+
+.container {
+    composes: container from "../assets/css/style.css";
 }
 
 .row {

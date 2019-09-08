@@ -1,6 +1,5 @@
 <template>
     <div id="app">
-      Test
         <forecast-view :data="data" />
     </div>
 </template>

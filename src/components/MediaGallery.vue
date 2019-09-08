@@ -59,7 +59,7 @@ $gallery-height: 200px;
 
 .galleryItem {
     display: inline-block;
-    margin: 0;
+    margin: 0 !important;
     margin-right: 1em !important;
     figcaption {
         font-style: italic;

@@ -60,7 +60,19 @@ export default {
                 },
             }
         )
-        
+        // Photoswipe
+        Vue.directive('preview', createPreviewDirective({
+            shareEl: false,
+            history: false,
+            clickToCloseNonZoomable: false,
+            bgOpacity: 0.9,
+            allowPanToNext: false,
+            mainClass: 'afp-forecast-display'
+        },
+            PhotoSwipe,
+            PhotoSwipeUI)
+        )
+
         // Load content for help popovers
         Vue.prototype.$helpContent = {
             dangerScale: 'The <a href="https://avalanche.org/avalanche-encyclopedia/danger-scale/" target="_blank">North American Avalanche Danger Scale</a> is a tool used by avalanche forecasters to communicate the potential for avalanches to cause harm or injury to backcountry travelers.',

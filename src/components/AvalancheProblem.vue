@@ -147,7 +147,7 @@ export default {
     align-items: flex-end !important;
     h5 {
         border-top: 1px solid $app-border-color;
-        margin-top: $spacer * 1.5;
+        margin-top: $spacer * 1.5 !important;
         padding-top: $spacer;
     }
 }
@@ -176,6 +176,7 @@ export default {
 }
 figure.probleMedia {
     width: 100%;
+    margin-bottom: $spacer !important;
     img {
         width: 100%;
         cursor: pointer;
@@ -183,7 +184,7 @@ figure.probleMedia {
     @include media-breakpoint-up(md) {
         float: right;
         width: 50%;
-        margin-left: $spacer;
+        margin-left: $spacer !important;
     }
     @include media-breakpoint-up(lg) {
         width: 33%;
@@ -230,7 +231,7 @@ figure.probleMedia {
 @import "../assets/css/_variables.scss";
 @import "../assets/css/bootstrap/mixins/breakpoints";
 
- .slider .vue-slider {
+ .slider::v-deep {
     margin-left: auto;
     margin-right: auto;
     padding-bottom: 0.5rem !important;
