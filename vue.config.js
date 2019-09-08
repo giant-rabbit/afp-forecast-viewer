@@ -1,5 +1,1 @@
-module.exports = {
-  css: {
-    modules: true
-  }
-}
+module.exports = {}
