@@ -61,6 +61,7 @@ $gallery-height: 200px;
     display: inline-block;
     margin: 0 !important;
     margin-right: 1em !important;
+    vertical-align: top;
     figcaption {
         font-style: italic;
         font-size: $font-size-sm;
