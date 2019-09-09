@@ -42,13 +42,11 @@ export default {
                         rank: 1,
                         likelihood: ["likely", "likely"],
                         discussion: "<p>Strong winds formed stubborn, new slabs this weekend. Reports from the field in nearby zones indicate wind loading in unusual locations including much further down the slope than normal and on cross-loaded gully features. Wind slabs like this can be tricky. They often don’t seem very reactive. This can lure you out onto the slab. Using visual clues can help you identify and avoid wind loaded slopes. If you see fresh cornices, wind drifted snow, or feel firm, hollow, surface snow, wind slabs are nearby. We may see these slabs grow deeper at higher elevations, as moderate north winds transport more snow Monday.</p><p>If you use the nice weather to travel to higher elevations or into more remote areas take the time to stop and observe the snow. Due to stormy weather we have not received any information from higher elevations in quite some time.</p>",
-                        media: [
-                            {
-                                url: "https://www.sawtoothavalanche.com/img/field/190413_titus_WL_ASc.jpg",
-                                type: "photo",
-                                caption: "Sample caption about the photo"
-                            }
-                        ],
+                        media: {
+                            url: "https://www.sawtoothavalanche.com/img/field/190413_titus_WL_ASc.jpg",
+                            type: "photo",
+                            caption: "Sample caption about the photo"
+                        },
                         location: [
                             "north upper",
                             "northeast upper",
@@ -71,13 +69,11 @@ export default {
                         rank: 2,
                         likelihood: "unlikely",
                         discussion: "<p>Strong winds formed stubborn, new slabs this weekend. Reports from the field in nearby zones indicate wind loading in unusual locations including much further down the slope than normal and on cross-loaded gully features. Wind slabs like this can be tricky. They often don’t seem very reactive. This can lure you out onto the slab. Using visual clues can help you identify and avoid wind loaded slopes. If you see fresh cornices, wind drifted snow, or feel firm, hollow, surface snow, wind slabs are nearby. We may see these slabs grow deeper at higher elevations, as moderate north winds transport more snow Monday.</p><p>If you use the nice weather to travel to higher elevations or into more remote areas take the time to stop and observe the snow. Due to stormy weather we have not received any information from higher elevations in quite some time.</p>",
-                        media: [
-                            {
-                                url: "cjqcJT35A2s",
-                                type: "video",
-                                caption: "Sample caption about the video"
-                            }
-                        ],
+                        media: {
+                            url: "cjqcJT35A2s",
+                            type: "video",
+                            caption: "Sample caption about the video"
+                        },
                         location: [
                             "south upper",
                             "southeast upper",

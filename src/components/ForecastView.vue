@@ -17,7 +17,9 @@
         </div>
 
         <!-- Bottom line -->
-        <div v-if="data.bottom_line != ''" :class="$style.bottomLine" v-html="'<strong>BOTTOM LINE:&nbsp;</strong>' + data.bottom_line">
+        <div v-if="data.bottom_line != ''" :class="$style.bottomLine">
+            <span :class="$style.bottomLineTitle">BOTTOM LINE:</span>
+            <span v-html="'' + data.bottom_line"></span>
         </div>
 
         <!-- danger -->
@@ -49,7 +51,7 @@
         </div>-->
 
         <!-- weather -->
-        <div :class="$style.spacer">
+        <div v-if="data.weather_data" :class="$style.spacer">
             <h2>Weather</h2>
             <!-- weather table -->
             <weather-table
@@ -157,12 +159,6 @@ export default {
 }
 
 .bottomLine {
-    strong {
-        float: left;
-    }
-    // p:first-of-type {
-    //     display: inline;
-    // }
     p:last-of-type {
         margin-bottom: 0;
     }
@@ -171,5 +167,10 @@ export default {
     font-size: $font-size-lg;
     border-radius: $border-radius;
     margin-bottom: $spacer;
+}
+.bottomLineTitle {
+    float: left;
+    padding-right: .5rem;
+    font-weight: bold;
 }
 </style>

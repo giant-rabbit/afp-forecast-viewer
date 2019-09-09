@@ -48,28 +48,28 @@
             </div>
         </div>
         <figure
-            v-if="problem.media[0].type == 'photo' && problem.media[0].url !=''"
+            v-if="problem.media.type == 'photo' && problem.media.url !=''"
             :class="$style.probleMedia"
             
         >
-            <img v-tooltip="'Click to enlarge'" v-preview:scope-a :src="problem.media[0].url" :alt="problem.media[0].caption" />
-            <figcaption>{{problem.media[0].caption}}</figcaption>
+            <img v-tooltip="'Click to enlarge'" v-preview:scope-a :src="problem.media.url" :alt="problem.media.caption" />
+            <figcaption>{{problem.media.caption}}</figcaption>
         </figure>
         <figure
-            v-if="problem.media[0].type == 'video' && problem.media[0].url !=''"
+            v-if="problem.media.type == 'video' && problem.media.url !=''"
             :class="$style.probleMedia"
         >
             <div :class="$style.videoContainer">
                 <iframe
                     width="100%"
                     height="100%"
-                    :src="'https://www.youtube.com/embed/' + problem.media[0].url"
+                    :src="'https://www.youtube.com/embed/' + problem.media.url"
                     frameborder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
                 ></iframe>
             </div>
-            <figcaption>{{problem.media[0].caption}}</figcaption>
+            <figcaption>{{problem.media.caption}}</figcaption>
         </figure>
         <div v-html="problem.discussion"></div>
     </div>
