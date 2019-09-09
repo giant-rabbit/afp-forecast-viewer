@@ -81,6 +81,10 @@ export default {
             type: Object,
             default: {}
         },
+        product: {
+            type: String,
+            default: 'forecast'
+        },
         config: {
             type: Object,
             default: function () {

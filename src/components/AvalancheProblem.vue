@@ -40,7 +40,12 @@
                 </h5>
             </div>
             <div :class="$style.col12">
-                <vue-slider class="size slider" ref="size" v-model="problem.size" v-bind="sizeOptions"></vue-slider>
+                <vue-slider
+                    class="size slider"
+                    ref="size"
+                    v-model="problem.size"
+                    v-bind="sizeOptions"
+                ></vue-slider>
                 <h5>
                     Size
                     <info :content="this.$helpContent.problemSize" />
@@ -50,9 +55,13 @@
         <figure
             v-if="problem.media.type == 'photo' && problem.media.url !=''"
             :class="$style.probleMedia"
-            
         >
-            <img v-tooltip="'Click to enlarge'" v-preview:scope-a :src="problem.media.url" :alt="problem.media.caption" />
+            <img
+                v-tooltip="'Click to enlarge'"
+                v-preview:scope-a
+                :src="problem.media.url"
+                :alt="problem.media.caption"
+            />
             <figcaption>{{problem.media.caption}}</figcaption>
         </figure>
         <figure
@@ -120,7 +129,7 @@ export default {
         VueSlider,
         LocatorRose
     },
-    props: ['problem','config'],
+    props: ['problem', 'config'],
     methods: {
     },
     mounted() {
@@ -135,9 +144,10 @@ export default {
 @import "../assets/css/bootstrap/mixins/breakpoints";
 
 .problemContainer {
-    clear: both;
     margin-bottom: $spacer;
-    &:after {
+    &::after {
+        display: block;
+        content: "";
         clear: both;
     }
 }
@@ -231,7 +241,7 @@ figure.probleMedia {
 @import "../assets/css/_variables.scss";
 @import "../assets/css/bootstrap/mixins/breakpoints";
 
- .slider::v-deep {
+.slider::v-deep {
     margin-left: auto;
     margin-right: auto;
     padding-bottom: 0.5rem !important;
