@@ -1,7 +1,9 @@
 <template>
     <div class="afp-forecast-view" :class="$style.container">
-        <forecast-product v-if="product == 'forecast'" :data="data" :config="config"/>
-        <weather-product v-if="product == 'weather'" :data="data" :config="config"/>
+        <forecast-product v-if="product == 'forecast'" :data="data" :config="config" />
+        <weather-product v-if="product == 'weather'" :data="data" :config="config" />
+        <summary-product v-if="product == 'summary'" :data="data" :config="config" />
+        <synopsis-product v-if="product == 'synopsis'" :data="data" :config="config" />
     </div>
 </template>
 
@@ -9,6 +11,8 @@
 //import moment from 'moment'
 import ForecastProduct from '../components/ForecastProduct'
 import WeatherProduct from '../components/WeatherProduct'
+import SummaryProduct from '../components/SummaryProduct'
+import SynopsisProduct from '../components/SynopsisProduct'
 
 export default {
     data() {
@@ -43,7 +47,9 @@ export default {
     },
     components: {
         ForecastProduct,
-        WeatherProduct
+        WeatherProduct,
+        SummaryProduct,
+        SynopsisProduct
     }
 }
 </script>
