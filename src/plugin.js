@@ -5,7 +5,7 @@ import createPreviewDirective from "vue-photoswipe-directive";
 import InfoPopover from './components/InfoPopover'
 import VTooltip from 'v-tooltip'
 import styles from './assets/css/app.scss'
-import { createDateFilter } from "vue-date-fns";
+import moment from 'moment/src/moment.js'
 
 export default {
     install(Vue, options) {
@@ -15,7 +15,11 @@ export default {
         Vue.component('info', InfoPopover)
 
         // Filters
-        Vue.filter("publicDate", createDateFilter("dddd, MMMM D, YYYY - h:mmA"))
+        Vue.filter('publicDate', function (value) {
+            if (value) {
+                return moment(value).format('dddd, MMMM D, YYYY - h:mmA')
+            }
+        });
 
         Vue.filter('capitalize', function (value) {
             if (!value) return ''

@@ -141,7 +141,6 @@ export default {
     methods: {
         roseColor() {
             var rose = document.querySelector('#problem-' + this.rank + ' .rose svg')
-            var elements = rose.getElementsByTagName("path")
             this.location.forEach(function (each) {
                 rose.querySelector('[data-id="' + each + '"]').setAttribute('style', 'fill: #495057');
             })

@@ -25,8 +25,6 @@
 </template>
 
 <script>
-import AvalancheDanger from '../components/AvalancheDanger'
-import AvalancheProblem from '../components/AvalancheProblem'
 import MediaGallery from '../components/MediaGallery'
 
 export default {
@@ -36,8 +34,6 @@ export default {
     },
     props: ['data', 'config'],
     components: {
-        AvalancheDanger,
-        AvalancheProblem,
         MediaGallery
     }
 }
