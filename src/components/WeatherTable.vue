@@ -1,6 +1,6 @@
 <template>
     <div :class="$style.tableResponsive">
-        <table :class="$style.table">
+        <table :class="$style.table" >
             <thead>
                 <tr>
                     <th>{{zone}}</th>
@@ -34,10 +34,10 @@ export default {
 .table {
        border-collapse: collapse;
         width: 100%;
-        margin-bottom: $spacer;
+        margin-bottom: 2*$spacer;
         color: $table-color;
         background-color: $table-bg; // Reset for nesting within parents with `background-color`.
-
+        border-bottom: $table-border-width solid $table-border-color;
         th,
         td {
             padding: $table-cell-padding;

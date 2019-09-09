@@ -1,34 +1,21 @@
-import ForecastView from './components/ForecastView';
-import moment from 'moment'
+import ForecastPlugin from './components/ForecastPlugin';
 import PhotoSwipe from 'photoswipe/dist/photoswipe'
 import PhotoSwipeUI from 'photoswipe/dist/photoswipe-ui-default'
 import createPreviewDirective from "vue-photoswipe-directive";
 import InfoPopover from './components/InfoPopover'
 import VTooltip from 'v-tooltip'
 import styles from './assets/css/app.scss'
-
-
-// import MyDirective from './directives/MyDirective.js';
+import { createDateFilter } from "vue-date-fns";
 
 export default {
     install(Vue, options) {
 
         // Register components
-        Vue.component('forecast-view', ForecastView)
+        Vue.component('forecast-view', ForecastPlugin)
         Vue.component('info', InfoPopover)
 
-        // Filters 
-        Vue.filter('formatDate', function (value) {
-            if (value) {
-                return moment(value).format('YYYY-MM-DD HH:mm')
-            }
-        })
-
-        Vue.filter('publicDate', function (value) {
-            if (value) {
-                return moment(value).format('dddd, MMMM D, YYYY - h:mmA')
-            }
-        })
+        // Filters
+        Vue.filter("publicDate", createDateFilter("dddd, MMMM D, YYYY - h:mmA"))
 
         Vue.filter('capitalize', function (value) {
             if (!value) return ''

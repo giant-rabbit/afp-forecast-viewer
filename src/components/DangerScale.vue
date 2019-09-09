@@ -39,7 +39,7 @@ export default {
 @import "../assets/css/bootstrap/mixins/breakpoints";
 
 .dangerScale {
-    margin: 2 * $spacer 0;
+    margin: $spacer 0;
     composes: row from "../assets/css/style.css";
     h5 {
         margin-bottom: 1em;

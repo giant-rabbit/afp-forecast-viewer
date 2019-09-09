@@ -1,5 +1,5 @@
 <template>
-    <div class="afp-forecast-view" :class="$style.container">
+    <div>
         <!-- Header -->
         <div :class="$style.row">
             <div :class="$style.metaColumn">
@@ -49,64 +49,24 @@
                             class="afp-btn-primary"
                         >View More Media</a>
         </div>-->
-
-        <!-- weather -->
-        <div v-if="data.weather_data" :class="$style.spacer">
-            <h2>Weather</h2>
-            <!-- weather table -->
-            <weather-table
-                :periods="data.weather_data[0].periods"
-                :data="data.weather_data[0].data"
-                :zone="data.forecast_zone.name"
-                :class="$style.spacer"
-            />
-        </div>
     </div>
 </template>
 
 <script>
-import moment from 'moment'
 import AvalancheDanger from '../components/AvalancheDanger'
 import AvalancheProblem from '../components/AvalancheProblem'
 import MediaGallery from '../components/MediaGallery'
-import WeatherTable from '../components/WeatherTable'
 
 export default {
     data() {
         return {
         }
     },
-    props: {
-        data: {
-            type: Object,
-            default: {}
-        },
-        product: {
-            type: String,
-            default: 'forecast'
-        },
-        config: {
-            type: Object,
-            default: function () {
-                return {
-                    elevations: {
-                        upper: "Alpine",
-                        middle: "Treeline",
-                        lower: "Below Treeline"
-                    },
-                    assets: {
-                        icons: true,
-                        photoswipe: true
-                    }
-                }
-            }
-        }
-    },
+    props: ['data', 'config'],
     components: {
         AvalancheDanger,
         AvalancheProblem,
-        MediaGallery,
-        WeatherTable
+        MediaGallery
     }
 }
 </script>
@@ -139,7 +99,7 @@ export default {
         vertical-align: middle;
         font-size: 200%;
         line-height: 1;
-        padding-right: $spacer * 0.5;
+        padding-right: .5rem;
     }
 }
 

@@ -20,6 +20,8 @@ $considerable:                  #f7941d;
 $high:                          #ed1b24;
 $extreme:                       #000000;
 
+$spacer: 2rem !default;
+
 @mixin table-responsive {
     margin: $spacer 0;
     overflow: initial;
@@ -165,7 +167,6 @@ $enable-deprecation-messages:                 true !default;
 // You can add more entries to the $spacers map, should you need more variation.
 
 // stylelint-disable
-$spacer: 1rem !default;
 $spacers: () !default;
 $spacers: map-merge((
   0: 0,
@@ -323,7 +324,7 @@ $h4-font-size:                $font-size-base * 1.2 !default;
 $h5-font-size:                $font-size-base * 1 !default;
 $h6-font-size:                $font-size-sm !default;
 
-$headings-margin-bottom:      ($spacer / 2) !default;
+$headings-margin-bottom:      .5rem !default;
 $headings-font-family:        inherit !default;
 $headings-font-weight:        700 !default;
 $headings-line-height:        1.2 !default;

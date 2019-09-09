@@ -1,6 +1,10 @@
 <template>
     <div id="media-gallery" :class="$style.galleryWrapper">
-        <figure :class="$style.galleryItem" v-for="item in media" :key="item.id">
+        <figure
+            :class="[item.type == 'photo' ? $style.galleryItemImg : $style.galleryItemVid, $style.galleryItem]"
+            v-for="item in media"
+            :key="item.id"
+        >
             <img
                 v-if="item.type == 'photo'"
                 :class="$style.galleryImg"
@@ -38,14 +42,13 @@ export default {
 @import "../assets/css/_variables.scss";
 @import "../assets/css/bootstrap/mixins/breakpoints";
 
-$gallery-height: 200px;
+$gallery-height: 300px;
 
 .galleryWrapper {
     height: auto;
     white-space: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
-    padding-bottom: $spacer;
     &::-webkit-scrollbar-track {
         background-color: $app-gray-light;
     }
@@ -60,18 +63,30 @@ $gallery-height: 200px;
 .galleryItem {
     display: inline-block;
     margin: 0 !important;
-    margin-right: 1em !important;
+    margin-right: 1rem !important;
+    margin-bottom: 1rem !important;
     vertical-align: top;
+    overflow: hidden;
     figcaption {
         font-style: italic;
         font-size: $font-size-sm;
+        white-space: initial;
     }
+}
+
+.galleryItemImg {
+    width: $gallery-height;
+}
+
+.galleryItemVid {
+    width: $gallery-height * 1.78;
 }
 
 .galleryImg {
     height: $gallery-height !important;
-    width: auto !important;
+    width: $gallery-height !important;
     cursor: pointer;
+    object-fit: cover;
 }
 
 .galleryVid {

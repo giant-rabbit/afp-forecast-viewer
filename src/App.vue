@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <forecast-view :data="data" />
+        <forecast-view :data="data" :product="product" />
     </div>
 </template>
 
@@ -10,6 +10,7 @@ export default {
     name: 'app',
     data() {
         return {
+            product: 'forecast',
             data: {
                 id: 54357,
                 published_time: "2019-08-19T13:30:00+00:00",
@@ -109,7 +110,7 @@ export default {
                         id: 2,
                         url: "https://www.sawtoothavalanche.com/img/field/180322_Keystone_crownprofile_SS.jpg",
                         type: "photo",
-                        caption: "This is the caption"
+                        caption: "Strong winds formed stubborn, new slabs this weekend. Reports from the field in nearby zones indicate wind loading in unusual locations "
                     },
                     {
                         id: 3,
@@ -123,66 +124,244 @@ export default {
                     {
                         data: [
                             {
-                                field: "Temperature (F)",
+                                field: 'Temperature (F)',
                                 values: [
-                                    "12",
-                                    "23",
-                                    "15"
+                                    '4',
+                                    '3',
+                                    '4'
                                 ]
                             },
                             {
-                                field: "Cloud Cover",
+                                field: 'Cloud Cover',
                                 values: [
-                                    "Clear",
-                                    "Scattered",
-                                    "Broken"
+                                    'Clear',
+                                    'Clear',
+                                    'Clear'
                                 ]
                             },
                             {
-                                field: "Ridgeline Wind Speed",
+                                field: 'Ridgeline Wind Speed',
                                 values: [
-                                    "Moderate",
-                                    "Moderate",
-                                    "Light"
+                                    'Moderate',
+                                    'Moderate',
+                                    'Light'
                                 ]
                             },
                             {
-                                field: "Wind Direction",
+                                field: 'Wind Direction',
                                 values: [
-                                    "SE",
-                                    "E",
-                                    "N"
+                                    'SE',
+                                    'S',
+                                    'N'
                                 ]
                             },
                             {
-                                field: "Snowfall (in)",
+                                field: 'Snowfall (in)',
                                 values: [
-                                    "3",
-                                    "3",
-                                    "3"
+                                    '0',
+                                    '0',
+                                    '0'
                                 ]
                             },
                             {
-                                field: "Snow Water Equivalent (in)",
+                                field: 'Snow Water Equivalent (in)',
                                 values: [
-                                    ".4",
-                                    ".4",
-                                    ".4"
+                                    '0',
+                                    '0',
+                                    '0'
                                 ]
                             }
                         ],
                         periods: [
-                            "<span>Last Night</span>(5PM - 5AM)",
-                            "<span>Today</span>(5PM - 5AM)",
-                            "<span>Tonight</span>(5PM - 5AM)"
+                            '<span>Last Night</span>(5PM - 5AM)',
+                            '<span>Today</span>(5PM - 5AM)',
+                            '<span>Tonight</span>(5PM - 5AM)'
                         ],
                         zone_id: 293,
-                        zone_name: "Sawtooth Mountains"
+                        zone_name: 'Sawtooth Mountains'
                     },
-                ],
-            },
+                    {
+                        data: [
+                            {
+                                field: 'Temperature (F)',
+                                values: [
+                                    '45',
+                                    '73',
+                                    '23'
+                                ]
+                            },
+                            {
+                                field: 'Cloud Cover',
+                                values: [
+                                    'Broken',
+                                    'Overcast',
+                                    'Clear'
+                                ]
+                            },
+                            {
+                                field: 'Ridgeline Wind Speed',
+                                values: [
+                                    'Calm',
+                                    'Light',
+                                    'Light'
+                                ]
+                            },
+                            {
+                                field: 'Wind Direction',
+                                values: [
+                                    'N',
+                                    'NE',
+                                    'NW'
+                                ]
+                            },
+                            {
+                                field: 'Snowfall (in)',
+                                values: [
+                                    '1',
+                                    '2',
+                                    '2'
+                                ]
+                            },
+                            {
+                                field: 'Snow Water Equivalent (in)',
+                                values: [
+                                    '10',
+                                    '0',
+                                    '0'
+                                ]
+                            }
+                        ],
+                        periods: [
+                            '<span>Last Night</span>(5PM - 5AM)',
+                            '<span>Today</span>(5PM - 5AM)',
+                            '<span>Tonight</span>(5PM - 5AM)'
+                        ],
+                        zone_id: 294,
+                        zone_name: 'Smoky & Boulder Mountains'
+                    },
+                    {
+                        data: [
+                            {
+                                field: 'Temperature (F)',
+                                values: [
+                                    '45',
+                                    '33',
+                                    '23'
+                                ]
+                            },
+                            {
+                                field: 'Cloud Cover',
+                                values: [
+                                    'Broken',
+                                    'Broken',
+                                    'Scattered'
+                                ]
+                            },
+                            {
+                                field: 'Ridgeline Wind Speed',
+                                values: [
+                                    'Strong',
+                                    'Strong',
+                                    'Strong'
+                                ]
+                            },
+                            {
+                                field: 'Wind Direction',
+                                values: [
+                                    'N',
+                                    'N',
+                                    'SE'
+                                ]
+                            },
+                            {
+                                field: 'Snowfall (in)',
+                                values: [
+                                    '0',
+                                    '0',
+                                    '0'
+                                ]
+                            },
+                            {
+                                field: 'Snow Water Equivalent (in)',
+                                values: [
+                                    '000',
+                                    '0',
+                                    '0'
+                                ]
+                            }
+                        ],
+                        periods: [
+                            '<span>Last Night</span>(5PM - 5AM)',
+                            '<span>Today</span>(5PM - 5AM)',
+                            '<span>Tonight</span>(5PM - 5AM)'
+                        ],
+                        zone_id: 296,
+                        zone_name: 'Soldier Mountains'
+                    },
+                    {
+                        data: [
+                            {
+                                field: 'Temperature (F)',
+                                values: [
+                                    '45',
+                                    '32',
+                                    '34'
+                                ]
+                            },
+                            {
+                                field: 'Cloud Cover',
+                                values: [
+                                    'Scattered',
+                                    'Broken',
+                                    'Broken'
+                                ]
+                            },
+                            {
+                                field: 'Ridgeline Wind Speed',
+                                values: [
+                                    'Strong',
+                                    'Strong',
+                                    'Extreme'
+                                ]
+                            },
+                            {
+                                field: 'Wind Direction',
+                                values: [
+                                    'N',
+                                    'N',
+                                    'N'
+                                ]
+                            },
+                            {
+                                field: 'Snowfall (in)',
+                                values: [
+                                    '1',
+                                    '2',
+                                    '3'
+                                ]
+                            },
+                            {
+                                field: 'Snow Water Equivalent (in)',
+                                values: [
+                                    '0',
+                                    '.1',
+                                    '0'
+                                ]
+                            }
+                        ],
+                        periods: [
+                            '<span>Last Night</span>(5PM - 5AM)',
+                            '<span>Today</span>(5PM - 5AM)',
+                            '<span>Tonight</span>(5PM - 5AM)'
+                        ],
+                        zone_id: 295,
+                        zone_name: 'Wood River Valley'
+                    }
+                ]
+            }
         }
     }
 }
+
 </script>
 

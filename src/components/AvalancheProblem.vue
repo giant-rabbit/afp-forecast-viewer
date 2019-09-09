@@ -157,8 +157,8 @@ export default {
     align-items: flex-end !important;
     h5 {
         border-top: 1px solid $app-border-color;
-        margin-top: $spacer * 1.5 !important;
-        padding-top: $spacer;
+        margin-top: 1.5rem !important;
+        padding-top: 1rem;
     }
 }
 .problemIcon {
