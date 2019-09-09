@@ -134,7 +134,7 @@ export default {
     },
     props: ['location', 'rank','config'],
     watch: {
-        value: function () {
+        location: function () {
             this.roseColor()
         }
     },

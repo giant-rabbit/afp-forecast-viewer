@@ -102,11 +102,6 @@ export default {
             }
         }
     },
-    computed: {
-        expired: function () {
-            return moment(this.data.expires_time).isBefore()
-        },
-    },
     components: {
         AvalancheDanger,
         AvalancheProblem,
