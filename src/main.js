@@ -3,22 +3,22 @@ import App from './App.vue'
 import forecastView from './plugin.js'
 import router from './routes.js'
 import axios from 'axios'
-import moment from 'moment'
+import merge from 'deepmerge'
+// import moment from 'moment'
+import moment from 'moment/src/moment.js'
+// import styles from './assets/css/app.scss'
 // import PhotoSwipe from 'photoswipe/dist/photoswipe'
 // import PhotoSwipeUI from 'photoswipe/dist/photoswipe-ui-default'
 // import createPreviewDirective from "vue-photoswipe-directive";
 // import HelpContent from './helpContent.js'
 // import InfoPopover from './components/InfoPopover'
 // import VTooltip from 'v-tooltip'
-import merge from 'deepmerge'
+
 
 // Load forecast view plugin
 Vue.use(forecastView)
 
 // Get Config
-var configElement = document.getElementById('afp-public-config')
-// if( configElement)
-var config = JSON.parse(configElement.innerHTML)
 var configDefault = {
     "center": "SNFAC",
     "color": false,
@@ -34,7 +34,13 @@ var configDefault = {
     },
     "mediaUrl": false
 }
-config = merge(configDefault, config)
+var configElement = document.getElementById('afp-public-config')
+if( configElement) {
+    var config = JSON.parse(configElement.innerHTML)
+    config = merge(configDefault, config)
+} else {
+    var config = configDefault
+}
 Vue.prototype.$config = config
 Vue.prototype.$centerId = config.center
 
@@ -57,6 +63,33 @@ Vue.use(router)
 Vue.component('v-style', {
     render: function (createElement) {
         return createElement('style', this.$slots.default)
+    }
+})
+
+// Click outside directive
+let handleOutsideClick
+Vue.directive('closable', {
+    bind(el, binding, vnode) {
+        handleOutsideClick = (e) => {
+            e.stopPropagation()
+            const { handler, exclude } = binding.value
+            let clickedOnExcludedEl = false
+            exclude.forEach(refName => {
+                if (!clickedOnExcludedEl) {
+                    const excludedEl = vnode.context.$refs[refName]
+                    clickedOnExcludedEl = excludedEl.contains(e.target)
+                }
+            })
+            if (!el.contains(e.target) && !clickedOnExcludedEl) {
+                vnode.context[handler]()
+            }
+        }
+        document.addEventListener('click', handleOutsideClick)
+        document.addEventListener('touchstart', handleOutsideClick)
+    },
+    unbind() {
+        document.removeEventListener('click', handleOutsideClick)
+        document.removeEventListener('touchstart', handleOutsideClick)
     }
 })
 

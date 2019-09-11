@@ -135,9 +135,6 @@ export default {
 
 </script>
 
-<style module lang="scss">
-</style>
-
 <style scoped lang="scss">
 @import "../assets/css/bootstrap/functions";
 @import "../assets/css/_variables.scss";

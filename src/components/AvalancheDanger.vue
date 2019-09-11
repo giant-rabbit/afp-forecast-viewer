@@ -25,14 +25,14 @@ export default {
             let current = this.danger.find(current => current.valid_day == "current");
             return current
         },
-        outlookDanger: function () {
-            if(this.danger.length > 1) {
-                let outlook = this.danger.find(outlook => outlook.valid_day == "tomorrow");
-                return current
-            } else {
-                return false
-            }
-        }
+        // outlookDanger: function () {
+        //     if(this.danger.length > 1) {
+        //         let outlook = this.danger.find(outlook => outlook.valid_day == "tomorrow");
+        //         return current
+        //     } else {
+        //         return false
+        //     }
+        // }
     }
 }
 

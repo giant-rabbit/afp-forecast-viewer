@@ -1,7 +1,7 @@
 <template>
     <div v-if="loaded">
         <!-- Zone selector -->
-        <!-- <zone-selector :zone="zone" /> -->
+        <zone-selector :zone="zone" />
 
         <!-- Title -->
         <div :class="$style.title">
@@ -166,10 +166,6 @@ export default {
 .spacer {
     margin-bottom: $spacer;
 }
-
-// .title h1 {
-//     margin-bottom: $spacer;
-// }
 
 .btnPrimary {
     composes: btn from "../assets/css/style.css";
