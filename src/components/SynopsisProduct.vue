@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- Header -->
-        <h2>{{data.bottom_line}}</h2>
+        <h2>{{data.bottom_line2}}</h2>
         <div :class="$style.row">
             <div :class="$style.metaColumn">
                 <h5>Issued</h5>
@@ -14,12 +14,12 @@
         </div>
 
         <!-- discussion -->
-        <div class="afp-synopsis" v-html="data.hazard_discussion"></div>
+        <div class="afp-synopsis" v-html="data.hazard_discussion2"></div>
 
         <!-- media -->
         <div v-if="data.media.length > 0">
             <h3>Media</h3>
-            <media-gallery :class="$style.spacer" :media="data.media" />
+            <media-gallery :class="$style.spacer" :media="data.media" scope="scope-synopsis"/>
         </div>
     </div>
 </template>

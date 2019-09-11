@@ -29,7 +29,7 @@
         </div>
 
         <!-- media -->
-        <media-gallery :class="$style.spacer" :media="data.media" />
+        <media-gallery :class="$style.spacer" :media="data.media" scope="scope-summary" />
         <!-- <div v-if="this.$config.mediaUrl" :class="$style.textCenter">
                         <a
                             :href="this.$config.mediaUrl"

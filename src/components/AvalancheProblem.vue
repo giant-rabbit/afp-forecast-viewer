@@ -58,7 +58,7 @@
         >
             <img
                 v-tooltip="'Click to enlarge'"
-                v-preview:scope-a
+                v-preview:scope-forecast
                 :src="problem.media.url"
                 :alt="problem.media.caption"
             />

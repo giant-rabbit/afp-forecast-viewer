@@ -40,7 +40,7 @@
         </div>
 
         <!-- media -->
-        <media-gallery :class="$style.spacer" :media="data.media" />
+        <media-gallery :class="$style.spacer" :media="data.media" scope="scope-forecast" />
         <!-- <div v-if="this.$config.mediaUrl" :class="$style.textCenter">
                         <a
                             :href="this.$config.mediaUrl"
@@ -122,7 +122,7 @@ export default {
         margin-bottom: 0;
     }
     background-color: $gray-300;
-    padding: $spacer;
+    padding: 1rem;
     font-size: $font-size-lg;
     border-radius: $border-radius;
     margin-bottom: $spacer;

@@ -1,10 +1,11 @@
 <template>
     <div v-if="loaded">
         <!-- Zone selector -->
-        <zone-selector :zone="zone" />
+        <!-- <zone-selector :zone="zone" /> -->
 
         <!-- Title -->
         <div :class="$style.title">
+            <!-- Need logic for summary product title -->
             <h1>Backcountry Avalanche Forecast</h1>
         </div>
 
@@ -19,7 +20,9 @@
 
         <!-- Avalanche forecast tab -->
         <div v-show="tabSelected == 'forecast'" :class="$style.tabPane">
-            <forecast-product :data="data" />
+            <!-- Need expiration -->
+            <!-- Need logic for summary product -->
+            <forecast-view v-if="loaded" :data="data" :product="'forecast'" />
             <div :class="$style.textCenter">
                 <button
                     @click="scrollToTabs('weather')"
@@ -31,15 +34,12 @@
 
         <!-- Weather tab -->
         <div v-show="tabSelected == 'weather'" :class="$style.tabPane">
-            <div v-if="data.weather_discussion != ''" :class="$style.spacer">
-                <div v-html="data.weather_discussion"></div>
-            </div>
-            <h4>Weather tables will go here</h4>
+            <forecast-view v-if="loaded" :data="data" :product="'weather'" />
         </div>
 
         <!-- Synopsis tab -->
         <div v-if="tabSelected == 'synopsis'" :class="$style.tabPane">
-            <p>Synopsis</p>
+            <forecast-view v-if="loaded" :data="data" :product="'synopsis'" />
         </div>
 
         <!-- Custom tab content -->
@@ -58,7 +58,6 @@
 <script>
 import ZoneSelector from '../components/ZoneSelector'
 import Tabs from '../components/Tabs'
-import ForecastProduct from '../components/ForecastProduct'
 
 export default {
     data() {
@@ -93,7 +92,6 @@ export default {
     },
     components: {
         ZoneSelector,
-        ForecastProduct,
         Tabs
     },
     methods: {
@@ -129,13 +127,23 @@ export default {
             this.$router.push({ query: { nav: this.tabSelected } })
         },
         scrollToTabs(tab) {
-            if (tab) {
-                this.tabSelected = tab
+            var ref = this
+            var offset = document.getElementById('tabs').offsetTop
+            const onScroll = function () {
+                const scrollTop = window.scrollTop || window.pageYOffset
+
+                if (scrollTop === offset) {
+                    window.removeEventListener('scroll', onScroll)
+                    ref.tabSelected = tab
+                }
             }
-            this.$nextTick(() => {
-                this.$refs.tabs.scrollTop = 0;
+            window.addEventListener('scroll', onScroll)
+            onScroll()
+            window.scrollTo({
+                top: offset,
+                behavior: 'smooth'
             })
-        }
+        },
     },
     mounted() {
         //trigger event for custom content to be loaded
@@ -222,7 +230,7 @@ export default {
 }
 
 .disclaimer {
-    margin-top: $spacer * 4;
+    margin-top: $spacer * 1.5;
     border-top: $border-width solid $app-border-color;
     padding: $spacer 0;
     font-size: $font-size-sm;
