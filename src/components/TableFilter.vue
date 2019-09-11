@@ -99,7 +99,7 @@
 <script>
 import Vue from 'vue'
 import { Event } from 'vue-tables-2'
-import moment from 'moment'
+// import moment from 'moment'
 
 export default {
     data() {

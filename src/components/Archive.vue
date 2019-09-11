@@ -19,7 +19,7 @@
 <script>
 import Vue from 'vue'
 import { ClientTable, Event } from 'vue-tables-2'
-import moment from 'moment'
+// import moment from 'moment'
 import TableFilter from '../components/TableFilter'
 import tableTheme from '../vueTableTheme'
 import tableTemplate from '../vueTableTemplate'
