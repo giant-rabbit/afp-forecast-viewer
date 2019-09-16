@@ -1,5 +1,5 @@
 <template>
-    <div class="afp-forecast-view" :class="$style.container">
+    <div class="afp-forecast-view">
         <forecast-product v-if="product == 'forecast'" :data="data" :config="config" />
         <weather-product v-if="product == 'weather'" :data="data" :config="config" />
         <summary-product v-if="product == 'summary'" :data="data" :config="config" />
@@ -52,17 +52,3 @@ export default {
     }
 }
 </script>
-
-<style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins";
-
-.spacer {
-    margin-bottom: $spacer;
-}
-
-.container {
-    composes: container from "../assets/css/style.css";
-}
-</style>

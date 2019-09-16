@@ -57,16 +57,16 @@ $spacer: 2rem !default;
 
 // stylelint-disable
 $white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black:    #000 !default;
+$gray-100: #F8F9FB !default; // background color
+$gray-200: #E0E2E5 !default; // light border
+$gray-300: #E8ECEE !default; // danger background
+$gray-400: #C8CACE !default; // darker border
+$gray-500: #A8AAAC !default; // light text color
+$gray-600: #797D80 !default; // danger gray labels
+$gray-700: #515558 !default; // zone selector text color
+$gray-800: #27282A !default; // ??
+$gray-900: #1E2326 !default; // dark text color
+$black:    #000 !default; // text on gray color
 
 $grays: () !default;
 $grays: map-merge((
@@ -191,8 +191,8 @@ $sizes: map-merge((
 //
 // Settings for the `<body>` element.
 
-$body-bg:                   transparent !default;
-$body-color:                $gray-900 !default;
+$body-bg:                   $gray-100 !default;
+$body-color:                $black !default;
 
 // Links
 //
@@ -328,7 +328,7 @@ $headings-margin-bottom:      .5rem !default;
 $headings-font-family:        inherit !default;
 $headings-font-weight:        700 !default;
 $headings-line-height:        1.2 !default;
-$headings-color:              inherit !default;
+$headings-color:              $black !default;
 
 $display1-size:               6rem !default;
 $display2-size:               5.5rem !default;
