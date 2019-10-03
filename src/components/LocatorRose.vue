@@ -142,7 +142,7 @@ export default {
         roseColor() {
             var rose = document.querySelector('#problem-' + this.rank + ' .rose svg')
             this.location.forEach(function (each) {
-                rose.querySelector('[data-id="' + each + '"]').setAttribute('style', 'fill: #495057');
+                rose.querySelector('[data-id="' + each + '"]').setAttribute('data-active', '');
             })
         },
     },
@@ -174,11 +174,11 @@ $rose-margin: 20px;
     width: $rose-size;
 }
 
-.graphic path {
+.graphic path  {
     stroke: $app-border-color !important;
     stroke-width: 6px !important;
     fill: transparent;
-    &.active {
+    &[data-active] {
         fill: $app-bg-color;
     }
 }
@@ -265,7 +265,7 @@ $rose-margin: 20px;
 }
 .elevationLabelMiddle {
     left: $rose-size * 0.33;
-    top: $rose-size * 0.67 + $rose-size * 0.6;
+    top: $rose-size * 0.675 + $rose-size * 0.6;
 }
 .elevationLabelLower {
     left: $rose-size * 0.23;

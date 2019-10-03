@@ -72,5 +72,45 @@ export default {
             problemLikelihood: 'Likelihood is a description of the chance of encountering a particular Avalanche Problem. It combines the spatial distribution of the Problem and the sensitivity or ease of triggering an avalanche. The spatial distribution indicates how likely you are to encounter the Problem in the highlighted avalanche terrain. The sensitivity indicates how easy it is to trigger avalanches including both natural and human triggered avalanches.',
             problemSize: 'Size is based on the destructive potential of avalanches. SMALL avalanches are relatively harmless to people unless they push you into a terrain trap. LARGE avalanches could bury, injure or kill a person. VERY LARGE avalanches could bury cars, destroy a house, or break trees. HISTORIC avalanches are even more destructive, and nearing the maximum size the slope could produce.'
         }
+
+        // Danger scale info
+        Vue.prototype.$dangerScale = [
+            {
+                level: 0,
+                rating: "No Rating",
+                advice: "",
+                icon: "https://avalanche.org/wp-content/themes/avalanche-org-theme-v1/includes/img/danger/no.png"
+            },
+            {
+                level: 1,
+                rating: "Low",
+                advice: "",
+                icon: "https://avalanche.org/wp-content/themes/avalanche-org-theme-v1/includes/img/danger/low.png"
+            },
+            {
+                level: 2,
+                rating: "Moderate",
+                advice: "",
+                icon: "https://avalanche.org/wp-content/themes/avalanche-org-theme-v1/includes/img/danger/moderate.png"
+            },
+            {
+                level: 3,
+                rating: "Considerable",
+                advice: "",
+                icon: "https://avalanche.org/wp-content/themes/avalanche-org-theme-v1/includes/img/danger/considerable.png"
+            },
+            {
+                level: 4,
+                rating: "High",
+                advice: "",
+                icon: "https://avalanche.org/wp-content/themes/avalanche-org-theme-v1/includes/img/danger/high.png"
+            },
+            {
+                level: 5,
+                rating: "Extreme",
+                advice: "",
+                icon: "https://avalanche.org/wp-content/themes/avalanche-org-theme-v1/includes/img/danger/extreme.png"
+            }
+        ]
     }
 }

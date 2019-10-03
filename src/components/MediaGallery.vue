@@ -56,7 +56,7 @@ $gallery-height: 300px;
         height: 6px;
     }
     &::-webkit-scrollbar-thumb {
-        background-color: $app-bg-color;
+        background-color: $gray-400;
     }
 }
 

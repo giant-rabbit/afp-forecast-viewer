@@ -50,29 +50,28 @@
 
         <!-- Tab container -->
         <div :class="$style.tabContainer">
-
             <!-- Avalanche forecast tab -->
             <div v-show="tabSelected == 'forecast'" :class="$style.tabPane">
                 <!-- Need expiration -->
                 <!-- Need logic for summary product -->
-                <forecast-view v-if="loaded" :data="data" :product="'forecast'" />
-                <div :class="$style.textCenter">
+                <forecast-view v-if="loaded" :data="data" :product="'forecast'" :config="config" />
+                <!-- <div :class="$style.textCenter">
                     <button
                         @click="scrollToTabs('weather')"
                         :class="$style.btnPrimary"
                         class="afp-btn-primary"
                     >Full Weather Forecast</button>
-                </div>
+                </div> -->
             </div>
 
             <!-- Weather tab -->
             <div v-show="tabSelected == 'weather'" :class="$style.tabPane">
-                <forecast-view v-if="loaded" :data="data" :product="'weather'" />
+                <forecast-view v-if="loaded" :data="data" :product="'weather'" :config="config"  />
             </div>
 
             <!-- Synopsis tab -->
             <div v-if="tabSelected == 'synopsis'" :class="$style.tabPane">
-                <forecast-view v-if="loaded" :data="data" :product="'synopsis'" />
+                <forecast-view v-if="loaded" :data="data" :product="'synopsis'" :config="config"  />
             </div>
 
             <!-- Custom tab content -->
@@ -82,9 +81,10 @@
                 </div>
             </div>
 
-            <div
-                :class="$style.disclaimer"
-            >This information is provided by the U.S.D.A. Forest Service and describes general backcountry avalanche hazard and conditions. It does not apply to ski areas and highways where avalanche mitigation is conducted. Read more here.</div>
+            <div :class="$style.disclaimer">
+                This information is provided by the U.S.D.A. Forest Service and describes general backcountry avalanche hazard and conditions.
+                <br />It does not apply to ski areas and highways where avalanche mitigation is conducted.
+            </div>
         </div>
     </div>
 </template>
@@ -261,6 +261,7 @@ export default {
 .bottomLineTitle {
     display: inline-block;
     border-bottom: 1px solid $gray-400;
+    padding-bottom: 0.1rem;
 }
 
 .bottomLineText {
@@ -294,11 +295,10 @@ export default {
 .tabContainer {
     background-color: #fff;
     width: 100vw;
-    overflow-x: hidden;
     position: relative;
     left: calc(-1 * (100vw - 100% + 15px) / 2);
     padding-left: calc((100vw - 100% + 15px) / 2);
-    padding-right: calc((100vw - 100% + 15px) / 2);
+    padding-right: calc((100vw - 100% - 15px) / 2);
     padding-top: $spacer;
     padding-bottom: $spacer;
     border-top: 1px solid $gray-400;
@@ -314,8 +314,14 @@ export default {
 
 .disclaimer {
     margin-top: $spacer * 1.5;
-    border-top: $border-width solid $app-border-color;
-    padding: $spacer 0;
+    border-top: 1.5px solid $gray-200;
+    padding: 1.5 * $spacer 0;
     font-size: $font-size-sm;
+    text-align: center;
+    @include media-breakpoint-down(md) {
+        br {
+            display: none;
+        }
+    }
 }
 </style>

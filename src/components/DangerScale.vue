@@ -9,8 +9,8 @@
         <div :class="$style.secondColumn">
             <ul>
                 <li :class="[$style.none, $style.li]">
-                    No&nbsp;Rating
-                    <span>(Info&nbsp;Avail)</span>
+                    Conditions&nbsp;<br>Summary
+                    <!-- <span>(No Rating)</span> -->
                 </li>
                 <li :class="[$style.low, $style.li]">Low (1)</li>
                 <li :class="[$style.mod, $style.li]">
@@ -39,13 +39,12 @@ export default {
 @import "../assets/css/bootstrap/mixins/breakpoints";
 
 .dangerScale {
-    margin: $spacer 0;
     composes: row from "../assets/css/style.css";
     h5 {
         margin-bottom: 1em;
     }
     ul {
-        height: 50px;
+        margin: 0;
         width: 100%;
         padding: 0;
     }
@@ -54,39 +53,54 @@ export default {
     display: block;
     float: left;
     width: 16.3%;
-    height: 50px;
-    border-top: 10px solid $no-rating;
     font-size: 0.6rem;
-    line-height: 1.5rem;
+    line-height: 1.1;
     margin-right: 0px;
     overflow: hidden;
     @include media-breakpoint-up(md) {
         font-size: $font-size-sm;
     }
+    &:before {
+        content: "";
+        display: block;
+        height: 10px;
+        background-color: $no-rating;
+        margin-bottom: .3rem;
+    }
 }
 .none {
     margin-right: 2%;
+    br {
+        @include media-breakpoint-up(lg) {
+            display: none;
+        } 
+    }
     span {
         display: none;
         @include media-breakpoint-up(xl) {
             display: inline;
         }
     }
+    &:before {
+        border-radius: $border-radius;
+    }
 }
-.low {
-    border-color: $low;
+.low:before {
+    background-color: $low;
+    border-radius: $border-radius 0 0 $border-radius;
 }
-.mod {
-    border-color: $moderate;
+.mod:before {
+    background-color: $moderate;
 }
-.cons {
-    border-color: $considerable;
+.cons:before {
+    background-color: $considerable;
 }
-.high {
-    border-color: $high;
+.high:before {
+    background-color: $high;
 }
-.ext {
-    border-color: $extreme;
+.ext:before {
+    background-color: $extreme;
+    border-radius: 0 $border-radius $border-radius 0;
 }
 .mod span,
 .cons span, .ext span {

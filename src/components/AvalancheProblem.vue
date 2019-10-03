@@ -1,6 +1,6 @@
 <template>
     <div :id="'problem-' + problem.rank" :class="$style.problemContainer">
-        <h2>Avalanche Problem {{problem.rank}}</h2>
+        <h2>Avalanche Problem #{{problem.rank}}</h2>
         <div :class="$style.infoGraphics">
             <div :class="$style.col12">
                 <img :class="$style.problemIcon" :src="problem.icon" />
@@ -144,19 +144,24 @@ export default {
 @import "../assets/css/bootstrap/mixins/breakpoints";
 
 .problemContainer {
-    margin-bottom: $spacer;
+    @include divider;
     &::after {
         display: block;
         content: "";
         clear: both;
+    }
+    h2 {
+        display: inline-block;
+        border-bottom: 1px solid $gray-400;
+        padding-bottom: .2rem;
     }
 }
 
 .infoGraphics {
     composes: row from "../assets/css/style.css";
     align-items: flex-end !important;
-    h5 {
-        border-top: 1px solid $app-border-color;
+    h6, h5 {
+        border-top: 1px solid $gray-400;
         margin-top: 1.5rem !important;
         padding-top: 1rem;
     }
@@ -186,22 +191,26 @@ export default {
 }
 figure.probleMedia {
     width: 100%;
-    margin-bottom: $spacer !important;
     img {
         width: 100%;
         cursor: pointer;
+        box-shadow: $app-box-shadow;
+        //box-shadow: -10px 10px 0px 0px $gray-300;
     }
     @include media-breakpoint-up(md) {
         float: right;
         width: 50%;
-        margin-left: $spacer !important;
+        margin-left: 2 * $spacer !important;
     }
     @include media-breakpoint-up(lg) {
         width: 33%;
     }
     figcaption {
+        padding-top: .5rem;
         font-style: italic;
         font-size: $font-size-sm;
+        text-align: center;
+        font-weight: lighter;
     }
     a {
         display: block;
@@ -232,6 +241,8 @@ figure.probleMedia {
         left: 0;
         width: 100%;
         height: 100%;
+        box-shadow: $app-box-shadow;
+        // box-shadow: -10px 10px 0px 0px $gray-300;
     }
 }
 </style>

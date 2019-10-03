@@ -24,9 +24,9 @@ var configDefault = {
     "color": false,
     "tabs": [],
     "elevations": {
-        "upper": "Upper",
-        "middle": "Middle",
-        "lower": "Lower"
+        "upper": "Upper Elevation",
+        "middle": "Middle Elevation",
+        "lower": "Lower Elevation"
     },
     "assets": {
         "icons": true,
@@ -182,6 +182,12 @@ Vue.prototype.$sampleData = {
             upper: 3,
             middle: 2,
             valid_day: "current"
+        },
+        {
+            lower: 5,
+            upper: 3,
+            middle: 4,
+            valid_day: "tomorrow"
         }
     ],
     media: [

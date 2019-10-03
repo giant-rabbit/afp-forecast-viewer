@@ -2,7 +2,7 @@
     <div>
 
         <!-- danger -->
-        <avalanche-danger :class="$style.spacer" :danger="data.danger" />
+        <avalanche-danger :danger="data.danger" :date="data.published_time" :config="config"/>
 
         <!-- problems -->
         <avalanche-problem
