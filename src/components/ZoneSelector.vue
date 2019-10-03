@@ -4,9 +4,8 @@
             ref="button"
             @click="show = !show"
             :class="$style.btn"
-            class="afp-btn-primary"
             v-tooltip="'Switch zone'"
-        >{{zone}}</button>
+        >Smoky & Boulder Mountains</button>
         <transition name="expand" @enter="enter" @after-enter="afterEnter" @leave="leave">
             <div
                 v-closable="{
@@ -104,26 +103,38 @@ export default {
 .selector {
     margin-bottom: $spacer;
     position: relative;
+    @include media-breakpoint-up(md) {
+        float: right;
+    }
 }
 
 .btn {
     composes: btn from "../assets/css/style.css";
-    composes: btn-primary from "../assets/css/style.css";
-    composes: btn-lg from "../assets/css/style.css";
+    background-color: #fff;
+    border-color: $gray-400;
+    color: $gray-700;
+    font-size: $font-size-sm;
     position: relative;
-    padding-right: 4rem;
+    padding: 0.5rem 0.75rem;
+    padding-right: 3rem;
+    box-shadow: $app-box-shadow;
+    @include media-breakpoint-down(sm) {
+        width: 100%;
+        text-align: left;
+    }
+    &:hover {
+        border-color: $gray-500;
+    }
     &:after {
-        content: "\F140";
-        color: #fff;
-        font: normal normal normal 24px/1 "Material Design Icons";
-        font-size: 1.75rem;
-        line-height: 3rem;
+        content: "";
+        border-left: 1px solid $gray-500;
+        border-bottom: 1px solid $gray-500;
         position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        width: 3rem;
-        border-left: $border-width solid #fff;
+        right: 1rem;
+        top: 0.6rem;
+        width: 0.6rem;
+        height: 0.6rem;
+        transform: rotate(-45deg);
     }
 }
 
@@ -131,12 +142,17 @@ export default {
     position: absolute;
     top: 100%;
     left: 0;
+    right: 0;
+    @include media-breakpoint-up(md) {
+        left: initial;
+        right: 0;
+    }
     z-index: $zindex-dropdown;
     float: left;
     min-width: $dropdown-min-width;
     padding: $dropdown-padding-y 0;
     margin: $dropdown-spacer 0 0; // override default ul
-    @include font-size($dropdown-font-size);
+    font-size: $font-size-sm;
     color: $dropdown-color;
     text-align: left; // Ensures proper alignment if parent has it changed (e.g., modal footer)
     list-style: none;
