@@ -1,5 +1,6 @@
 <template>
-    <div class="afp-forecast-view">
+    <!-- <div class="afp-forecast-view"> -->
+    <div>
         <forecast-product v-if="product == 'forecast'" :data="data" :config="config" />
         <weather-product v-if="product == 'weather'" :data="data" :config="config" />
         <summary-product v-if="product == 'summary'" :data="data" :config="config" />

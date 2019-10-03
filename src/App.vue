@@ -17,9 +17,6 @@
             border-color: {{luminance(this.$config.color,-0.3)}} !important;
             color: #ffffff !important;
             }
-            .afp-forecast-view .afp-tab:hover, .afp-forecast-view .afp-tab:focus, .afp-forecast-view .afp-tab-active, .afp-forecast-view .afp-page-link-active a {
-            background-color: {{this.$config.color}} !important;
-            }
             .afp-forecast-view .afp-checkbox:checked:before {
             color: {{this.$config.color}} !important;
             }

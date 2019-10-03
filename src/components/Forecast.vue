@@ -103,7 +103,7 @@ export default {
                 },
                 {
                     id: "weather",
-                    name: "Weather"
+                    name: "Weather Forecast"
                 },
                 {
                     id: "synopsis",
@@ -254,7 +254,8 @@ export default {
     border-radius: $border-radius;
     border: 1.2px solid $gray-400;
     box-shadow: $app-box-shadow;
-    margin-bottom: $spacer;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 }
 
 .bottomLineTitle {
@@ -292,6 +293,15 @@ export default {
 
 .tabContainer {
     background-color: #fff;
+    width: 100vw;
+    overflow-x: hidden;
+    position: relative;
+    left: calc(-1 * (100vw - 100% + 15px) / 2);
+    padding-left: calc((100vw - 100% + 15px) / 2);
+    padding-right: calc((100vw - 100% + 15px) / 2);
+    padding-top: $spacer;
+    padding-bottom: $spacer;
+    border-top: 1px solid $gray-400;
 }
 
 .tabPane {
