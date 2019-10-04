@@ -153,7 +153,7 @@ export default {
     position: absolute;
     right: 40px;
     top: 28px;
-    background-color: #000;
+    background-color: $gray-400;
     text-align: left;
     transform: rotate(-60deg) skewX(-30deg) scale(1, 0.866);
     width: 80px;
