@@ -35,7 +35,7 @@
                             :src="this.$dangerScale[currentDanger.lower].icon"
                         />
                     </div>
-                    <!-- <danger-elevation :danger="currentDanger"></danger-elevation> -->
+                    <danger-elevation :class="$style.dangerMountain" :danger="currentDanger"></danger-elevation>
                 </div>
             </div>
             <div :class="$style.outlook">
@@ -140,19 +140,29 @@ export default {
 }
 
 .today {
-    composes: col-lg-9 from "../assets/css/style.css";
+    composes: col-lg-8 from "../assets/css/style.css";
     composes: col-md-12 from "../assets/css/style.css";
     margin-bottom: $spacer;
 }
 
 .outlook {
-    composes: col-lg-3 from "../assets/css/style.css";
+    composes: col-lg-4 from "../assets/css/style.css";
     composes: col-md-12 from "../assets/css/style.css";
     margin-bottom: $spacer;
 }
 
 .dangerGraphic {
+    position: relative;
     margin-top: $spacer;
+    //overflow: hidden;
+}
+
+.dangerMountain {
+    position: absolute;
+    bottom: 0;
+    left: 110px;
+    width: 250px;
+    height: 300px;
 }
 
 $elevation-height: 90px;
@@ -161,15 +171,17 @@ $elevation-height: 90px;
     position: relative;
     background-color: $gray-300;
     height: $elevation-height;
-    @include media-breakpoint-up(lg) {
-        margin-right: 50px;
-    }
+    // @include media-breakpoint-up(lg) {
+    //     margin-right: 50px;
+    // }
+    margin-right: 60px;
     margin-bottom: 5px;
 }
 
+
 .elevationLabel {
     position: absolute;
-    left: 20px;
+    left: 30px;
     transform: translate(0, -50%);
     top: 50%;
     width: 80px;
@@ -184,7 +196,7 @@ $elevation-height: 90px;
     right: 50px;
     transform: translate(0, -50%);
     top: 50%;
-    width: 200px;
+    width: 230px;
     display: block;
     // font-size: $font-size-lg;
     font-weight: bold;
@@ -197,8 +209,8 @@ $elevation-height: 90px;
     left: 100%;
     height: 90px !important;
     width: auto !important;
-    padding: 10px 0;
-    margin-left: -35px;
+    padding: 12px 0;
+    margin-left: -32px;
 }
 
 .elevationOutlookBlock {
@@ -206,6 +218,7 @@ $elevation-height: 90px;
     background-color: $gray-300;
     height: $elevation-height;
     margin-bottom: 5px;
+    margin-right: 60px;
 }
 
 .dangerOutlookLabel {
