@@ -166,12 +166,12 @@ export default {
     @include media-breakpoint-between(lg, lg) {
         left: 100px;
     }
+    // @include media-breakpoint-down(sm) {
+    //     left: 90px;
+    // }
     @include media-breakpoint-down(sm) {
-        left: 90px;
-    }
-    @include media-breakpoint-down(xs) {
         left: initial;
-        right: -90px;
+        right: 185px;
     }
 }
 
@@ -181,11 +181,11 @@ $elevation-height: 90px;
     position: relative;
     background-color: $gray-300;
     height: $elevation-height;
-    // @include media-breakpoint-up(lg) {
-    //     margin-right: 50px;
-    // }
     margin-right: 60px;
     margin-bottom: 5px;
+    @include media-breakpoint-down(sm) {
+        margin-right: 45px;
+    }
 }
 
 .elevationLabel {
@@ -198,11 +198,20 @@ $elevation-height: 90px;
     font-size: $font-size-sm;
     font-weight: bold;
     color: $gray-600;
-    @include media-breakpoint-between(lg, lg) {
-        left: 20px;
-    }
+    // @include media-breakpoint-between(lg, lg) {
+    //     left: 20px;
+    // }
     @include media-breakpoint-down(sm) {
-        left: 20px;
+        background-color: #fff;
+        //background-color: rgba(255,255,255,.7);
+        //border-radius: 0 $border-radius $border-radius  0;
+        z-index: 1;
+        padding: 0.2rem 0.4rem;
+        //box-shadow: $app-box-shadow;
+        //text-align: right;
+        // font-size: .6rem;
+        width: auto;
+        left: 0px;
     }
 }
 
@@ -225,18 +234,21 @@ $elevation-height: 90px;
     }
     @include media-breakpoint-down(sm) {
         font-size: $font-size-sm;
-        width: 150px;
-    }
-    @include media-breakpoint-down(xs) {
-        background-color: #fff;
-        width: 160px;
+        width: auto;
         z-index: 1;
-        padding: 0.2rem 0.4rem;
-        box-shadow: $app-box-shadow;
-        right: initial;
-        left: 120px;
+        right: 35px;
         text-align: right;
     }
+    // @include media-breakpoint-down(xs) {
+    //     background-color: #fff;
+    //     width: 160px;
+    //     z-index: 1;
+    //     padding: 0.2rem 0.4rem;
+    //     box-shadow: $app-box-shadow;
+    //     right: initial;
+    //     left: 120px;
+    //     text-align: right;
+    // }
 }
 
 .dangerIcon {
@@ -247,9 +259,9 @@ $elevation-height: 90px;
     padding: 12px 0;
     margin-left: -32px;
     z-index: 1;
-    @include media-breakpoint-down(xs) {
-        left: 120px;
+    @include media-breakpoint-down(sm) {
         padding: 20px 0;
+        margin-left: -25px;
     }
 }
 
