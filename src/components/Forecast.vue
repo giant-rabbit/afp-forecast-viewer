@@ -33,6 +33,12 @@
             </div>
         </div>
 
+        <div :class="$style.warning">
+            <i class="mdi mdi-alert"></i>
+            <h2>Avalanche Warning In Effect</h2>
+            <span>Issued: Fri, February 15, 2019 at 2:06 PM PST</span>
+        </div>
+
         <!-- Bottom line -->
         <div v-if="data.bottom_line != ''" :class="$style.bottomLine">
             <img :class="$style.dangerIcon" :src="this.$dangerScale[4].icon" />
@@ -228,7 +234,7 @@ export default {
     composes: col-12 from "../assets/css/style.css";
 }
 
-.productExpired {
+.productExpired{
     font-size: $font-size-lg;
     color: #fff;
     padding: $alert-padding-y $alert-padding-x;
@@ -245,7 +251,31 @@ export default {
         padding-right: 0.5rem;
     }
 }
-
+.warning {
+    position: relative;
+    h2{
+        color: #fff !important;
+        margin-bottom: .5rem !important;
+    }
+    span {
+        color: #fff !important;
+        font-size: $font-size-sm;
+    }
+    padding: $alert-padding-y $alert-padding-x;
+    margin-bottom: $spacer;
+    @include border-radius($alert-border-radius);
+    background-color: $high;
+    i {
+        color: #fff !important;
+        font-size: 4rem;
+        line-height: 1;
+        float: left;
+        padding-right: 1rem;
+        // position: absolute;
+        // top: $alert-padding-y;
+        // left: 15px;
+    }
+}
 .metaColumnContent {
     border-left: 1.5px solid $gray-200;
     padding: 0.5rem 0 0.5rem 2rem;
@@ -282,24 +312,6 @@ export default {
 .bottomLineText {
     font-size: $font-size-lg;
     margin-top: 0.7rem;
-}
-
-.productExpired {
-    font-size: $font-size-lg;
-    color: #fff;
-    padding: $alert-padding-y $alert-padding-x;
-    margin-bottom: $spacer;
-    @include border-radius($alert-border-radius);
-    background-color: $high;
-    span {
-        vertical-align: middle;
-    }
-    i {
-        vertical-align: middle;
-        font-size: 200%;
-        line-height: 1;
-        padding-right: $spacer * 0.5;
-    }
 }
 
 .tabContainer {
