@@ -163,6 +163,9 @@ export default {
     left: 110px;
     width: 250px;
     height: 300px;
+    @include media-breakpoint-between(lg,lg) {
+        left: 100px;
+    }
 }
 
 $elevation-height: 90px;
@@ -189,6 +192,9 @@ $elevation-height: 90px;
     font-size: $font-size-sm;
     font-weight: bold;
     color: $gray-600;
+    @include media-breakpoint-between(lg,lg) {
+        left: 20px;
+    }
 }
 
 .dangerLabel {
@@ -202,6 +208,12 @@ $elevation-height: 90px;
     font-weight: bold;
     color: $gray-800;
     text-transform: uppercase;
+    @include media-breakpoint-between(lg,lg) {
+        width: 150px;
+    }
+    @include media-breakpoint-between(md,md) {
+        width: 180px;
+    }
 }
 
 .dangerIcon {
