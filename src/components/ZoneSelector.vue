@@ -113,7 +113,7 @@ export default {
     background-color: #fff;
     border-color: $gray-400;
     color: $gray-700;
-    font-size: $font-size-sm;
+    //font-size: $font-size-sm;
     position: relative;
     padding: 0.6rem 0.75rem;
     padding-right: 3rem;
@@ -151,10 +151,10 @@ export default {
     float: left;
     min-width: $dropdown-min-width;
     padding: $dropdown-padding-y 0;
-    margin: $dropdown-spacer 0 0; // override default ul
-    font-size: $font-size-sm;
+    margin: $dropdown-spacer 0 0; 
+    //font-size: $font-size-sm;
     color: $dropdown-color;
-    text-align: left; // Ensures proper alignment if parent has it changed (e.g., modal footer)
+    text-align: left;
     list-style: none;
     background-color: $dropdown-bg;
     background-clip: padding-box;

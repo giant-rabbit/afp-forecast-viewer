@@ -35,6 +35,7 @@
 
         <!-- Bottom line -->
         <div v-if="data.bottom_line != ''" :class="$style.bottomLine">
+            <img :class="$style.dangerIcon" :src="this.$dangerScale[4].icon" />
             <h5 :class="$style.bottomLineTitle">THE BOTTOM LINE</h5>
             <div :class="$style.bottomLineText" v-html="data.bottom_line"></div>
         </div>
@@ -61,17 +62,17 @@
                         :class="$style.btnPrimary"
                         class="afp-btn-primary"
                     >Full Weather Forecast</button>
-                </div> -->
+                </div>-->
             </div>
 
             <!-- Weather tab -->
             <div v-show="tabSelected == 'weather'" :class="$style.tabPane">
-                <forecast-view v-if="loaded" :data="data" :product="'weather'" :config="config"  />
+                <forecast-view v-if="loaded" :data="data" :product="'weather'" :config="config" />
             </div>
 
             <!-- Synopsis tab -->
             <div v-if="tabSelected == 'synopsis'" :class="$style.tabPane">
-                <forecast-view v-if="loaded" :data="data" :product="'synopsis'" :config="config"  />
+                <forecast-view v-if="loaded" :data="data" :product="'synopsis'" :config="config" />
             </div>
 
             <!-- Custom tab content -->
@@ -80,11 +81,10 @@
                     <div :id="customTab.id"></div>
                 </div>
             </div>
-
-            <div :class="$style.disclaimer">
-                This information is provided by the U.S.D.A. Forest Service and describes general backcountry avalanche hazard and conditions.
-                <br />It does not apply to ski areas and highways where avalanche mitigation is conducted.
-            </div>
+        </div>
+        <div :class="$style.disclaimer">
+            This information is provided by the U.S.D.A. Forest Service and describes general backcountry avalanche hazard and conditions.
+            <br />It does not apply to ski areas and highways where avalanche mitigation is conducted.
         </div>
     </div>
 </template>
@@ -249,6 +249,7 @@ export default {
 }
 
 .bottomLine {
+    position: relative;
     background-color: #fff;
     padding: $spacer;
     border-radius: $border-radius;
@@ -256,6 +257,17 @@ export default {
     box-shadow: $app-box-shadow;
     margin-top: 3rem;
     margin-bottom: 3rem;
+}
+
+.dangerIcon {
+    height: 60px !important;
+    width: auto !important;
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    @include media-breakpoint-down(xs) {
+        left: -15px;
+    }
 }
 
 .bottomLineTitle {
@@ -302,6 +314,7 @@ export default {
     padding-top: $spacer;
     padding-bottom: $spacer;
     border-top: 1px solid $gray-400;
+    border-bottom: 1px solid $gray-400;
 }
 
 .tabPane {
@@ -313,8 +326,8 @@ export default {
 }
 
 .disclaimer {
-    margin-top: $spacer * 1.5;
-    border-top: 1.5px solid $gray-200;
+    // margin-top: $spacer * 1.5;
+    // border-top: 1.5px solid $gray-200;
     padding: 1.5 * $spacer 0;
     font-size: $font-size-sm;
     text-align: center;
