@@ -163,13 +163,15 @@ export default {
     left: 110px;
     width: 250px;
     height: 300px;
-    @include media-breakpoint-between(lg,lg) {
+    @include media-breakpoint-between(lg, lg) {
         left: 100px;
     }
     @include media-breakpoint-down(sm) {
-        // left: initial;
-        // right: 260px;
-        left: 0;
+        left: 90px;
+    }
+    @include media-breakpoint-down(xs) {
+        left: initial;
+        right: -90px;
     }
 }
 
@@ -186,7 +188,6 @@ $elevation-height: 90px;
     margin-bottom: 5px;
 }
 
-
 .elevationLabel {
     position: absolute;
     left: 30px;
@@ -197,12 +198,12 @@ $elevation-height: 90px;
     font-size: $font-size-sm;
     font-weight: bold;
     color: $gray-600;
-    @include media-breakpoint-between(lg,lg) {
+    @include media-breakpoint-between(lg, lg) {
         left: 20px;
     }
-    // @include media-breakpoint-down(sm) {
-    //     left: -80px;
-    // }
+    @include media-breakpoint-down(sm) {
+        left: 20px;
+    }
 }
 
 .dangerLabel {
@@ -216,10 +217,10 @@ $elevation-height: 90px;
     font-weight: bold;
     color: $gray-800;
     text-transform: uppercase;
-    @include media-breakpoint-between(lg,lg) {
+    @include media-breakpoint-between(lg, lg) {
         width: 150px;
     }
-    @include media-breakpoint-between(md,md) {
+    @include media-breakpoint-between(md, md) {
         width: 180px;
     }
     @include media-breakpoint-down(sm) {
@@ -228,12 +229,13 @@ $elevation-height: 90px;
     }
     @include media-breakpoint-down(xs) {
         background-color: #fff;
-        //width: 140px;
-        width: auto;
+        width: 160px;
         z-index: 1;
-        padding: .2rem .4rem;
+        padding: 0.2rem 0.4rem;
         box-shadow: $app-box-shadow;
-        
+        right: initial;
+        left: 120px;
+        text-align: right;
     }
 }
 
@@ -245,6 +247,10 @@ $elevation-height: 90px;
     padding: 12px 0;
     margin-left: -32px;
     z-index: 1;
+    @include media-breakpoint-down(xs) {
+        left: 120px;
+        padding: 20px 0;
+    }
 }
 
 .elevationOutlookBlock {

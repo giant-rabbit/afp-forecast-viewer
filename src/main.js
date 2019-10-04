@@ -180,7 +180,7 @@ Vue.prototype.$sampleData = {
         {
             lower: 3,
             upper: 4,
-            middle: 4,
+            middle: 2,
             valid_day: "current"
         },
         {
