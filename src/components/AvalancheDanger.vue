@@ -69,8 +69,19 @@
                             :src="this.$dangerScale[outlookDanger.lower].icon"
                         />
                     </div>
-                    <!-- <danger-elevation :danger="currentDanger"></danger-elevation> -->
                 </div>
+            </div>
+        </div>
+        <div :class="$style.outlookMobile">
+            <div :class="$style.outlookMobileColumn">
+                <h6>Outlook for Tomorrow</h6>
+                {{outlookDate}}
+            </div>
+            <div :class="$style.outlookMobileColumn">
+                <danger-elevation-mobile
+                    :class="$style.dangerMountainMobile"
+                    :danger="outlookDanger"
+                ></danger-elevation-mobile>
             </div>
         </div>
         <danger-scale />
@@ -79,6 +90,7 @@
 
 <script>
 import DangerElevation from '../components/DangerElevation'
+import DangerElevationMobile from '../components/DangerElevationMobile'
 import DangerScale from '../components/DangerScale'
 import moment from 'moment/src/moment.js'
 
@@ -89,6 +101,7 @@ export default {
     },
     components: {
         DangerElevation,
+        DangerElevationMobile,
         DangerScale
     },
     props: ['danger', 'date', 'config'],
@@ -149,6 +162,9 @@ export default {
     composes: col-lg-4 from "../assets/css/style.css";
     composes: col-md-12 from "../assets/css/style.css";
     margin-bottom: $spacer;
+    @include media-breakpoint-down(md) {
+        display: none;
+    }
 }
 
 .dangerGraphic {
@@ -284,5 +300,28 @@ $elevation-height: 90px;
     font-weight: bold;
     color: $gray-800;
     text-transform: uppercase;
+}
+
+.outlookMobile {
+    composes: row from "../assets/css/style.css";
+    -webkit-box-align: center!important;
+    -ms-flex-align: center!important;
+    align-items: center!important;
+    @include media-breakpoint-up(lg) {
+        display: none;
+    }
+}
+
+.outlookMobileColumn {
+    composes: col-sm-6 from "../assets/css/style.css";
+    composes: col-xs-12 from "../assets/css/style.css";
+    margin-bottom: $spacer;
+    &:first-of-type {
+        text-align: right;
+    }
+    text-align: left;
+    @include media-breakpoint-down(xs) {
+        text-align: center !important;
+    }
 }
 </style>
