@@ -178,9 +178,9 @@ Vue.prototype.$sampleData = {
     ],
     danger: [
         {
-            lower: 1,
-            upper: 3,
-            middle: 2,
+            lower: 3,
+            upper: 4,
+            middle: 4,
             valid_day: "current"
         },
         {

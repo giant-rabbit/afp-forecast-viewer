@@ -153,18 +153,23 @@ export default {
 
 .dangerGraphic {
     position: relative;
-    margin-top: $spacer;
-    //overflow: hidden;
+    padding-top: $spacer;
+    overflow: hidden;
 }
 
 .dangerMountain {
     position: absolute;
-    bottom: 0;
+    bottom: 5px;
     left: 110px;
     width: 250px;
     height: 300px;
     @include media-breakpoint-between(lg,lg) {
         left: 100px;
+    }
+    @include media-breakpoint-down(sm) {
+        // left: initial;
+        // right: 260px;
+        left: 0;
     }
 }
 
@@ -195,6 +200,9 @@ $elevation-height: 90px;
     @include media-breakpoint-between(lg,lg) {
         left: 20px;
     }
+    // @include media-breakpoint-down(sm) {
+    //     left: -80px;
+    // }
 }
 
 .dangerLabel {
@@ -214,6 +222,19 @@ $elevation-height: 90px;
     @include media-breakpoint-between(md,md) {
         width: 180px;
     }
+    @include media-breakpoint-down(sm) {
+        font-size: $font-size-sm;
+        width: 150px;
+    }
+    @include media-breakpoint-down(xs) {
+        background-color: #fff;
+        //width: 140px;
+        width: auto;
+        z-index: 1;
+        padding: .2rem .4rem;
+        box-shadow: $app-box-shadow;
+        
+    }
 }
 
 .dangerIcon {
@@ -223,6 +244,7 @@ $elevation-height: 90px;
     width: auto !important;
     padding: 12px 0;
     margin-left: -32px;
+    z-index: 1;
 }
 
 .elevationOutlookBlock {

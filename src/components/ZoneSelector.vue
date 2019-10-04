@@ -5,7 +5,7 @@
             @click="show = !show"
             :class="$style.btn"
             v-tooltip="'Switch zone'"
-        >Smoky & Boulder Mountains</button>
+        >{{zone}}</button>
         <transition name="expand" @enter="enter" @after-enter="afterEnter" @leave="leave">
             <div
                 v-closable="{
