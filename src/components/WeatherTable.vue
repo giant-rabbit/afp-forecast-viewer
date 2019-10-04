@@ -34,7 +34,7 @@ export default {
 .table {
        border-collapse: collapse;
         width: 100%;
-        margin-bottom: 2*$spacer;
+        margin-bottom: $spacer;
         color: $table-color;
         background-color: $table-bg; // Reset for nesting within parents with `background-color`.
         border-bottom: $table-border-width solid $table-border-color;

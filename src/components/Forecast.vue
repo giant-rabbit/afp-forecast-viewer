@@ -55,14 +55,15 @@
             <div v-show="tabSelected == 'forecast'" :class="$style.tabPane">
                 <!-- Need expiration -->
                 <!-- Need logic for summary product -->
-                <forecast-view v-if="loaded" :data="data" :product="'forecast'" :config="config" />
-                <!-- <div :class="$style.textCenter">
+                <forecast-view :class="$style.forecastProduct" v-if="loaded" :data="data" :product="'forecast'" :config="config" />
+                <h2>Weather Summary</h2>
+                <weather-table :periods="data.weather_data[0].periods" :data="data.weather_data[0].data" :zone="data.weather_data[0].zone_name"/>
+                <div :class="$style.textCenter">
                     <button
                         @click="scrollToTabs('weather')"
-                        :class="$style.btnPrimary"
-                        class="afp-btn-primary"
+                        :class="$style.btn"
                     >Full Weather Forecast</button>
-                </div>-->
+                </div>
             </div>
 
             <!-- Weather tab -->
@@ -92,6 +93,7 @@
 <script>
 import ZoneSelector from '../components/ZoneSelector'
 import Tabs from '../components/Tabs'
+import WeatherTable from '../components/WeatherTable'
 
 export default {
     data() {
@@ -126,7 +128,8 @@ export default {
     },
     components: {
         ZoneSelector,
-        Tabs
+        Tabs,
+        WeatherTable
     },
     methods: {
         // getProduct() {
@@ -281,11 +284,6 @@ export default {
     margin-top: 0.7rem;
 }
 
-.btnPrimary {
-    composes: btn from "../assets/css/style.css";
-    composes: btn-primary from "../assets/css/style.css";
-}
-
 .productExpired {
     font-size: $font-size-lg;
     color: #fff;
@@ -319,6 +317,15 @@ export default {
 
 .tabPane {
     min-height: 80vh;
+}
+
+.forecastProduct {
+    @include divider
+}
+
+.btn {
+    composes: btn from "../assets/css/style.css";
+    composes: btn-secondary from "../assets/css/style.css";
 }
 
 .textCenter {

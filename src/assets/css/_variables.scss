@@ -41,7 +41,7 @@ $spacer: 2rem !default;
     overflow: initial;
     @include media-breakpoint-down(md) {
         width: 100%;
-        margin-bottom: 15.75px;
+        margin-bottom: $spacer;
         overflow-y: hidden;
         -ms-overflow-style: -ms-autohiding-scrollbar;
         &::-webkit-scrollbar-track {
@@ -51,7 +51,7 @@ $spacer: 2rem !default;
             height: 6px;
         }
         &::-webkit-scrollbar-thumb {
-            background-color: $app-bg-color;
+            background-color: $gray-400;
         }
         > table > tbody > tr > td,
         > table > tbody > tr > th,
@@ -119,7 +119,7 @@ $colors: map-merge((
 ), $colors);
 
 $primary:       #006e97 !default;
-$secondary:     $app-border-color !default;
+$secondary:     $gray-700 !default;
 $success:       $green !default;
 $info:          $cyan !default;
 $warning:       $moderate !default;

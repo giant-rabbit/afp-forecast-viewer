@@ -3,11 +3,11 @@
         <!-- Header -->
         <div :class="$style.row">
             <div :class="$style.metaColumn">
-                <h5>Issued</h5>
+                <h6>Issued</h6>
                 {{ data.published_time | publicDate }}
             </div>
             <div :class="$style.metaColumn">
-                <h5>Author</h5>
+                <h6>Author</h6>
                 {{ data.author }}
             </div>
         </div>
