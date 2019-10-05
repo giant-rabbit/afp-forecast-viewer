@@ -8,6 +8,10 @@
         </div>
         <div :class="$style.secondColumn">
             <ul>
+                <li :class="[$style.none, $style.li]">
+                    Conditions&nbsp;<br>Summary
+                    <!-- <span>(No Rating)</span> -->
+                </li>
                 <li :class="[$style.low, $style.li]">Low (1)</li>
                 <li :class="[$style.mod, $style.li]">
                     Mod<span>erate</span> (2)
@@ -48,12 +52,11 @@ export default {
 .li {
     display: block;
     float: left;
-    width: 20%;
+    width: 16.3%;
     font-size: 0.6rem;
     line-height: 1.1;
     margin-right: 0px;
     overflow: hidden;
-    text-align: center;
     @include media-breakpoint-up(md) {
         font-size: $font-size-sm;
     }
@@ -102,7 +105,7 @@ export default {
 }
 .mod span,
 .cons span, .ext span {
-    @include media-breakpoint-down(xs) {
+    @include media-breakpoint-down(sm) {
         display: none;
     }
 }

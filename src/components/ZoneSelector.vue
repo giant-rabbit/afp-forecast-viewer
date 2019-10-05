@@ -4,8 +4,7 @@
             ref="button"
             @click="show = !show"
             :class="$style.btn"
-            v-tooltip="'Change zone'"
-        >Change Zone</button>
+        >Other Zones</button>
         <transition name="expand" @enter="enter" @after-enter="afterEnter" @leave="leave">
             <div
                 v-closable="{
