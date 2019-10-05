@@ -12,9 +12,15 @@
             <div :class="[$style.elevationMarker, $style.elevationMarkerUpper]"></div>
             <div :class="[$style.elevationMarker, $style.elevationMarkerMiddle]"></div>
             <div :class="[$style.elevationMarker, $style.elevationMarkerLower]"></div>
-            <div :class="[$style.elevationLabel, $style.elevationLabelUpper]">{{this.config.elevations.upper}}</div>
-            <div :class="[$style.elevationLabel, $style.elevationLabelMiddle]">{{this.config.elevations.middle}}</div>
-            <div :class="[$style.elevationLabel, $style.elevationLabelLower]">{{this.config.elevations.lower}}</div>
+            <div
+                :class="[$style.elevationLabel, $style.elevationLabelUpper]"
+            >{{this.config.elevations.upper}}</div>
+            <div
+                :class="[$style.elevationLabel, $style.elevationLabelMiddle]"
+            >{{this.config.elevations.middle}}</div>
+            <div
+                :class="[$style.elevationLabel, $style.elevationLabelLower]"
+            >{{this.config.elevations.lower}}</div>
             <svg
                 :class="$style.graphic"
                 width="100%"
@@ -132,7 +138,7 @@ export default {
         return {
         }
     },
-    props: ['location', 'rank','config'],
+    props: ['location', 'rank', 'config'],
     watch: {
         location: function () {
             this.roseColor()
@@ -159,6 +165,7 @@ export default {
 @import "../assets/css/bootstrap/mixins/breakpoints";
 
 $rose-size: 150px;
+$rose-size-xs: 120px;
 $rose-margin: 20px;
 
 .rose {
@@ -174,12 +181,12 @@ $rose-margin: 20px;
     width: $rose-size;
 }
 
-.graphic path  {
-    stroke: $app-border-color !important;
-    stroke-width: 6px !important;
+.graphic path {
+    stroke: $gray-400 !important;
+    stroke-width: 10px !important;
     fill: transparent;
     &[data-active] {
-        fill: $app-bg-color;
+        fill: $gray-700;
     }
 }
 
@@ -227,14 +234,14 @@ $rose-margin: 20px;
     position: absolute;
     height: $rose-size * 0.6;
     width: 1px;
-    background-color: $gray-500;
+    background-color: $gray-400;
     &:before {
         content: "";
         position: absolute;
         width: 5px;
         height: 5px;
         border-radius: 50%;
-        background-color: $gray-500;
+        background-color: $gray-400;
         left: -2px;
     }
 }
@@ -270,5 +277,52 @@ $rose-margin: 20px;
 .elevationLabelLower {
     left: $rose-size * 0.23;
     top: $rose-size * 0.77 + $rose-size * 0.6;
+}
+
+@include media-breakpoint-down(xs) {
+    .elevationLabel,
+    .elevationMarker {
+        display: none;
+    }
+    .rose {
+        width: $rose-size-xs + 2 * $rose-margin;
+    }
+    .roseContainer {
+        margin-bottom: 55px;
+        height: $rose-size-xs;
+        width: $rose-size-xs;
+    }
+    .north {
+        left: 50%;
+        top: -8px;
+    }
+    .south {
+        left: 50%;
+        top: $rose-size-xs + 8px;
+    }
+    .east {
+        top: 50%;
+        left: $rose-size-xs + 8px;
+    }
+    .west {
+        top: 50%;
+        left: -8px;
+    }
+    .northwest {
+        left: 10px;
+        top: 10px;
+    }
+    .northeast {
+        left: $rose-size-xs - 10px;
+        top: 10px;
+    }
+    .southeast {
+        left: $rose-size-xs - 10px;
+        top: $rose-size-xs - 10px;
+    }
+    .southwest {
+        left: 10px;
+        top: $rose-size-xs - 10px;
+    }
 }
 </style>

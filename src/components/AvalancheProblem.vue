@@ -6,11 +6,11 @@
                 <img :class="$style.problemIcon" :src="problem.icon" />
                 <div :class="$style.problemText">
                     {{problem.name}}
-                    <info :content="problem.problem_description" />
+                    <!-- <info :content="problem.problem_description" /> -->
                 </div>
                 <h5>
                     Problem Type
-                    <info :content="this.$helpContent.problemType" />
+                    <!-- <info :content="this.$helpContent.problemType" /> -->
                 </h5>
             </div>
             <div :class="$style.col12">
@@ -23,7 +23,7 @@
                 ></locator-rose>
                 <h5>
                     Aspect/Elevation
-                    <info :content="this.$helpContent.problemLocation" />
+                    <!-- <info :content="this.$helpContent.problemLocation" /> -->
                 </h5>
             </div>
             <div :class="$style.col12">
@@ -36,7 +36,7 @@
                 ></vue-slider>
                 <h5>
                     Likelihood
-                    <info :content="this.$helpContent.problemLikelihood" />
+                    <!-- <info :content="this.$helpContent.problemLikelihood" /> -->
                 </h5>
             </div>
             <div :class="$style.col12">
@@ -48,7 +48,7 @@
                 ></vue-slider>
                 <h5>
                     Size
-                    <info :content="this.$helpContent.problemSize" />
+                    <!-- <info :content="this.$helpContent.problemSize" /> -->
                 </h5>
             </div>
         </div>
@@ -170,6 +170,11 @@ export default {
     height: 170px !important;
     width: 170px !important;
     margin: 25px 15px 10px 15px;
+    @include media-breakpoint-down(xs) {
+        height: 130px !important;
+        width: 130px !important;
+        margin: 25px 15px 0px 15px;
+    }
 }
 
 .problemText {
@@ -177,18 +182,14 @@ export default {
 }
 
 .col12 {
-    composes: col-12 from "../assets/css/style.css";
-    composes: col-sm-6 from "../assets/css/style.css";
-    composes: col-lg-3 from "../assets/css/style.css";
-    text-align: center;
-    margin-bottom: $spacer;
-}
-.col6 {
     composes: col-6 from "../assets/css/style.css";
+    // composes: col-sm-6 from "../assets/css/style.css";
     composes: col-lg-3 from "../assets/css/style.css";
     text-align: center;
     margin-bottom: $spacer;
+    overflow: hidden;
 }
+
 figure.probleMedia {
     width: 100%;
     img {
@@ -255,14 +256,14 @@ figure.probleMedia {
 .slider::v-deep {
     margin-left: auto;
     margin-right: auto;
-    padding-bottom: 0.5rem !important;
+    padding: 0.5rem !important;
     width: 8rem !important;
     .vue-slider-rail {
-        background-color: $app-border-color;
-        width: 1px;
+        background-color: $gray-400;
+        width: 2px;
     }
     .vue-slider-process {
-        background-color: $app-bg-color;
+        background-color: $gray-700;
         z-index: 2;
         width: 24px !important;
         left: 50% !important;
@@ -279,14 +280,14 @@ figure.probleMedia {
         }
     }
     .vue-slider-mark-step {
-        background-color: $app-border-color;
+        background-color: $gray-400;
         width: 30px;
-        height: 1px;
+        height: 2px;
         top: 1px;
         left: -15px !important;
     }
     .vue-slider-dot {
-        background-color: $app-bg-color;
+        background-color: $gray-700;
         width: 24px !important;
         height: 10px !important;
         cursor: initial;

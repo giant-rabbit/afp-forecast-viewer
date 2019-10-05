@@ -332,8 +332,8 @@ export default {
 
 .tabContainer {
     background-color: #fff;
+    position: relative;
     // width: 100vw;
-    // position: relative;
     // left: calc(-1 * (100vw - 100% + 15px) / 2);
     // padding-left: calc((100vw - 100% + 15px) / 2);
     // padding-right: calc((100vw - 100% - 15px) / 2);
@@ -349,6 +349,7 @@ export default {
     @include media-breakpoint-down(xs) {
         border-left: none;
         border-right: none;
+        box-shadow: none;
     }
 }
 

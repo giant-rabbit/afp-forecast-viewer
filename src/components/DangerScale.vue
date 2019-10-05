@@ -83,6 +83,7 @@ export default {
     }
     &:before {
         border-radius: $border-radius;
+        border: 2px solid $no-rating-border;
     }
 }
 .low:before {

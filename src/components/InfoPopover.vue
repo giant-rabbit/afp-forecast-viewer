@@ -38,7 +38,7 @@ export default {
     padding: 0;
     height: 18px;
     width: 18px;
-    background-color: $blue !important;
+    background-color: $no-rating-border !important;
     border-radius: 50%;
 }
 </style>
