@@ -1,16 +1,17 @@
 <template>
     <div v-if="loaded">
-        <div :class="$style.clear">
+        <div :class="$style.row">
+            <!-- Zone selector -->
+            <div :class="$style.zoneSelector">
+                <zone-selector :zone="zone" />
+            </div>
             <!-- Title -->
             <div :class="$style.title">
                 <!-- Need logic for summary product title -->
                 <h1>Backcountry Avalanche Forecast</h1>
+                <h2>{{data.forecast_zone.name}}</h2>
             </div>
-
-            <!-- Zone selector -->
-            <zone-selector :zone="zone" />
         </div>
-
         <!-- Header -->
         <div :class="$style.row">
             <div :class="$style.metaColumn">
@@ -220,18 +221,19 @@ export default {
     margin-bottom: $spacer;
 }
 
-.clear {
-    &::after {
-        display: block;
-        content: "";
-        clear: both;
+.title {
+    composes: col-md-8 from "../assets/css/style.css";
+    composes: col-lg-9 from "../assets/css/style.css";
+    h2 {
+        color: $gray-700 !important;
+        margin-bottom: 0 !important
     }
 }
 
-.title {
-    @include media-breakpoint-up(md) {
-        float: left;
-    }
+.zoneSelector {
+    composes: col-md-4 from "../assets/css/style.css";
+    composes: col-lg-3 from "../assets/css/style.css";
+    composes: order-md-2 from "../assets/css/style.css";
 }
 
 .row {

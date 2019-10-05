@@ -4,8 +4,8 @@
             ref="button"
             @click="show = !show"
             :class="$style.btn"
-            v-tooltip="'Switch zone'"
-        >{{zone}}</button>
+            v-tooltip="'Change zone'"
+        >Change Zone</button>
         <transition name="expand" @enter="enter" @after-enter="afterEnter" @leave="leave">
             <div
                 v-closable="{
@@ -101,11 +101,8 @@ export default {
 @import "../assets/css/bootstrap/mixins";
 
 .selector {
-    margin-bottom: $spacer;
     position: relative;
-    @include media-breakpoint-up(md) {
-        float: right;
-    }
+    margin-bottom: 1rem;
 }
 
 .btn {
@@ -113,15 +110,12 @@ export default {
     background-color: #fff;
     border-color: $gray-400;
     color: $gray-700;
-    //font-size: $font-size-sm;
     position: relative;
     padding: 0.6rem 0.75rem;
     padding-right: 3rem;
     box-shadow: $app-box-shadow;
-    @include media-breakpoint-down(sm) {
         width: 100%;
         text-align: left;
-    }
     &:hover {
         border-color: $gray-500;
     }
@@ -143,16 +137,10 @@ export default {
     top: 100%;
     left: 0;
     right: 0;
-    @include media-breakpoint-up(md) {
-        left: initial;
-        right: 0;
-    }
     z-index: $zindex-dropdown;
-    float: left;
     min-width: $dropdown-min-width;
     padding: $dropdown-padding-y 0;
     margin: $dropdown-spacer 0 0; 
-    //font-size: $font-size-sm;
     color: $dropdown-color;
     text-align: left;
     list-style: none;
