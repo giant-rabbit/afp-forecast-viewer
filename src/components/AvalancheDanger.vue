@@ -73,11 +73,11 @@
             </div>
         </div>
         <div :class="$style.outlookMobile">
-            <div :class="$style.outlookMobileColumn">
+            <div :class="$style.outlookMobileText">
                 <h6>Outlook for Tomorrow</h6>
                 {{outlookDate}}
             </div>
-            <div :class="$style.outlookMobileColumn">
+            <div :class="$style.outlookMobileGraphic">
                 <danger-elevation-mobile
                     :class="$style.dangerMountainMobile"
                     :danger="outlookDanger"
@@ -171,6 +171,10 @@ export default {
     position: relative;
     padding-top: $spacer;
     overflow: hidden;
+    @include media-breakpoint-down(xs) {
+        margin-left: -15px;
+        margin-right: -10px;
+    }
 }
 
 .dangerMountain {
@@ -303,25 +307,29 @@ $elevation-height: 90px;
 }
 
 .outlookMobile {
-    composes: row from "../assets/css/style.css";
-    -webkit-box-align: center!important;
-    -ms-flex-align: center!important;
-    align-items: center!important;
+    // composes: row from "../assets/css/style.css";
+    // -webkit-box-align: center!important;
+    // -ms-flex-align: center!important;
+    // align-items: center!important;
+    position: relative;
+    width: 300px;
+    height: 140px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1rem;
     @include media-breakpoint-up(lg) {
         display: none;
     }
 }
 
-.outlookMobileColumn {
-    composes: col-sm-6 from "../assets/css/style.css";
-    composes: col-xs-12 from "../assets/css/style.css";
-    margin-bottom: $spacer;
-    &:first-of-type {
-        text-align: right;
-    }
-    text-align: left;
-    @include media-breakpoint-down(xs) {
-        text-align: center !important;
-    }
+.outlookMobileText {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.outlookMobileGraphic {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 </style>

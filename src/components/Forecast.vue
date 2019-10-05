@@ -61,9 +61,19 @@
             <div v-show="tabSelected == 'forecast'" :class="$style.tabPane">
                 <!-- Need expiration -->
                 <!-- Need logic for summary product -->
-                <forecast-view :class="$style.forecastProduct" v-if="loaded" :data="data" :product="'forecast'" :config="config" />
+                <forecast-view
+                    :class="$style.forecastProduct"
+                    v-if="loaded"
+                    :data="data"
+                    :product="'forecast'"
+                    :config="config"
+                />
                 <h2>Weather Summary</h2>
-                <weather-table :periods="data.weather_data[0].periods" :data="data.weather_data[0].data" :zone="data.weather_data[0].zone_name"/>
+                <weather-table
+                    :periods="data.weather_data[0].periods"
+                    :data="data.weather_data[0].data"
+                    :zone="data.weather_data[0].zone_name"
+                />
                 <div :class="$style.textCenter">
                     <button
                         @click="scrollToTabs('weather')"
@@ -234,7 +244,7 @@ export default {
     composes: col-12 from "../assets/css/style.css";
 }
 
-.productExpired{
+.productExpired {
     font-size: $font-size-lg;
     color: #fff;
     padding: $alert-padding-y $alert-padding-x;
@@ -253,15 +263,19 @@ export default {
 }
 .warning {
     position: relative;
-    h2{
+    h2 {
         color: #fff !important;
-        margin-bottom: .5rem !important;
+        margin-bottom: 0.5rem !important;
+        margin-left: 65px;
+        margin-top: 0;
     }
     span {
+        display: block;
         color: #fff !important;
         font-size: $font-size-sm;
+        margin-left: 65px;
     }
-    padding: $alert-padding-y $alert-padding-x;
+    padding: 1.5rem;
     margin-bottom: $spacer;
     @include border-radius($alert-border-radius);
     background-color: $high;
@@ -269,11 +283,13 @@ export default {
         color: #fff !important;
         font-size: 4rem;
         line-height: 1;
-        float: left;
-        padding-right: 1rem;
-        // position: absolute;
-        // top: $alert-padding-y;
-        // left: 15px;
+        position: absolute;
+        top: 1.5rem;
+        left: 15px;
+        @include media-breakpoint-up(sm) {
+            transform: translate(0, -50%);
+            top: 50%;
+        }
     }
 }
 .metaColumnContent {
@@ -316,15 +332,24 @@ export default {
 
 .tabContainer {
     background-color: #fff;
-    width: 100vw;
-    position: relative;
-    left: calc(-1 * (100vw - 100% + 15px) / 2);
-    padding-left: calc((100vw - 100% + 15px) / 2);
-    padding-right: calc((100vw - 100% - 15px) / 2);
+    // width: 100vw;
+    // position: relative;
+    // left: calc(-1 * (100vw - 100% + 15px) / 2);
+    // padding-left: calc((100vw - 100% + 15px) / 2);
+    // padding-right: calc((100vw - 100% - 15px) / 2);
+    margin-right: -15px;
+    margin-left: -15px;
+    padding-right: 15px;
+    padding-left: 15px;
     padding-top: $spacer;
     padding-bottom: $spacer;
-    border-top: 1px solid $gray-400;
-    border-bottom: 1px solid $gray-400;
+    border: 1px solid $gray-400;
+    // border-bottom: 1px solid $gray-400;
+    box-shadow: $app-box-shadow;
+    @include media-breakpoint-down(xs) {
+        border-left: none;
+        border-right: none;
+    }
 }
 
 .tabPane {
@@ -332,7 +357,7 @@ export default {
 }
 
 .forecastProduct {
-    @include divider
+    @include divider;
 }
 
 .btn {

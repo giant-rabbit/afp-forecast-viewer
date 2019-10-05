@@ -131,7 +131,7 @@ export default {
         border-bottom: 1px solid $gray-500;
         position: absolute;
         right: 1rem;
-        top: 0.7rem;
+        top: 0.9rem;
         width: 0.6rem;
         height: 0.6rem;
         transform: rotate(-45deg);

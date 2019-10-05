@@ -83,6 +83,7 @@ export default {
         display: table;
         table-layout: fixed;
         width: 100%;
+        overflow: hidden;
     }
     .tab {
         display: table-cell;
