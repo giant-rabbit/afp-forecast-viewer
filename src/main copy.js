@@ -6,6 +6,14 @@ import axios from 'axios'
 import merge from 'deepmerge'
 // import moment from 'moment'
 import moment from 'moment/src/moment.js'
+// import styles from './assets/css/app.scss'
+// import PhotoSwipe from 'photoswipe/dist/photoswipe'
+// import PhotoSwipeUI from 'photoswipe/dist/photoswipe-ui-default'
+// import createPreviewDirective from "vue-photoswipe-directive";
+// import HelpContent from './helpContent.js'
+// import InfoPopover from './components/InfoPopover'
+// import VTooltip from 'v-tooltip'
+
 
 // Load forecast view plugin
 Vue.use(forecastView)
@@ -213,12 +221,7 @@ Vue.prototype.$sampleData = {
             type: "photo",
             caption: "Strong winds formed stubborn, new slabs this weekend. Reports from the field in nearby zones indicate wind loading in unusual locations "
         },
-        {
-            id: 6,
-            url: "IjgH4mcNTZc",
-            type: "video",
-            caption: "Video caption"
-        }
+
     ],
     weather_discussion: "<p>Cool NW flow has exceeded post-frontal snowfall accumulations in a few areas along the west slopes of the Cascades through early this afternoon. Those same areas, from Stevens Pass/Mountain Loop and south&nbsp;to&nbsp;Mt. Hood, will continue to see persistent snow showers through the early evening.&nbsp;It&nbsp;won't be until the flow aloft turns more northerly this evening that&nbsp;the showers&nbsp;really wind.&nbsp;</p>\n<p>Upper level ridging will build offshore and conditions will dry out tonight with clear skies expected in most locations. Some low clouds may get pulled into the Cascade Passes as light east flow develops. Other than the aforementioned low clouds in the Passes and some high clouds coming over the Olymipcs/north Cascades in the afternoon, generally sunny skies and cool temperatures are forecast on Monday.&nbsp; &nbsp;</p>\n<p>The upper level ridge will begin to flop over into southern B.C. on Tuesday, allowing more high clouds from a weak frontal&nbsp;boundary to push further south.&nbsp; Periods of high clouds are likely for northern half of the forecast area Monday night and Tuesday with diminishing cloud cover for areas further south. Freezing levels will begin to moderate Tuesday as warmer air works over the region.&nbsp;&nbsp;</p>",
     weather_data: [

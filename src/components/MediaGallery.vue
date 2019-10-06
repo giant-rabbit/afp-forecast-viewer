@@ -1,8 +1,14 @@
 <template>
-    <div class="media-gallery">
+    <div>
+        <video-modal
+            @close="videoModal = false"
+            :show="videoModal"
+            :caption="videoCaption"
+            :id="videoId"
+        />
         <flickity class="afp-carousel" :options="flickityOptions">
             <figure
-                :class="[item.type == 'photo' ? $style.galleryItemImg : $style.galleryItemVid, $style.galleryItem]"
+                :class="$style.galleryItem"
                 class="afp-carousel-cell"
                 v-for="item in media"
                 :key="item.id"
@@ -15,8 +21,22 @@
                     :alt="item.caption"
                     v-tooltip="item.caption"
                 />
-                <i class="mdi mdi-arrow-expand"></i>
-                <iframe
+                <img
+                    v-if="item.type == 'video'"
+                    :class="$style.galleryImg"
+                    :src="'https://img.youtube.com/vi/' + item.url + '/maxresdefault.jpg'"
+                    :alt="item.caption"
+                    v-tooltip="item.caption"
+                    @click="showVideoModal(item.url,item.caption)"
+                />
+                <i
+                    @click="showVideoModal(item.url,item.caption)"
+                    v-if="item.type == 'video'"
+                    :class="$style.videoIcon"
+                    class="mdi mdi-youtube"
+                ></i>
+                <i :class="$style.expandIcon" class="mdi mdi-arrow-expand"></i>
+                <!-- <iframe
                     v-tooltip="item.caption"
                     v-if="item.type == 'video'"
                     :class="$style.galleryVid"
@@ -24,7 +44,7 @@
                     frameborder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
-                ></iframe>
+                ></iframe>-->
                 <!-- <figcaption :class="$style.galleryCaption">{{item.caption}}</figcaption> -->
                 <!-- <v-popover :class="$style.galleryCaption" class="afp-popover-trigger">
                     <button v-tooltip="'Click for caption'" :class="$style.captionTrigger">
@@ -41,17 +61,22 @@
 
 <script>
 import Flickity from '../components/Flickity'
+import VideoModal from '../components/VideoModal'
 
 export default {
     data() {
         return {
+            videoModal: false,
+            videoCaption: '',
+            videoId: '',
             flickityOptions: {
                 cellAlign: "left"
             }
         }
     },
     components: {
-        Flickity
+        Flickity,
+        VideoModal
     },
     props: ['media'],
     methods: {
@@ -71,6 +96,11 @@ export default {
                 document.querySelector('.flickity-button.previous').style.display = "inline-block"
                 document.querySelector('.flickity-button.next').style.display = "inline-block"
             }
+        },
+        showVideoModal(id, caption) {
+            this.videoId = id
+            this.videoCaption = caption
+            this.videoModal = true
         }
     },
     mounted() {
@@ -112,26 +142,36 @@ $gallery-height: 200px;
     // }
 }
 
-.galleryItemImg {
-    i {
-        font-size: 1.3rem;
-        position: absolute;
-        bottom: 0.3rem;
-        left: 0.3rem;
-        border-radius: $border-radius;
-        line-height: 1;
-        background-color: rgba(255, 255, 255, 0.5);
-        padding: 0.2rem;
-        color: $gray-800;
-    }
+.galleryItem {
 }
 
-.galleryItemVid {
-    width: $gallery-height * 1.78;
-    i {
-        display: none;
-    }
+.expandIcon {
+    font-size: 1.3rem;
+    position: absolute;
+    bottom: 0.3rem;
+    left: 0.3rem;
+    border-radius: $border-radius;
+    line-height: 1;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 0.2rem;
+    color: $gray-800;
 }
+
+.videoIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: $red;
+    font-size: 5rem;
+}
+
+// .galleryItemVid {
+//     width: $gallery-height * 1.78;
+//     i {
+//         display: none;
+//     }
+// }
 
 .galleryImg {
     height: $gallery-height !important;
@@ -139,10 +179,10 @@ $gallery-height: 200px;
     max-width: initial !important;
 }
 
-.galleryVid {
-    height: $gallery-height;
-    width: $gallery-height * 1.78;
-}
+// .galleryVid {
+//     height: $gallery-height;
+//     width: $gallery-height * 1.78;
+// }
 
 // .galleryCaption {
 //     position: absolute;
@@ -158,26 +198,5 @@ $gallery-height: 200px;
 //     // white-space: initial;
 //     transition: all $transition;
 //     opacity: 1;
-// }
-
-// .galleryCaption {
-//     position: absolute;
-//     bottom: 0.3rem;
-//     left: 0.3rem;
-// }
-
-// .captionTrigger {
-//     composes: btn from "../assets/css/style.css";
-//     line-height: 1;
-//     background-color: rgba(255, 255, 255, 0.5);
-//     padding: 0.2rem;
-//     color: $gray-800;
-// }
-</style>
-
-<style scoped lang="scss">
-// .afp-popover-trigger >>> .trigger {
-//     all: unset;
-//     display: inline !important;
 // }
 </style>

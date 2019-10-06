@@ -1,0 +1,98 @@
+<template>
+    <transition name="fade">
+        <div v-if="show" :class="$style.videoModalBg" @click="$emit('close')">
+            <div :class="$style.videoContainer">
+                <iframe
+                    :src="'https://www.youtube.com/embed/' + id"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                ></iframe>
+            </div>
+            <i :class="$style.closeIcon" class="mdi mdi-close"></i>
+            <div :class="$style.caption">
+                <div :class="$style.captionContainer">{{caption}}</div>
+            </div>
+        </div>
+    </transition>
+</template>
+
+<script>
+export default {
+    // data() {
+    //     return {
+    //         show: false,
+    //     }
+    // },
+    props: ['show', 'id', 'caption']
+}
+</script>
+
+<style module lang="scss">
+@import "../assets/css/bootstrap/functions";
+@import "../assets/css/_variables.scss";
+@import "../assets/css/bootstrap/mixins";
+
+.videoModalBg {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 100000;
+    cursor: pointer;
+}
+
+.videoContainer {
+    width: 75%;
+    @include media-breakpoint-down(xs) {
+        width: 90%;
+    }
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    &:before {
+        display: block;
+        content: "";
+        width: 100%;
+        padding-top: 56.25%;
+    }
+    iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.caption {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.captionContainer {
+    width: 75%;
+    @include media-breakpoint-down(xs) {
+        width: 90%;
+    }
+    margin: 0 auto;
+    padding: 1rem;
+    color: #fff;
+    font-size: $font-size-sm;
+    text-align: center;
+}
+
+.closeIcon {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    line-height: 1;
+    font-size: 1.5rem;
+    color: #fff;
+}
+</style>
