@@ -13,10 +13,11 @@
                     v-preview:scope-forecast
                     :src="item.url"
                     :alt="item.caption"
-                    v-tooltip="'Click to enlarge'"
+                    v-tooltip="item.caption"
                 />
                 <i class="mdi mdi-arrow-expand"></i>
                 <iframe
+                    v-tooltip="item.caption"
                     v-if="item.type == 'video'"
                     :class="$style.galleryVid"
                     :src="'https://www.youtube.com/embed/' + item.url"
@@ -24,7 +25,7 @@
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
                 ></iframe>
-                <figcaption :class="$style.galleryCaption">{{item.caption}}</figcaption>
+                <!-- <figcaption :class="$style.galleryCaption">{{item.caption}}</figcaption> -->
                 <!-- <v-popover :class="$style.galleryCaption" class="afp-popover-trigger">
                     <button v-tooltip="'Click for caption'" :class="$style.captionTrigger">
                         <i class="mdi mdi-comment"></i>
@@ -45,9 +46,7 @@ export default {
     data() {
         return {
             flickityOptions: {
-                cellAlign: "left",
-                // contain: true,
-                // imagesLoaded: true
+                cellAlign: "left"
             }
         }
     },
@@ -100,7 +99,7 @@ $gallery-height: 200px;
     overflow: hidden;
     position: relative;
     cursor: pointer;
-    box-shadow: $app-box-shadow;
+    // box-shadow: $app-box-shadow;
     // figcaption {
     //     font-style: italic;
     //     font-size: $font-size-sm;
@@ -111,9 +110,6 @@ $gallery-height: 200px;
     //         bottom: 0;
     //     }
     // }
-    figcaption {
-        display: none;
-    }
 }
 
 .galleryItemImg {

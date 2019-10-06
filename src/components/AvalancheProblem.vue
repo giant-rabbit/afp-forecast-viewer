@@ -215,8 +215,8 @@ export default {
 .imageContainer {
     img {
         width: 100%;
-        cursor: pointer;
-        box-shadow: $app-box-shadow;
+        // cursor: pointer;
+        // box-shadow: $app-box-shadow;
         //box-shadow: -10px 10px 0px 0px $gray-300;
     }
     position: relative;
@@ -248,7 +248,7 @@ export default {
         left: 0;
         width: 100%;
         height: 100%;
-        box-shadow: $app-box-shadow;
+        // box-shadow: $app-box-shadow;
         // box-shadow: -10px 10px 0px 0px $gray-300;
     }
 }

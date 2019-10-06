@@ -136,6 +136,7 @@ html {
       font-size: $tooltip-font-size;
       border-radius: $tooltip-border-radius;
       padding: $tooltip-padding-y $tooltip-padding-x;
+      max-width: 300px;
     }
 
     .afp-tooltip-arrow {
