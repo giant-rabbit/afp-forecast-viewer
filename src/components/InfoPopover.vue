@@ -28,6 +28,7 @@ export default {
 }
 .info {
     composes: btn from "../assets/css/style.css";
+    cursor: help !important;
     transform: translateY(-6px);
     margin-left: 2px;
     text-transform: lowercase;

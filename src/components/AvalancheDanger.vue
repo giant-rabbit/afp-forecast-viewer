@@ -2,7 +2,10 @@
     <div :class="$style.danger">
         <div :class="$style.row">
             <div :class="$style.today">
-                <h6>Today's Avalanche Danger</h6>
+                <h6>
+                    Today's Avalanche Danger
+                    <info :content="this.$helpContent.avalancheDanger" />
+                </h6>
                 {{ todayDate }}
                 <div :class="$style.dangerGraphic">
                     <div :class="$style.elevationBlock">
@@ -300,17 +303,12 @@ $elevation-height: 90px;
     top: 50%;
     width: 200px;
     display: block;
-    // font-size: $font-size-lg;
     font-weight: bold;
     color: $gray-800;
     text-transform: uppercase;
 }
 
 .outlookMobile {
-    // composes: row from "../assets/css/style.css";
-    // -webkit-box-align: center!important;
-    // -ms-flex-align: center!important;
-    // align-items: center!important;
     position: relative;
     width: 300px;
     height: 140px;

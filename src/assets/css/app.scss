@@ -12,7 +12,7 @@ html {
 *,
 ::after,
 ::before {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .afp-forecast-view {
@@ -47,23 +47,23 @@ html {
     margin-top: 0;
     // font-family: $headings-font-family;
     // font-weight: $headings-font-weight;
-    line-height: $headings-line-height  !important;
-    color: $headings-color  !important;
-    letter-spacing: .5px  !important;
+    line-height: $headings-line-height !important;
+    color: $headings-color !important;
+    letter-spacing: .5px !important;
     text-transform: uppercase !important;
     font-weight: bold;
   }
 
   h1,
   .h1 {
-    @include font-size($h1-font-size  !important);
-    margin-bottom: 2 * $headings-margin-bottom  !important;
+    @include font-size($h1-font-size !important);
+    margin-bottom: 2 * $headings-margin-bottom !important;
   }
 
   h2,
   .h2 {
-    @include font-size($h2-font-size  !important);
-    margin-bottom: 2 * $headings-margin-bottom  !important;
+    @include font-size($h2-font-size !important);
+    margin-bottom: 2 * $headings-margin-bottom !important;
   }
 
   h3,
@@ -96,7 +96,7 @@ html {
 
   label {
     //font-family: $headings-font-family;
-    font-size: $font-size-sm  !important;
+    font-size: $font-size-sm !important;
     //text-transform: uppercase;
     font-weight: $headings-font-weight !important;
   }
@@ -180,6 +180,9 @@ html {
       border-radius: $popover-border-radius;
       box-shadow: $popover-box-shadow;
       max-width: $popover-max-width;
+      a, a:hover {
+        color: $no-rating-border !important;
+      }
     }
 
     .afp-popover-arrow {

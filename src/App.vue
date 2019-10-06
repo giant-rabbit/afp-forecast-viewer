@@ -1,10 +1,10 @@
 <template>
     <div id="afp" class="afp-forecast-view">
         <v-style v-if="this.$config.color">
-            .afp-forecast-view a:not(.afp-dropdown-item):not(.afp-btn-primary):not(.afp-tab):not(.afp-page-link) {
+            .afp-forecast-view a:not(.afp-native-link) {
             color: {{this.$config.color}} !important;
             }
-            .afp-forecast-view a:not(.afp-dropdown-item):not(.afp-btn-primary):not(.afp-tab):not(.afp-page-link):hover {
+            .afp-forecast-view a:not(.afp-native-link):hover {
             color: {{luminance(this.$config.color,-0.3)}} !important;
             }
             .afp-forecast-view .afp-btn-primary {
@@ -41,10 +41,10 @@
         <div :class="$style.container">
             <alert />
             <loader />
-            <p>
+            <!-- <p>
                 <router-link to="/archive">Archive</router-link>
                 <router-link :to="{ name: 'Forecast', params: { zone: 'sawtooth' }}">Forecast</router-link>
-            </p>
+            </p> -->
             <transition
                 name="fade"
                 mode="out-in"
@@ -102,6 +102,7 @@ export default {
     composes: container from "./assets/css/style.css";
     min-height: 300px;
     position: relative;
+    padding-top: $spacer;
 }
 
 </style>

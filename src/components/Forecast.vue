@@ -9,7 +9,7 @@
             <div :class="$style.title">
                 <!-- Need logic for summary product title -->
                 <h1>Backcountry Avalanche Forecast</h1>
-                <h2>{{data.forecast_zone.name}}</h2>
+                <h2><i class="mdi mdi-map-marker"></i> {{data.forecast_zone.name}}</h2>
             </div>
         </div>
         <!-- Header -->

@@ -2,7 +2,7 @@
     <ul id="tabs" :class="$style.tabs">
         <li v-for="tab in tabs" :key="tab.id" :class="$style.tab">
             <a
-                class="afp-tab"
+                class="afp-native-link"
                 href="#"
                 :class="[$style.tabLink, {[$style.tabLinkActive] : selected == tab.id }]"
                 @click.prevent="$emit('changeTab', tab.id)"
@@ -11,7 +11,7 @@
         </li>
         <li v-if="custom" v-for="tab in config.tabs" v-bind:key="tab.id" :class="$style.tab">
             <a
-                class="afp-tab"
+                class="afp-native-link"
                 href="#"
                 :class="[$style.tabLink, {[$style.tabLinkActive] : selected == tab.id }]"
                 @click.prevent="$emit('changeTab', tab.id)"

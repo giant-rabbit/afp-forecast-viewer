@@ -1,9 +1,15 @@
 <template>
     <div :id="'problem-' + problem.rank" :class="$style.problemContainer">
         <h2>Avalanche Problem #{{problem.rank}}</h2>
+        <info :content="this.$helpContent.avalancheProblem" />
         <div :class="$style.infoGraphics">
             <div :class="$style.col12">
-                <img :class="$style.problemIcon" :src="problem.icon" />
+                <v-popover>
+                    <img :class="$style.problemIcon" :src="problem.icon" />
+                    <template slot="popover">
+                        <div v-html="problem.problem_description"></div>
+                    </template>
+                </v-popover>
                 <div :class="$style.problemText">
                     {{problem.name}}
                     <!-- <info :content="problem.problem_description" /> -->
@@ -192,6 +198,7 @@ export default {
     height: 170px !important;
     width: 170px !important;
     margin: 25px 15px 10px 15px;
+    cursor: help;
     @include media-breakpoint-down(xs) {
         height: 130px !important;
         width: 130px !important;
@@ -233,7 +240,7 @@ export default {
 .imageContainer {
     img {
         width: 100%;
-        cursor: pointer;
+        cursor: zoom-in;
         // box-shadow: $app-box-shadow;
         //box-shadow: -10px 10px 0px 0px $gray-300;
     }

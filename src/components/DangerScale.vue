@@ -3,7 +3,7 @@
         <div :class="$style.firstColumn">
             <h5>
                 Danger Scale
-                <info :content="this.$helpContent.dangerScale" />
+                <!-- <info :content="this.$helpContent.dangerScale" /> -->
             </h5>
         </div>
         <div :class="$style.secondColumn">

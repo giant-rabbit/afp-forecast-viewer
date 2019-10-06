@@ -17,7 +17,7 @@
                 <a
                     href="#"
                     :class="$style.link"
-                    class="afp-dropdown-item"
+                    class="afp-native-link"
                     @click.prevent
                     v-for="zone in centerZones"
                     v-bind:key="zone.id"

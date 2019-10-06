@@ -7,36 +7,37 @@
             :id="videoId"
         />
         <flickity class="afp-carousel" :options="flickityOptions">
-            <figure
-                :class="$style.galleryItem"
+            <div
                 class="afp-carousel-cell"
                 v-for="item in media"
                 :key="item.id"
+                :class="$style.galleryItem"
             >
-                <img
-                    v-if="item.type == 'photo'"
-                    :class="$style.galleryImg"
-                    v-preview:scope-forecast
-                    :src="item.url"
-                    :alt="item.caption"
-                    v-tooltip="item.caption"
-                />
-                <img
-                    v-if="item.type == 'video'"
-                    :class="$style.galleryImg"
-                    :src="'https://img.youtube.com/vi/' + item.url + '/maxresdefault.jpg'"
-                    :alt="item.caption"
-                    v-tooltip="item.caption"
-                    @click="showVideoModal(item.url,item.caption)"
-                />
-                <i
-                    @click="showVideoModal(item.url,item.caption)"
-                    v-if="item.type == 'video'"
-                    :class="$style.videoIcon"
-                    class="mdi mdi-youtube"
-                ></i>
-                <i :class="$style.expandIcon" class="mdi mdi-arrow-expand"></i>
-                <!-- <iframe
+                <div :class="$style.galleryImgContainer">
+                    <img
+                        v-if="item.type == 'photo'"
+                        :class="$style.galleryImg"
+                        v-preview:scope-forecast
+                        :src="item.url"
+                        :alt="item.caption"
+                        v-tooltip="item.caption"
+                    />
+                    <img
+                        v-if="item.type == 'video'"
+                        :class="$style.galleryImg"
+                        :src="'https://img.youtube.com/vi/' + item.url + '/maxresdefault.jpg'"
+                        :alt="item.caption"
+                        v-tooltip="item.caption"
+                        @click="showVideoModal(item.url,item.caption)"
+                    />
+                    <i
+                        @click="showVideoModal(item.url,item.caption)"
+                        v-if="item.type == 'video'"
+                        :class="$style.videoIcon"
+                        class="mdi mdi-youtube"
+                    ></i>
+                    <i :class="$style.expandIcon" class="mdi mdi-arrow-expand"></i>
+                    <!-- <iframe
                     v-tooltip="item.caption"
                     v-if="item.type == 'video'"
                     :class="$style.galleryVid"
@@ -44,17 +45,18 @@
                     frameborder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
-                ></iframe>-->
-                <!-- <figcaption :class="$style.galleryCaption">{{item.caption}}</figcaption> -->
-                <!-- <v-popover :class="$style.galleryCaption" class="afp-popover-trigger">
+                    ></iframe>-->
+                    <!-- <figcaption :class="$style.galleryCaption">{{item.caption}}</figcaption> -->
+                    <!-- <v-popover :class="$style.galleryCaption" class="afp-popover-trigger">
                     <button v-tooltip="'Click for caption'" :class="$style.captionTrigger">
                         <i class="mdi mdi-comment"></i>
                     </button>
                     <template slot="popover">
                         <div v-html="item.caption"></div>
                     </template>
-                </v-popover>-->
-            </figure>
+                    </v-popover>-->
+                </div>
+            </div>
         </flickity>
     </div>
 </template>
@@ -70,7 +72,8 @@ export default {
             videoCaption: '',
             videoId: '',
             flickityOptions: {
-                cellAlign: "left"
+                cellAlign: "left",
+                groupCells: true
             }
         }
     },
@@ -123,24 +126,39 @@ export default {
 $gallery-height: 200px;
 
 .galleryItem {
-    margin: 0 !important;
-    margin-right: 1rem !important;
-    height: $gallery-height;
-    width: 4/3 * $gallery-height;
+    width: 100%;
+    @include media-breakpoint-up(sm) {
+        width: 50%;
+    }
+    @include media-breakpoint-up(md) {
+        width: 33%;
+    }
+    @include media-breakpoint-up(lg) {
+        width: 25%;
+    }
     overflow: hidden;
     position: relative;
-    cursor: pointer;
-    // box-shadow: $app-box-shadow;
-    // figcaption {
-    //     font-style: italic;
-    //     font-size: $font-size-sm;
-    //     white-space: initial;
-    // }
-    // &:hover {
-    //     figcaption {
-    //         bottom: 0;
-    //     }
-    // }
+    cursor: zoom-in;
+    &:before {
+        display: block;
+        content: "";
+        width: 100%;
+        padding-top: 75%;
+    }
+}
+
+.galleryImgContainer {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    //z-index: 1;
+}
+.galleryImg {
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: cover;
 }
 
 .expandIcon {
@@ -164,37 +182,4 @@ $gallery-height: 200px;
     font-size: 5rem;
 }
 
-// .galleryItemVid {
-//     width: $gallery-height * 1.78;
-//     i {
-//         display: none;
-//     }
-// }
-
-.galleryImg {
-    height: 100% !important;
-    width: 100% !important;
-    object-fit: cover;
-}
-
-// .galleryVid {
-//     height: $gallery-height;
-//     width: $gallery-height * 1.78;
-// }
-
-// .galleryCaption {
-//     position: absolute;
-//     height: auto;
-//     max-height: $gallery-height;
-//     bottom: 0;
-//     left: 0;
-//     right: 0;
-//     padding: .5rem 1rem;
-//     background-color: rgba(0, 0, 0, 0.4);
-//     font-size: $font-size-sm;
-//     color: #fff;
-//     // white-space: initial;
-//     transition: all $transition;
-//     opacity: 1;
-// }
 </style>
