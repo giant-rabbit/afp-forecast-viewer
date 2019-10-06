@@ -54,19 +54,22 @@
         </div>
         <figure
             v-if="problem.media.type == 'photo' && problem.media.url !=''"
-            :class="$style.probleMedia"
+            :class="$style.problemMedia"
         >
-            <img
-                v-tooltip="'Click to enlarge'"
-                v-preview:scope-forecast
-                :src="problem.media.url"
-                :alt="problem.media.caption"
-            />
+            <div :class="$style.imageContainer">
+                <img
+                    v-tooltip="'Click to enlarge'"
+                    v-preview:scope-forecast
+                    :src="problem.media.url"
+                    :alt="problem.media.caption"
+                />
+                <i class="mdi mdi-arrow-expand"></i>
+            </div>
             <figcaption>{{problem.media.caption}}</figcaption>
         </figure>
         <figure
             v-if="problem.media.type == 'video' && problem.media.url !=''"
-            :class="$style.probleMedia"
+            :class="$style.problemMedia"
         >
             <div :class="$style.videoContainer">
                 <iframe
@@ -153,14 +156,15 @@ export default {
     h2 {
         display: inline-block;
         border-bottom: 1px solid $gray-400;
-        padding-bottom: .2rem;
+        padding-bottom: 0.2rem;
     }
 }
 
 .infoGraphics {
     composes: row from "../assets/css/style.css";
     align-items: flex-end !important;
-    h6, h5 {
+    h6,
+    h5 {
         border-top: 1px solid $gray-400;
         margin-top: 1.5rem !important;
         padding-top: 1rem;
@@ -190,14 +194,8 @@ export default {
     overflow: hidden;
 }
 
-figure.probleMedia {
+.problemMedia {
     width: 100%;
-    img {
-        width: 100%;
-        cursor: pointer;
-        box-shadow: $app-box-shadow;
-        //box-shadow: -10px 10px 0px 0px $gray-300;
-    }
     @include media-breakpoint-up(md) {
         float: right;
         width: 50%;
@@ -207,23 +205,31 @@ figure.probleMedia {
         width: 33%;
     }
     figcaption {
-        padding-top: .5rem;
+        padding-top: 0.5rem;
         font-style: italic;
         font-size: $font-size-sm;
         text-align: center;
         font-weight: lighter;
     }
-    a {
-        display: block;
-        position: relative;
-        i {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            font-size: 5rem;
-            color: $red;
-            transform: translate(-50%, -50%);
-        }
+}
+.imageContainer {
+    img {
+        width: 100%;
+        cursor: pointer;
+        box-shadow: $app-box-shadow;
+        //box-shadow: -10px 10px 0px 0px $gray-300;
+    }
+    position: relative;
+    i {
+        font-size: 1.3rem;
+        position: absolute;
+        bottom: 0.6rem;
+        left: 0.3rem;
+        border-radius: $border-radius;
+        line-height: 1;
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 0.2rem;
+        color: $gray-800;
     }
 }
 .videoContainer {

@@ -8,7 +8,7 @@
             <img
                 v-if="item.type == 'photo'"
                 :class="$style.galleryImg"
-                v-preview:scope-a
+                v-preview:[scope]
                 :src="item.url"
                 :alt="item.caption"
                 v-tooltip="'Click to enlarge'"
@@ -33,7 +33,7 @@ export default {
         return {
         }
     },
-    props: ['media']
+    props: ['media','scope']
 }
 </script>
 
@@ -56,7 +56,7 @@ $gallery-height: 300px;
         height: 6px;
     }
     &::-webkit-scrollbar-thumb {
-        background-color: $app-bg-color;
+        background-color: $gray-400;
     }
 }
 
