@@ -1,5 +1,5 @@
 <template>
-    <transition name="fade">
+    <transition name="zoom">
         <div v-if="show" :class="$style.videoModalBg" @click="$emit('close')">
             <div :class="$style.videoContainer">
                 <iframe
@@ -94,5 +94,22 @@ export default {
     line-height: 1;
     font-size: 1.5rem;
     color: #fff;
+}
+</style>
+
+<style lang="scss">
+.zoom-enter-active {
+  animation: zoom-in .2s;
+}
+// .zoom-leave-active {
+//   animation: zoom-in .2s reverse;
+// }
+@keyframes zoom-in {
+  0% {
+    transform: scale(.8);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 </style>

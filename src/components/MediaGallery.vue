@@ -126,6 +126,7 @@ $gallery-height: 200px;
     margin: 0 !important;
     margin-right: 1rem !important;
     height: $gallery-height;
+    width: 4/3 * $gallery-height;
     overflow: hidden;
     position: relative;
     cursor: pointer;
@@ -140,9 +141,6 @@ $gallery-height: 200px;
     //         bottom: 0;
     //     }
     // }
-}
-
-.galleryItem {
 }
 
 .expandIcon {
@@ -174,9 +172,9 @@ $gallery-height: 200px;
 // }
 
 .galleryImg {
-    height: $gallery-height !important;
-    width: auto !important;
-    max-width: initial !important;
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: cover;
 }
 
 // .galleryVid {
