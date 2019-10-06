@@ -52,22 +52,39 @@
                 </h5>
             </div>
         </div>
-        <figure
-            v-if="problem.media.type == 'photo' && problem.media.url !=''"
-            :class="$style.problemMedia"
-        >
+        <figure v-if="problem.media.url !=''" :class="$style.problemMedia">
             <div :class="$style.imageContainer">
                 <img
+                    v-if="problem.media.type == 'photo'"
                     v-tooltip="'Click to enlarge'"
                     v-preview:scope-forecast
                     :src="problem.media.url"
                     :alt="problem.media.caption"
                 />
-                <i class="mdi mdi-arrow-expand"></i>
+                <img
+                    v-if="problem.media.type == 'video'"
+                    v-tooltip="'Click to play'"
+                    :src="'https://img.youtube.com/vi/' + problem.media.url + '/maxresdefault.jpg'"
+                    :alt="problem.media.caption"
+                    @click="videoModal = true"
+                />
+                <i :class="$style.expandIcon" class="mdi mdi-arrow-expand"></i>
+                <i
+                    @click="videoModal = true"
+                    v-if="problem.media.type == 'video'"
+                    :class="$style.videoIcon"
+                    class="mdi mdi-youtube"
+                ></i>
             </div>
             <figcaption>{{problem.media.caption}}</figcaption>
         </figure>
-        <figure
+        <video-modal
+            @close="videoModal = false"
+            :show="videoModal"
+            :caption="problem.media.caption"
+            :id="problem.media.url"
+        />
+        <!-- <figure
             v-if="problem.media.type == 'video' && problem.media.url !=''"
             :class="$style.problemMedia"
         >
@@ -82,7 +99,7 @@
                 ></iframe>
             </div>
             <figcaption>{{problem.media.caption}}</figcaption>
-        </figure>
+        </figure>-->
         <div v-html="problem.discussion"></div>
     </div>
 </template>
@@ -90,10 +107,12 @@
 <script>
 import VueSlider from 'vue-slider-component'
 import LocatorRose from '../components/LocatorRose'
+import VideoModal from '../components/VideoModal'
 
 export default {
     data() {
         return {
+            videoModal: false,
             likelihoodData: ['unlikely', 'possible', 'likely', 'very likely', 'almost certain'],
             likelihoodOptions: {
                 height: 200,
@@ -130,11 +149,10 @@ export default {
     },
     components: {
         VueSlider,
-        LocatorRose
+        LocatorRose,
+        VideoModal
     },
     props: ['problem', 'config'],
-    methods: {
-    },
     mounted() {
 
     }
@@ -215,42 +233,32 @@ export default {
 .imageContainer {
     img {
         width: 100%;
-        // cursor: pointer;
+        cursor: pointer;
         // box-shadow: $app-box-shadow;
         //box-shadow: -10px 10px 0px 0px $gray-300;
     }
     position: relative;
-    i {
-        font-size: 1.3rem;
-        position: absolute;
-        bottom: 0.6rem;
-        left: 0.3rem;
-        border-radius: $border-radius;
-        line-height: 1;
-        background-color: rgba(255, 255, 255, 0.5);
-        padding: 0.2rem;
-        color: $gray-800;
-    }
 }
-.videoContainer {
-    height: 100%;
-    width: 100%;
-    position: relative;
-    &:before {
-        display: block;
-        content: "";
-        width: 100%;
-        padding-top: 56.25%;
-    }
-    iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        // box-shadow: $app-box-shadow;
-        // box-shadow: -10px 10px 0px 0px $gray-300;
-    }
+
+.expandIcon {
+    font-size: 1.3rem;
+    position: absolute;
+    bottom: 0.6rem;
+    left: 0.3rem;
+    border-radius: $border-radius;
+    line-height: 1;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 0.2rem;
+    color: $gray-800;
+}
+
+.videoIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: $red;
+    font-size: 5rem;
 }
 </style>
 

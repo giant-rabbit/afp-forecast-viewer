@@ -3,7 +3,7 @@
         <div v-if="show" :class="$style.videoModalBg" @click="$emit('close')">
             <div :class="$style.videoContainer">
                 <iframe
-                    :src="'https://www.youtube.com/embed/' + id"
+                    :src="'https://www.youtube.com/embed/' + id + '?autoplay=1'"
                     frameborder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
