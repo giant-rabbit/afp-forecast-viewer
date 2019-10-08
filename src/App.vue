@@ -39,8 +39,6 @@
             type="text/css"
         />
         <div :class="$style.container">
-            <alert />
-            <loader />
             <p>
                 <router-link to="/archive">Archive</router-link>
                 <router-link :to="{ name: 'Forecast', params: { zone: 'sawtooth' }}">Forecast</router-link>
@@ -60,18 +58,12 @@
 </template>
 
 <script>
-import Alert from './components/Alert'
-import Loader from './components/Loader'
 
 export default {
     name: 'app',
     data() {
         return {
         }
-    },
-    components: {
-        Alert,
-        Loader
     },
     methods: {
         // Function to darken link color

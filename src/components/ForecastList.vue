@@ -1,34 +1,33 @@
 <template>
     <div v-show="loaded">
-        <h1 :class="$style.title">Forecast Archive</h1>
-        <table-filter :data="data" ref="filter" @search="tableSearch()"/>
-        <content-panel :class="$style.container">
-            <v-client-table :columns="columns" :data="data" :options="options" ref="forecastTable">
-                <div slot="start_date" slot-scope="props">
-                    <!-- need logic for link based on product type -->
-                    <router-link
-                        class
-                        v-tooltip="'View product'"
-                        :to="{ name: 'ArchivedForecast', params: { zone: 'sawtooth', date: props.row.start_date  }}"
-                    >{{props.row.start_date}}</router-link>
-                </div>
-                <span slot="danger_rating" slot-scope="props">
-                    <span v-if="props.row.danger_rating == ''"></span>
-                    <span
-                        v-else
-                        :class="'afp-danger afp-danger-' + props.row.danger_rating"
-                    >{{props.row.danger_rating}}</span>
-                </span>
-            </v-client-table>
-        </content-panel>
+        <forecast-filter :data="data" ref="filter" />
+        <v-client-table :columns="columns" :data="data" :options="options" ref="forecastTable">
+            <div slot="start_date" slot-scope="props">
+                <!-- need logic for link based on product type -->
+                <router-link
+                    class
+                    v-tooltip="'View product'"
+                    :to="{ name: 'ArchivedForecast', params: { zone: 'sawtooth', date: props.row.start_date  }}"
+                >{{props.row.start_date}}</router-link>
+            </div>
+            <span slot="danger_rating" slot-scope="props">
+                <span v-if="props.row.danger_rating == ''"></span>
+                <span
+                    v-else
+                    :class="'afp-danger afp-danger-' + props.row.danger_rating"
+                >{{props.row.danger_rating}}</span>
+            </span>
+            <!-- <div slot="filter__start_date">
+                <input type="checkbox" class="form-control" />
+            </div>-->
+        </v-client-table>
     </div>
 </template>
 
 <script>
 import Vue from 'vue'
 import { ClientTable, Event } from 'vue-tables-2'
-import TableFilter from '../components/TableFilter'
-import ContentPanel from '../components/ContentPanel'
+import ForecastFilter from '../components/ForecastFilter'
 import tableTheme from '../vueTableTheme'
 import tableTemplate from '../vueTableTemplate'
 import moment from 'moment/src/moment.js'
@@ -36,7 +35,6 @@ Vue.use(ClientTable, {}, false, tableTheme, tableTemplate)
 
 
 export default {
-    name: 'Archive',
     data() {
         return {
             loaded: false,
@@ -44,18 +42,16 @@ export default {
             /**
              * Set up Vue Tables 2
              */
-            columns: ['start_date', 'product_type', 'forecast_zones', 'danger_rating'],
+            columns: ['start_date', 'danger_rating', 'forecast_zones'],
             data: [],
             options: {
                 skin: 'table',
                 columnsClasses: {
                     forecast_zones: 'afp-table-zones',
-                    danger: 'afp-table-danger',
-                    product_type: 'afp-table-product',
+                    danger_rating: 'afp-table-danger',
                     start_date: 'afp-table-time',
                 },
                 headings: {
-                    product_type: "Product",
                     forecast_zones: 'Zones',
                     danger_rating: "Danger",
                     start_date: 'Published',
@@ -101,42 +97,26 @@ export default {
                             })
                             return result
                         }
-                    },
-                    // {
-                    //     name: 'searchFilter',
-                    //     callback: function (row, query) {
-                    //         var result = true
-                    //         console.log(row)
-
-                    //         if (row[product_type] == null) {
-                    //             result = result || false
-                    //         } else {
-                    //             result = result || row[product_type].includes(query)
-                    //         }
-
-                    //         return result
-                    //     }
-                    // }
+                    }
                 ]
 
             }
         }
     },
     components: {
-        TableFilter,
-        ContentPanel
+        ForecastFilter
     },
     methods: {
-        tableSearch(query) {
-            console.log('event')
-            this.$refs.forecastTable.setFilter('moderate')
-        },
         getProducts() {
             var ref = this
             this.$api
                 .get('forecasts?avalanche_center_id=' + this.$centerId)
                 .then(response => {
                     this.data = response.data
+                    // filter forecasts
+                    this.data = this.data.filter(function (value, index, arr) {
+                        return value.product_type == 'forecast' || value.product_type == 'summary'
+                    })
                     this.data.forEach(function (forecast, index) {
                         if (forecast.start_date) {
                             forecast.start_date = moment(forecast.start_date).format('YYYY-MM-DD')
@@ -163,20 +143,6 @@ export default {
                             default:
                                 forecast.danger_rating = ""
                         }
-                        switch (forecast.product_type) {
-                            case "forecast":
-                                forecast.product_type = "Avalanche Forecast"
-                                break
-                            case "weather":
-                                forecast.product_type = "Weather Forecast"
-                                break
-                            case "synopsis":
-                                forecast.product_type = "Regional Synopsis"
-                                break
-                            case "summary":
-                                forecast.product_type = "Conditions Summary"
-                                break
-                        }
                         var zones = "";
                         forecast.forecast_zone.forEach(function (zone, index) {
                             if (index == 0) {
@@ -199,9 +165,6 @@ export default {
     mounted() {
         this.$eventBus.$emit('loading')
         this.getProducts()
-        this.$eventBus.$on('refreshProducts', data => {
-            this.getProducts()
-        })
     }
 }
 
@@ -212,7 +175,8 @@ export default {
 @import "../assets/css/_variables.scss";
 @import "../assets/css/bootstrap/mixins";
 
-.container, .title {
+.container,
+.title {
     margin-bottom: $spacer !important;
 }
 </style>
@@ -256,16 +220,12 @@ export default {
         th {
             vertical-align: middle !important;
             border-top: none;
-            &.afp-table-time,
-            &.afp-table-product {
-                width: 120px;
-                max-width: 120px;
-                min-width: 120px;
+            &.afp-table-time, &.afp-table-danger {
+                width: 140px;
+                max-width: 140px;
+                min-width: 140px;
                 white-space: initial !important;
             }
-        }
-        td.afp-table-product {
-            text-transform: capitalize;
         }
     }
     .afp-danger {
@@ -274,6 +234,8 @@ export default {
         text-transform: uppercase;
         font-weight: bold;
         border-radius: $btn-border-radius-sm;
+        display: block;
+        text-align: center;
         &.afp-danger-low {
             background-color: $low;
         }
@@ -301,6 +263,9 @@ export default {
         &.mdi.mdi-sort {
             color: $gray-700;
         }
+    }
+    .VueTables__sortable {
+        cursor: pointer;
     }
     .VuePagination {
         nav {

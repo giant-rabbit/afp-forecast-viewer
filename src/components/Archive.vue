@@ -7,9 +7,13 @@
         <tabs ref="tabs" :tabs="tabs" :selected="tabSelected" @changeTab="changeTab" />
 
         <!-- Tab container -->
-        <content-panel>
+        <content-panel :class="$style.panel">
+            <alert />
+            <loader />
             <!-- Forecast Archive tab -->
-            <div v-show="tabSelected == 'forecast'" :class="$style.tabPane"></div>
+            <div v-show="tabSelected == 'forecast'" :class="$style.tabPane">
+                <forecast-list />
+            </div>
 
             <!-- Synopsis Archive tab -->
             <div v-if="tabSelected == 'synopsis'" :class="$style.tabPane"></div>
@@ -20,27 +24,25 @@
 
 <script>
 import Tabs from '../components/Tabs'
+import Loader from '../components/Loader'
+import Alert from '../components/Alert'
 import ContentPanel from '../components/ContentPanel'
-import AvalancheDanger from '../components/AvalancheDanger'
-import AvalancheProblem from '../components/AvalancheProblem'
-import MediaGallery from '../components/MediaGallery'
-import WeatherContent from '../components/WeatherContent'
-import WeatherTable from '../components/WeatherTable'
-import SynopsisContent from '../components/SynopsisContent'
+import ForecastList from '../components/ForecastList'
 import Disclaimer from '../components/Disclaimer'
 
 export default {
+    name: 'Archive',
     data() {
         return {
             // make tabs a computed property conditional on preview, weather, and synopsis
             tabs: [
                 {
                     id: "forecast",
-                    name: "Avalanche Forecast"
+                    name: "Avalanche Forecasts"
                 },
                 {
                     id: "synopsis",
-                    name: "Regional Synopsis"
+                    name: "Regional Synopses"
                 }
             ],
             tabSelected: "forecast"
@@ -48,7 +50,10 @@ export default {
     },
     components: {
         Tabs,
+        Loader,
+        Alert,
         ContentPanel,
+        ForecastList,
         Disclaimer
     },
     methods: {
@@ -74,8 +79,12 @@ export default {
     margin-bottom: $spacer !important;
 }
 
-.row {
-    composes: row from "../assets/css/style.css";
-    margin-bottom: $spacer;
+.panel {
+    padding-top: 1rem !important;
 }
+
+.tabPane {
+    min-height: 80vh;
+}
+
 </style>
