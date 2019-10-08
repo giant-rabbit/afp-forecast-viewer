@@ -41,10 +41,12 @@
         <div :class="$style.container">
             <alert />
             <loader />
-            <!-- <p>
+            <p>
                 <router-link to="/archive">Archive</router-link>
                 <router-link :to="{ name: 'Forecast', params: { zone: 'sawtooth' }}">Forecast</router-link>
-            </p> -->
+                <router-link :to="{ name: 'Weather' }">Weather</router-link>
+                <router-link :to="{ name: 'Synopsis' }">Synopsis</router-link>
+            </p>
             <transition
                 name="fade"
                 mode="out-in"

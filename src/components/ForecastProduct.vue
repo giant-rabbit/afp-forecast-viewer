@@ -42,12 +42,7 @@
             :selected="tabSelected"
             @changeTab="changeTab"
         />
-        <tabs
-            v-else
-            ref="tabs"
-            :tabs="tabsPreview"
-            :selected="tabSelected"
-        />
+        <tabs v-else ref="tabs" :tabs="tabsPreview" :selected="tabSelected" />
 
         <!-- Tab container -->
         <content-panel>
@@ -79,6 +74,7 @@
                     :class="$style.mediaGallery"
                     :media="data.media"
                     scope="scope-forecast"
+                    v-if="data.media.length > 0"
                 />
                 <!-- <div v-if="this.$config.mediaUrl" :class="$style.textCenter">
                         <a
@@ -90,7 +86,7 @@
                 </div>-->
                 <div v-if="!preview" :class="$style.divider">
                     <h2>Weather Summary</h2>
-                    <!-- Need logic for correct weather table -->
+                    <!-- Need logic for correct weather table && if it exists -->
                     <weather-table
                         :periods="data.weather_data[0].periods"
                         :data="data.weather_data[0].data"
@@ -106,13 +102,26 @@
             </div>
 
             <!-- Weather tab -->
+            <!-- need conditional logic -->
             <div v-show="tabSelected == 'weather'" :class="$style.tabPane">
-                <forecast-view :data="data" :product="'weather'" :config="config" />
+                <weather-content :data="data" />
             </div>
 
             <!-- Synopsis tab -->
+            <!-- need conditional logic -->
             <div v-if="tabSelected == 'synopsis'" :class="$style.tabPane">
-                <forecast-view :data="data" :product="'synopsis'" :config="config" />
+                <!-- Title -->
+                <h2 v-html="data.bottom_line2"></h2>
+                <!-- Header -->
+                <product-header
+                    :published="data.published_time"
+                    :author="data.author"
+                    :expires="false"
+                />
+                <synopsis-content :data="data" />
+                <div :class="$style.textCenter">
+                    <button @click :class="$style.btn">View Previous Synopses</button>
+                </div>
             </div>
 
             <!-- Custom tab content -->
@@ -135,12 +144,15 @@ import ContentPanel from '../components/ContentPanel'
 import AvalancheDanger from '../components/AvalancheDanger'
 import AvalancheProblem from '../components/AvalancheProblem'
 import MediaGallery from '../components/MediaGallery'
+import WeatherContent from '../components/WeatherContent'
 import WeatherTable from '../components/WeatherTable'
+import SynopsisContent from '../components/SynopsisContent'
 import Disclaimer from '../components/Disclaimer'
 
 export default {
     data() {
         return {
+            // make tabs a computed property conditional on preview, weather, and synopsis
             tabs: [
                 {
                     id: "forecast",
@@ -176,7 +188,9 @@ export default {
         AvalancheDanger,
         AvalancheProblem,
         MediaGallery,
+        WeatherContent,
         WeatherTable,
+        SynopsisContent,
         Disclaimer
     },
     methods: {
@@ -231,6 +245,8 @@ export default {
     h2 {
         color: $gray-700 !important;
         margin-bottom: 0 !important;
+        text-indent: -0.75rem;
+        margin-left: 1.5rem;
     }
 }
 

@@ -17,7 +17,7 @@
                     <img
                         v-if="item.type == 'photo'"
                         :class="$style.galleryImg"
-                        v-preview:scope-forecast
+                        v-preview:[scope]
                         :src="item.url"
                         :alt="item.caption"
                         v-tooltip="item.caption"
@@ -81,7 +81,7 @@ export default {
         Flickity,
         VideoModal
     },
-    props: ['media'],
+    props: ['media', 'scope'],
     methods: {
         hideDots() {
             var viewportWidth = document.querySelector('.afp-carousel').offsetWidth

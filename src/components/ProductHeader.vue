@@ -1,8 +1,9 @@
 <template>
     <div>
         <div v-if="expired && !preview" :class="$style.productExpired">
-            <i class="mdi mdi-clock-alert"></i>
-            <h2>This product is expired</h2>
+            <h2>
+                <i class="mdi mdi-clock-alert"></i> This product is expired
+            </h2>
         </div>
         <div :class="$style.row">
             <div v-if="published != ''" :class="$style.metaColumn">
@@ -11,7 +12,7 @@
                     {{ published | publicDate }}
                 </div>
             </div>
-            <div v-if="expires != ''" :class="$style.metaColumn">
+            <div v-if="expires" :class="$style.metaColumn">
                 <div :class="$style.metaColumnContent">
                     <h6>Expires</h6>
                     {{ expires | publicDate }}
@@ -34,7 +35,11 @@ export default {
     props: ['preview', 'published', 'expires', 'author'],
     computed: {
         expired: function () {
-            return moment(this.expires).isBefore()
+            if (this.expires) {
+                return moment(this.expires).isBefore()
+            } else {
+                return false
+            }
         },
     },
 }
@@ -64,12 +69,10 @@ export default {
     position: relative;
     h2 {
         color: #fff !important;
-        margin: 0 !important;
-        display: inline;
-        vertical-align: middle;
-        padding-left: 1rem;
+        margin-bottom: 0 !important;
+        margin-left: 50px;
     }
-    padding: 1rem 1rem;
+    padding: 1.5rem;
     margin-bottom: $spacer;
     @include border-radius($alert-border-radius);
     background-color: $high;
@@ -77,7 +80,10 @@ export default {
         color: #fff !important;
         font-size: 3rem;
         line-height: 1;
-        vertical-align: middle
+        position: absolute;
+        left: 15px;
+        transform: translate(0, -50%);
+        top: 50%;
     }
 }
 </style>

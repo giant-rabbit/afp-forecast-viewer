@@ -1,41 +1,48 @@
 <template>
     <div>
+        <div :class="$style.title">
+            <h1>Regional Synopsis</h1>
+            <h2 v-html="data.bottom_line2"></h2>
+            <!-- <h2>
+                <i class="mdi mdi-map-marker"></i>
+                All Zones
+            </h2> -->
+        </div>
         <!-- Header -->
-        <h2>{{data.bottom_line2}}</h2>
-        <div :class="$style.row">
-            <div :class="$style.metaColumn">
-                <h6>Issued</h6>
-                {{ data.published_time | publicDate }}
-            </div>
-            <div :class="$style.metaColumn">
-                <h6>Author</h6>
-                {{ data.author }}
-            </div>
-        </div>
+        <product-header
+            :preview="preview"
+            :published="data.published_time"
+            :expires="false"
+            :author="data.author"
+        />
 
-        <!-- discussion -->
-        <div class="afp-synopsis" v-html="data.hazard_discussion2"></div>
-
-        <!-- media -->
-        <div v-if="data.media.length > 0">
-            <h3>Media</h3>
-            <media-gallery :class="$style.spacer" :media="data.media" scope="scope-synopsis"/>
-        </div>
+        <content-panel>
+            <!-- Content -->
+            <synopsis-content :data="data" />
+        </content-panel>
+        <disclaimer />
     </div>
 </template>
 
 <script>
-import MediaGallery from '../components/MediaGallery'
+import ProductHeader from '../components/ProductHeader'
+import ContentPanel from '../components/ContentPanel'
+import SynopsisContent from '../components/SynopsisContent'
+import Disclaimer from '../components/Disclaimer'
 
 export default {
     data() {
         return {
+            date: ''
         }
     },
-    props: ['data', 'config'],
+    props: ['preview', 'data', 'config'],
     components: {
-        MediaGallery
-    }
+        ProductHeader,
+        ContentPanel,
+        SynopsisContent,
+        Disclaimer
+    },
 }
 </script>
 
@@ -44,47 +51,11 @@ export default {
 @import "../assets/css/_variables.scss";
 @import "../assets/css/bootstrap/mixins";
 
-.spacer {
+.title {
+    h2 {
+        color: $gray-700 !important;
+        margin-bottom: 0 !important;
+    }
     margin-bottom: $spacer;
-}
-
-.container {
-    composes: container from "../assets/css/style.css";
-}
-
-.row {
-    composes: row from "../assets/css/style.css";
-}
-
-.metaColumn {
-    composes: col-md-6 from "../assets/css/style.css";
-    composes: col-12 from "../assets/css/style.css";
-    margin-bottom: $spacer;
-}
-</style>
-
-<style scoped lang="scss">
-.afp-synopsis::v-deep {
-    figure {
-        margin: 0 1rem 1rem 1rem !important;
-        display: inline-block;
-        figcaption {
-            font-style: italic;
-            font-size: 80%;
-        }
-    }
-    figure.align-right {
-        float: right !important;
-        margin: 0 0 1rem 1rem !important;
-    }
-    figure.align-left {
-        float: left !important;
-        margin: 0 1rem 1rem 0 !important;
-    }
-    figure.align-center {
-        display: table;
-        margin-left: auto;
-        margin-right: auto;
-    }
 }
 </style>

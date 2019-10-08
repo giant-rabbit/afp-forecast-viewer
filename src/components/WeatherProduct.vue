@@ -1,38 +1,47 @@
 <template>
     <div>
+        <div :class="$style.title">
+            <h1>Weather Forecast</h1>
+            <h2>
+                <i class="mdi mdi-map-marker"></i>
+                All Zones
+            </h2>
+        </div>
         <!-- Header -->
-        <div :class="$style.row">
-            <div :class="$style.metaColumn">
-                <h6>Issued</h6>
-                {{ data.published_time | publicDate }}
-            </div>
-            <div :class="$style.metaColumn">
-                <h6>Author</h6>
-                {{ data.author }}
-            </div>
-        </div>
+        <product-header
+            :preview="preview"
+            :published="data.published_time"
+            :expires="false"
+            :author="data.author"
+        />
 
-        <!-- Weather discussion -->
-        <div v-show="data.weather_discussion != ''" :class="$style.spacer">
-            <h2>Weather Discussion</h2>
-            <div v-html="data.weather_discussion"></div>
-        </div>
-
-        <!-- Weather tables -->
-        <div v-for="(zone,index) in data.weather_data" :key="zone.zone_id" >
-            <weather-table :periods="zone.periods" :data="zone.data" :zone="zone.zone_name" :key="index"/>
-        </div>
+        <content-panel>
+            <!-- Content -->
+            <weather-content :data="data" />
+        </content-panel>
+        <disclaimer />
     </div>
 </template>
 
 <script>
-import WeatherTable from '../components/WeatherTable'
+import ProductHeader from '../components/ProductHeader'
+import ContentPanel from '../components/ContentPanel'
+import WeatherContent from '../components/WeatherContent'
+import Disclaimer from '../components/Disclaimer'
 
 export default {
-    props: ['data', 'config'],
+    data() {
+        return {
+            date: ''
+        }
+    },
+    props: ['preview', 'data', 'config'],
     components: {
-        WeatherTable
-    }
+        ProductHeader,
+        ContentPanel,
+        WeatherContent,
+        Disclaimer
+    },
 }
 </script>
 
@@ -41,21 +50,11 @@ export default {
 @import "../assets/css/_variables.scss";
 @import "../assets/css/bootstrap/mixins";
 
-.spacer {
-    margin-bottom: $spacer;
-}
-
-.container {
-    composes: container from "../assets/css/style.css";
-}
-
-.row {
-    composes: row from "../assets/css/style.css";
-}
-
-.metaColumn {
-    composes: col-md-6 from "../assets/css/style.css";
-    composes: col-12 from "../assets/css/style.css";
+.title {
+    h2 {
+        color: $gray-700 !important;
+        margin-bottom: 0 !important;
+    }
     margin-bottom: $spacer;
 }
 </style>
