@@ -1,28 +1,37 @@
 <template>
     <div v-show="loaded">
         <h1>Forecast Archive</h1>
-        <table-filter :data="data" ref="filter" />
-        <v-client-table :columns="columns" :data="data" :options="options" ref="table">
-            <div slot="date_id" slot-scope="props">
-                <router-link
-                    class
-                    v-tooltip="'View product'"
-                    :to="{ name: 'ArchivedForecast', params: { zone: 'sawtooth', date: props.row.date_id  }}"
-                >View</router-link>
-            </div>
-            <span slot="start_date_iso" slot-scope="props">{{props.row.start_date_iso | formatDate}}</span>
-            <span slot="end_date_iso" slot-scope="props">{{props.row.end_date_iso | formatDate}}</span>
-        </v-client-table>
+        <!-- <table-filter :data="data" ref="filter" /> -->
+        <content-panel :class="$style.container">
+            <v-client-table :columns="columns" :data="data" :options="options" ref="table">
+                <div slot="start_date" slot-scope="props">
+                    <!-- need logic for link based on product type -->
+                    <router-link
+                        class
+                        v-tooltip="'View product'"
+                        :to="{ name: 'ArchivedForecast', params: { zone: 'sawtooth', date: props.row.start_date  }}"
+                    >{{props.row.start_date}}</router-link>
+                </div>
+                <span slot="danger_rating" slot-scope="props">
+                    <span v-if="props.row.danger_rating == ''"></span>
+                    <span
+                        v-else
+                        :class="'afp-danger afp-danger-' + props.row.danger_rating"
+                    >{{props.row.danger_rating}}</span>
+                </span>
+            </v-client-table>
+        </content-panel>
     </div>
 </template>
 
 <script>
 import Vue from 'vue'
 import { ClientTable, Event } from 'vue-tables-2'
-// import moment from 'moment'
 import TableFilter from '../components/TableFilter'
+import ContentPanel from '../components/ContentPanel'
 import tableTheme from '../vueTableTheme'
 import tableTemplate from '../vueTableTemplate'
+import moment from 'moment/src/moment.js'
 Vue.use(ClientTable, {}, false, tableTheme, tableTemplate)
 
 
@@ -35,29 +44,27 @@ export default {
             /**
              * Set up Vue Tables 2
              */
-            columns: ['date_id', 'start_date_iso', 'end_date_iso', 'product', 'forecast_zones'],
+            columns: ['start_date', 'product_type', 'forecast_zones', 'danger_rating'],
             data: [],
             options: {
                 skin: 'table',
                 columnsClasses: {
-                    date_id: 'afp-table-view',
-                    product: 'afp-table-product',
                     forecast_zones: 'afp-table-zones',
-                    start_date_iso: 'afp-table-time',
-                    end_date_iso: 'afp-table-time'
+                    danger: 'afp-table-danger',
+                    product_type: 'afp-table-product',
+                    start_date: 'afp-table-time',
                 },
                 headings: {
-                    date_id: '',
-                    product: "Product",
+                    product_type: "Product",
                     forecast_zones: 'Zones',
-                    start_date_iso: 'Published',
-                    end_date_iso: 'Expires',
+                    danger_rating: "Danger",
+                    start_date: 'Published',
                 },
                 orderBy: {
-                    column: 'start_date_iso',
+                    column: 'start_date',
                     ascending: false
                 },
-                sortable: ['start_date_iso', 'end_date_iso', 'product'],
+                sortable: ['start_date', 'danger_rating'],
                 filterable: true,
                 perPage: 10,
                 perPageValues: [10, 25, 50],
@@ -74,54 +81,100 @@ export default {
                     count: "Showing {from} to {to} of {count} products|{count} products|One product",
                 },
                 saveState: true,
-                customFilters: [
-                    {
-                        name: 'multiFilter',
-                        callback: function (row, query) {
-                            var result = true
-                            query.forEach(function (column, index) {
-                                var thisResult = false
-                                column.columnFilter.forEach(function (filter, index) {
-                                    if (typeof filter === "boolean") {
-                                        thisResult = thisResult || row[column.columnName] == filter
-                                    } else {
-                                        thisResult = thisResult || row[column.columnName].includes(filter)
-                                    }
-                                })
-                                result = result && thisResult
-                            })
-                            return result
-                        }
-                    }
-                ]
+                // customFilters: [
+                //     {
+                //         name: 'multiFilter',
+                //         callback: function (row, query) {
+                //             var result = true
+                //             query.forEach(function (column, index) {
+                //                 var thisResult = false
+                //                 column.columnFilter.forEach(function (filter, index) {
+                //                     if (typeof filter === "boolean") {
+                //                         thisResult = thisResult || row[column.columnName] == filter
+                //                     } else if (row[column.columnName] == null) {
+                //                         thisResult = thisResult || false
+                //                     } else {
+                //                         thisResult = thisResult || row[column.columnName].includes(filter)
+                //                     }
+                //                 })
+                //                 result = result && thisResult
+                //             })
+                //             return result
+                //         }
+                //     }
+                // ]
 
             }
         }
     },
     components: {
         TableFilter,
+        ContentPanel
     },
     methods: {
         getProducts() {
             var ref = this
-            setTimeout(function () {
-                ref.loaded = true
-                ref.$eventBus.$emit('loaded')
-            }, 500)
-            // this.$api
-            //     .get('/warning/get-all-warnings-by-center/' + this.$centerId)
-            //     .then(response => {
-            //         this.data = response.data
-            //         this.data.forEach(function (row, index) {
-            //             row.date_id = moment(row.start_date_iso).format('YYYY-MM-DD')
-            //         })
-            //         this.$eventBus.$emit('loaded')
-            //         this.loaded = true
-            //     })
-            //     .catch(e => {
-            //         this.$eventBus.$emit('showAlert')
-            //         this.$eventBus.$emit('loaded')
-            //     })
+            this.$api
+                .get('forecasts?avalanche_center_id=' + this.$centerId)
+                .then(response => {
+                    this.data = response.data
+                    this.data.forEach(function (forecast, index) {
+                        if (forecast.start_date) {
+                            forecast.start_date = moment(forecast.start_date).format('YYYY-MM-DD')
+                        }
+                        switch (forecast.danger_rating) {
+                            case 0:
+                                forecast.danger_rating = ""
+                                break
+                            case 1:
+                                forecast.danger_rating = "low"
+                                break
+                            case 2:
+                                forecast.danger_rating = "moderate"
+                                break
+                            case 3:
+                                forecast.danger_rating = "considerable"
+                                break
+                            case 4:
+                                forecast.danger_rating = "high"
+                                break
+                            case 5:
+                                forecast.danger_rating = "extreme"
+                                break
+                            default:
+                                forecast.danger_rating = ""
+                        }
+                        switch (forecast.product_type) {
+                            case "forecast":
+                                forecast.product_type = "Avalanche Forecast"
+                                break
+                            case "weather":
+                                forecast.product_type = "Weather Forecast"
+                                break
+                            case "synopsis":
+                                forecast.product_type = "Regional Synopsis"
+                                break
+                            case "summary":
+                                forecast.product_type = "Conditions Summary"
+                                break
+                        }
+                        var zones = "";
+                        forecast.forecast_zone.forEach(function (zone, index) {
+                            if (index == 0) {
+                                zones = zone.name
+                            } else {
+                                zones += ', ' + zone.name
+                            }
+                        })
+                        forecast.forecast_zones = zones
+                    })
+                    this.$eventBus.$emit('loaded')
+                    this.loaded = true
+                })
+                .catch(e => {
+                    this.$eventBus.$emit('showAlert')
+                    this.$eventBus.$emit('loaded')
+                })
         }
     },
     mounted() {
@@ -135,12 +188,23 @@ export default {
 
 </script>
 
+<style module lang="scss">
+@import "../assets/css/bootstrap/functions";
+@import "../assets/css/_variables.scss";
+@import "../assets/css/bootstrap/mixins";
+
+.container {
+    margin-bottom: $spacer;
+}
+</style>
+
 <style scoped lang="scss">
 @import "../assets/css/bootstrap/functions";
 @import "../assets/css/_variables.scss";
 @import "../assets/css/bootstrap/mixins";
 
 .VueTables::v-deep {
+    padding-bottom: 1rem;
     table {
         border-collapse: collapse;
         width: 100%;
@@ -167,17 +231,12 @@ export default {
             font-family: $headings-font-family;
             font-weight: $headings-font-weight;
             font-size: $font-size-sm;
-            //text-transform: uppercase;
+            text-transform: uppercase;
         }
         td,
         th {
             vertical-align: middle !important;
-            &.afp-table-view {
-                width: 60px;
-                max-width: 60px;
-                min-width: 60px;
-                white-space: initial !important;
-            }
+            border-top: none;
             &.afp-table-time,
             &.afp-table-product {
                 width: 120px;
@@ -188,6 +247,33 @@ export default {
         }
         td.afp-table-product {
             text-transform: capitalize;
+        }
+    }
+    .afp-danger {
+        padding: 0.2rem 0.3rem;
+        font-size: $font-size-sm;
+        text-transform: uppercase;
+        font-weight: bold;
+        border-radius: $btn-border-radius-sm;
+        &.afp-danger-low {
+            background-color: $low;
+        }
+
+        &.afp-danger-moderate {
+            background-color: $moderate;
+        }
+
+        &.afp-danger-considerable {
+            background-color: $considerable;
+        }
+
+        &.afp-danger-high {
+            background-color: $high;
+        }
+
+        &.afp-danger-extreme {
+            background-color: $extreme;
+            color: #fff !important;
         }
     }
     .VueTables__sort-icon {
@@ -213,11 +299,10 @@ export default {
                 padding: $pagination-padding-y $pagination-padding-x;
                 margin-left: -$pagination-border-width;
                 line-height: $pagination-line-height;
-                color: $pagination-color;
+                color: $gray-900 !important;
                 background-color: $pagination-bg;
                 border-radius: $border-radius;
                 border: none;
-                color: $gray-700;
                 font-weight: bold;
                 margin: 0 1px;
                 &:hover {
@@ -228,17 +313,16 @@ export default {
 
                 &:focus {
                     outline: $pagination-focus-outline;
-                    box-shadow: $pagination-focus-box-shadow;
                 }
             }
             .afp-page-item {
                 &.afp-page-link-active .afp-page-link {
-                    color: $pagination-active-color;
-                    background-color: $pagination-active-bg;
+                    color: #fff !important;
+                    background-color: $gray-600;
                 }
 
                 &.afp-page-link-disabled .afp-page-link {
-                    color: $pagination-disabled-color;
+                    color: $gray-300 !important;
                     cursor: not-allowed;
                     background-color: $pagination-disabled-bg;
                 }
@@ -254,6 +338,7 @@ export default {
     }
     .afp-table-responsive {
         @include table-responsive;
+        margin-top: 0;
     }
 }
 </style>
