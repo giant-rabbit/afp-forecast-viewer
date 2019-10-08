@@ -1,5 +1,6 @@
 <template>
     <div v-if="loaded">
+        <!-- need logic for whether to show forecast or summary -->
         <forecast-view product="forecast" :data="data" :config="config" :preview="preview" />
     </div>
 </template>
