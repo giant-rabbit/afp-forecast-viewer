@@ -135,7 +135,7 @@ import { Event } from 'vue-tables-2'
 export default {
     data() {
         return {
-            show: true,
+            show: false,
             centerMeta: '',
             products: [
                 {
@@ -143,7 +143,7 @@ export default {
                     value: 'Avalanche Forecast'
                 },
                 {
-                    name: 'Avalanche Conditions Summary',
+                    name: 'Conditions Summary',
                     value: 'Conditions Summary'
                 },
                 {

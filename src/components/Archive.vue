@@ -1,6 +1,6 @@
 <template>
     <div v-show="loaded">
-        <h1>Forecast Archive</h1>
+        <h1 :class="$style.title">Forecast Archive</h1>
         <table-filter :data="data" ref="filter" @search="tableSearch()"/>
         <content-panel :class="$style.container">
             <v-client-table :columns="columns" :data="data" :options="options" ref="forecastTable">
@@ -212,8 +212,8 @@ export default {
 @import "../assets/css/_variables.scss";
 @import "../assets/css/bootstrap/mixins";
 
-.container {
-    margin-bottom: $spacer;
+.container, .title {
+    margin-bottom: $spacer !important;
 }
 </style>
 
