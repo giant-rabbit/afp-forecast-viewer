@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :class="$style.gallery">
         <video-modal
             @close="videoModal = false"
             :show="videoModal"
@@ -124,6 +124,10 @@ export default {
 @import "../assets/css/bootstrap/mixins/breakpoints";
 
 $gallery-height: 200px;
+
+.gallery {
+    margin-bottom: 2.5*$spacer;
+}
 
 .galleryItem {
     width: 100%;

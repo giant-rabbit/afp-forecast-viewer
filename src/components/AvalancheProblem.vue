@@ -172,6 +172,7 @@ export default {
 
 .problemContainer {
     @include divider;
+    margin-bottom: 1.5*$spacer;
     &::after {
         display: block;
         content: "";

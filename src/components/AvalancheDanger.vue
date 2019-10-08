@@ -148,9 +148,8 @@ export default {
 @import "../assets/css/bootstrap/mixins";
 
 .danger {
-    @include divider;
+    margin-bottom: 1.5*$spacer;
 }
-
 .row {
     composes: row from "../assets/css/style.css";
 }

@@ -1,10 +1,30 @@
 <template>
     <!-- <div class="afp-forecast-view"> -->
     <div>
-        <forecast-product v-if="product == 'forecast'" :data="data" :config="config" />
-        <weather-product v-if="product == 'weather'" :data="data" :config="config" />
-        <summary-product v-if="product == 'summary'" :data="data" :config="config" />
-        <synopsis-product v-if="product == 'synopsis'" :data="data" :config="config" />
+        <forecast-product
+            v-if="product == 'forecast'"
+            :preview="preview"
+            :data="data"
+            :config="config"
+        />
+        <weather-product
+            v-if="product == 'weather'"
+            :preview="preview"
+            :data="data"
+            :config="config"
+        />
+        <summary-product
+            v-if="product == 'summary'"
+            :preview="preview"
+            :data="data"
+            :config="config"
+        />
+        <synopsis-product
+            v-if="product == 'synopsis'"
+            :preview="preview"
+            :data="data"
+            :config="config"
+        />
     </div>
 </template>
 
@@ -23,6 +43,10 @@ export default {
     props: {
         data: {
             type: Object
+        },
+        preview: {
+            type: Boolean,
+            default: false
         },
         product: {
             type: String,

@@ -134,7 +134,9 @@ export default {
 .dropdown {
     position: absolute;
     top: 100%;
-    left: 0;
+    @include media-breakpoint-down(sm) {
+        left: 0;
+    }
     right: 0;
     z-index: $zindex-dropdown;
     min-width: $dropdown-min-width;

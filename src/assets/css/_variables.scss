@@ -66,17 +66,14 @@ $spacer: 2rem !default;
 }
 
 @mixin divider {
-  padding-bottom: 1.5 * $spacer;
-  border-bottom: 1.5px solid $gray-200;
-  margin-bottom: 1.5 * $spacer;
+  padding-top: 1.5 * $spacer;
+  border-top: 1.5px solid $gray-200;
 }
 
 
 //
 // Color system
 //
-
-
 
 $grays: () !default;
 $grays: map-merge((

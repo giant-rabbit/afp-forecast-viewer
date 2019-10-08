@@ -392,7 +392,7 @@ export default {
     }
 
     .flickity-button:disabled {
-        opacity: 0.3;
+        opacity: 0;
         cursor: auto;
         /* prevent disabled button from capturing pointer up event. #716 */
         pointer-events: none;

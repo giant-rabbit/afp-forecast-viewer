@@ -47,11 +47,11 @@ html {
     margin-top: 0;
     // font-family: $headings-font-family;
     // font-weight: $headings-font-weight;
-    line-height: $headings-line-height !important;
-    color: $headings-color !important;
+    line-height: $headings-line-height;
+    color: $headings-color;
     letter-spacing: .5px !important;
     text-transform: uppercase !important;
-    font-weight: bold;
+    font-weight: bold !important;
   }
 
   h1,
