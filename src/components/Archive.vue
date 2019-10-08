@@ -1,9 +1,9 @@
 <template>
     <div v-show="loaded">
         <h1>Forecast Archive</h1>
-        <!-- <table-filter :data="data" ref="filter" /> -->
+        <table-filter :data="data" ref="filter" @search="tableSearch()"/>
         <content-panel :class="$style.container">
-            <v-client-table :columns="columns" :data="data" :options="options" ref="table">
+            <v-client-table :columns="columns" :data="data" :options="options" ref="forecastTable">
                 <div slot="start_date" slot-scope="props">
                     <!-- need logic for link based on product type -->
                     <router-link
@@ -81,28 +81,43 @@ export default {
                     count: "Showing {from} to {to} of {count} products|{count} products|One product",
                 },
                 saveState: true,
-                // customFilters: [
-                //     {
-                //         name: 'multiFilter',
-                //         callback: function (row, query) {
-                //             var result = true
-                //             query.forEach(function (column, index) {
-                //                 var thisResult = false
-                //                 column.columnFilter.forEach(function (filter, index) {
-                //                     if (typeof filter === "boolean") {
-                //                         thisResult = thisResult || row[column.columnName] == filter
-                //                     } else if (row[column.columnName] == null) {
-                //                         thisResult = thisResult || false
-                //                     } else {
-                //                         thisResult = thisResult || row[column.columnName].includes(filter)
-                //                     }
-                //                 })
-                //                 result = result && thisResult
-                //             })
-                //             return result
-                //         }
-                //     }
-                // ]
+                customFilters: [
+                    {
+                        name: 'multiFilter',
+                        callback: function (row, query) {
+                            var result = true
+                            query.forEach(function (column, index) {
+                                var thisResult = false
+                                column.columnFilter.forEach(function (filter, index) {
+                                    if (typeof filter === "boolean") {
+                                        thisResult = thisResult || row[column.columnName] == filter
+                                    } else if (row[column.columnName] == null) {
+                                        thisResult = thisResult || false
+                                    } else {
+                                        thisResult = thisResult || row[column.columnName].includes(filter)
+                                    }
+                                })
+                                result = result && thisResult
+                            })
+                            return result
+                        }
+                    },
+                    // {
+                    //     name: 'searchFilter',
+                    //     callback: function (row, query) {
+                    //         var result = true
+                    //         console.log(row)
+
+                    //         if (row[product_type] == null) {
+                    //             result = result || false
+                    //         } else {
+                    //             result = result || row[product_type].includes(query)
+                    //         }
+
+                    //         return result
+                    //     }
+                    // }
+                ]
 
             }
         }
@@ -112,6 +127,10 @@ export default {
         ContentPanel
     },
     methods: {
+        tableSearch(query) {
+            console.log('event')
+            this.$refs.forecastTable.setFilter('moderate')
+        },
         getProducts() {
             var ref = this
             this.$api

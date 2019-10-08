@@ -265,7 +265,7 @@ export default {
     position: relative;
     background-color: #fff;
     padding: $spacer;
-    border-radius: $border-radius;
+    // border-radius: $border-radius;
     border: 1.2px solid $gray-400;
     box-shadow: $app-box-shadow;
     margin-top: 3rem;

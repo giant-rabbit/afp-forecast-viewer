@@ -3,16 +3,13 @@
         <button
             v-tooltip="'Toggle filters'"
             @click="show = !show"
-            :class="$style.toggleBtn" class="afp-btn-primary"
+            :class="$style.toggleBtn"
+            class="afp-btn-primary"
         >
-            <i class="mdi mdi-filter"></i> Filters
-    
+            <i class="mdi mdi-filter"></i>
+            Filters
         </button>
-        <button
-            v-tooltip="'Reset filters'"
-            :class="$style.resetBtn"
-            @click="resetTableFilter"
-        >
+        <button v-tooltip="'Reset filters'" :class="$style.resetBtn" @click="resetTableFilter">
             <i class="mdi mdi-filter-remove"></i> Reset
         </button>
         <transition name="expand" @enter="enter" @after-enter="afterEnter" @leave="leave">
@@ -37,7 +34,7 @@
                         </div>
                     </div>
 
-                    <div id="product" :class="[$style.column]">
+                    <div id="product_type" :class="[$style.column]">
                         <h5>Filter by Product</h5>
                         <div
                             :class="$style.checkboxes"
@@ -56,9 +53,28 @@
                         </div>
                     </div>
 
-                    <div id="start_date_iso" :class="[$style.column]">
-                        <h5>Filter by Year</h5>
+                    <div id="danger_rating" :class="[$style.column]">
+                        <h5>Filter by Danger</h5>
                         <div
+                            :class="$style.checkboxes"
+                            v-for="(rating, index) in danger"
+                            v-bind:key="index"
+                        >
+                            <input
+                                v-model="dangerFilter"
+                                :class="$style.checkbox"
+                                class="afp-checkbox"
+                                type="checkbox"
+                                :value="rating.value"
+                                :id="rating.value"
+                            />
+                            <label :for="rating.value">{{rating.name}}</label>
+                        </div>
+                    </div>
+
+                    <div id="start_date" :class="[$style.column]">
+                        <h5>Search by Date</h5>
+                        <!-- <div
                             :class="$style.checkboxes"
                             v-for="(year, index) in years"
                             v-bind:key="index"
@@ -68,18 +84,33 @@
                                 :class="$style.checkbox"
                                 type="checkbox"
                                 class="afp-checkbox"
-                                :value="year"
-                                :id="year"
+                                :value="year.value"
+                                :id="year.value"
                             />
-                            <label :for="year">{{year}}</label>
+                            <label :for="year.value">{{year.name}}</label>
+                        </div>-->
+                        <div :class="$style.search">
+                            <input
+                                :class="$style.searchInput"
+                                placeholder="Search yyyy-mm-dd"
+                                v-model="dateFilter"
+                                type="text"
+                            />
+                            <button
+                                v-if="dateFilter"
+                                :class="$style.searchClear"
+                                @click="dateFilter = ''"
+                            >
+                                <i class="mdi mdi-close"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </transition>
         <div>
-            <span v-for="column in filterQuery" v-bind:key="column.columnName">
-                <transition-group name="fade">
+            <transition-group name="fade">
+                <span v-for="column in filterQuery" v-bind:key="column.columnName">
                     <button
                         @click="removeFilter(column.columnName, filter)"
                         :class="$style.filterTags"
@@ -90,8 +121,8 @@
                         <i class="mdi mdi-close"></i>&nbsp;
                         <span>{{filter}}</span>
                     </button>
-                </transition-group>
-            </span>
+                </span>
+            </transition-group>
         </div>
     </div>
 </template>
@@ -104,33 +135,66 @@ import { Event } from 'vue-tables-2'
 export default {
     data() {
         return {
-            show: false,
+            show: true,
             centerMeta: '',
             products: [
                 {
-                    name: 'Watch',
-                    value: 'watch'
+                    name: 'Avalanche Forecast',
+                    value: 'Avalanche Forecast'
                 },
                 {
-                    name: 'Warning',
-                    value: 'warning'
+                    name: 'Avalanche Conditions Summary',
+                    value: 'Conditions Summary'
                 },
                 {
-                    name: 'Special Bulletin',
-                    value: 'special'
+                    name: 'Weather Forecast',
+                    value: 'Weather Forecast'
+                },
+                {
+                    name: 'Regional Synopsis',
+                    value: 'Regional Synopsis'
                 }
             ],
             productFilter: [],
+            danger: [
+                {
+                    name: 'Low',
+                    value: 'low'
+                },
+                {
+                    name: 'Moderate',
+                    value: 'moderate'
+                },
+                {
+                    name: 'Considerable',
+                    value: 'considerable'
+                },
+                {
+                    name: 'High',
+                    value: 'high'
+                },
+                {
+                    name: 'Extreme',
+                    value: 'extreme'
+                }
+            ],
+            dangerFilter: [],
             zoneFilter: [],
-            years: [],
+            years: [
+                {
+                    name: '2019',
+                    value: '2019'
+                },
+                {
+                    name: '2020',
+                    value: '2020'
+                }
+            ],
             yearFilter: [],
-            filterQuery: []
+            filterQuery: [],
+            dateFilter: ""
         }
     },
-    // components: {
-    //     BDropdown,
-    //     BDropdownText
-    // },
     props: ['data'],
     watch: {
         productFilter: function () {
@@ -139,24 +203,22 @@ export default {
         zoneFilter: function () {
             this.tableFilter()
         },
-        yearFilter: function () {
+        dangerFilter: function () {
             this.tableFilter()
         },
-        data: function () {
-            var years = []
-            this.data.forEach(function (item, index) {
-                var year = moment(item.start_date_iso).format('YYYY')
-                years.push(year)
-            })
-            this.years = [...new Set(years)]
-        }
+        // yearFilter: function () {
+        //     this.tableFilter()
+        // },
+        dateFilter: function () {
+            this.tableFilter()
+        },
     },
     methods: {
         tableFilter() {
             this.filterQuery = []
             if (this.productFilter.length > 0) {
                 var filter = {
-                    columnName: "product",
+                    columnName: "product_type",
                     columnFilter: this.productFilter
                 }
                 this.filterQuery.push(filter)
@@ -168,26 +230,45 @@ export default {
                 }
                 this.filterQuery.push(filter)
             }
-            if (this.yearFilter.length > 0) {
+            if (this.dangerFilter.length > 0) {
                 var filter = {
-                    columnName: "start_date_iso",
-                    columnFilter: this.yearFilter
+                    columnName: "danger_rating",
+                    columnFilter: this.dangerFilter
+                }
+                this.filterQuery.push(filter)
+            }
+            // if (this.yearFilter.length > 0) {
+            //     var filter = {
+            //         columnName: "start_date",
+            //         columnFilter: this.yearFilter
+            //     }
+            //     this.filterQuery.push(filter)
+            // }
+            if (this.dateFilter != '') {
+                var filter = {
+                    columnName: "start_date",
+                    columnFilter: [this.dateFilter]
                 }
                 this.filterQuery.push(filter)
             }
             Event.$emit('vue-tables.filter::multiFilter', this.filterQuery);
         },
         removeFilter(column, filter) {
-            var group = document.querySelector('#' + column)
-            var checkbox = group.querySelector("input[type='checkbox'][value='" + filter + "']")
-            group.querySelector("input[type='checkbox'][value='" + filter + "']").click()
+            if (column == 'start_date') {
+                this.dateFilter = ''
+            } else {
+                var group = document.querySelector('#' + column)
+                var checkbox = group.querySelector("input[type='checkbox'][value='" + filter + "']")
+                group.querySelector("input[type='checkbox'][value='" + filter + "']").click()
+            }
 
         },
         resetTableFilter() {
             this.productFilter = []
             this.zoneFilter = []
-            this.statusFilter = []
+            this.dangerFilter = []
             this.yearFilter = []
+            this.dateFilter = ''
         },
         getCenterMeta() {
             this.$api
@@ -248,7 +329,7 @@ export default {
 @import "../assets/css/bootstrap/mixins";
 
 .spacer {
-    margin-bottom: $spacer;
+    margin-bottom: 0.5 * $spacer;
 }
 
 .toggleBtn {
@@ -265,9 +346,16 @@ export default {
 }
 
 .filterContainer {
-    background-color: $gray-200;
-    padding: 0 1rem;
+    background-color: #fff;
+    border: 1.2px solid $gray-400;
+    box-shadow: $app-box-shadow;
+    padding: 1rem;
     margin-bottom: 1rem;
+    h5 {
+        border-bottom: 1px solid $gray-400;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+    }
 }
 
 .row {
@@ -277,7 +365,7 @@ export default {
 .column {
     composes: col-12 from "../assets/css/style.css";
     composes: col-md-6 from "../assets/css/style.css";
-    composes: col-lg-4 from "../assets/css/style.css";
+    composes: col-lg-3 from "../assets/css/style.css";
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
@@ -325,12 +413,59 @@ export default {
         color: $primary;
     }
 }
+.search {
+    position: relative;
+    margin-top: 1rem;
+    margin-left: 0.8rem;
+}
+
+.searchInput {
+    display: block;
+    width: 100%;
+    font-family: $font-family-base;
+    padding: 0.4rem 2.5rem 0.4rem 1rem;
+    font-size: $font-size-sm;
+    line-height: 1.5;
+    color: $gray-700;
+    background-color: $gray-300;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: $border-radius;
+    appearance: none !important;
+    box-shadow: none;
+    &:focus {
+        background-color: #fff;
+        border: 1px solid #c8ced3;
+        outline: 0;
+        box-shadow: none;
+    }
+}
+.searchClear {
+    position: absolute;
+    right: 0;
+    top: 0;
+    line-height: 2.1rem;
+    padding: 0 0.5rem;
+    font-size: 1.2rem;
+    z-index: 1;
+    appearance: none;
+    border: none;
+    background-color: transparent;
+    color: $gray-700;
+    &:focus {
+        outline: 0;
+        box-shadow: none;
+    }
+    &:hover {
+        color: $gray-900;
+    }
+}
 
 .filterTags {
     composes: btn from "../assets/css/style.css";
     composes: btn-primary from "../assets/css/style.css";
     font-size: $font-size-sm;
-    margin: .3rem .3rem 0 0;
+    margin: 0.3rem 0.3rem 0 0;
     padding: 0.15rem 0.4rem;
 }
 </style>
@@ -338,12 +473,12 @@ export default {
 <style scoped lang="scss">
 .expand-enter-active,
 .expand-leave-active {
-  transition: height .3s ease-in-out;
-  overflow: hidden;
+    transition: height 0.3s ease-in-out;
+    overflow: hidden;
 }
 
 .expand-enter,
 .expand-leave-to {
-  height: 0;
+    height: 0;
 }
 </style>
