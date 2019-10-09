@@ -7,7 +7,7 @@
                 <router-link
                     class
                     v-tooltip="'View product'"
-                    :to="{ name: 'ArchivedForecast', params: { zone: 'sawtooth', date: props.row.start_date  }}"
+                    :to="{ name: 'Synopsis' }"
                 >{{props.row.start_date}}</router-link>
             </div>
             <span slot="danger_rating" slot-scope="props">
@@ -42,25 +42,22 @@ export default {
             /**
              * Set up Vue Tables 2
              */
-            columns: ['start_date', 'danger_rating', 'forecast_zones'],
+            columns: ['start_date', 'bottom_line'],
             data: [],
             options: {
                 skin: 'table',
                 columnsClasses: {
-                    forecast_zones: 'afp-table-zones',
-                    danger_rating: 'afp-table-danger',
                     start_date: 'afp-table-time',
                 },
                 headings: {
-                    forecast_zones: 'Zones',
-                    danger_rating: "Danger",
+                    bottom_line: "Title",
                     start_date: 'Published',
                 },
                 orderBy: {
                     column: 'start_date',
                     ascending: false
                 },
-                sortable: ['start_date', 'danger_rating'],
+                sortable: ['start_date'],
                 filterable: true,
                 perPage: 100,
                 pagination: { chunk: 5 },
@@ -114,43 +111,12 @@ export default {
                     this.data = response.data
                     // filter forecasts
                     this.data = this.data.filter(function (value, index, arr) {
-                        return value.product_type == 'forecast' || value.product_type == 'summary'
+                        return value.product_type == 'synopsis'
                     })
                     this.data.forEach(function (forecast, index) {
                         if (forecast.start_date) {
                             forecast.start_date = moment(forecast.start_date).format('YYYY-MM-DD')
                         }
-                        switch (forecast.danger_rating) {
-                            case 0:
-                                forecast.danger_rating = ""
-                                break
-                            case 1:
-                                forecast.danger_rating = "low"
-                                break
-                            case 2:
-                                forecast.danger_rating = "moderate"
-                                break
-                            case 3:
-                                forecast.danger_rating = "considerable"
-                                break
-                            case 4:
-                                forecast.danger_rating = "high"
-                                break
-                            case 5:
-                                forecast.danger_rating = "extreme"
-                                break
-                            default:
-                                forecast.danger_rating = ""
-                        }
-                        var zones = "";
-                        forecast.forecast_zone.forEach(function (zone, index) {
-                            if (index == 0) {
-                                zones = zone.name
-                            } else {
-                                zones += ', ' + zone.name
-                            }
-                        })
-                        forecast.forecast_zones = zones
                     })
                     this.$eventBus.$emit('loaded')
                     this.loaded = true
@@ -219,7 +185,8 @@ export default {
         th {
             vertical-align: middle !important;
             border-top: none;
-            &.afp-table-time, &.afp-table-danger {
+            &.afp-table-time,
+            &.afp-table-danger {
                 width: 140px;
                 max-width: 140px;
                 min-width: 140px;

@@ -11,12 +11,18 @@
             <alert />
             <loader />
             <!-- Forecast Archive tab -->
-            <div v-show="tabSelected == 'forecast'" :class="$style.tabPane">
-                <forecast-list />
-            </div>
+            <keep-alive>
+                <div v-show="tabSelected == 'forecast'" :class="$style.tabPane">
+                    <forecast-list />
+                </div>
+            </keep-alive>
 
             <!-- Synopsis Archive tab -->
-            <div v-if="tabSelected == 'synopsis'" :class="$style.tabPane"></div>
+            <keep-alive>
+                <div v-if="tabSelected == 'synopsis'" :class="$style.tabPane">
+                    <synopsis-list />
+                </div>
+            </keep-alive>
         </content-panel>
         <disclaimer />
     </div>
@@ -28,6 +34,7 @@ import Loader from '../components/Loader'
 import Alert from '../components/Alert'
 import ContentPanel from '../components/ContentPanel'
 import ForecastList from '../components/ForecastList'
+import SynopsisList from '../components/SynopsisList'
 import Disclaimer from '../components/Disclaimer'
 
 export default {
@@ -54,6 +61,7 @@ export default {
         Alert,
         ContentPanel,
         ForecastList,
+        SynopsisList,
         Disclaimer
     },
     methods: {
@@ -86,5 +94,4 @@ export default {
 .tabPane {
     min-height: 80vh;
 }
-
 </style>
