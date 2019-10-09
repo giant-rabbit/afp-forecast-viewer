@@ -16,6 +16,11 @@ export default new Router({
 			component: Archive
 		},
 		{
+			path: '/archive/:tab/',
+			name: 'ArchiveTab',
+			component: Archive
+		},
+		{
 			path: '/weather',
 			name: 'Weather',
 			component: Weather,

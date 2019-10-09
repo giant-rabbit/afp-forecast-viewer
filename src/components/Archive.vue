@@ -67,12 +67,13 @@ export default {
     methods: {
         changeTab(tab) {
             this.tabSelected = tab
-            this.$router.push({ query: { nav: this.tabSelected } })
+            this.$router.push({ name: "ArchiveTab", params: { tab: this.tabSelected } })
         }
     },
     mounted() {
-        if (this.$route.query.nav && this.$route.query.nav != '') {
-            this.tabSelected = this.$route.query.nav
+        var tab = this.$route.params.tab
+        if (tab != undefined) {
+            this.tabSelected = tab
         }
     }
 }
