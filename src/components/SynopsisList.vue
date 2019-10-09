@@ -1,7 +1,7 @@
 <template>
     <div v-show="loaded">
-        <forecast-filter :data="data" ref="filter" />
-        <v-client-table :columns="columns" :data="data" :options="options" ref="forecastTable">
+        <synopsis-filter :data="data" ref="synopsisFilter" key="synopsisFilter" />
+        <v-client-table :columns="columns" :data="data" :options="options" ref="synopsisTable" key="synopsisTable">
             <div slot="start_date" slot-scope="props">
                 <!-- need logic for link based on product type -->
                 <router-link
@@ -27,7 +27,7 @@
 <script>
 import Vue from 'vue'
 import { ClientTable, Event } from 'vue-tables-2'
-import ForecastFilter from '../components/ForecastFilter'
+import SynopsisFilter from '../components/SynopsisFilter'
 import tableTheme from '../vueTableTheme'
 import tableTemplate from '../vueTableTemplate'
 import moment from 'moment/src/moment.js'
@@ -72,7 +72,7 @@ export default {
                     noResults: "No matching products",
                     count: "Showing {from} to {to} of {count} products|{count} products|One product",
                 },
-                saveState: true,
+                //saveState: true,
                 customFilters: [
                     {
                         name: 'multiFilter',
@@ -100,7 +100,7 @@ export default {
         }
     },
     components: {
-        ForecastFilter
+        SynopsisFilter
     },
     methods: {
         getProducts() {

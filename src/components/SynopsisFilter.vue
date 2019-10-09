@@ -1,7 +1,7 @@
 <template>
     <div :class="$style.spacer">
         <div :class="$style.row">
-            <div :class="[$style.column]">
+            <!-- <div :class="[$style.column]">
                 <select v-model="zoneFilter" :class="$style.select">
                     <option value>Filter by Zone</option>
                     <option
@@ -20,7 +20,7 @@
                         :value="rating.value"
                     >{{ rating.name }}</option>
                 </select>
-            </div>
+            </div>-->
             <div :class="[$style.column]">
                 <input
                     :class="$style.input"
@@ -123,7 +123,6 @@ export default {
             this.zoneFilter = ''
             this.dangerFilter = ''
             this.dateFilter = ''
-            this.tableFilter()
         },
         getCenterMeta() {
             this.$api
@@ -149,25 +148,33 @@ export default {
 @import "../assets/css/bootstrap/mixins";
 
 .row {
-    // composes: row from "../assets/css/style.css";
     width: 100%;
     display: flex;
 }
 
-.column, .columnButton {
+.column,
+.columnButton {
     padding: 0 0.1rem 0.5rem 0.1rem;
-    display: block
 }
 
-@include media-breakpoint-up(sm) {
+.column {
+    width: calc(100% - 3rem);
+    display: inline-block;
+}
+
+.columnButton {
+    width: 3rem;
+    display: inline-block;
+}
+
+@include media-breakpoint-up(md) {
     .column {
-        width: calc(33.33% - 1rem);
-        display: inline-block;
+        width: 50%;
     }
-    
-    .columnButton {
-        width: 3rem;
-        display: inline-block;
+}
+@include media-breakpoint-up(lg) {
+    .column {
+        width: 33%;
     }
 }
 

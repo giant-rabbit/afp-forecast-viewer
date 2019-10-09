@@ -11,18 +11,14 @@
             <alert />
             <loader />
             <!-- Forecast Archive tab -->
-            <keep-alive>
-                <div v-show="tabSelected == 'forecast'" :class="$style.tabPane">
-                    <forecast-list />
-                </div>
-            </keep-alive>
+            <div v-if="tabSelected == 'forecast'" :class="$style.tabPane">
+                <forecast-list />
+            </div>
 
             <!-- Synopsis Archive tab -->
-            <keep-alive>
-                <div v-if="tabSelected == 'synopsis'" :class="$style.tabPane">
-                    <synopsis-list />
-                </div>
-            </keep-alive>
+            <div v-if="tabSelected == 'synopsis'" :class="$style.tabPane">
+                <synopsis-list />
+            </div>
         </content-panel>
         <disclaimer />
     </div>

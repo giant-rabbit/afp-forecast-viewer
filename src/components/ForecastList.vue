@@ -1,7 +1,7 @@
 <template>
     <div v-show="loaded">
-        <forecast-filter :data="data" ref="filter" />
-        <v-client-table :columns="columns" :data="data" :options="options" ref="forecastTable">
+        <forecast-filter :data="data" ref="forecastFilter" key="forecastFilter" />
+        <v-client-table :columns="columns" :data="data" :options="options" ref="forecastTable" key="forecastTable">
             <div slot="start_date" slot-scope="props">
                 <!-- need logic for link based on product type -->
                 <router-link
@@ -75,7 +75,7 @@ export default {
                     noResults: "No matching products",
                     count: "Showing {from} to {to} of {count} products|{count} products|One product",
                 },
-                saveState: true,
+                //saveState: true,
                 customFilters: [
                     {
                         name: 'multiFilter',

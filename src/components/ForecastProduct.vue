@@ -119,8 +119,8 @@
                     :expires="false"
                 />
                 <synopsis-content :data="data" />
-                <div :class="$style.textCenter">
-                    <button @click :class="$style.btn">View Previous Synopses</button>
+                <div :class="[$style.textCenter, $style.spacer]">
+                    <button @click="$router.replace({ name: 'ArchiveTab', params: { tab: 'synopsis' } })" :class="$style.btn">View Previous Synopses</button>
                 </div>
             </div>
 
