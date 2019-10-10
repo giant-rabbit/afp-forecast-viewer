@@ -66,7 +66,7 @@ export default {
     &[data-id="0"], &[data-id=""], &[data-id="null"] {
         fill: $no-rating !important;
         stroke-width: 2px !important;
-        stroke: $no-rating-border !important;
+        // stroke: $no-rating-border !important;
     }
     &[data-id="1"] {
         fill: $low !important;

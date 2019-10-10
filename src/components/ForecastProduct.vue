@@ -64,7 +64,7 @@
                 />
 
                 <!-- discussion -->
-                <div v-show="data.hazard_discussion != ''" :class="$style.divider">
+                <div v-if="data.hazard_discussion != ''" :class="$style.divider">
                     <h2>Forecast Discussion</h2>
                     <div v-html="data.hazard_discussion"></div>
                 </div>
@@ -75,6 +75,7 @@
                     :media="data.media"
                     scope="scope-forecast"
                     v-if="data.media.length > 0"
+                    key="forecast"
                 />
                 <!-- <div v-if="this.$config.mediaUrl" :class="$style.textCenter">
                         <a
@@ -84,14 +85,14 @@
                             class="afp-btn-primary"
                         >View More Media</a>
                 </div>-->
-                <div v-if="!preview" :class="$style.divider">
+                <div v-if="!preview && data.weather_table" :class="$style.divider">
                     <h2>Weather Summary</h2>
                     <!-- Need logic for correct weather table && if it exists -->
-                    <!-- <weather-table
-                        :periods="data.weather_data[0].periods"
-                        :data="data.weather_data[0].data"
-                        :zone="data.weather_data[0].zone_name"
-                    /> -->
+                    <weather-table
+                        :periods="data.weather_table.periods"
+                        :data="data.weather_table.data"
+                        :zone="data.weather_table.zone_name"
+                    />
                     <div :class="$style.textCenter">
                         <button
                             @click="scrollToTabs('weather')"
@@ -102,26 +103,37 @@
             </div>
 
             <!-- Weather tab -->
-            <!-- need conditional logic -->
-            <div v-show="tabSelected == 'weather'" :class="$style.tabPane">
-                <weather-content :data="data" />
+            <div v-if="tabSelected == 'weather'" :class="$style.tabPane">
+                <div v-if="data.weather_product">
+                    <product-header
+                        :published="data.weather_product.published_time"
+                        :author="data.weather_product.author"
+                        :expires="false"
+                    />
+                    <weather-content :data="data.weather_product" />
+                </div>
+                <div v-else>No Weather Forecast to display.</div>
             </div>
 
             <!-- Synopsis tab -->
-            <!-- need conditional logic -->
             <div v-if="tabSelected == 'synopsis'" :class="$style.tabPane">
                 <!-- Title -->
-                <h2 v-html="data.bottom_line2"></h2>
-                <!-- Header -->
-                <product-header
-                    :published="data.published_time"
-                    :author="data.author"
-                    :expires="false"
-                />
-                <synopsis-content :data="data" />
-                <div :class="[$style.textCenter, $style.spacer]">
-                    <button @click="$router.replace({ name: 'ArchiveTab', params: { tab: 'synopsis' } })" :class="$style.btn">View Previous Synopses</button>
+                <div v-if="data.synopsis_product">
+                    <h1 v-html="data.synopsis_product.bottom_line"></h1>
+                    <product-header
+                        :published="data.synopsis_product.published_time"
+                        :author="data.synopsis_product.author"
+                        :expires="false"
+                    />
+                    <synopsis-content :data="data.synopsis_product" />
+                    <div :class="[$style.textCenter, $style.spacer]">
+                        <button
+                            @click="$router.replace({ name: 'ArchiveTab', params: { tab: 'synopsis' } })"
+                            :class="$style.btn"
+                        >View Previous Synopses</button>
+                    </div>
                 </div>
+                <div v-else>No Regional Synopsis to display.</div>
             </div>
 
             <!-- Custom tab content -->
@@ -177,7 +189,7 @@ export default {
         }
     },
     computed: {
-        highestDanger: function() {
+        highestDanger: function () {
             let current = this.data.danger.find(current => current.valid_day == "current");
             return Math.max(current.lower, current.middle, current.upper)
         }
@@ -200,7 +212,7 @@ export default {
     methods: {
         changeTab(tab) {
             this.tabSelected = tab
-            this.$router.push({ query: { nav: this.tabSelected } })
+            // this.$router.push({ query: { nav: this.tabSelected } })
         },
         scrollToTabs(tab) {
             var ref = this
@@ -222,9 +234,13 @@ export default {
         },
     },
     mounted() {
-        if (this.$route.query.nav && this.$route.query.nav != '') {
-            this.tabSelected = this.$route.query.nav
-        }
+        // if (this.$route.query.nav && this.$route.query.nav != '') {
+        //     this.tabSelected = this.$route.query.nav
+        // }
+        this.$nextTick(() => {
+            var event = new Event('forecast-loaded')
+            window.dispatchEvent(event)
+        })
     }
 }
 </script>

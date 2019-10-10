@@ -1,7 +1,9 @@
 <template>
     <div :class="$style.danger">
         <div :class="$style.row">
-            <div :class="$style.today">
+            <div
+                :class="{[$style.today] : outlookDanger, [$style.todayNoOutlook] : !outlookDanger}"
+            >
                 <h6>
                     Today's Avalanche Danger
                     <info :content="this.$helpContent.avalancheDanger" />
@@ -41,7 +43,7 @@
                     <danger-elevation :class="$style.dangerMountain" :danger="currentDanger"></danger-elevation>
                 </div>
             </div>
-            <div :class="$style.outlook">
+            <div v-if="outlookDanger" :class="$style.outlook">
                 <h6>Outlook for Tomorrow</h6>
                 {{outlookDate}}
                 <div :class="$style.dangerGraphic">
@@ -75,7 +77,7 @@
                 </div>
             </div>
         </div>
-        <div :class="$style.outlookMobile">
+        <div v-if="outlookDanger" :class="$style.outlookMobile">
             <div :class="$style.outlookMobileText">
                 <h6>Outlook for Tomorrow</h6>
                 {{outlookDate}}
@@ -111,18 +113,35 @@ export default {
     computed: {
         currentDanger: function () {
             let current = this.danger.find(current => current.valid_day == "current");
+            if (current.upper == null) {
+                current.upper = 0
+            }
+            if (current.middle == null) {
+                current.middle = 0
+            }
+            if (current.lower == null) {
+                current.lower = 0
+            }
             return current
         },
         outlookDanger: function () {
             if (this.danger.length > 1) {
                 let outlook = this.danger.find(outlook => outlook.valid_day == "tomorrow");
+                if (outlook.upper == null) {
+                    outlook.upper = 0
+                }
+                if (outlook.middle == null) {
+                    outlook.middle = 0
+                }
+                if (outlook.lower == null) {
+                    outlook.lower = 0
+                }
                 return outlook
             } else {
                 return false
             }
         },
         todayDate: function () {
-            console.log(moment(this.date).hours())
             if (moment(this.date).hours() > 12) {
                 return moment(this.date).add(24, 'h').format('dddd, MMMM D, YYYY')
             } else {
@@ -148,7 +167,7 @@ export default {
 @import "../assets/css/bootstrap/mixins";
 
 .danger {
-    margin-bottom: 1.5*$spacer;
+    margin-bottom: 1.5 * $spacer;
 }
 .row {
     composes: row from "../assets/css/style.css";
@@ -157,6 +176,13 @@ export default {
 .today {
     composes: col-lg-8 from "../assets/css/style.css";
     composes: col-md-12 from "../assets/css/style.css";
+    margin-bottom: $spacer;
+}
+
+.todayNoOutlook {
+    // composes: col-lg-8 from "../assets/css/style.css";
+    // composes: col-md-12 from "../assets/css/style.css";
+    composes: col-12 from "../assets/css/style.css";
     margin-bottom: $spacer;
 }
 

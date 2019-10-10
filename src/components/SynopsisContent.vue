@@ -1,12 +1,12 @@
 <template>
     <div>
         <!-- discussion -->
-        <div class="afp-synopsis" v-html="data.hazard_discussion2"></div>
+        <div class="afp-synopsis" v-html="data.hazard_discussion"></div>
 
         <!-- media -->
         <div v-if="data.media.length > 0">
             <h3>Media</h3>
-            <media-gallery :media="data.media" scope="scope-synopsis"/>
+            <media-gallery :media="data.media" scope="scope-synopsis" key="synopsis"/>
         </div>
     </div>
 </template>

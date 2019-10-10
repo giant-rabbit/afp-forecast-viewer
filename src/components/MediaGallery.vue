@@ -37,24 +37,6 @@
                         class="mdi mdi-youtube"
                     ></i>
                     <i :class="$style.expandIcon" class="mdi mdi-arrow-expand"></i>
-                    <!-- <iframe
-                    v-tooltip="item.caption"
-                    v-if="item.type == 'video'"
-                    :class="$style.galleryVid"
-                    :src="'https://www.youtube.com/embed/' + item.url"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                    ></iframe>-->
-                    <!-- <figcaption :class="$style.galleryCaption">{{item.caption}}</figcaption> -->
-                    <!-- <v-popover :class="$style.galleryCaption" class="afp-popover-trigger">
-                    <button v-tooltip="'Click for caption'" :class="$style.captionTrigger">
-                        <i class="mdi mdi-comment"></i>
-                    </button>
-                    <template slot="popover">
-                        <div v-html="item.caption"></div>
-                    </template>
-                    </v-popover>-->
                 </div>
             </div>
         </flickity>
@@ -83,38 +65,41 @@ export default {
     },
     props: ['media', 'scope'],
     methods: {
-        hideDots() {
-            var viewportWidth = document.querySelector('.afp-carousel').offsetWidth
-            var cells = document.getElementsByClassName('afp-carousel-cell')
-            var cellWidth = 0
-            for (var i = 0; i < cells.length; i++) {
-                cellWidth += cells[i].offsetWidth
-            }
-            if (cellWidth <= viewportWidth) {
-                document.querySelector('.flickity-page-dots').style.display = "none"
-                document.querySelector('.flickity-button.previous').style.display = "none"
-                document.querySelector('.flickity-button.next').style.display = "none"
-            } else {
-                document.querySelector('.flickity-page-dots').style.display = "block"
-                document.querySelector('.flickity-button.previous').style.display = "inline-block"
-                document.querySelector('.flickity-button.next').style.display = "inline-block"
-            }
-        },
+        // hideDots() {
+        //     var viewportWidth = document.querySelector('.afp-carousel').offsetWidth
+        //     var cells = document.getElementsByClassName('afp-carousel-cell')
+        //     var cellWidth = 0
+        //     for (var i = 0; i < cells.length; i++) {
+        //         cellWidth += cells[i].offsetWidth
+        //     }
+        //     if (cellWidth <= viewportWidth) {
+        //         document.querySelector('.flickity-page-dots').style.display = "none"
+        //         document.querySelector('.flickity-button.previous').style.display = "none"
+        //         document.querySelector('.flickity-button.next').style.display = "none"
+        //     } else {
+        //         document.querySelector('.flickity-page-dots').style.display = "block"
+        //         document.querySelector('.flickity-button.previous').style.display = "inline-block"
+        //         document.querySelector('.flickity-button.next').style.display = "inline-block"
+        //     }
+        // },
         showVideoModal(id, caption) {
             this.videoId = id
             this.videoCaption = caption
             this.videoModal = true
         }
     },
-    mounted() {
-        this.hideDots()
-        window.addEventListener("resize", this.hideDots)
-    },
-    created() {
-    },
-    destroyed() {
-        window.removeEventListener("resize", this.hideDots)
-    },
+    // mounted() {
+    //     var ref = this
+    //     setTimeout(function () {
+    //         ref.hideDots()
+    //     }, 500)
+    //     window.addEventListener("resize", this.hideDots)
+    // },
+    // created() {
+    // },
+    // destroyed() {
+    //     window.removeEventListener("resize", this.hideDots)
+    // },
 }
 </script>
 
@@ -126,7 +111,7 @@ export default {
 $gallery-height: 200px;
 
 .gallery {
-    margin-bottom: 2.5*$spacer;
+    margin-bottom: 2.5 * $spacer;
 }
 
 .galleryItem {
@@ -184,6 +169,13 @@ $gallery-height: 200px;
     transform: translate(-50%, -50%);
     color: $red;
     font-size: 5rem;
+}
+</style>
+
+<style lang="scss">
+
+.afp-carousel .flickity-page-dots li:only-child {
+    display: none !important;
 }
 
 </style>
