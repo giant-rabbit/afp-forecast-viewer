@@ -3,14 +3,14 @@
         <div :class="$style.row">
             <!-- Zone selector -->
             <div v-if="!preview" :class="$style.zoneSelector">
-                <zone-selector :zone="zone" />
+                <zone-selector />
             </div>
             <!-- Title -->
             <div :class="$style.title">
                 <h1>Backcountry Avalanche Forecast</h1>
                 <h2>
                     <i class="mdi mdi-map-marker"></i>
-                    {{data.forecast_zone.name}}
+                    {{data.forecast_zone[0].name}}
                 </h2>
             </div>
         </div>
@@ -24,11 +24,11 @@
 
         <!-- Warning -->
         <!-- Need logic for showing warning -->
-        <avy-warning v-if="!preview" />
+        <!-- <avy-warning v-if="!preview" /> -->
 
         <!-- Bottom line -->
         <div v-if="data.bottom_line != ''" :class="$style.bottomLine">
-            <img :class="$style.dangerIcon" :src="this.$dangerScale[4].icon" />
+            <img :class="$style.dangerIcon" :src="this.$dangerScale[highestDanger].icon" />
             <h5 :class="$style.bottomLineTitle">THE BOTTOM LINE</h5>
             <div :class="$style.bottomLineText" v-html="data.bottom_line"></div>
         </div>
@@ -87,11 +87,11 @@
                 <div v-if="!preview" :class="$style.divider">
                     <h2>Weather Summary</h2>
                     <!-- Need logic for correct weather table && if it exists -->
-                    <weather-table
+                    <!-- <weather-table
                         :periods="data.weather_data[0].periods"
                         :data="data.weather_data[0].data"
                         :zone="data.weather_data[0].zone_name"
-                    />
+                    /> -->
                     <div :class="$style.textCenter">
                         <button
                             @click="scrollToTabs('weather')"
@@ -174,8 +174,12 @@ export default {
                 }
             ],
             tabSelected: "forecast",
-            zone: '',
-            date: ''
+        }
+    },
+    computed: {
+        highestDanger: function() {
+            let current = this.data.danger.find(current => current.valid_day == "current");
+            return Math.max(current.lower, current.middle, current.upper)
         }
     },
     props: ['preview', 'data', 'config'],

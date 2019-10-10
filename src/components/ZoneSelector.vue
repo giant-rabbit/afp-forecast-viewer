@@ -36,7 +36,6 @@ export default {
             centerZones: []
         }
     },
-    props: ['zone'],
     methods: {
         getZones() {
             this.$api

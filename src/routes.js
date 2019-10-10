@@ -4,12 +4,18 @@ import Forecast from './components/Forecast'
 import Weather from './components/Weather'
 import Synopsis from './components/Synopsis'
 import Archive from './components/Archive'
+import NotFound from './components/NotFound'
 
 Vue.use( Router )
 
 export default new Router({
 	mode: 'hash', 
 	routes: [
+		{
+			path: '/404/',
+			name: 'NotFound',
+			component: NotFound,
+		},
 		{
 			path: '/archive',
 			name: 'Archive',

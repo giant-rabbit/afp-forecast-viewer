@@ -43,7 +43,8 @@
                 <router-link to="/archive">Archive</router-link>
                 <router-link :to="{ name: 'Forecast', params: { zone: 'sawtooth' }}">Forecast</router-link>
                 <router-link :to="{ name: 'Weather' }">Weather</router-link>
-                <router-link :to="{ name: 'Synopsis' }">Synopsis</router-link>
+                <router-link :to="{ name: 'Synopsis' }">Synopsis</router-link>                
+                <router-link :to="{ name: 'NotFound' }">404</router-link>
             </p>
             <transition
                 name="fade"
