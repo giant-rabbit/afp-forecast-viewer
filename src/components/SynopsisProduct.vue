@@ -2,7 +2,7 @@
     <div>
         <div :class="$style.title">
             <h1>Regional Synopsis</h1>
-            <h2 v-html="data.bottom_line2"></h2>
+            <h2 v-html="data.bottom_line"></h2>
             <!-- <h2>
                 <i class="mdi mdi-map-marker"></i>
                 All Zones

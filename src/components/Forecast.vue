@@ -45,6 +45,16 @@ export default {
             },
             deep: true,
             immediate: true
+        },
+        '$route.params.date': {
+            handler: function () {
+                this.loaded  = false
+                this.notFound = false
+                this.$eventBus.$emit('loading')
+                this.getProducts()
+            },
+            deep: true,
+            immediate: true
         }
     },
     methods: {
@@ -93,7 +103,7 @@ export default {
         },
         getWeather() {
             this.$api
-                .get('/public/product?type=weather&center_id=' + this.$centerId + '&zone_id=' + this.zone)
+                .get('/public/product?type=weather&center_id=' + this.$centerId + '&zone_id=' + this.zone + '&published_time=' + this.date)
                 .then(response => {
                     this.data.weather_product = response.data
                     let table = this.data.weather_product.weather_data.find(table => table.zone_id == this.zone)
@@ -108,7 +118,7 @@ export default {
         },
         getSynopsis() {
             this.$api
-                .get('/public/product?type=synopsis&center_id=' + this.$centerId + '&zone_id=' + this.zone)
+                .get('/public/product?type=synopsis&center_id=' + this.$centerId + '&zone_id=' + this.zone + '&published_time=' + this.date)
                 .then(response => {
                     this.data.synopsis_product = response.data
                 })

@@ -1,13 +1,19 @@
 <template>
     <div v-show="loaded">
         <forecast-filter :data="data" ref="forecastFilter" key="forecastFilter" />
-        <v-client-table :columns="columns" :data="data" :options="options" ref="forecastTable" key="forecastTable">
+        <v-client-table
+            :columns="columns"
+            :data="data"
+            :options="options"
+            ref="forecastTable"
+            key="forecastTable"
+        >
             <div slot="start_date" slot-scope="props">
                 <!-- need logic for link based on product type -->
                 <router-link
                     class
                     v-tooltip="'View product'"
-                    :to="{ name: 'ArchivedForecast', params: { zone: 'sawtooth', date: props.row.start_date  }}"
+                    :to="{ name: 'ArchivedForecast', params: { zone: urlString(props.row.forecast_zone[0].name), date: props.row.start_date  }}"
                 >{{props.row.start_date}}</router-link>
             </div>
             <span slot="danger_rating" slot-scope="props">
@@ -16,6 +22,12 @@
                     v-else
                     :class="'afp-danger afp-danger-' + props.row.danger_rating"
                 >{{props.row.danger_rating}}</span>
+            </span>
+            <span slot="forecast_zone" slot-scope="props">
+                <span v-for="(zone, index) in props.row.forecast_zone" v-bind:key="index">
+                    <span v-if="index == 0">{{zone.name}}</span>
+                    <span v-else>, {{zone.name}}</span>
+                </span>
             </span>
             <!-- <div slot="filter__start_date">
                 <input type="checkbox" class="form-control" />
@@ -42,7 +54,7 @@ export default {
             /**
              * Set up Vue Tables 2
              */
-            columns: ['start_date', 'danger_rating', 'forecast_zones'],
+            columns: ['start_date', 'danger_rating', 'forecast_zone'],
             data: [],
             options: {
                 skin: 'table',
@@ -106,6 +118,11 @@ export default {
         ForecastFilter
     },
     methods: {
+        urlString(string) {
+            string = string.replace(/ /g, '-')
+            string = string.toLowerCase()
+            return string
+        },
         getProducts() {
             var ref = this
             this.$api
@@ -142,15 +159,15 @@ export default {
                             default:
                                 forecast.danger_rating = ""
                         }
-                        var zones = "";
-                        forecast.forecast_zone.forEach(function (zone, index) {
-                            if (index == 0) {
-                                zones = zone.name
-                            } else {
-                                zones += ', ' + zone.name
-                            }
-                        })
-                        forecast.forecast_zones = zones
+                        // var zones = "";
+                        // forecast.forecast_zone.forEach(function (zone, index) {
+                        //     if (index == 0) {
+                        //         zones = zone.name
+                        //     } else {
+                        //         zones += ', ' + zone.name
+                        //     }
+                        // })
+                        // forecast.forecast_zones = zones
                     })
                     this.$eventBus.$emit('loaded')
                     this.loaded = true
@@ -219,7 +236,8 @@ export default {
         th {
             vertical-align: middle !important;
             border-top: none;
-            &.afp-table-time, &.afp-table-danger {
+            &.afp-table-time,
+            &.afp-table-danger {
                 width: 140px;
                 max-width: 140px;
                 min-width: 140px;

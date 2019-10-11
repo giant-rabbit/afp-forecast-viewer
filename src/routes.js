@@ -31,21 +31,21 @@ export default new Router({
 			name: 'Weather',
 			component: Weather,
 		},
-		// {
-		// 	path: '/weather/:date/',
-		// 	name: 'ArchivedWeather',
-		// 	component: Weather,
-		// },
+		{
+			path: '/weather/:date/',
+			name: 'ArchivedWeather',
+			component: Weather,
+		},
 		{
 			path: '/synopsis',
 			name: 'Synopsis',
 			component: Synopsis,
 		},
-		// {
-		// 	path: '/synopsis/:date/',
-		// 	name: 'ArchivedSynopsis',
-		// 	component: Synopsis,
-		// },
+		{
+			path: '/synopsis/:date/',
+			name: 'ArchivedSynopsis',
+			component: Synopsis,
+		},
 		{
 			path: '',
 			name: 'Forecast',

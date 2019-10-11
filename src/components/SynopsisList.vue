@@ -7,7 +7,7 @@
                 <router-link
                     class
                     v-tooltip="'View product'"
-                    :to="{ name: 'Synopsis' }"
+                    :to="{ name: 'ArchivedSynopsis', params: { date: props.row.start_date } }"
                 >{{props.row.start_date}}</router-link>
             </div>
             <span slot="danger_rating" slot-scope="props">

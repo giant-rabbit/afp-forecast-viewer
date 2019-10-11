@@ -1,11 +1,11 @@
 <template>
     <div>
         <!-- discussion -->
-        <div class="afp-synopsis" v-html="data.hazard_discussion"></div>
+        <div :class="$style.container" class="afp-synopsis" v-html="data.hazard_discussion"></div>
 
         <!-- media -->
         <div v-if="data.media.length > 0">
-            <h3>Media</h3>
+            <h2>Media</h2>
             <media-gallery :media="data.media" scope="scope-synopsis" key="synopsis"/>
         </div>
     </div>
@@ -33,21 +33,7 @@ export default {
 @import "../assets/css/_variables.scss";
 @import "../assets/css/bootstrap/mixins";
 
-.spacer {
-    margin-bottom: $spacer;
-}
-
 .container {
-    composes: container from "../assets/css/style.css";
-}
-
-.row {
-    composes: row from "../assets/css/style.css";
-}
-
-.metaColumn {
-    composes: col-md-6 from "../assets/css/style.css";
-    composes: col-12 from "../assets/css/style.css";
     margin-bottom: $spacer;
 }
 </style>
