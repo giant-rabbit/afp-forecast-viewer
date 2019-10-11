@@ -2,7 +2,7 @@
     <div :class="$style.container">
         <div :class="$style.title">
             <h1>404</h1>
-            <h2><i class="mdi mdi-alert"></i> The requested page can't be found.</h2>
+            <h2><i class="mdi mdi-alert"></i> The requested product doesn't exist.</h2>
         </div>
     </div>
 </template>

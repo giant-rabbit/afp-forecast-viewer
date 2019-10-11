@@ -3,14 +3,14 @@
         <div :class="$style.row">
             <!-- Zone selector -->
             <div v-if="!preview" :class="$style.zoneSelector">
-                <zone-selector :zone="zone" />
+                <zone-selector />
             </div>
             <!-- Title -->
             <div :class="$style.title">
                 <h1>Avalanche Conditions Summary</h1>
-                <h2>
+                <h2 v-if="!preview">
                     <i class="mdi mdi-map-marker"></i>
-                    {{data.forecast_zone.name}}
+                    {{zone}}
                 </h2>
             </div>
         </div>
@@ -24,7 +24,7 @@
 
         <!-- Warning -->
         <!-- Need logic for showing warning -->
-        <avy-warning v-if="!preview" />
+        <!-- <avy-warning v-if="!preview" /> -->
 
         <!-- Bottom line -->
         <div v-if="data.bottom_line != ''" :class="$style.bottomLine">
@@ -46,14 +46,15 @@
 
         <!-- Tab container -->
         <content-panel>
-            <!-- Avalanche forecast tab -->
+            <!-- Summary tab -->
             <div v-show="tabSelected == 'summary'" :class="$style.tabPane">
-                <!-- discussion -->
-                <div v-show="data.hazard_discussion != ''" v-html="data.hazard_discussion"></div>
-
+                <div :class="$style.spacer">
+                    <h2>Snowpack & Avalanche Conditions</h2>
+                    <div v-show="data.hazard_discussion != ''" v-html="data.hazard_discussion"></div>
+                </div>
                 <!-- media -->
                 <media-gallery
-                    :class="$style.mediaGallery"
+                    :class="$style.divider"
                     :media="data.media"
                     scope="scope-forecast"
                     v-if="data.media.length > 0"
@@ -75,20 +76,25 @@
             </div>
 
             <!-- Synopsis tab -->
-            <!-- need conditional logic -->
             <div v-if="tabSelected == 'synopsis'" :class="$style.tabPane">
                 <!-- Title -->
-                <h2 v-html="data.bottom_line2"></h2>
-                <!-- Header -->
-                <product-header
-                    :published="data.published_time"
-                    :author="data.author"
-                    :expires="false"
-                />
-                <synopsis-content :data="data" />
-                <div :class="$style.textCenter">
-                    <button @click :class="$style.btn">View Previous Synopses</button>
+                <div v-if="data.synopsis_product">
+                    <h1 v-html="data.synopsis_product.bottom_line"></h1>
+                    <product-header
+                        :published="data.synopsis_product.published_time"
+                        :author="data.synopsis_product.author"
+                        :expires="false"
+                    />
+                    <synopsis-content :data="data.synopsis_product" />
+                    <div :class="[$style.textCenter, $style.spacer]">
+                        <button
+                            @click="$router.replace({ name: 'ArchiveTab', params: { tab: 'synopsis' } })"
+                            :class="$style.btn"
+                            class="afp-btn-primary"
+                        >View Previous Synopses</button>
+                    </div>
                 </div>
+                <div v-else>No Regional Synopsis to display.</div>
             </div>
 
             <!-- Custom tab content -->
@@ -159,7 +165,6 @@ export default {
     methods: {
         changeTab(tab) {
             this.tabSelected = tab
-            this.$router.push({ query: { nav: this.tabSelected } })
         },
         scrollToTabs(tab) {
             var ref = this
@@ -181,9 +186,8 @@ export default {
         },
     },
     mounted() {
-        if (this.$route.query.nav && this.$route.query.nav != '') {
-            this.tabSelected = this.$route.query.nav
-        }
+        this.zone = this.$route.params.zone.replace(/-/g, ' ');
+        this.zone = this.zone.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')
     }
 }
 </script>
@@ -194,7 +198,7 @@ export default {
 @import "../assets/css/bootstrap/mixins";
 
 .spacer {
-    margin-bottom: $spacer;
+    margin-bottom: 1.5 * $spacer;
 }
 
 .divider {

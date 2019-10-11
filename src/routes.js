@@ -11,11 +11,11 @@ Vue.use( Router )
 export default new Router({
 	mode: 'hash', 
 	routes: [
-		{
-			path: '/404/',
-			name: 'NotFound',
-			component: NotFound,
-		},
+		// {
+		// 	path: '/404/',
+		// 	name: 'NotFound',
+		// 	component: NotFound,
+		// },
 		{
 			path: '/archive',
 			name: 'Archive',

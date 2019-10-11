@@ -10,13 +10,24 @@
                 v-if="show"
                 :class="$style.dropdown"
             >
-                <router-link
-                    v-for="zone in centerZones"
-                    :to="{ name: 'ZoneForecast', params: { zone: urlString(zone.name) }}"
-                    :class="$style.link"
-                    class="afp-native-link"
-                    v-bind:key="zone.id"
-                >{{zone.name}}</router-link>
+                <span v-if="date == ''">
+                    <router-link
+                        v-for="zone in centerZones"
+                        :to="{ name: 'ZoneForecast', params: { zone: urlString(zone.name) }}"
+                        :class="$style.link"
+                        class="afp-native-link"
+                        v-bind:key="zone.id"
+                    >{{zone.name}}</router-link>
+                </span>
+                <span v-else>
+                    <router-link
+                        v-for="zone in centerZones"
+                        :to="{ name: 'ArchivedForecast', params: { zone: urlString(zone.name), date: date }}"
+                        :class="$style.link"
+                        class="afp-native-link"
+                        v-bind:key="zone.id"
+                    >{{zone.name}}</router-link>
+                </span>
             </div>
         </transition>
     </div>
@@ -28,6 +39,7 @@ export default {
     data() {
         return {
             show: false,
+            date: '',
             centerZones: []
         }
     },
@@ -89,6 +101,11 @@ export default {
     },
     mounted() {
         this.getZones()
+        if (this.$route.params.date != undefined) {
+            this.date = this.$route.params.date
+        } else {
+            this.date = ''
+        }
     }
 }
 </script>

@@ -1,13 +1,11 @@
 <template>
-    <div>
-        <alert />
+    <div :class="$style.container">
+        <not-found v-if="notFound" />
         <loader />
-        <!-- need logic for whether to show forecast or summary -->
         <forecast-view
             v-if="loaded"
-            product="forecast"
+            :product="data.product_type"
             :data="data"
-            :weather="weather"
             :config="config"
             :preview="preview"
             :key="refresh"
@@ -17,7 +15,7 @@
 
 <script>
 import Loader from '../components/Loader'
-import Alert from '../components/Alert'
+import NotFound from '../components/NotFound'
 
 export default {
     data() {
@@ -27,29 +25,35 @@ export default {
             centerMeta: [],
             config: this.$config,
             data: {},
-            weather: null,
             preview: false,
             loaded: false,
+            notFound: false,
             refresh: 0
         }
     },
     components: {
         Loader,
-        Alert
+        NotFound
     },
     watch: {
         '$route.params.zone': {
             handler: function () {
                 this.loaded  = false
+                this.notFound = false
                 this.$eventBus.$emit('loading')
-                this.getZone()
+                this.getProducts()
             },
             deep: true,
             immediate: true
         }
     },
     methods: {
-        async getZone() {
+        async getProducts() {
+            // if (this.$route.params.date != undefined) {
+            //     this.date = this.$route.params.date
+            // } else {
+            //     this.date = ''
+            // }
             this.$api
                 .get('/avalanche-center/' + this.$centerId)
                 .then(response => {
@@ -69,7 +73,7 @@ export default {
         },
         getForecast() {
             this.$api
-                .get('/public/product?type=forecast&center_id=' + this.$centerId + '&zone_id=' + this.zone)
+                .get('/public/product?type=forecast&center_id=' + this.$centerId + '&zone_id=' + this.zone + '&published_time=' + this.date)
                 .then(response => {
                     this.data = response.data
                     this.data.forecast_avalanche_problems.sort(function (a, b) {
@@ -83,7 +87,8 @@ export default {
                     // })
                 })
                 .catch(e => {
-                    this.$router.push({ name: 'NotFound' })
+                    this.notFound = true
+                    this.$eventBus.$emit('loaded')
                 })
         },
         getWeather() {
@@ -130,8 +135,7 @@ export default {
     },
     mounted() {
         this.$eventBus.$emit('loading')
-        this.date = this.$route.params.date
-        this.getZone()
+        this.getProducts()
     },
 }
 </script>
@@ -140,4 +144,8 @@ export default {
 @import "../assets/css/bootstrap/functions";
 @import "../assets/css/_variables.scss";
 @import "../assets/css/bootstrap/mixins";
+
+.container {
+    min-height: 100vh;
+}
 </style>
