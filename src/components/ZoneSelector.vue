@@ -1,10 +1,6 @@
 <template>
     <div :class="$style.selector">
-        <button
-            ref="button"
-            @click="show = !show"
-            :class="$style.btn"
-        >Other Zones</button>
+        <button ref="button" @click="show = !show" :class="$style.btn">Other Zones</button>
         <transition name="expand" @enter="enter" @after-enter="afterEnter" @leave="leave">
             <div
                 v-closable="{
@@ -14,14 +10,13 @@
                 v-if="show"
                 :class="$style.dropdown"
             >
-                <a
-                    href="#"
+                <router-link
+                    v-for="zone in centerZones"
+                    :to="{ name: 'ZoneForecast', params: { zone: urlString(zone.name) }}"
                     :class="$style.link"
                     class="afp-native-link"
-                    @click.prevent
-                    v-for="zone in centerZones"
                     v-bind:key="zone.id"
-                >{{zone.name}}</a>
+                >{{zone.name}}</router-link>
             </div>
         </transition>
     </div>
@@ -37,6 +32,11 @@ export default {
         }
     },
     methods: {
+        urlString(string) {
+            string = string.replace(/ /g, '-')
+            string = string.toLowerCase()
+            return string
+        },
         getZones() {
             this.$api
                 .get('/forecast-zones?avalanche_center_id=' + this.$centerId + '&fields=id,name,zone_id')
@@ -112,8 +112,8 @@ export default {
     padding: 0.6rem 0.75rem;
     padding-right: 3rem;
     box-shadow: $app-box-shadow;
-        width: 100%;
-        text-align: left;
+    width: 100%;
+    text-align: left;
     &:hover {
         border-color: $gray-500;
     }
@@ -140,7 +140,7 @@ export default {
     z-index: $zindex-dropdown;
     min-width: $dropdown-min-width;
     padding: $dropdown-padding-y 0;
-    margin: $dropdown-spacer 0 0; 
+    margin: $dropdown-spacer 0 0;
     color: $dropdown-color;
     text-align: left;
     list-style: none;

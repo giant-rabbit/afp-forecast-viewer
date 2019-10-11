@@ -8,9 +8,9 @@
             <!-- Title -->
             <div :class="$style.title">
                 <h1>Backcountry Avalanche Forecast</h1>
-                <h2>
+                <h2 v-if="!preview">
                     <i class="mdi mdi-map-marker"></i>
-                    {{data.forecast_zone[0].name}}
+                    {{zone}}
                 </h2>
             </div>
         </div>
@@ -97,6 +97,7 @@
                         <button
                             @click="scrollToTabs('weather')"
                             :class="$style.btn"
+                            class="afp-btn-primary"
                         >Full Weather Forecast</button>
                     </div>
                 </div>
@@ -130,6 +131,7 @@
                         <button
                             @click="$router.replace({ name: 'ArchiveTab', params: { tab: 'synopsis' } })"
                             :class="$style.btn"
+                            class="afp-btn-primary"
                         >View Previous Synopses</button>
                     </div>
                 </div>
@@ -186,6 +188,7 @@ export default {
                 }
             ],
             tabSelected: "forecast",
+            zone: ''
         }
     },
     computed: {
@@ -241,6 +244,8 @@ export default {
             var event = new Event('forecast-loaded')
             window.dispatchEvent(event)
         })
+        this.zone = this.$route.params.zone.replace(/-/g, ' ');
+        this.zone = this.zone.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')
     }
 }
 </script>

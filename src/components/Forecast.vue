@@ -37,6 +37,17 @@ export default {
         Loader,
         Alert
     },
+    watch: {
+        '$route.params.zone': {
+            handler: function () {
+                this.loaded  = false
+                this.$eventBus.$emit('loading')
+                this.getZone()
+            },
+            deep: true,
+            immediate: true
+        }
+    },
     methods: {
         async getZone() {
             this.$api
@@ -118,15 +129,9 @@ export default {
         // }
     },
     mounted() {
-        //trigger event for custom content to be loaded
         this.$eventBus.$emit('loading')
         this.date = this.$route.params.date
-        // this.zone = this.$route.params.zone
-
         this.getZone()
-        if (this.$route.query.nav && this.$route.query.nav != '') {
-            this.tabSelected = this.$route.query.nav
-        }
     },
 }
 </script>

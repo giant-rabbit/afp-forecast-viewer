@@ -43,6 +43,10 @@ export default {
             padding: $table-cell-padding;
             vertical-align: top;
             border-top: $table-border-width solid $table-border-color;
+            text-align: center;
+            &:first-of-type {
+                text-align: left;
+            }
         }
 
         thead th {
