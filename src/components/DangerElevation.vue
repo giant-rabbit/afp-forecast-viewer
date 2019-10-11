@@ -10,7 +10,7 @@
             xmlns:xlink="http://www.w3.org/1999/xlink"
             xml:space="preserve"
             xmlns:serif="http://www.serif.com/"
-            style="display: none; fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2; width: 250px; height: 300px;"
+            style=" fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2; width: 250px; height: 300px;"
         >
             <path
                 :style="{ fill: dangerColor[danger.lower]}"
@@ -55,25 +55,21 @@ export default {
     },
     props: ['danger'],
     mounted() {
-        var svg = document.querySelector('#afp-danger-svg')
-        var img = document.querySelector('#afp-danger-img')
-        var svgData = new XMLSerializer().serializeToString(svg)
-        // var svgSize = svg.getBoundingClientRect();
-        // console.log(svgSize)
-        var canvas = document.createElement("canvas");
-        canvas.width = 750;
-        canvas.height = 900;
-        // canvas.style.width = svgSize.width;
-        // canvas.style.height = svgSize.height;
-        var ctx = canvas.getContext("2d")
-        ctx.scale(3, 3)
-        var imgTemp = document.createElement("img");
-        imgTemp.setAttribute("src", "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData))));
-        imgTemp.onload = function () {
-            ctx.drawImage(imgTemp, 0, 0);
-            var canvasdata = canvas.toDataURL("image/png", 1);
-            img.setAttribute("src", canvasdata);
-        }
+        // var svg = document.querySelector('#afp-danger-svg')
+        // var img = document.querySelector('#afp-danger-img')
+        // var svgData = new XMLSerializer().serializeToString(svg)
+        // var canvas = document.createElement("canvas");
+        // canvas.width = 750;
+        // canvas.height = 900;
+        // var ctx = canvas.getContext("2d")
+        // ctx.scale(3, 3)
+        // var imgTemp = document.createElement("img");
+        // imgTemp.setAttribute("src", "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData))));
+        // imgTemp.onload = function () {
+        //     ctx.drawImage(imgTemp, 0, 0);
+        //     var canvasdata = canvas.toDataURL("image/png", 1);
+        //     img.setAttribute("src", canvasdata);
+        // }
     }
 }
 

@@ -38,7 +38,7 @@
             rel="stylesheet"
             type="text/css"
         />
-        <div :class="$style.container" id="afp-print-container">
+        <div :class="$style.container">
             <p>
                 <router-link to="/archive">Archive</router-link>
                 <router-link :to="{ name: 'ZoneForecast', params: { zone: 'sawtooth-mountains' }}">Forecast</router-link>

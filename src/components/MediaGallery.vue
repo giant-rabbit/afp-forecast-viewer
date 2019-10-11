@@ -1,5 +1,5 @@
 <template>
-    <div :class="$style.gallery">
+    <div :class="$style.gallery" data-html2canvas-ignore>
         <video-modal
             @close="videoModal = false"
             :show="videoModal"

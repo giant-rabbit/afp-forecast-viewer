@@ -1,6 +1,6 @@
 <template>
     <div data-html2canvas-ignore>
-        <button ref="button" @click="render" :class="$style.btn">{{button}}</button>
+        <button ref="button" @click="print" :class="$style.btn">{{button}}</button>
         <div id="afp-pdf"></div>
     </div>
 </template>
@@ -18,10 +18,10 @@ export default {
     methods: {
         print() {
             this.button = 'Generating PDF...'
-            var element = document.querySelector('#afp')
+            var element = document.querySelector('body')
             html2canvas(element, {
                 imageTimeout: 1000,
-                scale: 1,
+                scale: 2,
                 windowWidth: 1200,
                 width: 1200,
                 // windowWidth: element.scrollWidth,

@@ -282,10 +282,12 @@ export default {
     width: 8rem !important;
     .vue-slider-rail {
         background-color: $gray-400;
+        -webkit-print-color-adjust: exact !important;
         width: 2px;
     }
     .vue-slider-process {
         background-color: $gray-700;
+        -webkit-print-color-adjust: exact !important;
         z-index: 2;
         width: 24px !important;
         left: 50% !important;
@@ -303,6 +305,7 @@ export default {
     }
     .vue-slider-mark-step {
         background-color: $gray-400;
+        -webkit-print-color-adjust: exact !important;
         width: 30px;
         height: 2px;
         top: 1px;
@@ -310,6 +313,7 @@ export default {
     }
     .vue-slider-dot {
         background-color: $gray-700;
+        -webkit-print-color-adjust: exact !important;
         width: 24px !important;
         height: 10px !important;
         cursor: initial;

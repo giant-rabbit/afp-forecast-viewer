@@ -226,6 +226,7 @@ export default {
 $elevation-height: 90px;
 
 .elevationBlock {
+    -webkit-print-color-adjust: exact;
     position: relative;
     background-color: $gray-300;
     height: $elevation-height;
@@ -314,6 +315,7 @@ $elevation-height: 90px;
 }
 
 .elevationOutlookBlock {
+    -webkit-print-color-adjust: exact;
     position: relative;
     background-color: $gray-300;
     height: $elevation-height;

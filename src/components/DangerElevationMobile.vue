@@ -67,6 +67,7 @@ export default {
     border-left: 24px solid transparent;
     border-bottom: 43px solid #ccc;
     background-color: transparent !important;
+    -webkit-print-color-adjust: exact !important;
 }
 
 .middle {
@@ -80,6 +81,7 @@ export default {
     transform: skewX(-30deg);
     border-bottom-color: #ccc;
     background-color: #ccc;
+    -webkit-print-color-adjust: exact !important;
     &:after {
         content: "";
         position: absolute;
@@ -91,6 +93,7 @@ export default {
         display: inline-block;
         transform: skewX(49deg);
         background-color: #ccc;
+        -webkit-print-color-adjust: exact !important;
     }
 }
 
@@ -105,6 +108,7 @@ export default {
     transform: skewX(-30deg);
     border-bottom-color: #ccc;
     background-color: #ccc;
+    -webkit-print-color-adjust: exact !important;
     &:after {
         content: "";
         position: absolute;
@@ -116,6 +120,7 @@ export default {
         display: inline-block;
         transform: skewX(49deg);
         background-color: #ccc;
+        -webkit-print-color-adjust: exact !important;
     }
 }
 
@@ -125,6 +130,7 @@ export default {
     right: 42px;
     top: 31px;
     background-color: #fff;
+    -webkit-print-color-adjust: exact !important;
     text-align: left;
     transform: rotate(-60deg) skewX(-30deg) scale(1, 0.866);
     width: 76px;
@@ -154,6 +160,7 @@ export default {
     right: 40px;
     top: 28px;
     background-color: $gray-400;
+    -webkit-print-color-adjust: exact !important;
     text-align: left;
     transform: rotate(-60deg) skewX(-30deg) scale(1, 0.866);
     width: 80px;
@@ -164,6 +171,7 @@ export default {
         content: "";
         position: absolute;
         background-color: inherit;
+        -webkit-print-color-adjust: exact !important;
         width: 80px;
         height: 80px;
         border-top-right-radius: 10%;
