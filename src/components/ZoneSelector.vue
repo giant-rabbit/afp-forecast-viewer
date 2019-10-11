@@ -1,5 +1,5 @@
 <template>
-    <div :class="$style.selector">
+    <div data-html2canvas-ignore :class="$style.selector">
         <button ref="button" @click="show = !show" :class="$style.btn">Other Zones</button>
         <transition name="expand" @enter="enter" @after-enter="afterEnter" @leave="leave">
             <div

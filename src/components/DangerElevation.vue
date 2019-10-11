@@ -1,32 +1,30 @@
 <template>
     <div>
         <svg
-            width="100%"
-            height="100%"
+            id="afp-danger-svg"
+            width="250"
+            height="300"
             viewBox="0 0 250 300"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
             xml:space="preserve"
             xmlns:serif="http://www.serif.com/"
-            style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
+            style="display: none; fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2; width: 250px; height: 300px;"
         >
             <path
-                id="lower"
-                :data-id="danger.lower"
-                :class="$style.elevation"
+                :style="{ fill: dangerColor[danger.lower]}"
+                style="stroke-width: 0px"
                 d="M31.504,210l175,0l43.496,90l-250,0l31.504,-90Z"
             />
             <path
-                id="middle"
-                :class="$style.elevation"
-                :data-id="danger.middle"
+                :style="{ fill: dangerColor[danger.middle]}"
+                style="stroke-width: 0px"
                 d="M204.087,205l-170.833,0l31.503,-90l95.834,0l43.496,90Z"
             />
             <path
-                id="upper"
-                :class="$style.elevation"
-                :data-id="danger.upper"
+                :style="{ fill: dangerColor[danger.upper]}"
+                style="stroke-width: 0px"
                 d="M158.174,110l-91.666,0l38.504,-110l53.162,110Z"
             />
             <path
@@ -35,6 +33,7 @@
                 style="fill-opacity:0.1;"
             />
         </svg>
+        <img id="afp-danger-img" />
     </div>
 </template>
 
@@ -43,46 +42,39 @@
 export default {
     data() {
         return {
+            dangerColor: [
+                '#cccccc',
+                '#50b849',
+                '#fef200',
+                '#f7941d',
+                '#ed1b24',
+                '#000000',
+
+            ]
         }
     },
     props: ['danger'],
+    mounted() {
+        var svg = document.querySelector('#afp-danger-svg')
+        var img = document.querySelector('#afp-danger-img')
+        var svgData = new XMLSerializer().serializeToString(svg)
+        // var svgSize = svg.getBoundingClientRect();
+        // console.log(svgSize)
+        var canvas = document.createElement("canvas");
+        canvas.width = 750;
+        canvas.height = 900;
+        // canvas.style.width = svgSize.width;
+        // canvas.style.height = svgSize.height;
+        var ctx = canvas.getContext("2d")
+        ctx.scale(3, 3)
+        var imgTemp = document.createElement("img");
+        imgTemp.setAttribute("src", "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData))));
+        imgTemp.onload = function () {
+            ctx.drawImage(imgTemp, 0, 0);
+            var canvasdata = canvas.toDataURL("image/png", 1);
+            img.setAttribute("src", canvasdata);
+        }
+    }
 }
 
 </script>
-
-<style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins/breakpoints";
-
-.graphic {
-    width: 250px;
-    height: 250px;
-}
-
-.elevation {
-    stroke-width: 0px !important;
-    fill: $no-rating;
-    &[data-id="0"], &[data-id=""], &[data-id="null"] {
-        fill: $no-rating !important;
-        stroke-width: 2px !important;
-        // stroke: $no-rating-border !important;
-    }
-    &[data-id="1"] {
-        fill: $low !important;
-    }
-    &[data-id="2"] {
-        fill: $moderate !important;
-    }
-    &[data-id="3"] {
-        fill: $considerable !important;
-    }
-    &[data-id="4"] {
-        fill: $high !important;
-    }
-    &[data-id="5"] {
-        fill: $extreme !important;
-    }
-}
-</style>
-

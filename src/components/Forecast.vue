@@ -1,5 +1,6 @@
 <template>
     <div :class="$style.container">
+        <print />
         <not-found v-if="notFound" />
         <loader />
         <forecast-view
@@ -16,6 +17,7 @@
 <script>
 import Loader from '../components/Loader'
 import NotFound from '../components/NotFound'
+import Print from '../components/Print'
 
 export default {
     data() {
@@ -33,7 +35,8 @@ export default {
     },
     components: {
         Loader,
-        NotFound
+        NotFound,
+        Print
     },
     watch: {
         '$route.params.zone': {
