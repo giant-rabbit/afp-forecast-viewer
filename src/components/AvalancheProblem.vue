@@ -286,13 +286,12 @@ export default {
     padding: 0.5rem !important;
     width: 8rem !important;
     .vue-slider-rail {
-        background-color: $gray-400;
-        -webkit-print-color-adjust: exact !important;
+        border: 1px solid $gray-400;
         width: 2px;
     }
     .vue-slider-process {
-        background-color: $gray-700;
-        -webkit-print-color-adjust: exact !important;
+        border-left: 12px solid $gray-700;
+        border-right: 12px solid $gray-700;
         z-index: 2;
         width: 24px !important;
         left: 50% !important;
@@ -309,16 +308,15 @@ export default {
         }
     }
     .vue-slider-mark-step {
-        background-color: $gray-400;
-        -webkit-print-color-adjust: exact !important;
+        border: 1px solid $gray-400;
         width: 30px;
         height: 2px;
         top: 1px;
         left: -15px !important;
     }
     .vue-slider-dot {
-        background-color: $gray-700;
-        -webkit-print-color-adjust: exact !important;
+        border-left: 12px solid $gray-700;
+        border-right: 12px solid $gray-700;
         width: 24px !important;
         height: 10px !important;
         cursor: initial;

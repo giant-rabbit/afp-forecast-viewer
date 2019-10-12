@@ -72,7 +72,7 @@ export default {
                     column: 'start_date',
                     ascending: false
                 },
-                sortable: ['start_date', 'danger_rating'],
+                sortable: ['start_date'],
                 filterable: true,
                 perPage: 100,
                 pagination: { chunk: 5 },
@@ -126,7 +126,7 @@ export default {
         getProducts() {
             var ref = this
             this.$api
-                .get('forecasts?avalanche_center_id=' + this.$centerId)
+                .get('public/products?avalanche_center_id=' + this.$centerId)
                 .then(response => {
                     this.data = response.data
                     // filter forecasts
@@ -139,7 +139,7 @@ export default {
                         }
                         switch (forecast.danger_rating) {
                             case 0:
-                                forecast.danger_rating = ""
+                                forecast.danger_rating = "no rating"
                                 break
                             case 1:
                                 forecast.danger_rating = "low"
@@ -157,7 +157,7 @@ export default {
                                 forecast.danger_rating = "extreme"
                                 break
                             default:
-                                forecast.danger_rating = ""
+                                forecast.danger_rating = "no rating"
                         }
                     })
                     this.$eventBus.$emit('loaded')
@@ -229,9 +229,9 @@ export default {
             border-top: none;
             &.afp-table-time,
             &.afp-table-danger {
-                width: 140px;
-                max-width: 140px;
-                min-width: 140px;
+                width: 160px;
+                max-width: 160px;
+                min-width: 160px;
                 white-space: initial !important;
             }
         }
@@ -244,6 +244,9 @@ export default {
         border-radius: $btn-border-radius-sm;
         display: block;
         text-align: center;
+        &.afp-danger-no.rating {
+            background-color: $no-rating;
+        }
         &.afp-danger-low {
             background-color: $low;
         }
