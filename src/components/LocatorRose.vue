@@ -256,17 +256,16 @@ $rose-margin: 20px;
     position: absolute;
     height: $rose-size * 0.6;
     width: 1px;
-    background-color: $gray-400;
-    -webkit-print-color-adjust: exact !important;
+    border-left: 1px solid $gray-400;
+    border-right: 1px solid $gray-400;
     &:before {
         content: "";
         position: absolute;
-        width: 5px;
-        height: 5px;
+        width: 6px;
+        height: 6px;
         border-radius: 50%;
-        background-color: $gray-400;
-        -webkit-print-color-adjust: exact !important;
-        left: -2px;
+        border: 3px solid $gray-400;
+        left: -3px;
     }
 }
 .elevationMarkerUpper {
