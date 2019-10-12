@@ -98,6 +98,10 @@ export default {
     min-height: 300px;
     position: relative;
     padding-top: $spacer;
+    @media print {
+        width: 100% !important;
+        max-width: none;
+    }
 }
 
 </style>

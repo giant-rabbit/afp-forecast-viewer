@@ -76,6 +76,9 @@ export default {
     margin-bottom: $spacer;
     @include border-radius($alert-border-radius);
     background-color: $high;
+    background-color: $high;
+    -webkit-print-color-adjust: exact;
+    border: 2px solid $high;
     i {
         color: #fff !important;
         font-size: 3rem;

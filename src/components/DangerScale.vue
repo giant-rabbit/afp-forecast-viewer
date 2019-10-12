@@ -61,7 +61,7 @@ export default {
         content: "";
         display: block;
         height: 10px;
-        background-color: $no-rating;
+        border: 5px solid $no-rating;
         margin-bottom: .3rem;
     }
 }
@@ -80,24 +80,23 @@ export default {
     }
     &:before {
         border-radius: $border-radius;
-        border: 2px solid $no-rating-border;
     }
 }
 .low:before {
-    background-color: $low;
+    border-color: $low;
     border-radius: $border-radius 0 0 $border-radius;
 }
 .mod:before {
-    background-color: $moderate;
+    border-color: $moderate;
 }
 .cons:before {
-    background-color: $considerable;
+    border-color: $considerable;
 }
 .high:before {
-    background-color: $high;
+    border-color: $high;
 }
 .ext:before {
-    background-color: $extreme;
+    border-color: $extreme;
     border-radius: 0 $border-radius $border-radius 0;
 }
 .mod span,

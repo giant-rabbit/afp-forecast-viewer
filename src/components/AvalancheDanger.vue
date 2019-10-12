@@ -177,6 +177,11 @@ export default {
     composes: col-lg-8 from "../assets/css/style.css";
     composes: col-md-12 from "../assets/css/style.css";
     margin-bottom: $spacer;
+    @media print {
+        width: 100%;
+        flex: initial;
+        max-width: 100%;
+    }
 }
 
 .todayNoOutlook {
@@ -193,12 +198,16 @@ export default {
     @include media-breakpoint-down(md) {
         display: none;
     }
+    @media print {
+        display: none !important;
+    }
 }
 
 .dangerGraphic {
     position: relative;
     padding-top: $spacer;
     overflow: hidden;
+    page-break-inside: avoid;
     @include media-breakpoint-down(xs) {
         margin-left: -15px;
         margin-right: -10px;
@@ -229,6 +238,7 @@ $elevation-height: 90px;
     -webkit-print-color-adjust: exact;
     position: relative;
     background-color: $gray-300;
+    border: 2px solid $gray-300;
     height: $elevation-height;
     margin-right: 60px;
     margin-bottom: 5px;
@@ -342,8 +352,12 @@ $elevation-height: 90px;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 1rem;
+    page-break-inside: avoid;
     @include media-breakpoint-up(lg) {
         display: none;
+    }
+    @media print {
+        display: block !important;
     }
 }
 

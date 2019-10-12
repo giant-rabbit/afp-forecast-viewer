@@ -85,7 +85,10 @@
                             class="afp-btn-primary"
                         >View More Media</a>
                 </div>-->
-                <div v-if="!preview && data.weather_table" :class="$style.divider">
+                <div
+                    v-if="!preview && data.weather_table"
+                    :class="[$style.divider, $style.wxSummary]"
+                >
                     <h2>Weather Summary</h2>
                     <!-- Need logic for correct weather table && if it exists -->
                     <weather-table
@@ -100,6 +103,10 @@
                             class="afp-btn-primary"
                         >Full Weather Forecast</button>
                     </div>
+                </div>
+                <div :class="[$style.divider, $style.printWx]">
+                    <h2>Weather Forecast</h2>
+                    <weather-content :data="data.weather_product" />
                 </div>
             </div>
 
@@ -322,6 +329,11 @@ export default {
 .tabPane {
     min-height: 80vh;
 }
+.wxSummary {
+    @media print {
+        display: none;
+    }
+}
 
 .btn {
     composes: btn from "../assets/css/style.css";
@@ -330,5 +342,13 @@ export default {
 
 .textCenter {
     text-align: center;
+}
+
+.printWx {
+    display: none;
+    @media print {
+        display: block;
+        margin-top: $spacer;
+    }
 }
 </style>

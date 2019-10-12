@@ -54,23 +54,6 @@ export default {
         }
     },
     props: ['danger'],
-    mounted() {
-        // var svg = document.querySelector('#afp-danger-svg')
-        // var img = document.querySelector('#afp-danger-img')
-        // var svgData = new XMLSerializer().serializeToString(svg)
-        // var canvas = document.createElement("canvas");
-        // canvas.width = 750;
-        // canvas.height = 900;
-        // var ctx = canvas.getContext("2d")
-        // ctx.scale(3, 3)
-        // var imgTemp = document.createElement("img");
-        // imgTemp.setAttribute("src", "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData))));
-        // imgTemp.onload = function () {
-        //     ctx.drawImage(imgTemp, 0, 0);
-        //     var canvasdata = canvas.toDataURL("image/png", 1);
-        //     img.setAttribute("src", canvasdata);
-        // }
-    }
 }
 
 </script>

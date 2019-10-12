@@ -8,7 +8,7 @@
         ></div>
 
         <!-- Weather tables -->
-        <div v-for="(zone,index) in data.weather_data" :key="zone.zone_id">
+        <div :class="$style.wxTable" v-for="(zone,index) in data.weather_data" :key="zone.zone_id">
             <weather-table
                 :periods="zone.periods"
                 :data="zone.data"
@@ -39,5 +39,10 @@ export default {
 
 .spacer {
     margin-bottom: $spacer;
+}
+.wxTable {
+    @media print {
+        display: none;
+    }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div :class="$style.gallery" data-html2canvas-ignore>
+    <div :class="$style.gallery">
         <video-modal
             @close="videoModal = false"
             :show="videoModal"
@@ -65,41 +65,12 @@ export default {
     },
     props: ['media', 'scope'],
     methods: {
-        // hideDots() {
-        //     var viewportWidth = document.querySelector('.afp-carousel').offsetWidth
-        //     var cells = document.getElementsByClassName('afp-carousel-cell')
-        //     var cellWidth = 0
-        //     for (var i = 0; i < cells.length; i++) {
-        //         cellWidth += cells[i].offsetWidth
-        //     }
-        //     if (cellWidth <= viewportWidth) {
-        //         document.querySelector('.flickity-page-dots').style.display = "none"
-        //         document.querySelector('.flickity-button.previous').style.display = "none"
-        //         document.querySelector('.flickity-button.next').style.display = "none"
-        //     } else {
-        //         document.querySelector('.flickity-page-dots').style.display = "block"
-        //         document.querySelector('.flickity-button.previous').style.display = "inline-block"
-        //         document.querySelector('.flickity-button.next').style.display = "inline-block"
-        //     }
-        // },
         showVideoModal(id, caption) {
             this.videoId = id
             this.videoCaption = caption
             this.videoModal = true
         }
-    },
-    // mounted() {
-    //     var ref = this
-    //     setTimeout(function () {
-    //         ref.hideDots()
-    //     }, 500)
-    //     window.addEventListener("resize", this.hideDots)
-    // },
-    // created() {
-    // },
-    // destroyed() {
-    //     window.removeEventListener("resize", this.hideDots)
-    // },
+    }
 }
 </script>
 
@@ -112,6 +83,9 @@ $gallery-height: 200px;
 
 .gallery {
     margin-bottom: 2.5 * $spacer;
+    @media print {
+        display: none;
+    }
 }
 
 .galleryItem {

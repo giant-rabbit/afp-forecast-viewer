@@ -172,7 +172,7 @@ export default {
 
 .problemContainer {
     @include divider;
-    margin-bottom: 1.5*$spacer;
+    margin-bottom: 1.5 * $spacer;
     &::after {
         display: block;
         content: "";
@@ -187,6 +187,7 @@ export default {
 
 .infoGraphics {
     composes: row from "../assets/css/style.css";
+    page-break-inside: avoid;
     align-items: flex-end !important;
     h6,
     h5 {
@@ -215,6 +216,10 @@ export default {
     composes: col-6 from "../assets/css/style.css";
     // composes: col-sm-6 from "../assets/css/style.css";
     composes: col-lg-3 from "../assets/css/style.css";
+    @media print {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
     text-align: center;
     margin-bottom: $spacer;
     overflow: hidden;

@@ -1,6 +1,5 @@
 <template>
     <div :class="$style.container">
-        <print />
         <not-found v-if="notFound" />
         <loader />
         <forecast-view
@@ -17,7 +16,6 @@
 <script>
 import Loader from '../components/Loader'
 import NotFound from '../components/NotFound'
-import Print from '../components/Print'
 
 export default {
     data() {
@@ -35,8 +33,7 @@ export default {
     },
     components: {
         Loader,
-        NotFound,
-        Print
+        NotFound
     },
     watch: {
         '$route.params.zone': {
@@ -129,22 +126,7 @@ export default {
             //     this.$router.push({ name: 'NotFound' })
             // })
         },
-        // getProduct() {
-        //     // load dummy data
-        //     var ref = this
-        //     setTimeout(function () {
-        //         ref.data = ref.$sampleData
-        //         ref.data.forecast_avalanche_problems.sort(function (a, b) {
-        //             return a.rank - b.rank
-        //         })
-        //         ref.loaded = true
-        //         ref.$eventBus.$emit('loaded')
-        //         ref.$nextTick(() => {
-        //             var event = new Event('forecast-loaded')
-        //             window.dispatchEvent(event)
-        //         })
-        //     }, 500)
-        // }
+
     },
     mounted() {
         this.$eventBus.$emit('loading')

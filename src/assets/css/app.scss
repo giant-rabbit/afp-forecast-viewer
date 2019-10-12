@@ -9,6 +9,27 @@ html {
   font-size: 16px;
 }
 
+
+@media print {
+  @page {
+    size: 1200px 11in;
+    margin: 2cm
+  }
+
+  table {
+    page-break-inside: avoid;
+  }
+
+  body {
+    margin: 2rem;
+    background-color: #fff !important;
+  }
+
+  .afp-forecast-view {
+    background-color: #fff !important;
+  }
+}
+
 *,
 ::after,
 ::before {
@@ -180,7 +201,9 @@ html {
       border-radius: $popover-border-radius;
       box-shadow: $popover-box-shadow;
       max-width: $popover-max-width;
-      a, a:hover {
+
+      a,
+      a:hover {
         color: $no-rating-border !important;
       }
     }

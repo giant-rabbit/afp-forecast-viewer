@@ -36,6 +36,11 @@ export default {
 @import "../assets/css/_variables.scss";
 @import "../assets/css/bootstrap/mixins/breakpoints";
 
+@media print {
+    .tabs {
+        display: none !important;
+    }
+}
 .tab {
     margin-bottom: -1px;
     margin-right: 5px;

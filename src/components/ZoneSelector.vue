@@ -1,5 +1,5 @@
 <template>
-    <div data-html2canvas-ignore :class="$style.selector">
+    <div :class="$style.selector">
         <button ref="button" @click="show = !show" :class="$style.btn">Other Zones</button>
         <transition name="expand" @enter="enter" @after-enter="afterEnter" @leave="leave">
             <div
@@ -118,6 +118,9 @@ export default {
 .selector {
     position: relative;
     margin-bottom: 1rem;
+    @media print {
+        display: none;
+    }
 }
 
 .btn {
