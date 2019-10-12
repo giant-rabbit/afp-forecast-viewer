@@ -154,7 +154,7 @@ export default {
 .problemIcon {
     height: 170px !important;
     width: 170px !important;
-    margin: 25px 15px 10px 15px;
+    margin: 20px 15px 10px 15px;
     cursor: help;
     @include media-breakpoint-down(xs) {
         height: 130px !important;
@@ -227,67 +227,5 @@ export default {
     transform: translate(-50%, -50%);
     color: $red;
     font-size: 5rem;
-}
-</style>
-
-<style scoped lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins/breakpoints";
-
-.slider::v-deep {
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0.5rem !important;
-    width: 8rem !important;
-    .vue-slider-rail {
-        border: 1px solid $gray-400;
-        width: 2px;
-    }
-    .vue-slider-process {
-        border-left: 12px solid $gray-700;
-        border-right: 12px solid $gray-700;
-        z-index: 2;
-        width: 24px !important;
-        left: 50% !important;
-        transform: translate(-50%, 0);
-    }
-    &.likelihood {
-        .vue-slider-process {
-            display: none;
-        }
-    }
-    &.size {
-        .vue-slider-mark:nth-child(even) {
-            display: none;
-        }
-    }
-    .vue-slider-mark-step {
-        border: 1px solid $gray-400;
-        width: 30px;
-        height: 2px;
-        top: 1px;
-        left: -15px !important;
-    }
-    .vue-slider-dot {
-        border-left: 12px solid $gray-700;
-        border-right: 12px solid $gray-700;
-        width: 24px !important;
-        height: 10px !important;
-        cursor: initial;
-        border-radius: 0;
-    }
-    .vue-slider-mark-label {
-        padding-left: 20px;
-        font-size: $font-size-sm;
-        text-transform: capitalize;
-        width: 8rem !important;
-        text-align: left;
-        color: $gray-500;
-        &.vue-slider-mark-label-active {
-            color: $body-color;
-            font-weight: bold;
-        }
-    }
 }
 </style>

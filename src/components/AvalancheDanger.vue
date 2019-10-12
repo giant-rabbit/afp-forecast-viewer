@@ -44,7 +44,10 @@
                 </div>
             </div>
             <div v-if="outlookDanger" :class="$style.outlook">
-                <h6>Outlook for Tomorrow</h6>
+                <h6>
+                    Outlook for Tomorrow
+                    <info :content="this.$helpContent.avalancheDangerOutlook" />
+                </h6>
                 {{outlookDate}}
                 <div :class="$style.dangerGraphic">
                     <div :class="$style.elevationOutlookBlock">
@@ -79,7 +82,10 @@
         </div>
         <div v-if="outlookDanger" :class="$style.outlookMobile">
             <div :class="$style.outlookMobileText">
-                <h6>Outlook for Tomorrow</h6>
+                <h6>
+                    Outlook for Tomorrow
+                    <info :content="this.$helpContent.avalancheDangerOutlook" />
+                </h6>
                 {{outlookDate}}
             </div>
             <div :class="$style.outlookMobileGraphic">
