@@ -2,19 +2,13 @@
     <!-- <div class="afp-forecast-view"> -->
     <div>
         <forecast-product
-            v-if="product == 'forecast'"
+            v-if="product == 'forecast' || product == 'summary'"
             :preview="preview"
             :data="data"
             :config="config"
         />
         <weather-product
             v-if="product == 'weather'"
-            :preview="preview"
-            :data="data"
-            :config="config"
-        />
-        <summary-product
-            v-if="product == 'summary'"
             :preview="preview"
             :data="data"
             :config="config"
@@ -32,7 +26,6 @@
 //import moment from 'moment'
 import ForecastProduct from '../components/ForecastProduct'
 import WeatherProduct from '../components/WeatherProduct'
-import SummaryProduct from '../components/SummaryProduct'
 import SynopsisProduct from '../components/SynopsisProduct'
 
 export default {
@@ -72,7 +65,6 @@ export default {
     components: {
         ForecastProduct,
         WeatherProduct,
-        SummaryProduct,
         SynopsisProduct
     }
 }

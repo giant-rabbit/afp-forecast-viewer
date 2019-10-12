@@ -4,7 +4,7 @@
             .afp-forecast-view a:not(.afp-native-link) {
             color: {{this.$config.color}} !important;
             }
-            .afp-forecast-view a:not(.afp-native-link):hover {
+            .afp-forecast-view a:not(.afp-native-link):hover,.afp-forecast-view a:not(.afp-native-link):focus {
             color: {{luminance(this.$config.color,-0.3)}} !important;
             }
             .afp-forecast-view .afp-btn-primary {

@@ -7,7 +7,8 @@
             </div>
             <!-- Title -->
             <div :class="$style.title">
-                <h1>Backcountry Avalanche Forecast</h1>
+                <h1 v-if="data.product_type == 'forecast'">Backcountry Avalanche Forecast</h1>
+                <h1 v-else>Avalanche Conditions Summary</h1>
                 <h2 v-if="!preview">
                     <i class="mdi mdi-map-marker"></i>
                     {{zone}}
@@ -35,19 +36,30 @@
 
         <!-- Tab navigation -->
         <tabs
-            v-if="!preview"
+            v-if="!preview && data.product_type == 'forecast'"
             ref="tabs"
-            :tabs="tabs"
+            :tabs="tabsForecast"
             :custom="$config.tabs"
             :selected="tabSelected"
             @changeTab="changeTab"
         />
-        <tabs v-else ref="tabs" :tabs="tabsPreview" :selected="tabSelected" />
+        <tabs
+            v-if="!preview && data.product_type == 'summary'"
+            ref="tabs"
+            :tabs="tabsSummary"
+            :custom="$config.tabs"
+            :selected="tabSelected"
+            @changeTab="changeTab"
+        />
+        <tabs v-if="preview" ref="tabs" :tabs="tabsPreview" :selected="tabSelected" />
 
         <!-- Tab container -->
         <content-panel>
             <!-- Avalanche forecast tab -->
-            <div v-show="tabSelected == 'forecast'" :class="$style.tabPane">
+            <div
+                v-if="tabSelected == 'forecast' && data.product_type == 'forecast'"
+                :class="$style.tabPane"
+            >
                 <!-- danger -->
                 <avalanche-danger
                     :danger="data.danger"
@@ -65,7 +77,8 @@
 
                 <!-- discussion -->
                 <div v-if="data.hazard_discussion != ''" :class="$style.divider">
-                    <h2>Forecast Discussion</h2>
+                    <h2 v-if="data.product_type == 'forecast'">Forecast Discussion</h2>
+                    <h2 v-else>Snowpack & Avalanche Conditions</h2>
                     <div v-html="data.hazard_discussion"></div>
                 </div>
 
@@ -77,20 +90,13 @@
                     v-if="data.media.length > 0"
                     key="forecast"
                 />
-                <!-- <div v-if="this.$config.mediaUrl" :class="$style.textCenter">
-                        <a
-                            :href="this.$config.mediaUrl"
-                            @click="tabSelected = 'weather'"
-                            :class="$style.btnPrimary"
-                            class="afp-btn-primary"
-                        >View More Media</a>
-                </div>-->
+
+                <!-- weather summary -->
                 <div
-                    v-if="!preview && data.weather_table"
+                    v-if="!preview && data.weather_table && data.product_type == 'forecast'"
                     :class="[$style.divider, $style.wxSummary]"
                 >
                     <h2>Weather Summary</h2>
-                    <!-- Need logic for correct weather table && if it exists -->
                     <weather-table
                         :periods="data.weather_table.periods"
                         :data="data.weather_table.data"
@@ -104,14 +110,39 @@
                         >Full Weather Forecast</button>
                     </div>
                 </div>
+
+                <!-- weather forecast for print -->
                 <div :class="[$style.divider, $style.printWx]">
                     <h2>Weather Forecast</h2>
-                    <weather-content :data="data.weather_product" />
+                    <weather-content v-if="data.weather_product" :data="data.weather_product" />
                 </div>
             </div>
 
-            <!-- Weather tab -->
-            <div v-if="tabSelected == 'weather'" :class="$style.tabPane">
+            <!-- Summary tab -->
+            <div
+                v-if="tabSelected == 'forecast' && data.product_type == 'summary'"
+                :class="$style.tabPane"
+            >
+                <div :class="$style.spacer">
+                    <h2>Snowpack & Avalanche Conditions</h2>
+                    <div v-if="data.hazard_discussion != ''" v-html="data.hazard_discussion"></div>
+                </div>
+                <!-- media -->
+                <media-gallery
+                    :class="$style.divider"
+                    :media="data.media"
+                    scope="scope-forecast"
+                    v-if="data.media.length > 0"
+                />
+                <!-- weather forecast for print -->
+                <div :class="[$style.divider, $style.printWx]">
+                    <h2>Weather Forecast</h2>
+                    <div v-if="data.weather_discussion != ''" v-html="data.weather_discussion"></div>
+                </div>
+            </div>
+
+            <!-- Forecast Weather tab -->
+            <div v-if="tabSelected == 'weather' && data.product_type == 'forecast'" :class="$style.tabPane">
                 <div v-if="data.weather_product">
                     <product-header
                         :published="data.weather_product.published_time"
@@ -121,6 +152,11 @@
                     <weather-content :data="data.weather_product" />
                 </div>
                 <div v-else>No Weather Forecast to display.</div>
+            </div>
+
+            <!-- Summary Weather tab -->
+            <div v-if="tabSelected == 'weatherSummary'  && data.product_type == 'summary'" :class="$style.tabPane">
+                <div v-if="data.weather_discussion != ''" v-html="data.weather_discussion"></div>
             </div>
 
             <!-- Synopsis tab -->
@@ -174,7 +210,7 @@ export default {
     data() {
         return {
             // make tabs a computed property conditional on preview, weather, and synopsis
-            tabs: [
+            tabsForecast: [
                 {
                     id: "forecast",
                     name: "Avalanche Forecast"
@@ -188,21 +224,39 @@ export default {
                     name: "Regional Synopsis"
                 }
             ],
+            tabsSummary: [
+                {
+                    id: "forecast",
+                    name: "Conditions Summary"
+                },
+                {
+                    id: "weatherSummary",
+                    name: "Weather Forecast"
+                },
+                {
+                    id: "synopsis",
+                    name: "Regional Synopsis"
+                }
+            ],
             tabsPreview: [
                 {
                     id: "forecast",
                     name: "Avalanche Forecast"
                 }
             ],
-            tabSelected: "forecast",
+            tabSelected: 'forecast',
             zone: ''
         }
     },
     computed: {
         highestDanger: function () {
-            let current = this.data.danger.find(current => current.valid_day == "current");
-            return Math.max(current.lower, current.middle, current.upper)
-        }
+            if (this.data.product_type == 'forecast') {
+                let current = this.data.danger.find(current => current.valid_day == "current");
+                return Math.max(current.lower, current.middle, current.upper)
+            } else {
+                return 0
+            }
+        },
     },
     props: ['preview', 'data', 'config'],
     components: {
