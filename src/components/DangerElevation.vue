@@ -33,7 +33,6 @@
                 style="fill-opacity:0.1;"
             />
         </svg>
-        <img id="afp-danger-img" />
     </div>
 </template>
 

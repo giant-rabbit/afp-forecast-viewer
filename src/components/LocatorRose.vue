@@ -154,7 +154,6 @@
                     :style="'stroke: ' + borderColor + '; stroke-width: 10px; fill: transparent'"
                 />
             </svg>
-            <img class="afp-rose-img" :class="$style.roseImg" />
         </div>
     </div>
 </template>

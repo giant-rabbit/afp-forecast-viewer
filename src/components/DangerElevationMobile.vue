@@ -1,17 +1,41 @@
 <template>
     <div :class="$style.dangerMobile">
-        <div class="treelines">
-            <div :class="$style.dangerNumbers">
-                <span :class="{[$style.extremeText]:(danger.upper == 5)}">{{danger.upper}}</span>
-                <span :class="{[$style.extremeText]:(danger.middle == 5)}">{{danger.middle}}</span>
-                <span :class="{[$style.extremeText]:(danger.lower == 5)}">{{danger.lower}}</span>
-            </div>
-            <span :class="$style.upper" :data-id="danger.upper"></span>
-            <span :class="$style.middle" :data-id="danger.middle"></span>
-            <span :class="$style.lower" :data-id="danger.lower"></span>
+        <svg
+            width="160"
+            height="140"
+            viewBox="0 0 160 140"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            xml:space="preserve"
+            xmlns:serif="http://www.serif.com/"
+            style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;"
+        >
+            <path
+                d="M30.222,95.2l99.556,0l21.333,37.8l-142.222,0l21.333,-37.8Z"
+                :style="{ fill: dangerColor[danger.lower]}"
+                style="stroke-width: 0px"
+            />
+            <path
+                d="M128.593,93.1l-97.186,0l21.334,-37.8l54.518,0l21.334,37.8Z"
+                :style="{ fill: dangerColor[danger.middle]}"
+                style="stroke-width: 0px"
+            />
+            <path
+                d="M106.074,53.2l-52.148,0l26.074,-46.2l26.074,46.2Z"
+                :style="{ fill: dangerColor[danger.upper]}"
+                style="stroke-width: 0px"
+            />
+            <path
+                d="M77.387,5.329c0.532,-0.942 1.531,-1.525 2.613,-1.525c1.082,0 2.081,0.583 2.613,1.525c11.761,20.84 59.726,105.827 71.306,126.346c0.524,0.929 0.516,2.067 -0.022,2.988c-0.538,0.921 -1.524,1.487 -2.59,1.487c-23.343,0 -119.271,0 -142.614,0c-1.066,0 -2.052,-0.566 -2.59,-1.487c-0.538,-0.921 -0.546,-2.059 -0.022,-2.988c11.58,-20.519 59.545,-105.506 71.306,-126.346Z"
+                style="fill:none;stroke:#ccc;stroke-width:2.51px;"
+            />
+        </svg>
+        <div :class="$style.dangerNumbers">
+            <span :class="{[$style.extremeText]:(danger.upper == 5)}">{{danger.upper}}</span>
+            <span :class="{[$style.extremeText]:(danger.middle == 5)}">{{danger.middle}}</span>
+            <span :class="{[$style.extremeText]:(danger.lower == 5)}">{{danger.lower}}</span>
         </div>
-        <div :class="$style.triangleInner"></div>
-        <div :class="$style.triangle"></div>
     </div>
 </template>
 
@@ -20,6 +44,15 @@
 export default {
     data() {
         return {
+            dangerColor: [
+                '#cccccc',
+                '#50b849',
+                '#fef200',
+                '#f7941d',
+                '#ed1b24',
+                '#000000',
+
+            ]
         }
     },
     props: ['danger'],
@@ -33,193 +66,33 @@ export default {
 @import "../assets/css/bootstrap/mixins/breakpoints";
 
 .dangerMobile {
-    position: relative;
-    display: inline-block;
     height: 140px;
     width: 160px;
+    position: relative;
+    page-break-inside: avoid;
 }
 
 .dangerNumbers {
+    page-break-inside: avoid;
     position: absolute;
+    top:0;
     width: 40px;
     left: calc(50% - 20px);
     z-index: 4;
     font-weight: bold;
     text-align: center;
+    font-size: 16px;
     span {
         &:first-of-type {
             margin-top: 14px;
         }
         display: block;
-        line-height: 40px;
+        line-height: 1;
+        padding-top: 12px;
+        padding-bottom: 12px;
     }
 }
 .extremeText {
     color: #fff;
 }
-
-.upper {
-    position: absolute;
-    z-index: 3;
-    bottom: 89px;
-    left: 56px;
-    border-right: 24px solid transparent;
-    border-left: 24px solid transparent;
-    border-bottom: 43px solid #ccc;
-    background-color: transparent !important;
-    -webkit-print-color-adjust: exact !important;
-}
-
-.middle {
-    position: absolute;
-    z-index: 3;
-    bottom: 47px;
-    left: 42px;
-    width: 50px;
-    height: 39px;
-    display: inline-block;
-    transform: skewX(-30deg);
-    border-bottom-color: #ccc;
-    background-color: #ccc;
-    -webkit-print-color-adjust: exact !important;
-    &:after {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 47px;
-        right: -26px;
-        width: 50px;
-        height: 39px;
-        display: inline-block;
-        transform: skewX(49deg);
-        background-color: #ccc;
-        -webkit-print-color-adjust: exact !important;
-    }
-}
-
-.lower {
-    position: absolute;
-    z-index: 3;
-    bottom: 8px;
-    left: 19px;
-    width: 90px;
-    height: 36px;
-    display: inline-block;
-    transform: skewX(-30deg);
-    border-bottom-color: #ccc;
-    background-color: #ccc;
-    -webkit-print-color-adjust: exact !important;
-    &:after {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 8px;
-        right: -32px;
-        width: 90px;
-        height: 36px;
-        display: inline-block;
-        transform: skewX(49deg);
-        background-color: #ccc;
-        -webkit-print-color-adjust: exact !important;
-    }
-}
-
-.triangleInner {
-    position: absolute;
-    z-index: 2;
-    right: 42px;
-    top: 31px;
-    background-color: #fff;
-    -webkit-print-color-adjust: exact !important;
-    text-align: left;
-    transform: rotate(-60deg) skewX(-30deg) scale(1, 0.866);
-    width: 76px;
-    height: 76px;
-    border-top-right-radius: 5%;
-    &:before,
-    &:after {
-        content: "";
-        position: absolute;
-        background-color: inherit;
-        width: 76px;
-        height: 76px;
-        border-top-right-radius: 5%;
-    }
-    &:before {
-        transform: rotate(-135deg) skewX(-45deg) scale(1.414, 0.707)
-            translate(0, -50%);
-    }
-    &:after {
-        transform: rotate(135deg) skewY(-45deg) scale(0.707, 1.414)
-            translate(50%);
-    }
-}
-
-.triangle {
-    position: absolute;
-    right: 40px;
-    top: 28px;
-    background-color: $gray-400;
-    -webkit-print-color-adjust: exact !important;
-    text-align: left;
-    transform: rotate(-60deg) skewX(-30deg) scale(1, 0.866);
-    width: 80px;
-    height: 80px;
-    border-top-right-radius: 10%;
-    &:before,
-    &:after {
-        content: "";
-        position: absolute;
-        background-color: inherit;
-        -webkit-print-color-adjust: exact !important;
-        width: 80px;
-        height: 80px;
-        border-top-right-radius: 10%;
-    }
-    &:before {
-        transform: rotate(-135deg) skewX(-45deg) scale(1.414, 0.707)
-            translate(0, -50%);
-    }
-    &:after {
-        transform: rotate(135deg) skewY(-45deg) scale(0.707, 1.414)
-            translate(50%);
-    }
-}
-
-.upper,.middle, .lower {
-    &[data-id="0"], &[data-id="0"]:after  {
-        border-bottom-color: $no-rating;
-        background-color: $no-rating;
-    }
-    &[data-id=""], &[data-id=""]:after {
-        border-bottom-color: $no-rating;
-        background-color: $no-rating;
-    }
-    &[data-id="null"], &[data-id="null"]:after {
-        border-bottom-color: $no-rating;
-        background-color: $no-rating;
-    }
-    &[data-id="1"], &[data-id="1"]:after {
-        border-bottom-color: $low;
-        background-color: $low;
-    }
-    &[data-id="2"], &[data-id="2"]:after {
-        border-bottom-color: $moderate;
-        background-color: $moderate;
-    }
-    &[data-id="3"], &[data-id="3"]:after {
-        border-bottom-color: $considerable;
-        background-color: $considerable;
-    }
-    &[data-id="4"], &[data-id="4"]:after {
-        border-bottom-color: $high;
-        background-color: $high;
-    }
-    &[data-id="5"], &[data-id="5"]:after {
-        border-bottom-color: $extreme;
-        background-color: $extreme;
-    }
-}
-
 </style>
-
