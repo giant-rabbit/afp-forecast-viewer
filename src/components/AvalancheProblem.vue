@@ -33,25 +33,24 @@
                 </h5>
             </div>
             <div :class="$style.col12">
-                <vue-slider
-                    class="likelihood slider"
-                    ref="likelihood"
-                    :data="likelihoodData"
-                    v-model="problem.likelihood"
-                    v-bind="likelihoodOptions"
-                ></vue-slider>
+                <problem-slider
+                    key="likelihood"
+                    :options="likelihoodOptions"
+                    :labels="likelihoodLabels"
+                    :data="problem.likelihood"
+                ></problem-slider>
                 <h5>
                     Likelihood
                     <!-- <info :content="this.$helpContent.problemLikelihood" /> -->
                 </h5>
             </div>
             <div :class="$style.col12">
-                <vue-slider
-                    class="size slider"
-                    ref="size"
-                    v-model="problem.size"
-                    v-bind="sizeOptions"
-                ></vue-slider>
+                <problem-slider
+                    key="size"
+                    :options="sizeOptions"
+                    :labels="sizeLabels"
+                    :data="problem.size"
+                ></problem-slider>
                 <h5>
                     Size
                     <!-- <info :content="this.$helpContent.problemSize" /> -->
@@ -90,72 +89,28 @@
             :caption="problem.media.caption"
             :id="problem.media.url"
         />
-        <!-- <figure
-            v-if="problem.media.type == 'video' && problem.media.url !=''"
-            :class="$style.problemMedia"
-        >
-            <div :class="$style.videoContainer">
-                <iframe
-                    width="100%"
-                    height="100%"
-                    :src="'https://www.youtube.com/embed/' + problem.media.url"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                ></iframe>
-            </div>
-            <figcaption>{{problem.media.caption}}</figcaption>
-        </figure>-->
         <div v-html="problem.discussion"></div>
     </div>
 </template>
 
 <script>
-import VueSlider from 'vue-slider-component'
 import LocatorRose from '../components/LocatorRose'
+import ProblemSlider from '../components/ProblemSlider'
 import VideoModal from '../components/VideoModal'
 
 export default {
     data() {
         return {
             videoModal: false,
-            likelihoodData: ['unlikely', 'possible', 'likely', 'very likely', 'almost certain'],
-            likelihoodOptions: {
-                height: 200,
-                direction: 'btt',
-                min: 1,
-                max: 5,
-                interval: 1,
-                clickable: false,
-                disabled: true,
-                tooltip: 'none',
-                marks: true,
-            },
-            sizeOptions: {
-                height: 200,
-                direction: 'btt',
-                min: 1,
-                max: 4,
-                interval: .5,
-                clickable: false,
-                disabled: true,
-                tooltip: 'none',
-                enableCross: false,
-                marks: {
-                    '1': 'small',
-                    '1.5': '',
-                    '2': 'large',
-                    '2.5': '',
-                    '3': 'very large',
-                    '3.5': '',
-                    '4': 'historic'
-                }
-            },
+            likelihoodOptions: ['unlikely', 'possible', 'likely', 'very likely', 'almost certain'],
+            likelihoodLabels: ['Unlikely', 'Possible', 'Likely', 'Very Likely', 'Almost Certain'],
+            sizeOptions: ['1','1.5','2','2.5','3','3.5','4'],
+            sizeLabels: ['Small', '', 'Large', '', 'Very Large', '', 'Historic']
         }
     },
     components: {
-        VueSlider,
         LocatorRose,
+        ProblemSlider,
         VideoModal
     },
     props: ['problem', 'config'],
