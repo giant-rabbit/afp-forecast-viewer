@@ -1,6 +1,6 @@
 <template>
     <div :class="$style.selector">
-        <button ref="button" @click="show = !show" :class="$style.btn">Other Zones</button>
+        <button ref="button" @click="show = !show" :class="$style.btn">Choose Zone</button>
         <transition name="expand" @enter="enter" @after-enter="afterEnter" @leave="leave">
             <div
                 v-closable="{

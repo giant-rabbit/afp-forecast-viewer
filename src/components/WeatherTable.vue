@@ -46,6 +46,7 @@ export default {
             text-align: center;
             &:first-of-type {
                 text-align: left;
+                width: 300px;
             }
         }
 

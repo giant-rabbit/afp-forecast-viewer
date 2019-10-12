@@ -159,15 +159,6 @@ export default {
                             default:
                                 forecast.danger_rating = ""
                         }
-                        // var zones = "";
-                        // forecast.forecast_zone.forEach(function (zone, index) {
-                        //     if (index == 0) {
-                        //         zones = zone.name
-                        //     } else {
-                        //         zones += ', ' + zone.name
-                        //     }
-                        // })
-                        // forecast.forecast_zones = zones
                     })
                     this.$eventBus.$emit('loaded')
                     this.loaded = true
