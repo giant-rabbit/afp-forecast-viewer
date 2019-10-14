@@ -5,7 +5,7 @@
         <div :class="$style.infoGraphics">
             <div :class="$style.col12">
                 <v-popover>
-                    <img :class="$style.problemIcon" :src="problem.icon" />
+                    <img v-tooltip="'Click to learn more'" :class="$style.problemIcon" :src="problem.icon" />
                     <template slot="popover">
                         <div v-html="problem.problem_description"></div>
                     </template>

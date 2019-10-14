@@ -18,6 +18,7 @@
                         <v-popover :class="$style.dangerIcon">
                             <img
                                 :src="this.$dangerScale[currentDanger.upper].icon"
+                                v-tooltip="'Click to learn more'"
                             />
                             <template slot="popover">
                                 <div v-html="this.$dangerScale[currentDanger.upper].advice"></div>
@@ -32,6 +33,7 @@
                         <v-popover :class="$style.dangerIcon">
                             <img
                                 :src="this.$dangerScale[currentDanger.middle].icon"
+                                v-tooltip="'Click to learn more'"
                             />
                             <template slot="popover">
                                 <div v-html="this.$dangerScale[currentDanger.middle].advice"></div>
@@ -46,6 +48,7 @@
                         <v-popover :class="$style.dangerIcon">
                             <img
                                 :src="this.$dangerScale[currentDanger.lower].icon"
+                                v-tooltip="'Click to learn more'"
                             />
                             <template slot="popover">
                                 <div v-html="this.$dangerScale[currentDanger.lower].advice"></div>
@@ -69,6 +72,7 @@
                         <v-popover :class="$style.dangerIcon">
                             <img
                                 :src="this.$dangerScale[outlookDanger.upper].icon"
+                                v-tooltip="'Click to learn more'"
                             />
                             <template slot="popover">
                                 <div v-html="this.$dangerScale[outlookDanger.upper].advice"></div>
@@ -82,6 +86,7 @@
                         <v-popover :class="$style.dangerIcon">
                             <img
                                 :src="this.$dangerScale[outlookDanger.middle].icon"
+                                v-tooltip="'Click to learn more'"
                             />
                             <template slot="popover">
                                 <div v-html="this.$dangerScale[outlookDanger.middle].advice"></div>
@@ -95,6 +100,7 @@
                         <v-popover :class="$style.dangerIcon">
                             <img
                                 :src="this.$dangerScale[outlookDanger.lower].icon"
+                                v-tooltip="'Click to learn more'"
                             />
                             <template slot="popover">
                                 <div v-html="this.$dangerScale[outlookDanger.lower].advice"></div>

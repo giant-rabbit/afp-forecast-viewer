@@ -29,7 +29,15 @@
 
         <!-- Bottom line -->
         <div v-if="data.bottom_line != ''" :class="$style.bottomLine">
-            <img :class="$style.dangerIcon" :src="this.$dangerScale[highestDanger].icon" />
+            <v-popover :class="$style.dangerIcon">
+                <img
+                    :src="this.$dangerScale[highestDanger].icon"
+                    v-tooltip="'Click to learn more'"
+                />
+                <template slot="popover">
+                    <div v-html="this.$dangerScale[highestDanger].advice"></div>
+                </template>
+            </v-popover>
             <h5 :class="$style.bottomLineTitle">THE BOTTOM LINE</h5>
             <div :class="$style.bottomLineText" v-html="data.bottom_line"></div>
         </div>
@@ -142,7 +150,10 @@
             </div>
 
             <!-- Forecast Weather tab -->
-            <div v-if="tabSelected == 'weather' && data.product_type == 'forecast'" :class="$style.tabPane">
+            <div
+                v-if="tabSelected == 'weather' && data.product_type == 'forecast'"
+                :class="$style.tabPane"
+            >
                 <div v-if="data.weather_product">
                     <product-header
                         :published="data.weather_product.published_time"
@@ -155,7 +166,10 @@
             </div>
 
             <!-- Summary Weather tab -->
-            <div v-if="tabSelected == 'weatherSummary'  && data.product_type == 'summary'" :class="$style.tabPane">
+            <div
+                v-if="tabSelected == 'weatherSummary'  && data.product_type == 'summary'"
+                :class="$style.tabPane"
+            >
                 <div v-if="data.weather_discussion != ''" v-html="data.weather_discussion"></div>
             </div>
 
@@ -350,12 +364,23 @@ export default {
 
 .dangerIcon {
     height: 60px !important;
-    width: auto !important;
+    width: 90px !important;
     position: absolute;
     top: -20px;
     left: -20px;
     @include media-breakpoint-down(xs) {
         left: -15px;
+    }
+    div {
+        display: block !important;
+        cursor: help;
+        width: 100%;
+        height: 100%;
+    }
+    img {
+        height: 100% !important;
+        width: auto !important;
+        max-width: initial !important;
     }
 }
 
