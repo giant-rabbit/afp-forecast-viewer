@@ -1,5 +1,11 @@
 <template>
     <div :class="$style.container">
+        <button
+            v-if="date != ''"
+            @click="$router.replace({ name: 'Archive' })"
+            :class="$style.btn"
+            class="afp-btn-primary"
+        ><i class="mdi mdi-arrow-left"></i> Archive</button>
         <not-found v-if="notFound" />
         <loader />
         <forecast-view
@@ -156,5 +162,11 @@ export default {
 
 .container {
     min-height: 100vh;
+}
+
+.btn {
+    composes: btn from "../assets/css/style.css";
+    composes: btn-secondary from "../assets/css/style.css";
+    margin-bottom: .5*$spacer;
 }
 </style>

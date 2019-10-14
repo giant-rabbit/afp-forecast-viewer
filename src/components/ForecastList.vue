@@ -23,15 +23,6 @@
                     :class="'afp-danger afp-danger-' + props.row.danger_rating"
                 >{{props.row.danger_rating}}</span>
             </span>
-            <span slot="forecast_zone" slot-scope="props">
-                <span v-for="(zone, index) in props.row.forecast_zone" v-bind:key="index">
-                    <span v-if="index == 0">{{zone.name}}</span>
-                    <span v-else>, {{zone.name}}</span>
-                </span>
-            </span>
-            <!-- <div slot="filter__start_date">
-                <input type="checkbox" class="form-control" />
-            </div>-->
         </v-client-table>
     </div>
 </template>
@@ -54,7 +45,7 @@ export default {
             /**
              * Set up Vue Tables 2
              */
-            columns: ['start_date', 'danger_rating', 'forecast_zone'],
+            columns: ['start_date', 'danger_rating', 'forecast_zones'],
             data: [],
             options: {
                 skin: 'table',
@@ -133,7 +124,16 @@ export default {
                     this.data = this.data.filter(function (value, index, arr) {
                         return value.product_type == 'forecast' || value.product_type == 'summary'
                     })
+                    var zones = ""
                     this.data.forEach(function (forecast, index) {
+                        forecast.forecast_zone.forEach(function (zone, index) {
+                            if (index == 0) {
+                                zones = zone.name
+                            } else {
+                                zones += ', ' + zone.name
+                            }
+                        })
+                        forecast.forecast_zones = zones
                         if (forecast.start_date) {
                             forecast.start_date = moment(forecast.start_date).format('YYYY-MM-DD')
                         }

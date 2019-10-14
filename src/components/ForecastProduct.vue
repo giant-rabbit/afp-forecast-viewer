@@ -244,8 +244,7 @@ export default {
                     name: "Avalanche Forecast"
                 }
             ],
-            tabSelected: 'forecast',
-            zone: ''
+            tabSelected: 'forecast'
         }
     },
     computed: {

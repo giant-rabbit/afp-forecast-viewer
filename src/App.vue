@@ -41,18 +41,15 @@
         <div :class="$style.container">
             <p>
                 <router-link to="/archive">Archive</router-link>
-                <router-link :to="{ name: 'ZoneForecast', params: { zone: 'sawtooth-mountains' }}">Forecast</router-link>
+                <router-link
+                    :to="{ name: 'ZoneForecast', params: { zone: 'sawtooth-mountains' }}"
+                >Forecast</router-link>
                 <router-link :to="{ name: 'Weather' }">Weather</router-link>
-                <router-link :to="{ name: 'Synopsis' }">Synopsis</router-link>                
+                <router-link :to="{ name: 'Synopsis' }">Synopsis</router-link>
                 <!-- <router-link :to="{ name: 'NotFound' }">404</router-link> -->
             </p>
-            <transition
-                name="fade"
-                mode="out-in"
-            >
-                <keep-alive include="Archive">
-                    <router-view></router-view>
-                </keep-alive>
+            <transition name="fade" mode="out-in">
+                <router-view></router-view>
             </transition>
         </div>
     </div>
@@ -103,10 +100,9 @@ export default {
         max-width: none;
     }
 }
-
 </style>
 
 <style lang="scss">
 // Import global styles
-@import './assets/css/app.scss';
+@import "./assets/css/app.scss";
 </style>
