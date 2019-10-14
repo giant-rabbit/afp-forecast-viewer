@@ -42,7 +42,7 @@
             <p>
                 <router-link to="/archive">Archive</router-link>
                 <router-link
-                    :to="{ name: 'ZoneForecast', params: { zone: 'sawtooth-mountains' }}"
+                    :to="{ name: 'Forecast' }"
                 >Forecast</router-link>
                 <router-link :to="{ name: 'Weather' }">Weather</router-link>
                 <router-link :to="{ name: 'Synopsis' }">Synopsis</router-link>

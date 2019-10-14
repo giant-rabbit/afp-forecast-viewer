@@ -15,30 +15,42 @@
                         <span
                             :class="$style.dangerLabel"
                         >{{this.$dangerScale[currentDanger.upper].rating}} ({{currentDanger.upper}})</span>
-                        <img
-                            :class="$style.dangerIcon"
-                            :src="this.$dangerScale[currentDanger.upper].icon"
-                        />
+                        <v-popover :class="$style.dangerIcon">
+                            <img
+                                :src="this.$dangerScale[currentDanger.upper].icon"
+                            />
+                            <template slot="popover">
+                                <div v-html="this.$dangerScale[currentDanger.upper].advice"></div>
+                            </template>
+                        </v-popover>
                     </div>
                     <div :class="$style.elevationBlock">
                         <span :class="$style.elevationLabel">{{config.elevations.middle}}</span>
                         <span
                             :class="$style.dangerLabel"
                         >{{this.$dangerScale[currentDanger.middle].rating}} ({{currentDanger.middle}})</span>
-                        <img
-                            :class="$style.dangerIcon"
-                            :src="this.$dangerScale[currentDanger.middle].icon"
-                        />
+                        <v-popover :class="$style.dangerIcon">
+                            <img
+                                :src="this.$dangerScale[currentDanger.middle].icon"
+                            />
+                            <template slot="popover">
+                                <div v-html="this.$dangerScale[currentDanger.middle].advice"></div>
+                            </template>
+                        </v-popover>
                     </div>
                     <div :class="$style.elevationBlock">
                         <span :class="$style.elevationLabel">{{config.elevations.lower}}</span>
                         <span
                             :class="$style.dangerLabel"
                         >{{this.$dangerScale[currentDanger.lower].rating}} ({{currentDanger.lower}})</span>
-                        <img
-                            :class="$style.dangerIcon"
-                            :src="this.$dangerScale[currentDanger.lower].icon"
-                        />
+                        <v-popover :class="$style.dangerIcon">
+                            <img
+                                :src="this.$dangerScale[currentDanger.lower].icon"
+                            />
+                            <template slot="popover">
+                                <div v-html="this.$dangerScale[currentDanger.lower].advice"></div>
+                            </template>
+                        </v-popover>
                     </div>
                     <danger-elevation :class="$style.dangerMountain" :danger="currentDanger"></danger-elevation>
                 </div>
@@ -54,28 +66,40 @@
                         <span
                             :class="$style.dangerOutlookLabel"
                         >{{this.$dangerScale[outlookDanger.upper].rating}} ({{outlookDanger.upper}})</span>
-                        <img
-                            :class="$style.dangerIcon"
-                            :src="this.$dangerScale[outlookDanger.upper].icon"
-                        />
+                        <v-popover :class="$style.dangerIcon">
+                            <img
+                                :src="this.$dangerScale[outlookDanger.upper].icon"
+                            />
+                            <template slot="popover">
+                                <div v-html="this.$dangerScale[outlookDanger.upper].advice"></div>
+                            </template>
+                        </v-popover>
                     </div>
                     <div :class="$style.elevationOutlookBlock">
                         <span
                             :class="$style.dangerOutlookLabel"
                         >{{this.$dangerScale[outlookDanger.middle].rating}} ({{outlookDanger.middle}})</span>
-                        <img
-                            :class="$style.dangerIcon"
-                            :src="this.$dangerScale[outlookDanger.middle].icon"
-                        />
+                        <v-popover :class="$style.dangerIcon">
+                            <img
+                                :src="this.$dangerScale[outlookDanger.middle].icon"
+                            />
+                            <template slot="popover">
+                                <div v-html="this.$dangerScale[outlookDanger.middle].advice"></div>
+                            </template>
+                        </v-popover>
                     </div>
                     <div :class="$style.elevationOutlookBlock">
                         <span
                             :class="$style.dangerOutlookLabel"
                         >{{this.$dangerScale[outlookDanger.lower].rating}} ({{outlookDanger.lower}})</span>
-                        <img
-                            :class="$style.dangerIcon"
-                            :src="this.$dangerScale[outlookDanger.lower].icon"
-                        />
+                        <v-popover :class="$style.dangerIcon">
+                            <img
+                                :src="this.$dangerScale[outlookDanger.lower].icon"
+                            />
+                            <template slot="popover">
+                                <div v-html="this.$dangerScale[outlookDanger.lower].advice"></div>
+                            </template>
+                        </v-popover>
                     </div>
                 </div>
             </div>
@@ -319,14 +343,25 @@ $elevation-height: 90px;
 .dangerIcon {
     position: absolute;
     left: 100%;
-    height: 90px !important;
-    width: auto !important;
-    padding: 12px 0;
-    margin-left: -32px;
+    height: 86px !important;
+    width: 70px !important;
+    padding: 10px 0;
+    margin-left: -31px;
     z-index: 1;
     @include media-breakpoint-down(sm) {
         padding: 20px 0;
         margin-left: -25px;
+    }
+    div {
+        display: block !important;
+        cursor: help;
+        width: 100%;
+        height: 100%;
+    }
+    img {
+        height: 100% !important;
+        width: auto !important;
+        max-width: initial !important;
     }
 }
 
@@ -334,6 +369,7 @@ $elevation-height: 90px;
     -webkit-print-color-adjust: exact;
     position: relative;
     background-color: $gray-300;
+    border: 2px solid $gray-300;
     height: $elevation-height;
     margin-bottom: 5px;
     margin-right: 60px;

@@ -81,37 +81,37 @@ export default {
             {
                 level: 0,
                 rating: "No Rating",
-                advice: "",
+                advice: "Insufficient data for issuing of danger ratings, but a summary of avalanche conditions exists. Read the summary for more information.",
                 icon: "https://avalanche.org/wp-content/themes/avalanche-org-theme-v1/includes/img/danger/no.png"
             },
             {
                 level: 1,
                 rating: "Low",
-                advice: "",
+                advice: "<strong>TRAVEL ADVICE</strong><BR>Generally safe avalanche conditions. Watch for unstable snow on isolated terrain features.",
                 icon: "https://avalanche.org/wp-content/themes/avalanche-org-theme-v1/includes/img/danger/low.png"
             },
             {
                 level: 2,
                 rating: "Moderate",
-                advice: "",
+                advice: "<strong>TRAVEL ADVICE</strong><BR>Heightened avalanche conditions on specific terrain features. Evaluate snow and terrain carefully; identify features of concern.",
                 icon: "https://avalanche.org/wp-content/themes/avalanche-org-theme-v1/includes/img/danger/moderate.png"
             },
             {
                 level: 3,
                 rating: "Considerable",
-                advice: "",
+                advice: "<strong>TRAVEL ADVICE</strong><BR>Dangerous avalanche conditions. Careful snowpack evaluation, cautious route-finding and conservative decision-making essential.",
                 icon: "https://avalanche.org/wp-content/themes/avalanche-org-theme-v1/includes/img/danger/considerable.png"
             },
             {
                 level: 4,
                 rating: "High",
-                advice: "",
+                advice: "<strong>TRAVEL ADVICE</strong><BR>Very dangerous avalanche conditions. Travel in avalanche terrain <em>not</em> recommended.",
                 icon: "https://avalanche.org/wp-content/themes/avalanche-org-theme-v1/includes/img/danger/high.png"
             },
             {
                 level: 5,
                 rating: "Extreme",
-                advice: "",
+                advice: "<strong>TRAVEL ADVICE</strong><BR>Avoid all avalanche terrain.",
                 icon: "https://avalanche.org/wp-content/themes/avalanche-org-theme-v1/includes/img/danger/extreme.png"
             }
         ]
