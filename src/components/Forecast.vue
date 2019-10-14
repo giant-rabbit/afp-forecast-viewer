@@ -9,6 +9,7 @@
             :config="config"
             :preview="preview"
             :key="refresh"
+            :zone="zoneName"
         />
     </div>
 </template>
@@ -21,6 +22,7 @@ export default {
     data() {
         return {
             zone: '',
+            zoneName: '',
             date: '',
             centerMeta: [],
             config: this.$config,
@@ -38,7 +40,7 @@ export default {
     watch: {
         '$route.params.zone': {
             handler: function () {
-                this.loaded  = false
+                this.loaded = false
                 this.notFound = false
                 this.$eventBus.$emit('loading')
                 this.getProducts()
@@ -48,7 +50,7 @@ export default {
         },
         '$route.params.date': {
             handler: function () {
-                this.loaded  = false
+                this.loaded = false
                 this.notFound = false
                 this.$eventBus.$emit('loading')
                 this.getProducts()
@@ -59,42 +61,54 @@ export default {
     },
     methods: {
         async getProducts() {
-            // if (this.$route.params.date != undefined) {
-            //     this.date = this.$route.params.date
-            // } else {
-            //     this.date = ''
-            // }
             this.$api
                 .get('/avalanche-center/' + this.$centerId)
                 .then(response => {
                     this.centerMeta = response.data
+                    if (this.$route.params.date != undefined) {
+                        this.date = this.$route.params.date
+                    } else {
+                        this.date = ''
+                    }
+                    if (this.$route.params.zone != undefined) {
+                        this.zone = this.$route.params.zone.replace(/-/g, ' ');
+                        this.zone = this.zone.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')
+                        let zone = this.centerMeta.zones.find(zone => zone.name == this.zone)
+                        this.zone = zone.id
+                        this.zoneName = zone.name
+                    } else {
+                        this.zone = this.centerMeta.zones[0].id
+                        this.zoneName = this.centerMeta.zones[0].name
+                    }
                     // convert URL zone slug to zone id
-                    this.zone = this.$route.params.zone.replace(/-/g, ' ');
-                    this.zone = this.zone.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')
-                    let zone = this.centerMeta.zones.find(zone => zone.name == this.zone)
-                    this.zone = zone.id
                     this.getForecast()
                     this.getWeather()
                     this.getSynopsis()
                 })
                 .catch(e => {
-                    // this.$router.push({ name: 'NotFound' })
+                    this.notFound = true
+                    this.$eventBus.$emit('loaded')
                 })
         },
         getForecast() {
             this.$api
                 .get('/public/product?type=forecast&center_id=' + this.$centerId + '&zone_id=' + this.zone + '&published_time=' + this.date)
                 .then(response => {
-                    this.data = response.data
-                    this.data.forecast_avalanche_problems.sort(function (a, b) {
-                        return a.rank - b.rank
-                    })
-                    this.loaded = true
-                    this.$eventBus.$emit('loaded')
-                    // this.$nextTick(() => {
-                    //     var event = new Event('forecast-loaded')
-                    //     window.dispatchEvent(event)
-                    // })
+                    if (response.data.published_time == null) {
+                        this.notFound = true
+                        this.$eventBus.$emit('loaded')
+                    } else {
+                        this.data = response.data
+                        this.data.forecast_avalanche_problems.sort(function (a, b) {
+                            return a.rank - b.rank
+                        })
+                        this.loaded = true
+                        this.$eventBus.$emit('loaded')
+                        // this.$nextTick(() => {
+                        //     var event = new Event('forecast-loaded')
+                        //     window.dispatchEvent(event)
+                        // })
+                    }
                 })
                 .catch(e => {
                     this.notFound = true

@@ -6,6 +6,7 @@
             :preview="preview"
             :data="data"
             :config="config"
+            :zone = "zone"
         />
         <weather-product
             v-if="product == 'weather'"
@@ -44,6 +45,10 @@ export default {
         product: {
             type: String,
             default: 'forecast'
+        },
+        zone: {
+            type: String,
+            default: ''
         },
         config: {
             type: Object,

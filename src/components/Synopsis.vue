@@ -63,9 +63,14 @@ export default {
             this.$api
                 .get('/public/product?type=synopsis&center_id=' + this.$centerId + '&zone_id=' + this.zone + '&published_time=' + this.date)
                 .then(response => {
-                    this.data = response.data
-                    this.loaded = true
-                    this.$eventBus.$emit('loaded')
+                    if (response.data.published_time == null) {
+                        this.notFound = true
+                        this.$eventBus.$emit('loaded')
+                    } else {
+                        this.data = response.data
+                        this.loaded = true
+                        this.$eventBus.$emit('loaded')
+                    }
                 })
                 .catch(e => {
                     this.notFound = true

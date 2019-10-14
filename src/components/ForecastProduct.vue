@@ -258,7 +258,7 @@ export default {
             }
         },
     },
-    props: ['preview', 'data', 'config'],
+    props: ['preview', 'data', 'config', 'zone'],
     components: {
         ZoneSelector,
         ProductHeader,
@@ -298,15 +298,6 @@ export default {
         },
     },
     mounted() {
-        // if (this.$route.query.nav && this.$route.query.nav != '') {
-        //     this.tabSelected = this.$route.query.nav
-        // }
-        this.$nextTick(() => {
-            var event = new Event('forecast-loaded')
-            window.dispatchEvent(event)
-        })
-        this.zone = this.$route.params.zone.replace(/-/g, ' ');
-        this.zone = this.zone.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')
     }
 }
 </script>
