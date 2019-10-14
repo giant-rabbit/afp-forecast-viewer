@@ -30,7 +30,7 @@ export default {
     composes: btn from "../assets/css/style.css";
     cursor: help !important;
     transform: translateY(-6px);
-    margin-left: 2px;
+    margin-left: 4px;
     text-transform: lowercase;
     color: #fff !important;
     -webkit-text-fill-color: #fff !important;
@@ -39,7 +39,8 @@ export default {
     padding: 0;
     height: 18px;
     width: 18px;
-    background-color: $no-rating-border !important;
+    //background-color: $no-rating-border !important;
+    background-color: $gray-600;
     border-radius: 50%;
 }
 </style>

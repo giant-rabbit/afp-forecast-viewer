@@ -14,7 +14,6 @@
             :data="data"
             :config="config"
             :preview="preview"
-            :key="refresh"
             :zone="zoneName"
         />
     </div>
@@ -50,9 +49,7 @@ export default {
                 this.notFound = false
                 this.$eventBus.$emit('loading')
                 this.getProducts()
-            },
-            deep: true,
-            immediate: true
+            }
         },
         '$route.params.date': {
             handler: function () {
@@ -60,9 +57,7 @@ export default {
                 this.notFound = false
                 this.$eventBus.$emit('loading')
                 this.getProducts()
-            },
-            deep: true,
-            immediate: true
+            }
         }
     },
     methods: {
@@ -77,6 +72,7 @@ export default {
                         this.date = ''
                     }
                     if (this.$route.params.zone != undefined) {
+                        // convert URL zone slug to zone id
                         this.zone = this.$route.params.zone.replace(/-/g, ' ');
                         this.zone = this.zone.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')
                         let zone = this.centerMeta.zones.find(zone => zone.name == this.zone)
@@ -86,7 +82,6 @@ export default {
                         this.zone = this.centerMeta.zones[0].id
                         this.zoneName = this.centerMeta.zones[0].name
                     }
-                    // convert URL zone slug to zone id
                     this.getForecast()
                     this.getSynopsis()
                 })
@@ -96,6 +91,7 @@ export default {
                 })
         },
         getForecast() {
+            console.log('getForecast')
             this.$api
                 .get('/public/product?type=forecast&center_id=' + this.$centerId + '&zone_id=' + this.zone + '&published_time=' + this.date)
                 .then(response => {
@@ -112,10 +108,11 @@ export default {
                             this.getWeather()
                         }
                         this.$eventBus.$emit('loaded')
-                        // this.$nextTick(() => {
-                        //     var event = new Event('forecast-loaded')
-                        //     window.dispatchEvent(event)
-                        // })
+                        // fire event for custom tab content
+                        this.$nextTick(() => {
+                            var event = new Event('forecast-loaded')
+                            window.dispatchEvent(event)
+                        })
                     }
                 })
                 .catch(e => {
@@ -132,15 +129,12 @@ export default {
                         let table = this.data.weather_product.weather_data.find(table => table.zone_id == this.zone)
                         if (table != null) {
                             this.data.weather_table = table
-                            this.refresh++
+                            //this.refresh++
                         }
                     } else {
                         this.data.weather_product = false
                     }
                 })
-            // .catch(e => {
-            //     this.$router.push({ name: 'NotFound' })
-            // })
         },
         getSynopsis() {
             this.$api
@@ -148,9 +142,6 @@ export default {
                 .then(response => {
                     this.data.synopsis_product = response.data
                 })
-            // .catch(e => {
-            //     this.$router.push({ name: 'NotFound' })
-            // })
         },
 
     },

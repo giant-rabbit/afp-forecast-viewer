@@ -1,10 +1,12 @@
 <template>
     <div :class="$style.dangerScale">
         <div :class="$style.firstColumn">
-            <h5>
-                Danger Scale
-                <!-- <info :content="this.$helpContent.dangerScale" /> -->
-            </h5>
+            <v-popover :class="$style.popover">
+                <h5 v-tooltip="'Click to learn more'">Danger Scale</h5>
+                <template slot="popover">
+                    <div v-html="this.$helpContent.dangerScale"></div>
+                </template>
+            </v-popover>
         </div>
         <div :class="$style.secondColumn">
             <ul>
@@ -16,7 +18,9 @@
                     Cons<span>iderable</span> (3)
                 </li>
                 <li :class="[$style.high, $style.li]">High (4)</li>
-                <li :class="[$style.ext, $style.li]">Extr<span>eme</span> (5)</li>
+                <li :class="[$style.ext, $style.li]">
+                    Extr<span>eme</span> (5)
+                </li>
             </ul>
         </div>
     </div>
@@ -36,6 +40,11 @@ export default {
 
 .dangerScale {
     composes: row from "../assets/css/style.css";
+    @include media-breakpoint-up(lg) {
+        -webkit-box-pack: center !important;
+        -ms-flex-pack: center !important;
+        justify-content: center !important;
+    }
     h5 {
         margin-bottom: 1em;
     }
@@ -43,6 +52,12 @@ export default {
         margin: 0;
         width: 100%;
         padding: 0;
+    }
+}
+.popover {
+    div {
+        display: block !important;
+        cursor: help;
     }
 }
 .li {
@@ -62,26 +77,26 @@ export default {
         display: block;
         height: 10px;
         border: 5px solid $no-rating;
-        margin-bottom: .3rem;
+        margin-bottom: 0.3rem;
     }
 }
-.none {
-    margin-right: 2%;
-    br {
-        @include media-breakpoint-up(lg) {
-            display: none;
-        } 
-    }
-    span {
-        display: none;
-        @include media-breakpoint-up(xl) {
-            display: inline;
-        }
-    }
-    &:before {
-        border-radius: $border-radius;
-    }
-}
+// .none {
+//     margin-right: 2%;
+//     br {
+//         @include media-breakpoint-up(lg) {
+//             display: none;
+//         }
+//     }
+//     span {
+//         display: none;
+//         @include media-breakpoint-up(xl) {
+//             display: inline;
+//         }
+//     }
+//     &:before {
+//         border-radius: $border-radius;
+//     }
+// }
 .low:before {
     border-color: $low;
     border-radius: $border-radius 0 0 $border-radius;
@@ -100,17 +115,17 @@ export default {
     border-radius: 0 $border-radius $border-radius 0;
 }
 .mod span,
-.cons span, .ext span {
+.cons span,
+.ext span {
     @include media-breakpoint-down(xs) {
         display: none;
     }
 }
 
 .firstColumn {
-    composes: col-lg-2 from "../assets/css/style.css";
+    composes: col-lg-auto from "../assets/css/style.css";
 }
 .secondColumn {
     composes: col-lg-10 from "../assets/css/style.css";
 }
 </style>
-

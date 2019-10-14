@@ -223,7 +223,6 @@ import Disclaimer from '../components/Disclaimer'
 export default {
     data() {
         return {
-            // make tabs a computed property conditional on preview, weather, and synopsis
             tabsForecast: [
                 {
                     id: "forecast",
