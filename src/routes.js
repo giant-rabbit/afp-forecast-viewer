@@ -6,10 +6,10 @@ import Synopsis from './components/Synopsis'
 import Archive from './components/Archive'
 import NotFound from './components/NotFound'
 
-Vue.use( Router )
+Vue.use(Router)
 
 export default new Router({
-	mode: 'hash', 
+	mode: 'hash',
 	routes: [
 		// {
 		// 	path: '/404/',
@@ -50,12 +50,12 @@ export default new Router({
 			path: '',
 			name: 'Forecast',
 			component: Forecast,
-        },
+		},
 		{
 			path: '/:zone/',
 			name: 'ZoneForecast',
 			component: Forecast,
-        },
+		},
 		{
 			path: '/:zone/:date/',
 			name: 'ArchivedForecast',
@@ -65,5 +65,8 @@ export default new Router({
 			path: '*',
 			redirect: { name: 'Forecast' }
 		}
-	]
+	],
+	scrollBehavior(to, from, savedPosition) {
+		return { x: 0, y: 0 }
+	}
 })

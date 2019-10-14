@@ -9,7 +9,6 @@
             key="forecastTable"
         >
             <div slot="start_date" slot-scope="props">
-                <!-- need logic for link based on product type -->
                 <router-link
                     class
                     v-tooltip="'View product'"
@@ -120,7 +119,6 @@ export default {
                 .get('public/products?avalanche_center_id=' + this.$centerId)
                 .then(response => {
                     this.data = response.data
-                    // filter forecasts
                     this.data = this.data.filter(function (value, index, arr) {
                         return value.product_type == 'forecast' || value.product_type == 'summary'
                     })
@@ -134,9 +132,11 @@ export default {
                             }
                         })
                         forecast.forecast_zones = zones
-                        if (forecast.start_date) {
-                            forecast.start_date = moment(forecast.start_date).format('YYYY-MM-DD')
+                        var time = moment(forecast.start_date).startOf('day').hour(14)
+                        if (moment(forecast.start_date).isAfter(time)) {
+                            forecast.start_date = moment(forecast.start_date).add(1, 'days')
                         }
+                        forecast.start_date = moment(forecast.start_date).format('YYYY-MM-DD')
                         switch (forecast.danger_rating) {
                             case 0:
                                 forecast.danger_rating = "no rating"
@@ -227,7 +227,12 @@ export default {
         th {
             vertical-align: middle !important;
             border-top: none;
-            &.afp-table-time,
+            &.afp-table-time {
+                width: 140px;
+                max-width: 140px;
+                min-width: 140px;
+                white-space: initial !important;
+            }
             &.afp-table-danger {
                 width: 160px;
                 max-width: 160px;

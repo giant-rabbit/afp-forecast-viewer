@@ -39,15 +39,14 @@
             type="text/css"
         />
         <div :class="$style.container">
-            <p>
+            <!-- <p>
                 <router-link to="/archive">Archive</router-link>
                 <router-link
                     :to="{ name: 'Forecast' }"
                 >Forecast</router-link>
                 <router-link :to="{ name: 'Weather' }">Weather</router-link>
                 <router-link :to="{ name: 'Synopsis' }">Synopsis</router-link>
-                <!-- <router-link :to="{ name: 'NotFound' }">404</router-link> -->
-            </p>
+            </p> -->
             <transition name="fade" mode="out-in">
                 <router-view></router-view>
             </transition>

@@ -88,7 +88,6 @@ export default {
                     }
                     // convert URL zone slug to zone id
                     this.getForecast()
-                    this.getWeather()
                     this.getSynopsis()
                 })
                 .catch(e => {
@@ -109,6 +108,9 @@ export default {
                             return a.rank - b.rank
                         })
                         this.loaded = true
+                        if( this.data.product_type == 'forecast') {
+                            this.getWeather()
+                        }
                         this.$eventBus.$emit('loaded')
                         // this.$nextTick(() => {
                         //     var event = new Event('forecast-loaded')
@@ -125,11 +127,15 @@ export default {
             this.$api
                 .get('/public/product?type=weather&center_id=' + this.$centerId + '&zone_id=' + this.zone + '&published_time=' + this.date)
                 .then(response => {
-                    this.data.weather_product = response.data
-                    let table = this.data.weather_product.weather_data.find(table => table.zone_id == this.zone)
-                    if (table != null) {
-                        this.data.weather_table = table
-                        this.refresh++
+                    if (response.data.published_time != null) {
+                        this.data.weather_product = response.data
+                        let table = this.data.weather_product.weather_data.find(table => table.zone_id == this.zone)
+                        if (table != null) {
+                            this.data.weather_table = table
+                            this.refresh++
+                        }
+                    } else {
+                        this.data.weather_product = false
                     }
                 })
             // .catch(e => {
