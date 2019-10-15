@@ -5,7 +5,7 @@
                 :class="{[$style.today] : outlookDanger, [$style.todayNoOutlook] : !outlookDanger}"
             >
                 <h6>
-                    Today's Avalanche Danger
+                    Avalanche Danger
                     <info :content="this.$helpContent.avalancheDanger" />
                 </h6>
                 {{ todayDate }}
@@ -60,7 +60,7 @@
             </div>
             <div v-if="outlookDanger" :class="$style.outlook">
                 <h6>
-                    Outlook for Tomorrow
+                    Outlook
                     <info :content="this.$helpContent.avalancheDangerOutlook" />
                 </h6>
                 {{outlookDate}}
@@ -69,7 +69,7 @@
                         <span
                             :class="$style.dangerOutlookLabel"
                         >{{this.$dangerScale[outlookDanger.upper].rating}} ({{outlookDanger.upper}})</span>
-                        <v-popover :class="$style.dangerIcon">
+                        <v-popover :class="[$style.dangerIcon, $style.dangerIconOutlook]">
                             <img
                                 :src="this.$dangerScale[outlookDanger.upper].icon"
                                 v-tooltip="'Click to learn more'"
@@ -83,7 +83,7 @@
                         <span
                             :class="$style.dangerOutlookLabel"
                         >{{this.$dangerScale[outlookDanger.middle].rating}} ({{outlookDanger.middle}})</span>
-                        <v-popover :class="$style.dangerIcon">
+                        <v-popover :class="[$style.dangerIcon, $style.dangerIconOutlook]">
                             <img
                                 :src="this.$dangerScale[outlookDanger.middle].icon"
                                 v-tooltip="'Click to learn more'"
@@ -97,7 +97,7 @@
                         <span
                             :class="$style.dangerOutlookLabel"
                         >{{this.$dangerScale[outlookDanger.lower].rating}} ({{outlookDanger.lower}})</span>
-                        <v-popover :class="$style.dangerIcon">
+                        <v-popover :class="[$style.dangerIcon, $style.dangerIconOutlook]">
                             <img
                                 :src="this.$dangerScale[outlookDanger.lower].icon"
                                 v-tooltip="'Click to learn more'"
@@ -113,7 +113,7 @@
         <div v-if="outlookDanger" :class="$style.outlookMobile">
             <div :class="$style.outlookMobileText">
                 <h6>
-                    Outlook for Tomorrow
+                    Outlook
                     <info :content="this.$helpContent.avalancheDangerOutlook" />
                 </h6>
                 {{outlookDate}}
@@ -207,12 +207,20 @@ export default {
 }
 .row {
     composes: row from "../assets/css/style.css";
+    justify-content: space-between;
 }
 
 .today {
-    composes: col-lg-8 from "../assets/css/style.css";
-    composes: col-md-12 from "../assets/css/style.css";
+    // composes: col-lg-8 from "../assets/css/style.css";
+    // composes: col-md-12 from "../assets/css/style.css";
     margin-bottom: $spacer;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    @include media-breakpoint-up(lg) {
+        flex: 0 0 70%;
+        max-width: 70%;
+    }
     @media print {
         width: 100%;
         flex: initial;
@@ -228,9 +236,17 @@ export default {
 }
 
 .outlook {
-    composes: col-lg-4 from "../assets/css/style.css";
-    composes: col-md-12 from "../assets/css/style.css";
+    // composes: col-lg-3 from "../assets/css/style.css";
+    // composes: offset-lg-1 from "../assets/css/style.css";
+    // composes: col-md-12 from "../assets/css/style.css";
+    flex: 0 0 260px;
+    max-width: 260px;
+    padding-right: 15px;
     margin-bottom: $spacer;
+    @include media-breakpoint-up(xl) {
+        flex: 0 0 280px;
+        max-width: 280px;
+    }
     @include media-breakpoint-down(md) {
         display: none;
     }
@@ -244,7 +260,7 @@ export default {
     padding-top: $spacer;
     overflow: hidden;
     page-break-inside: avoid;
-    @include media-breakpoint-down(xs) {
+    @include media-breakpoint-down(sm) {
         margin-left: -15px;
         margin-right: -10px;
     }
@@ -257,7 +273,7 @@ export default {
     width: 250px;
     height: 300px;
     @include media-breakpoint-between(lg, lg) {
-        left: 85px;
+        left: 90px;
     }
     // @include media-breakpoint-down(sm) {
     //     left: 90px;
@@ -285,7 +301,7 @@ $elevation-height: 90px;
 
 .elevationLabel {
     position: absolute;
-    left: 20px;
+    left: 15px;
     transform: translate(0, -50%);
     top: 50%;
     width: 80px;
@@ -293,18 +309,10 @@ $elevation-height: 90px;
     font-size: $font-size-sm;
     font-weight: bold;
     color: $gray-600;
-    // @include media-breakpoint-between(lg, lg) {
-    //     left: 20px;
-    // }
     @include media-breakpoint-down(sm) {
         background-color: #fff;
-        //background-color: rgba(255,255,255,.7);
-        //border-radius: 0 $border-radius $border-radius  0;
         z-index: 1;
         padding: 0.2rem 0.4rem;
-        //box-shadow: $app-box-shadow;
-        //text-align: right;
-        // font-size: .6rem;
         width: auto;
         left: -2px;
     }
@@ -317,12 +325,12 @@ $elevation-height: 90px;
     top: 50%;
     width: 230px;
     display: block;
-    // font-size: $font-size-lg;
+    font-size: 1.1rem;
     font-weight: bold;
     color: $gray-800;
     text-transform: uppercase;
     @include media-breakpoint-between(lg, lg) {
-        width: 150px;
+        width: 160px;
     }
     @include media-breakpoint-between(md, md) {
         width: 180px;
@@ -334,16 +342,6 @@ $elevation-height: 90px;
         right: 35px;
         text-align: right;
     }
-    // @include media-breakpoint-down(xs) {
-    //     background-color: #fff;
-    //     width: 160px;
-    //     z-index: 1;
-    //     padding: 0.2rem 0.4rem;
-    //     box-shadow: $app-box-shadow;
-    //     right: initial;
-    //     left: 120px;
-    //     text-align: right;
-    // }
 }
 
 .dangerIcon {
@@ -378,7 +376,7 @@ $elevation-height: 90px;
     border: 2px solid $gray-300;
     height: $elevation-height;
     margin-bottom: 5px;
-    margin-right: 60px;
+    margin-right: 50px;
 }
 
 .dangerOutlookLabel {
@@ -389,8 +387,16 @@ $elevation-height: 90px;
     width: 200px;
     display: block;
     font-weight: bold;
+    font-size: 0.9rem;
     color: $gray-800;
     text-transform: uppercase;
+}
+
+.dangerIconOutlook {
+    height: 86px !important;
+    width: 70px !important;
+    padding: 16px 0;
+    margin-left: -26px;
 }
 
 .outlookMobile {
