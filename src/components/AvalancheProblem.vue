@@ -61,14 +61,12 @@
             <div :class="$style.imageContainer">
                 <img
                     v-if="problem.media.type == 'photo'"
-                    v-tooltip="'Click to enlarge'"
                     v-preview:scope-forecast
                     :src="problem.media.url"
                     :alt="problem.media.caption"
                 />
                 <img
                     v-if="problem.media.type == 'video'"
-                    v-tooltip="'Click to play'"
                     :src="'https://img.youtube.com/vi/' + problem.media.url + '/maxresdefault.jpg'"
                     :alt="problem.media.caption"
                     @click="videoModal = true"
