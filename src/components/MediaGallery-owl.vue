@@ -6,7 +6,7 @@
             :caption="videoCaption"
             :id="videoId"
         />
-        <flickity class="afp-carousel" :options="flickityOptions">
+        <carousel class="afp-carousel" :items="2" :margin="10" :rewind="false" :responsive="{0:{items:1, nav: true},576:{items:2, nav: true},768:{items:3, nav: true},992:{items:4, nav: true}}">
             <div
                 class="afp-carousel-cell"
                 v-for="item in media"
@@ -37,12 +37,12 @@
                     <i :class="$style.expandIcon" class="mdi mdi-arrow-expand"></i>
                 </div>
             </div>
-        </flickity>
+        </carousel>
     </div>
 </template>
 
 <script>
-import Flickity from '../components/Flickity'
+import Carousel from 'vue-owl-carousel2'
 import VideoModal from '../components/VideoModal'
 
 export default {
@@ -51,14 +51,15 @@ export default {
             videoModal: false,
             videoCaption: '',
             videoId: '',
-            flickityOptions: {
-                cellAlign: "left",
-                groupCells: true
+            options: {
+                items: 2,
+                margin: 10,
+                rewind: false
             }
         }
     },
     components: {
-        Flickity,
+        Carousel,
         VideoModal
     },
     props: ['media', 'scope'],
@@ -87,16 +88,16 @@ $gallery-height: 200px;
 }
 
 .galleryItem {
-    width: 100%;
-    @include media-breakpoint-up(sm) {
-        width: 50%;
-    }
-    @include media-breakpoint-up(md) {
-        width: 33%;
-    }
-    @include media-breakpoint-up(lg) {
-        width: 25%;
-    }
+    // width: 100%;
+    // @include media-breakpoint-up(sm) {
+    //     width: 50%;
+    // }
+    // @include media-breakpoint-up(md) {
+    //     width: 33%;
+    // }
+    // @include media-breakpoint-up(lg) {
+    //     width: 25%;
+    // }
     overflow: hidden;
     position: relative;
     cursor: zoom-in;
@@ -110,10 +111,10 @@ $gallery-height: 200px;
 
 .galleryImgContainer {
     position: absolute;
-    top: 5px;
-    left: 5px;
-    right: 5px;
-    bottom: 5px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     //z-index: 1;
 }
 .galleryImg {
