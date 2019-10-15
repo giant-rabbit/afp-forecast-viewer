@@ -211,7 +211,7 @@
             <!-- Custom tab content -->
             <div v-for="customTab in config.tabs" v-bind:key="customTab.id">
                 <div v-show="tabSelected == customTab.id" :class="$style.tabPane">
-                    <div :id="customTab.id"></div>
+                    <custom-tab :id="customTab.id" :tab="customTab.id"></custom-tab>
                 </div>
             </div>
         </content-panel>
@@ -231,6 +231,7 @@ import MediaGallery from '../components/MediaGallery'
 import WeatherContent from '../components/WeatherContent'
 import WeatherTable from '../components/WeatherTable'
 import SynopsisContent from '../components/SynopsisContent'
+import CustomTab from '../components/CustomTab'
 import Disclaimer from '../components/Disclaimer'
 
 export default {
@@ -306,6 +307,7 @@ export default {
         WeatherContent,
         WeatherTable,
         SynopsisContent,
+        CustomTab,
         Disclaimer
     },
     methods: {

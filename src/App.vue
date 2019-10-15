@@ -38,12 +38,12 @@
             rel="stylesheet"
             type="text/css"
         />
-        <div style="background-color: #444;">
+        <!-- <div style="background-color: #444;">
             <router-link to="/archive">Archive</router-link>
             <router-link :to="{ name: 'Forecast' }">Forecast</router-link>
             <router-link :to="{ name: 'Weather' }">Weather</router-link>
             <router-link :to="{ name: 'Synopsis' }">Synopsis</router-link>
-        </div>
+        </div> -->
         <transition name="fade" mode="out-in">
             <router-view></router-view>
         </transition>

@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Public Forecast Display</title>
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet" />
-    <style>
-        html {
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>Public Forecast Display</title><link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel=stylesheet><style>html {
             font-family: sans-serif;
             line-height: 1.15;
             -webkit-text-size-adjust: 100%;
@@ -31,20 +22,10 @@
             color: #212529;
             text-align: left;
             background-color: #fff;
-        }
-    </style>
-    <script type="text/javascript">
-        window.addEventListener('observations-tab-loaded', function (e) {
+        }</style><script>window.addEventListener('observations-tab-loaded', function (e) {
             console.log('forecast loaded');
             document.getElementById('observations').innerHTML = "Custom content loaded from parent website";
-        }, false);
-    </script>
-</head>
-
-<body>
-    <div id="afp-public-root"></div>
-    <script id="afp-public-config" type="application/json">
-        {
+        }, false);</script><link href=/app.css rel=preload as=style><link href=/app.js rel=preload as=script><link href=/app.css rel=stylesheet></head><body><div id=afp-public-root></div><script id=afp-public-config type=application/json>{
             "center": "SNFAC",
             "color": "#0fa6a2",
             "tabs": [
@@ -63,9 +44,4 @@
                 "photoswipe": true
             },
             "mediaUrl": "test"
-        }
-    </script>
-    <!-- built files will be auto injected -->
-</body>
-
-</html>
+        }</script><script src=/app.js></script></body></html>

@@ -113,10 +113,10 @@ export default {
                         }
                         this.$eventBus.$emit('loaded')
                         // fire event for custom tab content
-                        this.$nextTick(() => {
-                            var event = new Event('forecast-loaded')
-                            window.dispatchEvent(event)
-                        })
+                        // this.$nextTick(() => {
+                        //     var event = new Event('forecast-loaded')
+                        //     window.dispatchEvent(event)
+                        // })
                     }
                 })
                 .catch(e => {

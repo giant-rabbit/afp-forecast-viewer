@@ -306,7 +306,7 @@ $elevation-height: 90px;
         //text-align: right;
         // font-size: .6rem;
         width: auto;
-        left: 0px;
+        left: -2px;
     }
 }
 
