@@ -395,7 +395,7 @@ $elevation-height: 90px;
 
 .outlookMobile {
     position: relative;
-    width: 300px;
+    width: 330px;
     height: 140px;
     margin-left: auto;
     margin-right: auto;

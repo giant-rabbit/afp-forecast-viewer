@@ -9,7 +9,7 @@
             <div :class="$style.title">
                 <h1 v-if="data.product_type == 'forecast'">Backcountry Avalanche Forecast</h1>
                 <h1 v-else>Avalanche Conditions Summary</h1>
-                <h2 v-if="!preview">
+                <h2>
                     <i class="mdi mdi-map-marker"></i>
                     {{zone}}
                 </h2>
