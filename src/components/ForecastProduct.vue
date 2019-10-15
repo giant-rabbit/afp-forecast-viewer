@@ -59,7 +59,20 @@
             :selected="tabSelected"
             @changeTab="changeTab"
         />
-        <tabs v-if="preview" ref="tabs" :tabs="tabsPreview" :selected="tabSelected" />
+        <tabs
+            v-if="preview && data.product_type == 'forecast'"
+            ref="tabs"
+            :tabs="tabsForecastPreview"
+            :selected="tabSelected"
+            @changeTab="changeTab"
+        />
+        <tabs
+            v-if="preview && data.product_type == 'summary'"
+            ref="tabs"
+            :tabs="tabsSummaryPreview"
+            :selected="tabSelected"
+            @changeTab="changeTab"
+        />
 
         <!-- Tab container -->
         <content-panel>
@@ -137,7 +150,7 @@
                 </div>
                 <!-- media -->
                 <media-gallery
-                    :class="$style.divider"
+                    :class="$style.spacer"
                     :media="data.media"
                     scope="scope-forecast"
                     v-if="data.media.length > 0"
@@ -251,10 +264,20 @@ export default {
                     name: "Regional Synopsis"
                 }
             ],
-            tabsPreview: [
+            tabsForecastPreview: [
                 {
                     id: "forecast",
                     name: "Avalanche Forecast"
+                }
+            ],
+            tabsSummaryPreview: [
+                {
+                    id: "forecast",
+                    name: "Conditions Summary"
+                },
+                {
+                    id: "weatherSummary",
+                    name: "Weather Forecast"
                 }
             ],
             tabSelected: 'forecast'

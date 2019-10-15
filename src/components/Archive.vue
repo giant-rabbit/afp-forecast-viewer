@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :class="$style.container">
         <!-- Title -->
         <h1 :class="$style.title">Archive</h1>
 
@@ -80,6 +80,16 @@ export default {
 @import "../assets/css/_variables.scss";
 @import "../assets/css/bootstrap/mixins";
 
+.container {
+    composes: container from "../assets/css/style.css";
+    min-height: 300px;
+    position: relative;
+    padding-top: $spacer;
+    @media print {
+        width: 100% !important;
+        max-width: none;
+    }
+}
 .title {
     margin-bottom: $spacer !important;
 }

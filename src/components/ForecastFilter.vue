@@ -148,23 +148,25 @@ export default {
 @import "../assets/css/_variables.scss";
 @import "../assets/css/bootstrap/mixins";
 
-.row {
-    // composes: row from "../assets/css/style.css";
-    width: 100%;
-    display: flex;
-}
-
-.column, .columnButton {
+.column,
+.columnButton {
     padding: 0 0.1rem 0.5rem 0.1rem;
-    display: block
+    display: block;
+    width: 100%;
 }
 
 @include media-breakpoint-up(sm) {
+    .row {
+        // composes: row from "../assets/css/style.css";
+        width: 100%;
+        display: flex;
+    }
+    
     .column {
         width: calc(33.33% - 1rem);
         display: inline-block;
     }
-    
+
     .columnButton {
         width: 3rem;
         display: inline-block;

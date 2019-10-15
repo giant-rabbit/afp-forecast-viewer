@@ -38,19 +38,15 @@
             rel="stylesheet"
             type="text/css"
         />
-        <div :class="$style.container">
-            <!-- <p>
-                <router-link to="/archive">Archive</router-link>
-                <router-link
-                    :to="{ name: 'Forecast' }"
-                >Forecast</router-link>
-                <router-link :to="{ name: 'Weather' }">Weather</router-link>
-                <router-link :to="{ name: 'Synopsis' }">Synopsis</router-link>
-            </p> -->
-            <transition name="fade" mode="out-in">
-                <router-view></router-view>
-            </transition>
-        </div>
+        <p>
+            <router-link to="/archive">Archive</router-link>
+            <router-link :to="{ name: 'Forecast' }">Forecast</router-link>
+            <router-link :to="{ name: 'Weather' }">Weather</router-link>
+            <router-link :to="{ name: 'Synopsis' }">Synopsis</router-link>
+        </p>
+        <transition name="fade" mode="out-in">
+            <router-view></router-view>
+        </transition>
     </div>
 </template>
 
@@ -83,23 +79,6 @@ export default {
     }
 }
 </script>
-
-<style module lang="scss">
-@import "./assets/css/bootstrap/functions";
-@import "./assets/css/_variables.scss";
-@import "./assets/css/bootstrap/mixins";
-
-.container {
-    composes: container from "./assets/css/style.css";
-    min-height: 300px;
-    position: relative;
-    padding-top: $spacer;
-    @media print {
-        width: 100% !important;
-        max-width: none;
-    }
-}
-</style>
 
 <style lang="scss">
 // Import global styles

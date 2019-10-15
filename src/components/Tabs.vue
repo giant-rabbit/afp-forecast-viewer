@@ -9,7 +9,7 @@
                 v-html="tab.name"
             ></a>
         </li>
-        <li v-if="custom" v-for="tab in config.tabs" v-bind:key="tab.id" :class="$style.tab">
+        <li v-if="custom" v-for="tab in custom" v-bind:key="tab.id" :class="$style.tab">
             <a
                 class="afp-native-link"
                 href="#"
@@ -22,11 +22,6 @@
 
 <script>
 export default {
-    data() {
-        return {
-            config: this.$config,
-        }
-    },
     props: ['tabs', 'custom', 'selected'],
 }
 </script>
@@ -41,9 +36,11 @@ export default {
         display: none !important;
     }
 }
+
 .tab {
     margin-bottom: -1px;
-    margin-right: 5px;
+    margin-left: 2px;
+    margin-right: 2px;
 }
 
 @include media-breakpoint-up(md) {
@@ -56,6 +53,8 @@ export default {
         padding-left: 0;
         margin-bottom: 0;
         list-style: none;
+        margin-left: 10px;
+        margin-right: 10px;
     }
     .tabLink {
         position: relative;
@@ -68,6 +67,7 @@ export default {
         border-radius: $border-radius $border-radius 0 0;
         background-color: #fcfcfd !important;
         text-decoration: none !important;
+        font-size: $font-size-sm;
         &:hover,
         &:focus {
             background-color: #fff !important;
@@ -105,6 +105,7 @@ export default {
         display: table-caption;
         text-align: center;
         border-bottom: 3px solid transparent;
+        font-size: $font-size-sm;
         &:hover,
         &:focus {
             color: $gray-900 !important;
@@ -115,9 +116,9 @@ export default {
         color: $gray-900 !important;
     }
 }
-@include media-breakpoint-down(xs) {
-    .tabLink {
-        font-size: $font-size-sm;
-    }
-}
+// @include media-breakpoint-down(xs) {
+//     .tabLink {
+//         font-size: $font-size-sm;
+//     }
+// }
 </style>

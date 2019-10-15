@@ -253,11 +253,11 @@ export default {
 .dangerMountain {
     position: absolute;
     bottom: 5px;
-    left: 110px;
+    left: 100px;
     width: 250px;
     height: 300px;
     @include media-breakpoint-between(lg, lg) {
-        left: 100px;
+        left: 85px;
     }
     // @include media-breakpoint-down(sm) {
     //     left: 90px;
@@ -285,7 +285,7 @@ $elevation-height: 90px;
 
 .elevationLabel {
     position: absolute;
-    left: 30px;
+    left: 20px;
     transform: translate(0, -50%);
     top: 50%;
     width: 80px;

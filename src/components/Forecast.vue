@@ -15,6 +15,7 @@
             :config="config"
             :preview="preview"
             :zone="zoneName"
+            :key="refresh"
         />
     </div>
 </template>
@@ -91,7 +92,6 @@ export default {
                 })
         },
         getForecast() {
-            console.log('getForecast')
             this.$api
                 .get('/public/product?type=forecast&center_id=' + this.$centerId + '&zone_id=' + this.zone + '&published_time=' + this.date)
                 .then(response => {
@@ -129,7 +129,7 @@ export default {
                         let table = this.data.weather_product.weather_data.find(table => table.zone_id == this.zone)
                         if (table != null) {
                             this.data.weather_table = table
-                            //this.refresh++
+                            this.refresh++
                         }
                     } else {
                         this.data.weather_product = false
