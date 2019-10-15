@@ -31,11 +31,11 @@ export default new Router({
 			name: 'Weather',
 			component: Weather,
 		},
-		{
-			path: '/weather/:date/',
-			name: 'ArchivedWeather',
-			component: Weather,
-		},
+		// {
+		// 	path: '/weather/:date/',
+		// 	name: 'ArchivedWeather',
+		// 	component: Weather,
+		// },
 		{
 			path: '/synopsis',
 			name: 'Synopsis',

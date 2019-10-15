@@ -36,10 +36,9 @@ export default {
 
 .loaderContainer {
     text-align: center;
-    position: absolute;
     width: 100%;
-    top: 50px;
-    left: 0;
+    padding-top: 50px;
+    height: 100vh;
 }
 
 .loader {

@@ -1,18 +1,18 @@
 <template>
-    <div :class="$style.container">
-        <button
-            @click="$router.replace({ name: 'ArchiveTab', params: { tab: 'synopsis' } })"
-            :class="$style.btn"
-            class="afp-btn-primary"
-        ><i class="mdi mdi-arrow-left"></i> Archive</button>
-        <not-found v-if="notFound" />
-        <loader />
-        <forecast-view
-            v-if="loaded"
-            product="synopsis"
-            :data="data"
-            :preview="preview"
-        />
+    <div>
+        <div :class="$style.container">
+            <button
+                v-if="date != ''"
+                @click="$router.replace({ name: 'ArchiveTab', params: { tab: 'synopsis' } })"
+                :class="$style.btn"
+                class="afp-btn-primary"
+            >
+                <i class="mdi mdi-arrow-left"></i> Archive
+            </button>
+            <not-found v-if="notFound" />
+            <loader />
+        </div>
+        <forecast-view v-if="loaded" product="synopsis" :data="data" />
     </div>
 </template>
 
@@ -26,7 +26,6 @@ export default {
             date: '',
             zone: '',
             data: {},
-            preview: false,
             loaded: false,
             notFound: false
         }
@@ -96,12 +95,11 @@ export default {
 @import "../assets/css/bootstrap/mixins";
 
 .container {
-    min-height: 100vh;
+    composes: container from "../assets/css/style.css";
+    padding-top: .5*$spacer;
 }
-
 .btn {
     composes: btn from "../assets/css/style.css";
     composes: btn-secondary from "../assets/css/style.css";
-    margin-bottom: .5*$spacer;
 }
 </style>

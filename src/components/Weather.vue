@@ -1,8 +1,10 @@
 <template>
-    <div :class="$style.container">
-        <not-found v-if="notFound" />
-        <loader />
-        <forecast-view v-if="loaded" product="weather" :data="data" :preview="preview" />
+    <div>
+        <div :class="$style.container">
+            <not-found v-if="notFound" />
+            <loader />
+        </div>
+        <forecast-view v-if="loaded" product="weather" :data="data" />
     </div>
 </template>
 
@@ -16,7 +18,6 @@ export default {
             date: '',
             zone: '',
             data: {},
-            preview: false,
             loaded: false,
             notFound: false
         }
@@ -25,38 +26,18 @@ export default {
         Loader,
         NotFound
     },
-    watch: {
-        '$route.params.date': {
-            handler: function () {
-                this.loaded = false
-                this.notFound = false
-                this.$eventBus.$emit('loading')
-                this.getProducts()
-            },
-            deep: true,
-            immediate: true
-        }
-    },
     methods: {
         async getProducts() {
-            if (this.$route.params.date != undefined) {
-                this.date = this.$route.params.date
-            } else {
-                this.date = ''
-            }
             this.$api
                 .get('/avalanche-center/' + this.$centerId)
                 .then(response => {
                     this.zone = response.data.zones[0].id
                     this.getWeather()
                 })
-                .catch(e => {
-                    // this.$router.push({ name: 'NotFound' })
-                })
         },
         getWeather() {
             this.$api
-                .get('/public/product?type=weather&center_id=' + this.$centerId + '&zone_id=' + this.zone + '&published_time=' + this.date)
+                .get('/public/product?type=weather&center_id=' + this.$centerId + '&zone_id=' + this.zone)
                 .then(response => {
                     if (response.data.published_time == null) {
                         this.notFound = true
@@ -86,6 +67,7 @@ export default {
 @import "../assets/css/bootstrap/mixins";
 
 .container {
-    min-height: 100vh;
+    composes: container from "../assets/css/style.css";
+    padding-top: .5*$spacer;
 }
 </style>

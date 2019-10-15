@@ -84,7 +84,7 @@ export default {
     composes: container from "../assets/css/style.css";
     min-height: 300px;
     position: relative;
-    padding-top: $spacer;
+    padding-top: .5*$spacer;
     @media print {
         width: 100% !important;
         max-width: none;
