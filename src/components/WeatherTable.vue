@@ -1,6 +1,6 @@
 <template>
     <div :class="$style.tableResponsive">
-        <table :class="$style.table" >
+        <table :class="$style.table">
             <thead>
                 <tr>
                     <th>{{zone}}</th>
@@ -12,7 +12,22 @@
                     <td>
                         <label>{{row.field}}</label>
                     </td>
-                    <td v-for="(column, index) in row.values" :key="index">{{column}}</td>
+                    <td v-for="(column, index) in row.values" :key="index">
+                        <span v-if="typeof column === 'string'">
+                            {{column}}
+                            <span v-if="row.unit != ''">{{row.unit}}</span>
+                        </span>
+                        <span v-else>
+                            <span :class="$style.splitCell">
+                                <label>{{column[0].label}}:</label>
+                                {{column[0].value}}<span v-if="row.unit != ''">{{row.unit}}</span>
+                            </span>
+                            <span :class="$style.splitCell">
+                                <label>{{column[1].label}}:</label>
+                                {{column[1].value}}<span v-if="row.unit != ''">{{row.unit}}</span>
+                            </span>
+                        </span>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -32,32 +47,32 @@ export default {
 @import "../assets/css/bootstrap/mixins/breakpoints";
 
 .table {
-       border-collapse: collapse;
-        width: 100%;
-        margin-bottom: $spacer;
-        color: $table-color;
-        background-color: $table-bg; // Reset for nesting within parents with `background-color`.
-        border-bottom: $table-border-width solid $table-border-color;
-        th,
-        td {
-            padding: $table-cell-padding;
-            vertical-align: top;
-            border-top: $table-border-width solid $table-border-color;
-            text-align: center;
-            &:first-of-type {
-                text-align: left;
-                width: 300px;
-            }
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: $spacer;
+    color: $table-color;
+    background-color: $table-bg; // Reset for nesting within parents with `background-color`.
+    border-bottom: $table-border-width solid $table-border-color;
+    th,
+    td {
+        padding: $table-cell-padding;
+        vertical-align: top;
+        border-top: $table-border-width solid $table-border-color;
+        text-align: center;
+        &:first-of-type {
+            text-align: left;
+            width: 300px;
         }
+    }
 
-        thead th {
-            vertical-align: bottom;
-            border-bottom: (2 * $table-border-width) solid $table-border-color;
-        }
+    thead th {
+        vertical-align: bottom;
+        border-bottom: (2 * $table-border-width) solid $table-border-color;
+    }
 
-        tbody + tbody {
-            border-top: (2 * $table-border-width) solid $table-border-color;
-        }
+    tbody + tbody {
+        border-top: (2 * $table-border-width) solid $table-border-color;
+    }
     th {
         font-family: $headings-font-family;
         font-size: $font-size-sm;
@@ -81,5 +96,9 @@ export default {
 }
 .tableResponsive {
     composes: table-responsive from "../assets/css/style.css";
+}
+
+.splitCell:first-of-type {
+    padding-right: 15px;
 }
 </style>

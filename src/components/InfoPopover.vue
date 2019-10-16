@@ -34,14 +34,14 @@ export default {
     text-transform: lowercase;
     color: #fff !important;
     -webkit-text-fill-color: #fff !important;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 18px;
     padding: 0;
     height: 18px;
     width: 18px;
     //background-color: $no-rating-border !important;
     background-color: $gray-600;
-    border-radius: 50%;
+    border-radius: 6px;
 }
 </style>
 
