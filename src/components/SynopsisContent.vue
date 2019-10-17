@@ -6,7 +6,7 @@
         <!-- media -->
         <div v-if="data.media.length > 0">
             <h2>Media</h2>
-            <media-gallery :media="data.media" scope="scope-synopsis" key="synopsis"/>
+            <media-gallery :media="data.media" scope="scope-synopsis" key="synopsis" />
         </div>
     </div>
 </template>
@@ -40,6 +40,10 @@ export default {
 
 <style scoped lang="scss">
 .afp-synopsis::v-deep {
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
     figure {
         margin: 0 1rem 1rem 1rem !important;
         display: inline-block;

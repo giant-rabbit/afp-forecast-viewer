@@ -15,16 +15,16 @@
                     <td v-for="(column, index) in row.values" :key="index">
                         <span v-if="typeof column === 'string'">
                             {{column}}
-                            <span v-if="row.unit != ''">{{row.unit}}</span>
+                            <span v-if="row.unit != '' && column != ''">{{row.unit}}</span>
                         </span>
                         <span v-else>
                             <span :class="$style.splitCell">
                                 <label>{{column[0].label}}:</label>
-                                {{column[0].value}}<span v-if="row.unit != ''">{{row.unit}}</span>
+                                {{column[0].value}}<span v-if="row.unit != '' && column[0].value != ''">{{row.unit}}</span>
                             </span>
                             <span :class="$style.splitCell">
                                 <label>{{column[1].label}}:</label>
-                                {{column[1].value}}<span v-if="row.unit != ''">{{row.unit}}</span>
+                                {{column[1].value}}<span v-if="row.unit != '' && column[1].value != ''">{{row.unit}}</span>
                             </span>
                         </span>
                     </td>
