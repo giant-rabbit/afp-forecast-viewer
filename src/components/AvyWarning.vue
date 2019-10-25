@@ -33,8 +33,8 @@ export default {
         color: #fff !important;
         font-size: $font-size-sm;
         margin-left: 75px;
-        border-left: 1.5px solid #fff;
-        padding: 0.15rem 0 0.15rem 1rem;
+        border-left: 1.5px solid rgba(255,255,255,0.7);
+        padding: 0.1rem 0 0.1rem 1rem;
         strong {
             opacity: .7;
             padding-right: .5rem;
