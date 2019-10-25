@@ -36,7 +36,10 @@ export default {
             date: '',
             centerMeta: [],
             config: this.$config,
-            data: {},
+            data: {
+                weather_product: false,
+                warning_product: false
+            },
             preview: false,
             loaded: false,
             notFound: false,
@@ -107,11 +110,12 @@ export default {
                         this.data.forecast_avalanche_problems.sort(function (a, b) {
                             return a.rank - b.rank
                         })
-                        this.loaded = true
+                        this.getWarning()
                         if (this.data.product_type == 'forecast') {
                             this.getWeather()
                         }
-                        this.$eventBus.$emit('loaded')
+                        //this.loaded = true
+                        //this.$eventBus.$emit('loaded')
                         // fire event for custom tab content
                         // this.$nextTick(() => {
                         //     var event = new Event('forecast-loaded')
@@ -140,6 +144,22 @@ export default {
                     }
                 })
         },
+        getWarning() {
+            console.log('warning-fired')
+            this.$api
+                .get('/public/product?type=warning&center_id=' + this.$centerId + '&zone_id=' + this.zone + '&published_time=' + this.date)
+                .then(response => {
+                    if (response.data.published_time != null) {
+                        this.data.warning_product = response.data
+                        console.log('warning-received')
+                        this.refresh++
+                    } else {
+                        this.data.warning_product = false
+                    }
+                    this.loaded = true
+                    this.$eventBus.$emit('loaded')
+                })
+        },
         getSynopsis() {
             this.$api
                 .get('/public/product?type=synopsis&center_id=' + this.$centerId + '&zone_id=' + this.zone + '&published_time=' + this.date)
@@ -163,7 +183,7 @@ export default {
 
 .container {
     composes: container from "../assets/css/style.css";
-    padding-top: .5*$spacer;
+    padding-top: 0.5 * $spacer;
 }
 .btn {
     composes: btn from "../assets/css/style.css";

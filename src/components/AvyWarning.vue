@@ -2,7 +2,8 @@
     <div :class="$style.warning">
         <i class="mdi mdi-alert"></i>
         <h2>Avalanche Warning In Effect</h2>
-        <span>Issued: Fri, February 15, 2019 at 2:06 PM PST</span>
+        <span><strong>ISSUED</strong>{{ data.published_time | publicDate }}</span>
+        <span><strong>EXPIRES</strong>{{ data.expires_time | publicDate }}</span>
     </div>
 </template>
 
@@ -10,6 +11,7 @@
 import moment from 'moment/src/moment.js'
 
 export default {
+    props: ['data'],
 }
 </script>
 
@@ -23,14 +25,20 @@ export default {
     h2 {
         color: #fff !important;
         margin-bottom: 0.5rem !important;
-        margin-left: 65px;
+        margin-left: 75px;
         margin-top: 0;
     }
     span {
         display: block;
         color: #fff !important;
         font-size: $font-size-sm;
-        margin-left: 65px;
+        margin-left: 75px;
+        border-left: 1.5px solid #fff;
+        padding: 0.15rem 0 0.15rem 1rem;
+        strong {
+            opacity: .7;
+            padding-right: .5rem;
+        }
     }
     padding: 1.5rem;
     margin-bottom: $spacer;

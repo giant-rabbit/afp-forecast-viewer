@@ -15,6 +15,9 @@
                 </h2>
             </div>
         </div>
+        <!-- Warning -->
+        <avy-warning v-if="!preview && data.warning_product" :data="data.warning_product"/>
+
         <!-- Header -->
         <product-header
             :preview="preview"
@@ -22,10 +25,6 @@
             :expires="data.expires_time"
             :author="data.author"
         />
-
-        <!-- Warning -->
-        <!-- Need logic for showing warning -->
-        <!-- <avy-warning v-if="!preview" /> -->
 
         <!-- Bottom line -->
         <div v-if="data.bottom_line != ''" :class="$style.bottomLine">
