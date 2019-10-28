@@ -6,6 +6,7 @@ import axios from 'axios'
 import merge from 'deepmerge'
 // import moment from 'moment'
 import moment from 'moment/src/moment.js'
+import vbclass from 'vue-body-class'
 
 // Load forecast view plugin
 Vue.use(forecastView)
@@ -49,7 +50,7 @@ Vue.use({
 Vue.prototype.$eventBus = new Vue()
 
 // Router
-Vue.use(router)
+Vue.use(vbclass, router)
 
 // Style tag
 Vue.component('v-style', {

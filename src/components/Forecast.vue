@@ -114,6 +114,7 @@ export default {
                         if (this.data.product_type == 'forecast') {
                             this.getWeather()
                         }
+                        document.body.classList.add('afp-forecast-type-' + this.data.product_type)
                         //this.loaded = true
                         //this.$eventBus.$emit('loaded')
                         // fire event for custom tab content
@@ -145,13 +146,11 @@ export default {
                 })
         },
         getWarning() {
-            console.log('warning-fired')
             this.$api
                 .get('/public/product?type=warning&center_id=' + this.$centerId + '&zone_id=' + this.zone + '&published_time=' + this.date)
                 .then(response => {
                     if (response.data.published_time != null) {
                         this.data.warning_product = response.data
-                        console.log('warning-received')
                         this.refresh++
                     } else {
                         this.data.warning_product = false
@@ -172,7 +171,11 @@ export default {
     mounted() {
         this.$eventBus.$emit('loading')
         this.getProducts()
+        //document.body.classList.add('afp-forecast')
     },
+    destroyed(){
+        //document.body.classList.add('afp-forecast-type-' + this.data.product_type)
+    }
 }
 </script>
 

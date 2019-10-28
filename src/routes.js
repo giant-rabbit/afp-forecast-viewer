@@ -4,7 +4,6 @@ import Forecast from './components/Forecast'
 import Weather from './components/Weather'
 import Synopsis from './components/Synopsis'
 import Archive from './components/Archive'
-import NotFound from './components/NotFound'
 
 Vue.use(Router)
 
@@ -19,17 +18,20 @@ export default new Router({
 		{
 			path: '/archive',
 			name: 'Archive',
-			component: Archive
+			component: Archive,
+			meta: { bodyClass: 'afp-archive' }
 		},
 		{
 			path: '/archive/:tab/',
 			name: 'ArchiveTab',
-			component: Archive
+			component: Archive,
+			meta: { bodyClass: 'afp-archive' }
 		},
 		{
 			path: '/weather',
 			name: 'Weather',
 			component: Weather,
+			meta: { bodyClass: 'afp-weather' }
 		},
 		// {
 		// 	path: '/weather/:date/',
@@ -40,26 +42,31 @@ export default new Router({
 			path: '/synopsis',
 			name: 'Synopsis',
 			component: Synopsis,
+			meta: { bodyClass: 'afp-synopsis' }
 		},
 		{
 			path: '/synopsis/:date/',
 			name: 'ArchivedSynopsis',
 			component: Synopsis,
+			meta: { bodyClass: 'afp-synopsis-archived' }
 		},
 		{
 			path: '',
 			name: 'Forecast',
 			component: Forecast,
+			meta: { bodyClass: 'afp-forecast' }
 		},
 		{
 			path: '/:zone/',
 			name: 'ZoneForecast',
 			component: Forecast,
+			meta: { bodyClass: 'afp-forecast' }
 		},
 		{
 			path: '/:zone/:date/',
 			name: 'ArchivedForecast',
 			component: Forecast,
+			meta: { bodyClass: 'afp-forecast-archive' }
 		},
 		{
 			path: '*',
