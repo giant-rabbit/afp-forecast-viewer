@@ -3,7 +3,7 @@
         <div :class="$style.container">
             <button
                 v-if="date != ''"
-                @click="$router.replace({ name: 'ArchiveTab', params: { tab: 'synopsis' } })"
+                @click="$router.replace({ name: 'ArchiveTab', params: { tab: 'blog' } })"
                 :class="$style.btn"
                 class="afp-btn-primary"
             >
@@ -54,7 +54,7 @@ export default {
                 this.date = ''
             }
             this.$api
-                .get('/avalanche-center/' + this.$centerId)
+                .get('/public/avalanche-center/' + this.$centerId)
                 .then(response => {
                     this.zone = response.data.zones[0].id
                     this.getSynopsis()

@@ -39,13 +39,13 @@ export default new Router({
 		// 	component: Weather,
 		// },
 		{
-			path: '/synopsis',
+			path: '/blog',
 			name: 'Synopsis',
 			component: Synopsis,
 			meta: { bodyClass: 'afp-synopsis' }
 		},
 		{
-			path: '/synopsis/:date/',
+			path: '/blog/:date/',
 			name: 'ArchivedSynopsis',
 			component: Synopsis,
 			meta: { bodyClass: 'afp-synopsis-archived' }

@@ -10,16 +10,6 @@
                     :to="{ name: 'ArchivedSynopsis', params: { date: props.row.start_date } }"
                 >{{props.row.start_date}}</router-link>
             </div>
-            <span slot="danger_rating" slot-scope="props">
-                <span v-if="props.row.danger_rating == ''"></span>
-                <span
-                    v-else
-                    :class="'afp-danger afp-danger-' + props.row.danger_rating"
-                >{{props.row.danger_rating}}</span>
-            </span>
-            <!-- <div slot="filter__start_date">
-                <input type="checkbox" class="form-control" />
-            </div>-->
         </v-client-table>
     </div>
 </template>

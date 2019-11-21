@@ -1,7 +1,7 @@
 <template>
     <div>
         <div :class="$style.title">
-            <h1>Regional Synopsis</h1>
+            <h1>Conditions Blog</h1>
             <h2 v-html="data.bottom_line"></h2>
             <!-- <h2>
                 <i class="mdi mdi-map-marker"></i>

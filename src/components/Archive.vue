@@ -16,7 +16,7 @@
             </div>
 
             <!-- Synopsis Archive tab -->
-            <div v-if="tabSelected == 'synopsis'" :class="$style.tabPane">
+            <div v-if="tabSelected == 'blog'" :class="$style.tabPane">
                 <synopsis-list />
             </div>
         </content-panel>
@@ -44,8 +44,8 @@ export default {
                     name: "Avalanche Forecasts"
                 },
                 {
-                    id: "synopsis",
-                    name: "Regional Synopses"
+                    id: "blog",
+                    name: "Conditions Blog"
                 }
             ],
             tabSelected: "forecast"

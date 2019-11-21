@@ -8,7 +8,7 @@
             <!-- Title -->
             <div :class="$style.title">
                 <h1 v-if="data.product_type == 'forecast'">Backcountry Avalanche Forecast</h1>
-                <h1 v-else>Avalanche Conditions Summary</h1>
+                <h1 v-else>General Avalanche Information</h1>
                 <h2>
                     <i class="mdi mdi-map-marker"></i>
                     {{zone}}
@@ -97,8 +97,7 @@
 
                 <!-- discussion -->
                 <div v-if="data.hazard_discussion != ''" :class="$style.divider">
-                    <h2 v-if="data.product_type == 'forecast'">Forecast Discussion</h2>
-                    <h2 v-else>Snowpack & Avalanche Conditions</h2>
+                    <h2>Forecast Discussion</h2>
                     <div v-html="data.hazard_discussion"></div>
                 </div>
 
@@ -144,7 +143,7 @@
                 :class="$style.tabPane"
             >
                 <div :class="$style.spacer">
-                    <h2>Snowpack & Avalanche Conditions</h2>
+                    <h2>Forecast Discussion</h2>
                     <div v-if="data.hazard_discussion != ''" v-html="data.hazard_discussion"></div>
                 </div>
                 <!-- media -->
@@ -247,21 +246,21 @@ export default {
                 },
                 {
                     id: "synopsis",
-                    name: "Regional Synopsis"
+                    name: "Conditions Blog"
                 }
             ],
             tabsSummary: [
                 {
                     id: "forecast",
-                    name: "Conditions Summary"
+                    name: "Avalanche Information"
                 },
                 {
                     id: "weatherSummary",
-                    name: "Weather Forecast"
+                    name: "Weather Summary"
                 },
                 {
                     id: "synopsis",
-                    name: "Regional Synopsis"
+                    name: "Conditions Blog"
                 }
             ],
             tabsForecastPreview: [
@@ -273,11 +272,11 @@ export default {
             tabsSummaryPreview: [
                 {
                     id: "forecast",
-                    name: "Conditions Summary"
+                    name: "Avalanche Information"
                 },
                 {
                     id: "weatherSummary",
-                    name: "Weather Forecast"
+                    name: "Weather Summary"
                 }
             ],
             tabSelected: 'forecast'
