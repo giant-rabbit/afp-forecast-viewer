@@ -197,13 +197,13 @@
                     <synopsis-content :data="data.synopsis_product" />
                     <div :class="[$style.textCenter, $style.spacer]">
                         <button
-                            @click="$router.replace({ name: 'ArchiveTab', params: { tab: 'synopsis' } })"
+                            @click="$router.replace({ name: 'ArchiveTab', params: { tab: 'blog' } })"
                             :class="$style.btn"
                             class="afp-btn-primary"
-                        >View Previous Synopses</button>
+                        >View Previous Posts</button>
                     </div>
                 </div>
-                <div v-else>No Regional Synopsis to display.</div>
+                <div v-else>No Conditions Blog post to display.</div>
             </div>
 
             <!-- Custom tab content -->
@@ -314,22 +314,8 @@ export default {
             // this.$router.push({ query: { nav: this.tabSelected } })
         },
         scrollToTabs(tab) {
-            var ref = this
-            var offset = document.getElementById('tabs').offsetTop
-            const onScroll = function () {
-                const scrollTop = window.scrollTop || window.pageYOffset
-
-                if (scrollTop === offset) {
-                    window.removeEventListener('scroll', onScroll)
-                    ref.tabSelected = tab
-                }
-            }
-            window.addEventListener('scroll', onScroll)
-            onScroll()
-            window.scrollTo({
-                top: offset,
-                behavior: 'smooth'
-            })
+            this.tabSelected = tab
+            document.getElementById("tabs").scrollIntoView()
         },
     },
     mounted() {
