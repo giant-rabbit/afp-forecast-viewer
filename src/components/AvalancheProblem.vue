@@ -103,7 +103,7 @@ export default {
             likelihoodOptions: ['unlikely', 'possible', 'likely', 'very likely', 'almost certain'],
             likelihoodLabels: ['Unlikely', 'Possible', 'Likely', 'Very Likely', 'Almost Certain'],
             sizeOptions: ['1','1.5','2','2.5','3','3.5','4'],
-            sizeLabels: ['Small', '', 'Large', '', 'Very Large', '', 'Historic']
+            sizeLabels: ['Small (D1)', '', 'Large (D2)', '', 'Very Large (D3) ', '', 'Historic (D4-5)']
         }
     },
     components: {

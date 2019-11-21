@@ -57,6 +57,9 @@ export default {
 @import "../assets/css/_variables.scss";
 @import "../assets/css/bootstrap/mixins/breakpoints";
 
+$border: $gray-700;
+$fill: $gray-400;
+
 .slider {
     position: relative;
     margin-left: auto;
@@ -69,8 +72,9 @@ export default {
 
 .rail {
     height: 100%;
-    border-left: 1px solid $gray-400;
-    border-right: 1px solid $gray-400;
+    border-left: 1px solid $border;
+    border-right: 1px solid $border;
+    background-color: $border;
     width: 2px;
     position: relative;
     top: 0;
@@ -79,8 +83,9 @@ export default {
 
 .step {
     position: absolute;
-    border-top: 1px solid $gray-400;
-    border-bottom: 1px solid $gray-400;
+    border-top: 1px solid $border;
+    border-bottom: 1px solid $border;
+    background-color: $border;
     width: 30px;
     height: 2px;
     left: -15px !important;
@@ -88,8 +93,9 @@ export default {
 
 .mark {
     position: absolute;
-    border-left: 12px solid $gray-700;
-    border-right: 12px solid $gray-700;
+    border-left: 12px solid $fill;
+    border-right: 12px solid $fill;
+    background-color: $fill;
     width: 24px !important;
     height: 10px !important;
     left: -12px;
@@ -97,15 +103,16 @@ export default {
 }
 .process {
     position: absolute;
-    border-left: 12px solid $gray-700;
-    border-right: 12px solid $gray-700;
+    border-left: 12px solid $fill;
+    border-right: 12px solid $fill;
+    background-color: $fill;
     width: 24px !important;
     left: -12px;
     transform: translateY(4px);
 }
 .label {
     position: absolute;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1;
     text-transform: capitalize;
     text-align: left;

@@ -163,8 +163,10 @@
 export default {
     data() {
         return {
-            borderColor: '#C8CACE',
-            fillColor: '#515558'
+            // borderColor: '#C8CACE',
+            // fillColor: '#515558'
+            borderColor: '#515558',
+            fillColor: '#C8CACE'
         }
     },
     props: ['location', 'rank', 'config'],
@@ -255,15 +257,16 @@ $rose-margin: 20px;
     position: absolute;
     height: $rose-size * 0.6;
     width: 1px;
-    border-left: 1px solid $gray-400;
-    border-right: 1px solid $gray-400;
+    border-left: 1px solid $gray-700;
+    border-right: 1px solid $gray-700;
+    background-color: $gray-700;
     &:before {
         content: "";
         position: absolute;
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        border: 3px solid $gray-400;
+        border: 3px solid $gray-700;
         left: -3px;
     }
 }
