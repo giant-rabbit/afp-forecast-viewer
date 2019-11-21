@@ -4,10 +4,10 @@
             <div
                 :class="{[$style.today] : outlookDanger, [$style.todayNoOutlook] : !outlookDanger}"
             >
-                <h6>
+                <h2>
                     Avalanche Danger
                     <info :content="this.$helpContent.avalancheDanger" />
-                </h6>
+                </h2>
                 {{ todayDate }}
                 <div :class="$style.dangerGraphic">
                     <div :class="$style.elevationBlock">
@@ -59,10 +59,10 @@
                 </div>
             </div>
             <div v-if="outlookDanger" :class="$style.outlook">
-                <h6>
+                <h2>
                     Outlook
                     <info :content="this.$helpContent.avalancheDangerOutlook" />
-                </h6>
+                </h2>
                 {{outlookDate}}
                 <div :class="$style.dangerGraphic">
                     <div :class="$style.elevationOutlookBlock">
@@ -112,10 +112,10 @@
         </div>
         <div v-if="outlookDanger" :class="$style.outlookMobile">
             <div :class="$style.outlookMobileText">
-                <h6>
+                <h2>
                     Outlook
                     <info :content="this.$helpContent.avalancheDangerOutlook" />
-                </h6>
+                </h2>
                 {{outlookDate}}
             </div>
             <div :class="$style.outlookMobileGraphic">
@@ -204,6 +204,9 @@ export default {
 
 .danger {
     margin-bottom: 1.5 * $spacer;
+    h2 {
+        margin-bottom: .5rem !important;
+    }
 }
 .row {
     composes: row from "../assets/css/style.css";
