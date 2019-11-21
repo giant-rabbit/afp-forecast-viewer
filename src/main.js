@@ -16,6 +16,7 @@ var configDefault = {
     "center": "SNFAC",
     "color": false,
     "tabs": [],
+    "blog": true,
     "elevations": {
         "upper": "Upper Elevation",
         "middle": "Middle Elevation",

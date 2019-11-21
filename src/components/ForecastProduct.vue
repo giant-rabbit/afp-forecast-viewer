@@ -47,6 +47,7 @@
             ref="tabs"
             :tabs="tabsForecast"
             :custom="$config.tabs"
+            :blog="$config.blog"
             :selected="tabSelected"
             @changeTab="changeTab"
         />
@@ -55,6 +56,7 @@
             ref="tabs"
             :tabs="tabsSummary"
             :custom="$config.tabs"
+            :blog="$config.blog"
             :selected="tabSelected"
             @changeTab="changeTab"
         />
@@ -185,7 +187,7 @@
             </div>
 
             <!-- Synopsis tab -->
-            <div v-if="tabSelected == 'synopsis'" :class="$style.tabPane">
+            <div v-if="tabSelected == 'blog'" :class="$style.tabPane">
                 <!-- Title -->
                 <div v-if="data.synopsis_product">
                     <h1 v-html="data.synopsis_product.bottom_line"></h1>
@@ -243,10 +245,6 @@ export default {
                 {
                     id: "weather",
                     name: "Weather Forecast"
-                },
-                {
-                    id: "synopsis",
-                    name: "Conditions Blog"
                 }
             ],
             tabsSummary: [
@@ -257,10 +255,6 @@ export default {
                 {
                     id: "weatherSummary",
                     name: "Weather Summary"
-                },
-                {
-                    id: "synopsis",
-                    name: "Conditions Blog"
                 }
             ],
             tabsForecastPreview: [
@@ -367,7 +361,7 @@ export default {
     border: 1.2px solid $gray-400;
     box-shadow: $app-box-shadow;
     margin-top: 3rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 .dangerIcon {
