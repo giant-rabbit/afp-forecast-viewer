@@ -146,7 +146,7 @@
             >
                 <div :class="$style.spacer">
                     <h2>Forecast Discussion</h2>
-                    <div v-if="data.hazard_discussion != ''" v-html="data.hazard_discussion"></div>
+                    <div class="afp-discussion" v-if="data.hazard_discussion != ''" v-html="data.hazard_discussion"></div>
                 </div>
                 <!-- media -->
                 <media-gallery
@@ -186,7 +186,7 @@
                 <div v-if="data.weather_discussion != ''" v-html="data.weather_discussion"></div>
             </div>
 
-            <!-- Synopsis tab -->
+            <!-- Blog tab -->
             <div v-if="tabSelected == 'blog'" :class="$style.tabPane">
                 <!-- Title -->
                 <div v-if="data.synopsis_product">
@@ -420,6 +420,36 @@ export default {
     @media print {
         display: block;
         margin-top: $spacer;
+    }
+}
+</style>
+
+<style scoped lang="scss">
+.afp-discussion::v-deep {
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+    figure {
+        margin: 0 1rem 1rem 1rem !important;
+        display: inline-block;
+        figcaption {
+            font-style: italic;
+            font-size: 80%;
+        }
+    }
+    figure.align-right {
+        float: right !important;
+        margin: 0 0 1rem 1rem !important;
+    }
+    figure.align-left {
+        float: left !important;
+        margin: 0 1rem 1rem 0 !important;
+    }
+    figure.align-center {
+        display: table;
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
 }
 </style>

@@ -62,8 +62,8 @@ export default {
     }
     figure.align-center {
         display: table;
-        margin-left: auto;
-        margin-right: auto;
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
 }
 </style>
