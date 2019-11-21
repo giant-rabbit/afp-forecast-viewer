@@ -71,7 +71,7 @@ export default {
     methods: {
         async getProducts() {
             this.$api
-                .get('/avalanche-center/' + this.$centerId)
+                .get('/public/avalanche-center/' + this.$centerId)
                 .then(response => {
                     this.centerMeta = response.data
                     if (this.$route.params.date != undefined) {

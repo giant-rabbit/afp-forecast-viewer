@@ -51,9 +51,9 @@ export default {
         },
         getZones() {
             this.$api
-                .get('/forecast-zones?avalanche_center_id=' + this.$centerId + '&fields=id,name,zone_id')
+                .get('/public/avalanche-center/' + this.$centerId)
                 .then(response => {
-                    this.centerZones = response.data
+                    this.centerZones = response.data.zones
                 })
                 .catch(e => {
                     this.showAlert('error', '')

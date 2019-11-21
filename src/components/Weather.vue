@@ -29,7 +29,7 @@ export default {
     methods: {
         async getProducts() {
             this.$api
-                .get('/avalanche-center/' + this.$centerId)
+                .get('/public/avalanche-center/' + this.$centerId)
                 .then(response => {
                     this.zone = response.data.zones[0].id
                     this.getWeather()

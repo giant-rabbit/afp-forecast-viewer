@@ -106,7 +106,7 @@ export default {
         getProducts() {
             var ref = this
             this.$api
-                .get('forecasts?avalanche_center_id=' + this.$centerId)
+                .get('/public/products?avalanche_center_id=' + this.$centerId)
                 .then(response => {
                     this.data = response.data
                     // filter forecasts

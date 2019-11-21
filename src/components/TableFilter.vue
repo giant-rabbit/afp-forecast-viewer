@@ -272,7 +272,7 @@ export default {
         },
         getCenterMeta() {
             this.$api
-                .get('/avalanche-center/' + this.$centerId)
+                .get('/public/avalanche-center/' + this.$centerId)
                 .then(response => {
                     this.centerMeta = response.data
                 })
