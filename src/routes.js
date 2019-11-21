@@ -42,13 +42,13 @@ export default new Router({
 			path: '/blog',
 			name: 'Synopsis',
 			component: Synopsis,
-			meta: { bodyClass: 'afp-synopsis' }
+			meta: { bodyClass: 'afp-blog' }
 		},
 		{
 			path: '/blog/:date/',
 			name: 'ArchivedSynopsis',
 			component: Synopsis,
-			meta: { bodyClass: 'afp-synopsis-archived' }
+			meta: { bodyClass: 'afp-blog-archived' }
 		},
 		{
 			path: '',
@@ -66,11 +66,12 @@ export default new Router({
 			path: '/:zone/:date/',
 			name: 'ArchivedForecast',
 			component: Forecast,
-			meta: { bodyClass: 'afp-forecast-archive' }
+			meta: { bodyClass: 'afp-forecast-archived' }
 		},
 		{
 			path: '*',
-			redirect: { name: 'Forecast' }
+			redirect: { name: 'Forecast' },
+			meta: { bodyClass: 'afp-forecast' }
 		}
 	],
 	scrollBehavior(to, from, savedPosition) {

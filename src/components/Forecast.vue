@@ -52,7 +52,7 @@ export default {
     },
     watch: {
         '$route.params.zone': {
-            handler: function () {
+            handler: function (to,from) {
                 this.loaded = false
                 this.notFound = false
                 this.$eventBus.$emit('loading')
@@ -69,6 +69,11 @@ export default {
         }
     },
     methods: {
+        urlString(string) {
+            string = string.replace(/ /g, '-')
+            string = string.toLowerCase()
+            return string
+        },
         async getProducts() {
             this.$api
                 .get('/public/avalanche-center/' + this.$centerId)
@@ -115,6 +120,7 @@ export default {
                             this.getWeather()
                         }
                         document.body.classList.add('afp-forecast-type-' + this.data.product_type)
+                        document.body.classList.add('afp-forecast-zone-' + this.zone)
                         //this.loaded = true
                         //this.$eventBus.$emit('loaded')
                         // fire event for custom tab content
