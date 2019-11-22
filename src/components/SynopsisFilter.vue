@@ -70,6 +70,10 @@ export default {
 @import "../assets/css/_variables.scss";
 @import "../assets/css/bootstrap/mixins";
 
+.spacer {
+    margin-bottom: .5 * $spacer;
+}
+
 .row {
     width: 100%;
     display: flex;

@@ -149,8 +149,8 @@ export default {
     margin-bottom: $spacer;
     @include media-breakpoint-up(md) {
         width: 75%;
-        margin-left: auto;
-        margin-right: auto;
+        // margin-left: auto;
+        // margin-right: auto;
     }
     @include media-breakpoint-up(lg) {
         width: 50%;
@@ -163,12 +163,25 @@ export default {
     border-color: $gray-400;
     color: $gray-700;
     position: relative;
-    padding: 0.6rem 0.75rem;
+    padding: 0.6rem 1rem;
     box-shadow: $app-box-shadow;
     width: 100%;
     margin-bottom: 0.3rem;
+    text-align: left;
+    padding-right: 3rem;
     &:hover {
         border-color: $gray-500;
+    }
+    &:after {
+        content: "";
+        border-left: 2px solid $gray-500;
+        border-bottom: 2px solid $gray-500;
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        width: 0.6rem;
+        height: 0.6rem;
+        transform: rotate(-135deg);
     }
 }
 </style>
