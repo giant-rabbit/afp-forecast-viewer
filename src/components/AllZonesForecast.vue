@@ -42,6 +42,7 @@
                     />
                 </content-panel>
                 <!-- <div :class="$style.divider"></div> -->
+                <disclaimer />
             </div>
         </div>
         <not-found v-if="notFound" />
@@ -88,26 +89,6 @@ export default {
         Disclaimer
     },
     methods: {
-        getProducts() {
-            if (this.$route.params.date != undefined) {
-                this.date = this.$route.params.date
-            } else {
-                this.date = ''
-            }
-            if (this.$route.params.zone != undefined) {
-                // convert URL zone slug to zone id
-                this.zone = this.$route.params.zone.replace(/-/g, ' ');
-                this.zone = this.zone.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')
-                let zone = this.centerMeta.zones.find(zone => zone.name == this.zone)
-                this.zone = zone.id
-                this.zoneName = zone.name
-            } else {
-                this.zone = this.centerMeta.zones[0].id
-                this.zoneName = this.centerMeta.zones[0].name
-            }
-            this.getForecast()
-            this.getSynopsis()
-        },
         getForecast(zone) {
             return this.$api
                 .get('/public/product?type=forecast&center_id=' + this.$centerId + '&zone_id=' + zone)
@@ -197,7 +178,7 @@ export default {
 
 .container {
     composes: container from "../assets/css/style.css";
-    padding-top: 0.5 * $spacer;
+    padding-top: $spacer;
 }
 .spacer {
     margin-bottom: $spacer;
