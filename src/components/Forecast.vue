@@ -52,7 +52,7 @@ export default {
     },
     watch: {
         '$route.params.zone': {
-            handler: function (to,from) {
+            handler: function () {
                 this.loaded = false
                 this.notFound = false
                 this.$eventBus.$emit('loading')
