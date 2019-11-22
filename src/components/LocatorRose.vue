@@ -258,15 +258,16 @@ $rose-margin: 20px;
     height: $rose-size * 0.6;
     width: 1px;
     border-left: 1px solid $gray-700;
-    border-right: 1px solid $gray-700;
+    //border-right: 1px solid $gray-700;
     background-color: $gray-700;
     &:before {
         content: "";
         position: absolute;
-        width: 6px;
-        height: 6px;
+        width: 5px;
+        height: 5px;
         border-radius: 50%;
-        border: 3px solid $gray-700;
+        border: 2px solid $gray-700;
+        background-color: $gray-700;
         left: -3px;
     }
 }

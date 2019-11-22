@@ -59,7 +59,11 @@ $fill: $gray-400;
     margin-right: auto;
     padding: 0.5rem;
     width: 8rem;
-    height: 220px;
+    height: 200px;
+    margin-bottom: 40px;
+    @include media-breakpoint-down(xs) {
+        height: 175px;
+    }
 }
 
 .rail {
@@ -67,6 +71,7 @@ $fill: $gray-400;
     border-left: 1px solid $border;
     border-right: 1px solid $border;
     background-color: $border;
+    -webkit-print-color-adjust: exact;
     width: 1px;
     position: relative;
     top: 0;
@@ -75,9 +80,10 @@ $fill: $gray-400;
 
 .step {
     position: absolute;
-    border-left: 1px solid $border;
-    border-right: 1px solid $border;
+    border-top: 1px solid $border;
+    border-bottom: 1px solid $border;
     background-color: $border;
+    -webkit-print-color-adjust: exact;
     width: 24px;
     height: 2px;
     left: -12px !important;
