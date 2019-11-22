@@ -1,26 +1,6 @@
 <template>
     <div :class="$style.spacer">
         <div :class="$style.row">
-            <!-- <div :class="[$style.column]">
-                <select v-model="zoneFilter" :class="$style.select">
-                    <option value>Filter by Zone</option>
-                    <option
-                        v-for="zone in centerMeta.zones"
-                        :value="zone.name"
-                        :key="zone.id"
-                    >{{ zone.name }}</option>
-                </select>
-            </div>
-            <div :class="[$style.column]">
-                <select v-model="dangerFilter" :class="$style.select">
-                    <option value>Filter by Danger</option>
-                    <option
-                        v-for="(rating, index) in danger"
-                        :key="index"
-                        :value="rating.value"
-                    >{{ rating.name }}</option>
-                </select>
-            </div>-->
             <div :class="[$style.column]">
                 <input
                     :class="$style.input"
@@ -52,64 +32,19 @@ export default {
     data() {
         return {
             show: false,
-            centerMeta: '',
-            danger: [
-                {
-                    name: 'Low',
-                    value: 'low'
-                },
-                {
-                    name: 'Moderate',
-                    value: 'moderate'
-                },
-                {
-                    name: 'Considerable',
-                    value: 'considerable'
-                },
-                {
-                    name: 'High',
-                    value: 'high'
-                },
-                {
-                    name: 'Extreme',
-                    value: 'extreme'
-                }
-            ],
-            dangerFilter: '',
-            zoneFilter: '',
-            filterQuery: [],
-            dateFilter: ''
+            dateFilter: '',
+            filterQuery: []
         }
     },
     props: ['data'],
     watch: {
-        zoneFilter: function () {
-            this.tableFilter()
-        },
-        dangerFilter: function () {
-            this.tableFilter()
-        },
         dateFilter: function () {
+            this.filterQuery = []
             this.tableFilter()
         },
     },
     methods: {
         tableFilter() {
-            this.filterQuery = []
-            if (this.zoneFilter.length != '') {
-                var filter = {
-                    columnName: "forecast_zones",
-                    columnFilter: [this.zoneFilter]
-                }
-                this.filterQuery.push(filter)
-            }
-            if (this.dangerFilter.length != '') {
-                var filter = {
-                    columnName: "danger_rating",
-                    columnFilter: [this.dangerFilter]
-                }
-                this.filterQuery.push(filter)
-            }
             if (this.dateFilter != '') {
                 var filter = {
                     columnName: "start_date",
@@ -120,23 +55,11 @@ export default {
             Event.$emit('vue-tables.filter::multiFilter', this.filterQuery);
         },
         resetTableFilter() {
-            this.zoneFilter = ''
-            this.dangerFilter = ''
             this.dateFilter = ''
-        },
-        getCenterMeta() {
-            this.$api
-                .get('/public/avalanche-center/' + this.$centerId)
-                .then(response => {
-                    this.centerMeta = response.data
-                })
-                .catch(e => {
-                    this.showAlert('error', '')
-                })
+            this.filterQuery = []
         },
     },
     mounted() {
-        this.getCenterMeta()
     }
 }
 

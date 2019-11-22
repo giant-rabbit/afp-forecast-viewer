@@ -16,7 +16,7 @@ export default {
     data() {
         return {
             date: '',
-            zone: '',
+            zone: this.$centerMeta.zones[0].id,
             data: {},
             loaded: false,
             notFound: false
@@ -27,14 +27,6 @@ export default {
         NotFound
     },
     methods: {
-        async getProducts() {
-            this.$api
-                .get('/public/avalanche-center/' + this.$centerId)
-                .then(response => {
-                    this.zone = response.data.zones[0].id
-                    this.getWeather()
-                })
-        },
         getWeather() {
             this.$api
                 .get('/public/product?type=weather&center_id=' + this.$centerId + '&zone_id=' + this.zone)
@@ -56,7 +48,7 @@ export default {
     },
     mounted() {
         this.$eventBus.$emit('loading')
-        this.getProducts()
+        this.getWeather()
     },
 }
 </script>

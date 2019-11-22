@@ -34,7 +34,7 @@ export default {
             zone: '',
             zoneName: '',
             date: '',
-            centerMeta: [],
+            centerMeta: this.$centerMeta,
             config: this.$config,
             data: {
                 weather_product: false,
@@ -74,34 +74,25 @@ export default {
             string = string.toLowerCase()
             return string
         },
-        async getProducts() {
-            this.$api
-                .get('/public/avalanche-center/' + this.$centerId)
-                .then(response => {
-                    this.centerMeta = response.data
-                    if (this.$route.params.date != undefined) {
-                        this.date = this.$route.params.date
-                    } else {
-                        this.date = ''
-                    }
-                    if (this.$route.params.zone != undefined) {
-                        // convert URL zone slug to zone id
-                        this.zone = this.$route.params.zone.replace(/-/g, ' ');
-                        this.zone = this.zone.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')
-                        let zone = this.centerMeta.zones.find(zone => zone.name == this.zone)
-                        this.zone = zone.id
-                        this.zoneName = zone.name
-                    } else {
-                        this.zone = this.centerMeta.zones[0].id
-                        this.zoneName = this.centerMeta.zones[0].name
-                    }
-                    this.getForecast()
-                    this.getSynopsis()
-                })
-                .catch(e => {
-                    this.notFound = true
-                    this.$eventBus.$emit('loaded')
-                })
+        getProducts() {
+            if (this.$route.params.date != undefined) {
+                this.date = this.$route.params.date
+            } else {
+                this.date = ''
+            }
+            if (this.$route.params.zone != undefined) {
+                // convert URL zone slug to zone id
+                this.zone = this.$route.params.zone.replace(/-/g, ' ');
+                this.zone = this.zone.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')
+                let zone = this.centerMeta.zones.find(zone => zone.name == this.zone)
+                this.zone = zone.id
+                this.zoneName = zone.name
+            } else {
+                this.zone = this.centerMeta.zones[0].id
+                this.zoneName = this.centerMeta.zones[0].name
+            }
+            this.getForecast()
+            this.getSynopsis()
         },
         getForecast() {
             this.$api
@@ -177,10 +168,6 @@ export default {
     mounted() {
         this.$eventBus.$emit('loading')
         this.getProducts()
-        //document.body.classList.add('afp-forecast')
-    },
-    destroyed(){
-        //document.body.classList.add('afp-forecast-type-' + this.data.product_type)
     }
 }
 </script>

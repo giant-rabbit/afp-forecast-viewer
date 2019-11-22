@@ -40,7 +40,7 @@ export default {
         return {
             show: false,
             date: '',
-            centerZones: []
+            centerZones: this.$centerMeta.zones
         }
     },
     methods: {
@@ -48,16 +48,6 @@ export default {
             string = string.replace(/ /g, '-')
             string = string.toLowerCase()
             return string
-        },
-        getZones() {
-            this.$api
-                .get('/public/avalanche-center/' + this.$centerId)
-                .then(response => {
-                    this.centerZones = response.data.zones
-                })
-                .catch(e => {
-                    this.showAlert('error', '')
-                })
         },
         onClose() {
             this.show = false
@@ -100,7 +90,6 @@ export default {
 
     },
     mounted() {
-        this.getZones()
         if (this.$route.params.date != undefined) {
             this.date = this.$route.params.date
         } else {

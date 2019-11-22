@@ -52,7 +52,7 @@ export default {
     data() {
         return {
             show: false,
-            centerMeta: '',
+            centerMeta: this.$centerMeta,
             danger: [
                 {
                     name: 'Low',
@@ -124,20 +124,10 @@ export default {
             this.dangerFilter = ''
             this.dateFilter = ''
             this.tableFilter()
-        },
-        getCenterMeta() {
-            this.$api
-                .get('/public/avalanche-center/' + this.$centerId)
-                .then(response => {
-                    this.centerMeta = response.data
-                })
-                .catch(e => {
-                    this.showAlert('error', '')
-                })
-        },
+        }
     },
     mounted() {
-        this.getCenterMeta()
+
     }
 }
 

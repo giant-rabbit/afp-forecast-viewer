@@ -38,15 +38,6 @@ if( configElement) {
 Vue.prototype.$config = config
 Vue.prototype.$centerId = config.center
 
-// API
-Vue.use({
-    install(Vue) {
-        Vue.prototype.$api = axios.create({
-            baseURL: 'https://staging-api.avalanche.org/v2'
-        })
-    }
-})
-
 // Event bus
 Vue.prototype.$eventBus = new Vue()
 
@@ -463,9 +454,27 @@ Vue.prototype.$sampleData = {
     ]
 }
 
-// Vue instance
-window.App = new Vue({
-    el: '#afp-public-root',
-    router,
-    render: h => h(App)
+// API
+Vue.use({
+    install(Vue) {
+        Vue.prototype.$api = axios.create({
+            baseURL: 'https://staging-api.avalanche.org/v2'
+        })
+    }
 })
+
+axios
+    .get('https://staging-api.avalanche.org/v2/public/avalanche-center/' + config.center)
+    .then(response => {
+        Vue.prototype.$centerMeta = response.data
+        // Vue instance
+        window.App = new Vue({
+            el: '#afp-public-root',
+            router,
+            render: h => h(App)
+        })
+    })
+    .catch(e => {
+        console.log('error retrieving avalanche center meta')
+    })
+

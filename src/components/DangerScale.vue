@@ -1,12 +1,9 @@
 <template>
     <div :class="$style.dangerScale">
         <div :class="$style.firstColumn">
-            <v-popover :class="$style.popover">
-                <h5 v-tooltip="'Click to learn more'">Danger Scale</h5>
-                <template slot="popover">
-                    <div v-html="this.$helpContent.dangerScale"></div>
-                </template>
-            </v-popover>
+            <a href="https://avalanche.org/avalanche-encyclopedia/danger-scale/" target="_blank">
+                <h5 v-tooltip="'Click to learn more'">Danger Scale <i class="mdi mdi-open-in-new"></i></h5>
+            </a>
         </div>
         <div :class="$style.secondColumn">
             <ul>
@@ -47,6 +44,9 @@ export default {
     }
     h5 {
         margin-bottom: 1em;
+    }
+    a {
+        text-decoration: none !important;
     }
     ul {
         margin: 0;

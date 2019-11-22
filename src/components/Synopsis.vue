@@ -40,30 +40,20 @@ export default {
                 this.loaded = false
                 this.notFound = false
                 this.$eventBus.$emit('loading')
-                this.getProducts()
+                this.getProduct()
             },
             deep: true,
             immediate: true
         }
     },
     methods: {
-        async getProducts() {
+        async getProduct() {
             if (this.$route.params.date != undefined) {
                 this.date = this.$route.params.date
             } else {
                 this.date = ''
             }
-            this.$api
-                .get('/public/avalanche-center/' + this.$centerId)
-                .then(response => {
-                    this.zone = response.data.zones[0].id
-                    this.getSynopsis()
-                })
-                .catch(e => {
-                    // this.$router.push({ name: 'NotFound' })
-                })
-        },
-        getSynopsis() {
+            this.zone = this.$centerMeta.zones[0].id
             this.$api
                 .get('/public/product?type=synopsis&center_id=' + this.$centerId + '&zone_id=' + this.zone + '&published_time=' + this.date)
                 .then(response => {
@@ -84,7 +74,7 @@ export default {
     },
     mounted() {
         this.$eventBus.$emit('loading')
-        this.getProducts()
+        this.getProduct()
     },
 }
 </script>

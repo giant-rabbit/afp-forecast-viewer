@@ -43,7 +43,7 @@
             <router-link :to="{ name: 'Forecast' }">Forecast</router-link>
             <router-link :to="{ name: 'Weather' }">Weather</router-link>
             <router-link :to="{ name: 'Synopsis' }">Synopsis</router-link>
-        </div> -->
+        </div>-->
         <transition name="fade" mode="out-in">
             <router-view></router-view>
         </transition>
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 
 export default {
     name: 'app',
@@ -76,6 +77,9 @@ export default {
             }
             return rgb;
         }
+    },
+    async mounted() {
+        this.$centerMeta = await this.getCenter()
     }
 }
 </script>
