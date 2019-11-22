@@ -3,7 +3,7 @@
         <div :class="$style.container">
             <button
                 v-if="date != ''"
-                @click="$router.replace({ name: 'Archive' })"
+                @click="$router.replace({ name: 'ArchiveProduct', params: { product: urlString(zoneName) } })"
                 :class="$style.btn"
                 class="afp-btn-primary"
             >
@@ -52,7 +52,7 @@ export default {
     },
     watch: {
         '$route.params.zone': {
-            handler: function (to,from) {
+            handler: function () {
                 this.loaded = false
                 this.notFound = false
                 this.$eventBus.$emit('loading')

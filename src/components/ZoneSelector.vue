@@ -128,8 +128,8 @@ export default {
     }
     &:after {
         content: "";
-        border-left: 1px solid $gray-500;
-        border-bottom: 1px solid $gray-500;
+        border-left: 2px solid $gray-500;
+        border-bottom: 2px solid $gray-500;
         position: absolute;
         right: 1rem;
         top: 0.9rem;

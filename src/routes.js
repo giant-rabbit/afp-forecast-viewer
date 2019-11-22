@@ -23,8 +23,8 @@ export default new Router({
 			meta: { bodyClass: 'afp-archive' }
 		},
 		{
-			path: '/archive/:tab/',
-			name: 'ArchiveTab',
+			path: '/archive/:product/',
+			name: 'ArchiveProduct',
 			component: Archive,
 			meta: { bodyClass: 'afp-archive' }
 		},

@@ -12,7 +12,7 @@
                 <router-link
                     class
                     v-tooltip="'View product'"
-                    :to="{ name: 'ArchivedForecast', params: { zone: urlString(props.row.forecast_zone[0].name), date: props.row.start_date  }}"
+                    :to="{ name: 'ArchivedForecast', params: { zone: zoneName, date: props.row.start_date  }}"
                 >{{props.row.start_date}}</router-link>
             </div>
             <span slot="danger_rating" slot-scope="props">
@@ -44,17 +44,16 @@ export default {
             /**
              * Set up Vue Tables 2
              */
-            columns: ['start_date', 'danger_rating', 'forecast_zones'],
+            columns: ['start_date', 'danger_rating'],
             data: [],
+            zoneName: '',
             options: {
                 skin: 'table',
                 columnsClasses: {
-                    forecast_zones: 'afp-table-zones',
                     danger_rating: 'afp-table-danger',
                     start_date: 'afp-table-time',
                 },
                 headings: {
-                    forecast_zones: 'Zones',
                     danger_rating: "Danger",
                     start_date: 'Published',
                 },
@@ -104,6 +103,7 @@ export default {
             }
         }
     },
+    props: ['zone'],
     components: {
         ForecastFilter
     },
@@ -119,19 +119,21 @@ export default {
                 .get('/public/products?avalanche_center_id=' + this.$centerId)
                 .then(response => {
                     this.data = response.data
+                    // filter by zone
                     this.data = this.data.filter(function (value, index, arr) {
                         return value.product_type == 'forecast' || value.product_type == 'summary'
                     })
-                    var zones = ""
-                    this.data.forEach(function (forecast, index) {
-                        forecast.forecast_zone.forEach(function (zone, index) {
-                            if (index == 0) {
-                                zones = zone.name
-                            } else {
-                                zones += ', ' + zone.name
+                    var ref = this
+                    this.data = this.data.filter(function (value, index, arr) {
+                        var i = 0
+                        value.forecast_zone.forEach(zone => {
+                            if (zone.id == ref.zone) {
+                                i++
                             }
                         })
-                        forecast.forecast_zones = zones
+                        return i > 0
+                    })
+                    this.data.forEach(function (forecast, index) {
                         var time = moment(forecast.start_date).startOf('day').hour(14)
                         if (moment(forecast.start_date).isAfter(time)) {
                             forecast.start_date = moment(forecast.start_date).add(1, 'days')
@@ -170,6 +172,7 @@ export default {
         }
     },
     mounted() {
+        this.zoneName = this.$route.params.product
         this.$eventBus.$emit('loading')
         this.getProducts()
     }
@@ -204,9 +207,20 @@ export default {
 
         th,
         td {
-            padding: $table-cell-padding;
+            padding: 0.3rem 0.75rem;
             vertical-align: top;
             border-top: $table-border-width solid $table-border-color;
+            vertical-align: middle !important;
+            border-top: none;
+            &.afp-table-time {
+                width: 140px;
+                max-width: 140px;
+                min-width: 140px;
+                white-space: initial !important;
+            }
+            &.afp-table-danger {
+                min-width: 500px;
+            }
         }
 
         thead th {
@@ -222,55 +236,43 @@ export default {
             font-weight: $headings-font-weight;
             font-size: $font-size-sm;
             text-transform: uppercase;
-        }
-        td,
-        th {
-            vertical-align: middle !important;
-            border-top: none;
-            &.afp-table-time {
-                width: 140px;
-                max-width: 140px;
-                min-width: 140px;
-                white-space: initial !important;
-            }
-            &.afp-table-danger {
-                width: 160px;
-                max-width: 160px;
-                min-width: 160px;
-                white-space: initial !important;
-            }
+            padding: $table-cell-padding;
         }
     }
     .afp-danger {
-        padding: 0.2rem 0.3rem;
+        padding: 0.3rem 0.7rem;
         font-size: $font-size-sm;
         text-transform: uppercase;
         font-weight: bold;
-        border-radius: $btn-border-radius-sm;
         display: block;
-        text-align: center;
         &.afp-danger-no.rating {
             background-color: $no-rating;
+            width: 100%;
         }
         &.afp-danger-low {
             background-color: $low;
+            width: 20%;
         }
 
         &.afp-danger-moderate {
             background-color: $moderate;
+            width: 40%;
         }
 
         &.afp-danger-considerable {
             background-color: $considerable;
+            width: 60%;
         }
 
         &.afp-danger-high {
             background-color: $high;
+            width: 80%;
         }
 
         &.afp-danger-extreme {
             background-color: $extreme;
             color: #fff !important;
+            width: 100%;
         }
     }
     .VueTables__sort-icon {

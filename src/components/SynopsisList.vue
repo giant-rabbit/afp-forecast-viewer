@@ -175,42 +175,12 @@ export default {
         th {
             vertical-align: middle !important;
             border-top: none;
-            &.afp-table-time,
-            &.afp-table-danger {
+            &.afp-table-time {
                 width: 140px;
                 max-width: 140px;
                 min-width: 140px;
                 white-space: initial !important;
             }
-        }
-    }
-    .afp-danger {
-        padding: 0.2rem 0.3rem;
-        font-size: $font-size-sm;
-        text-transform: uppercase;
-        font-weight: bold;
-        border-radius: $btn-border-radius-sm;
-        display: block;
-        text-align: center;
-        &.afp-danger-low {
-            background-color: $low;
-        }
-
-        &.afp-danger-moderate {
-            background-color: $moderate;
-        }
-
-        &.afp-danger-considerable {
-            background-color: $considerable;
-        }
-
-        &.afp-danger-high {
-            background-color: $high;
-        }
-
-        &.afp-danger-extreme {
-            background-color: $extreme;
-            color: #fff !important;
         }
     }
     .VueTables__sort-icon {

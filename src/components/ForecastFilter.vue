@@ -2,16 +2,6 @@
     <div :class="$style.spacer">
         <div :class="$style.row">
             <div :class="[$style.column]">
-                <select v-model="zoneFilter" :class="$style.select">
-                    <option value>Filter by Zone</option>
-                    <option
-                        v-for="zone in centerMeta.zones"
-                        :value="zone.name"
-                        :key="zone.id"
-                    >{{ zone.name }}</option>
-                </select>
-            </div>
-            <div :class="[$style.column]">
                 <select v-model="dangerFilter" :class="$style.select">
                     <option value>Filter by Danger</option>
                     <option
@@ -76,16 +66,12 @@ export default {
                 }
             ],
             dangerFilter: '',
-            zoneFilter: '',
             filterQuery: [],
             dateFilter: ''
         }
     },
     props: ['data'],
     watch: {
-        zoneFilter: function () {
-            this.tableFilter()
-        },
         dangerFilter: function () {
             this.tableFilter()
         },
@@ -96,13 +82,6 @@ export default {
     methods: {
         tableFilter() {
             this.filterQuery = []
-            if (this.zoneFilter.length != '') {
-                var filter = {
-                    columnName: "forecast_zones",
-                    columnFilter: [this.zoneFilter]
-                }
-                this.filterQuery.push(filter)
-            }
             if (this.dangerFilter.length != '') {
                 var filter = {
                     columnName: "danger_rating",
@@ -120,7 +99,6 @@ export default {
             Event.$emit('vue-tables.filter::multiFilter', this.filterQuery);
         },
         resetTableFilter() {
-            this.zoneFilter = ''
             this.dangerFilter = ''
             this.dateFilter = ''
             this.tableFilter()
@@ -138,6 +116,9 @@ export default {
 @import "../assets/css/_variables.scss";
 @import "../assets/css/bootstrap/mixins";
 
+.spacer {
+    margin-bottom: .5 * $spacer;
+}
 .column,
 .columnButton {
     padding: 0 0.1rem 0.5rem 0.1rem;
@@ -153,7 +134,7 @@ export default {
     }
     
     .column {
-        width: calc(33.33% - 1rem);
+        width: calc(50% - 1rem);
         display: inline-block;
     }
 
