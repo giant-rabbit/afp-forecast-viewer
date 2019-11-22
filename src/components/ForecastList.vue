@@ -104,6 +104,7 @@ export default {
             }
         }
     },
+    props: ['zone'],
     components: {
         ForecastFilter
     },
@@ -119,8 +120,19 @@ export default {
                 .get('/public/products?avalanche_center_id=' + this.$centerId)
                 .then(response => {
                     this.data = response.data
+                    // filter by zone
                     this.data = this.data.filter(function (value, index, arr) {
                         return value.product_type == 'forecast' || value.product_type == 'summary'
+                    })
+                    var ref = this
+                    this.data = this.data.filter(function (value, index, arr) {
+                        var i = 0
+                        value.forecast_zone.forEach(zone => {
+                            if(zone.id == ref.zone) {
+                                i++
+                            }
+                        })
+                        return i > 0
                     })
                     var zones = ""
                     this.data.forEach(function (forecast, index) {

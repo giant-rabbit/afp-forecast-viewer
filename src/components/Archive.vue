@@ -2,13 +2,21 @@
     <div :class="$style.container">
         <!-- Title -->
         <div :class="$style.title">
+            <button
+                v-if="product"
+                @click="$router.replace({ name: 'Archive' })"
+                :class="$style.btn"
+                class="afp-btn-primary"
+            >
+                <i class="mdi mdi-arrow-left"></i> All Products
+            </button>
             <h1>Forecast Archive</h1>
-            <h2 v-if="productName">{{productName}}</h2>
+            <h2 v-if="productName" v-html="productName"></h2>
             <h2 v-else>Choose a zone or product:</h2>
         </div>
 
         <!-- Product selector buttons -->
-        <div v-if="!product || product" :class="$style.productButtons">
+        <div v-if="!product" :class="$style.productButtons">
             <button
                 :class="$style.productButton"
                 @click="$router.replace({ name: 'ArchiveProduct', params: { product: urlString(zone.name) } })"
@@ -16,7 +24,7 @@
                 :key="zone.id"
             >{{zone.name}}</button>
         </div>
-        <div v-if="!product || product" :class="$style.productButtons">
+        <div v-if="!product" :class="$style.productButtons">
             <button
                 @click="$router.replace({ name: 'ArchiveProduct', params: { product: 'blog' } })"
                 :class="$style.productButton"
@@ -24,18 +32,15 @@
         </div>
 
         <!-- Archive -->
-        <content-panel v-if="false" :class="$style.panel">
+        <content-panel v-if="product" :class="$style.panel">
             <alert />
             <loader />
-            <!-- Forecast Archive tab -->
-            <div v-if="tabSelected == 'forecast'" :class="$style.tabPane">
-                <forecast-list />
-            </div>
+            <!-- Forecast Archive -->
+            <forecast-list v-if="product != '' && product !='blog'" :zone="product" />
 
-            <!-- Synopsis Archive tab -->
-            <div v-if="tabSelected == 'blog'" :class="$style.tabPane">
-                <synopsis-list />
-            </div>
+            <!-- Blog Archive tab -->
+            <synopsis-list v-if="product == 'blog'" />
+            
         </content-panel>
         <disclaimer />
     </div>
@@ -94,17 +99,17 @@ export default {
                 this.product = this.product.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')
                 let zone = this.centerMeta.zones.find(zone => zone.name == this.product)
                 this.product = zone.id
-                this.productName = zone.name
+                this.productName = '<i class="mdi mdi-map-marker"></i>' + zone.name
                 // this.loaded = false
                 // this.notFound = false
                 // this.$eventBus.$emit('loading')
                 // this.getProducts()
             }
+        }
+    },
+    mounted() {
+        this.getArchive()
     }
-},
-mounted() {
-    this.getArchive()
-}
 }
 </script>
 
@@ -131,9 +136,13 @@ mounted() {
 .title {
     h2 {
         color: $gray-700 !important;
-        margin-bottom: 0 !important;
     }
-    margin-bottom: 2 * $spacer !important;
+    margin-bottom: $spacer !important;
+}
+.btn {
+    composes: btn from "../assets/css/style.css";
+    composes: btn-primary from "../assets/css/style.css";
+    margin-bottom: .5 * $spacer !important;
 }
 
 .productButtons {
