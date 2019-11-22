@@ -197,13 +197,6 @@
                         :expires="false"
                     />
                     <synopsis-content :data="data.synopsis_product" />
-                    <div :class="[$style.textCenter, $style.spacer]">
-                        <button
-                            @click="$router.replace({ name: 'ArchiveTab', params: { tab: 'blog' } })"
-                            :class="$style.btn"
-                            class="afp-btn-primary"
-                        >View Previous Posts</button>
-                    </div>
                 </div>
                 <div v-else>No Conditions Blog post to display.</div>
             </div>
@@ -408,7 +401,7 @@ export default {
 
 .btn {
     composes: btn from "../assets/css/style.css";
-    composes: btn-secondary from "../assets/css/style.css";
+    composes: btn-primary from "../assets/css/style.css";
 }
 
 .textCenter {

@@ -90,6 +90,6 @@ export default {
 }
 .btn {
     composes: btn from "../assets/css/style.css";
-    composes: btn-secondary from "../assets/css/style.css";
+    composes: btn-primary from "../assets/css/style.css";
 }
 </style>
