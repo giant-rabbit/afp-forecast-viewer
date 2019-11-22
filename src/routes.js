@@ -4,6 +4,7 @@ import Forecast from './components/Forecast'
 import Weather from './components/Weather'
 import Synopsis from './components/Synopsis'
 import Archive from './components/Archive'
+import AllZonesForecast from './components/AllZonesForecast'
 
 Vue.use(Router)
 
@@ -52,8 +53,8 @@ export default new Router({
 		},
 		{
 			path: '',
-			name: 'Forecast',
-			component: Forecast,
+			name: 'AllZonesForecast',
+			component: AllZonesForecast,
 			meta: { bodyClass: 'afp-forecast' }
 		},
 		{
@@ -70,7 +71,7 @@ export default new Router({
 		},
 		{
 			path: '*',
-			redirect: { name: 'Forecast' },
+			redirect: { name: 'AllZonesForecast' },
 			meta: { bodyClass: 'afp-forecast' }
 		}
 	],
