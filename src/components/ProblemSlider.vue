@@ -9,12 +9,6 @@
                 v-if="label != ''"
             ></div>
             <div
-                :class="$style.mark"
-                v-for="(mark, index) in markActive"
-                :key="'mark' + index"
-                :style="'bottom: ' + mark / (options.length - 1) * 100 + '%'"
-            ></div>
-            <div
                 :class="[{[$style.labelActive] : index >= markActive[0] && index <= markActive[1]},  $style.label]"
                 v-for="(label, index) in labels"
                 :key="'label' + index"
@@ -22,8 +16,7 @@
             >{{label}}</div>
             <div
                 :class="$style.process"
-                v-if="typeof this.data != 'string'"
-                :style="'bottom: ' + markActive[0] / (options.length - 1) * 100 + '%; top: ' + (100 - (markActive[1] / (options.length - 1) * 100)) + '%'"
+                :style="'bottom: calc(' + markActive[0] / (options.length - 1) * 100 + '% - 4px); top: calc(' + (100 - (markActive[1] / (options.length - 1) * 100)) + '% - 4px)'"
             ></div>
         </div>
     </div>
@@ -67,7 +60,6 @@ $fill: $gray-400;
     padding: 0.5rem;
     width: 8rem;
     height: 220px;
-    // background-color: #eee;
 }
 
 .rail {
@@ -75,7 +67,7 @@ $fill: $gray-400;
     border-left: 1px solid $border;
     border-right: 1px solid $border;
     background-color: $border;
-    width: 2px;
+    width: 1px;
     position: relative;
     top: 0;
     left: 15px;
@@ -83,32 +75,22 @@ $fill: $gray-400;
 
 .step {
     position: absolute;
-    border-top: 1px solid $border;
-    border-bottom: 1px solid $border;
+    border-left: 1px solid $border;
+    border-right: 1px solid $border;
     background-color: $border;
-    width: 30px;
+    width: 24px;
     height: 2px;
-    left: -15px !important;
+    left: -12px !important;
 }
 
-.mark {
-    position: absolute;
-    border-left: 12px solid $fill;
-    border-right: 12px solid $fill;
-    background-color: $fill;
-    width: 24px !important;
-    height: 10px !important;
-    left: -12px;
-    transform: translateY(4px);
-}
 .process {
     position: absolute;
-    border-left: 12px solid $fill;
-    border-right: 12px solid $fill;
+    border: 2px solid $border;
     background-color: $fill;
+    -webkit-print-color-adjust: exact;
     width: 24px !important;
     left: -12px;
-    transform: translateY(4px);
+    transform: translateY(-1px);
 }
 .label {
     position: absolute;
