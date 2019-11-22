@@ -77,9 +77,6 @@ export default {
             }
             return rgb;
         }
-    },
-    async mounted() {
-        this.$centerMeta = await this.getCenter()
     }
 }
 </script>

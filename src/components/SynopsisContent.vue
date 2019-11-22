@@ -8,6 +8,15 @@
             <h2>Media</h2>
             <media-gallery :media="data.media" scope="scope-synopsis" key="synopsis" />
         </div>
+
+        <!-- Older posts -->
+        <div :class="[$style.textCenter, $style.spacer]">
+            <button
+                @click="$router.replace({ name: 'ArchiveTab', params: { tab: 'blog' } })"
+                :class="$style.btn"
+                class="afp-btn-primary"
+            >View Previous Posts</button>
+        </div>
     </div>
 </template>
 
@@ -33,8 +42,21 @@ export default {
 @import "../assets/css/_variables.scss";
 @import "../assets/css/bootstrap/mixins";
 
+.spacer {
+    margin-bottom: $spacer;
+}
+
 .container {
     margin-bottom: $spacer;
+}
+
+.btn {
+    composes: btn from "../assets/css/style.css";
+    composes: btn-secondary from "../assets/css/style.css";
+}
+
+.textCenter {
+    text-align: center;
 }
 </style>
 
