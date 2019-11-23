@@ -24,7 +24,7 @@
                     <img
                         v-if="item.type == 'video'"
                         :class="$style.galleryImg"
-                        :src="'https://img.youtube.com/vi/' + item.url + '/maxresdefault.jpg'"
+                        :src="'https://img.youtube.com/vi/' + item.url + '/mqdefault.jpg'"
                         :alt="item.caption"
                         @click="showVideoModal(item.url,item.caption)"
                     />

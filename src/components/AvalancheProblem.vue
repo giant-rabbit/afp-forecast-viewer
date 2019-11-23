@@ -67,7 +67,7 @@
                 />
                 <img
                     v-if="problem.media.type == 'video'"
-                    :src="'https://img.youtube.com/vi/' + problem.media.url + '/maxresdefault.jpg'"
+                    :src="'https://img.youtube.com/vi/' + problem.media.url + '/mqdefault.jpg'"
                     :alt="problem.media.caption"
                     @click="videoModal = true"
                 />

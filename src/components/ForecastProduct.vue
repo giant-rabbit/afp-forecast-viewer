@@ -189,7 +189,7 @@
             <!-- Blog tab -->
             <div v-if="tabSelected == 'blog'" :class="$style.tabPane">
                 <!-- Title -->
-                <div v-if="data.synopsis_product">
+                <div v-if="data.synopsis_product.avalanche_center != null">
                     <h1 v-html="data.synopsis_product.bottom_line"></h1>
                     <product-header
                         :published="data.synopsis_product.published_time"
