@@ -12,7 +12,7 @@
         <!-- Older posts -->
         <div :class="[$style.textCenter, $style.spacer]">
             <button
-                @click="$router.replace({ name: 'ArchiveTab', params: { tab: 'blog' } })"
+                @click="$router.replace({ name: 'ArchiveProduct', params: { product: 'blog' } })"
                 :class="$style.btn"
                 class="afp-btn-primary"
             >View Previous Posts</button>

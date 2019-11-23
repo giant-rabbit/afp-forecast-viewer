@@ -202,6 +202,9 @@ html {
       border-radius: $popover-border-radius;
       box-shadow: $popover-box-shadow;
       max-width: $popover-max-width;
+      h1, h2, h3, h4, h5, h5, h6 {
+        color: $gray-400 !important
+      }
 
       a,
       a:hover {
