@@ -1,16 +1,13 @@
 <template>
     <div>
         <!-- discussion -->
-        <div :class="$style.container" class="afp-synopsis" v-html="data.hazard_discussion"></div>
+        <div :class="[$style.clearfix, $style.spacer]" class="afp-synopsis" v-html="data.hazard_discussion"></div>
 
         <!-- media -->
-        <div v-if="data.media.length > 0">
-            <h2>Media</h2>
-            <media-gallery :media="data.media" scope="scope-synopsis" key="synopsis" />
-        </div>
+        <media-gallery v-if="data.media.length > 0" :media="data.media" scope="scope-synopsis" key="synopsis" />
 
         <!-- Older posts -->
-        <div :class="[$style.textCenter, $style.spacer]">
+        <div v-if="!preview" :class="[$style.textCenter, $style.spacer]">
             <button
                 @click="$router.replace({ name: 'ArchiveProduct', params: { product: 'blog' } })"
                 :class="$style.btn"
@@ -29,7 +26,7 @@ export default {
         return {
         }
     },
-    props: ['data', 'config'],
+    props: ['data', 'config', 'preview'],
     components: {
         ProductHeader,
         MediaGallery
@@ -44,6 +41,12 @@ export default {
 
 .spacer {
     margin-bottom: $spacer;
+}
+
+.clearfix::after {
+    display: block;
+    content: "";
+    clear: both;
 }
 
 .container {

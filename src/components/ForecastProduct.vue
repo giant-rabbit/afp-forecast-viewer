@@ -16,7 +16,7 @@
             </div>
         </div>
         <!-- Warning -->
-        <avy-warning v-if="!preview && data.warning_product" :data="data.warning_product"/>
+        <avy-warning v-if="!preview && data.warning_product" :data="data.warning_product" />
 
         <!-- Header -->
         <product-header
@@ -29,10 +29,7 @@
         <!-- Bottom line -->
         <div v-if="data.bottom_line != ''" :class="$style.bottomLine">
             <v-popover :class="$style.dangerIcon">
-                <img
-                    :src="this.$dangerScale[highestDanger].icon"
-                    v-tooltip="'Click to learn more'"
-                />
+                <img :src="this.$dangerScale[highestDanger].icon" v-tooltip="'Click to learn more'" />
                 <template slot="popover">
                     <div v-html="this.$dangerScale[highestDanger].advice"></div>
                 </template>
@@ -146,7 +143,12 @@
             >
                 <div :class="$style.spacer">
                     <h2>Forecast Discussion</h2>
-                    <div class="afp-discussion" v-if="data.hazard_discussion != ''" v-html="data.hazard_discussion"></div>
+                    <div
+                        class="afp-discussion"
+                        :class="$style.clearfix"
+                        v-if="data.hazard_discussion != ''"
+                        v-html="data.hazard_discussion"
+                    ></div>
                 </div>
                 <!-- media -->
                 <media-gallery
@@ -317,6 +319,11 @@ export default {
 
 .spacer {
     margin-bottom: $spacer;
+}
+.clearfix::after {
+    display: block;
+    content: "";
+    clear: both;
 }
 
 .divider {
