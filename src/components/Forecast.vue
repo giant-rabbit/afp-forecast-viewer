@@ -38,7 +38,8 @@ export default {
             config: this.$config,
             data: {
                 weather_product: false,
-                warning_product: false
+                warning_product: false,
+                synopsis_product: false
             },
             preview: false,
             loaded: false,
@@ -92,7 +93,6 @@ export default {
                 this.zoneName = this.centerMeta.zones[0].name
             }
             this.getForecast()
-            this.getSynopsis()
         },
         getForecast() {
             this.$api
@@ -106,10 +106,13 @@ export default {
                         this.data.forecast_avalanche_problems.sort(function (a, b) {
                             return a.rank - b.rank
                         })
-                        this.getWarning()
                         if (this.data.product_type == 'forecast') {
                             this.getWeather()
                         }
+                        this.data.synopsis_product = {};
+                        this.data.synopsis_product.avalanche_center = null
+                        this.getWarning()
+                        this.getSynopsis()
                         document.body.classList.add('afp-forecast-type-' + this.data.product_type)
                         document.body.classList.add('afp-forecast-zone-' + this.zone)
                         //this.loaded = true

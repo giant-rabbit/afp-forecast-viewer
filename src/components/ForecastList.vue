@@ -73,7 +73,7 @@ export default {
                 },
 
                 texts: {
-                    noResults: "No matching products",
+                    noResults: "No products found",
                     count: "Showing {from} to {to} of {count} products|{count} products|One product",
                 },
                 //saveState: true,
