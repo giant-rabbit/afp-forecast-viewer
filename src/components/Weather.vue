@@ -1,7 +1,9 @@
 <template>
     <div>
         <div :class="$style.container">
-            <not-found v-if="notFound" />
+            <div v-if="notFound" style="min-height: 80vh;">
+                There is no current Weather Forecast product to display. View the <router-link :to="{ name: 'Forecast'}">Current Avalanche Forecast</router-link> product.
+            </div>
             <loader />
         </div>
         <forecast-view v-if="loaded" product="weather" :data="data" />

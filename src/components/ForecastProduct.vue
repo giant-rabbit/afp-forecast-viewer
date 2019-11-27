@@ -432,10 +432,12 @@ export default {
     }
     figure {
         margin: 0 1rem 1rem 1rem !important;
-        display: inline-block;
+        display: table;
         figcaption {
             font-style: italic;
             font-size: 80%;
+            display: table-caption;
+            caption-side: bottom;
         }
     }
     figure.align-right {

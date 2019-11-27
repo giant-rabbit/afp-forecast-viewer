@@ -26,7 +26,7 @@ var configDefault = {
         "icons": true,
         "photoswipe": true
     },
-    "mediaUrl": false
+    "baseUrl": ''
 }
 var configElement = document.getElementById('afp-public-config')
 if( configElement) {
@@ -97,6 +97,25 @@ axios
             router,
             render: h => h(App)
         })
+
+        // Google analytics
+        if(window.ga && ga.create) {
+            ga('set', 'page', config.baseUrl + '/#' + router.currentRoute.path);
+            ga('send', 'pageview');
+            console.log(config.baseUrl + '/#' + router.currentRoute.path)
+            router.afterEach(( to, from ) => {
+                ga('set', 'page', config.baseUrl + '/#' + to.path);
+                ga('send', 'pageview');
+                console.log(config.baseUrl + '/#' + to.path)
+            })
+            console.log('GA loaded')
+        } else {
+            console.log('GA not loaded')
+            console.log(config.baseUrl + '/#' + router.currentRoute.path)
+            router.afterEach(( to, from ) => {
+                console.log(config.baseUrl + '/#' + to.path)
+            })   
+        }
     })
     .catch(e => {
         console.log('error retrieving avalanche center meta')
