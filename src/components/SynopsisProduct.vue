@@ -18,7 +18,7 @@
 
         <content-panel>
             <!-- Content -->
-            <synopsis-content :data="data" />
+            <synopsis-content :data="data" :preview="preview"/>
         </content-panel>
         <disclaimer />
     </div>
