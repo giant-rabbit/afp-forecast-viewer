@@ -111,10 +111,6 @@ axios
             console.log('GA loaded')
         } else {
             console.log('GA not loaded')
-            console.log(config.baseUrl + '/#' + router.currentRoute.path)
-            router.afterEach(( to, from ) => {
-                console.log(config.baseUrl + '/#' + to.path)
-            })   
         }
     })
     .catch(e => {

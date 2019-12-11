@@ -55,9 +55,9 @@ export default {
             default: function () {
                 return {
                     elevations: {
-                        upper: "Alpine",
-                        middle: "Treeline",
-                        lower: "Below Treeline"
+                        upper: "Upper Elevation",
+                        middle: "Middle Elevation",
+                        lower: "Lower Elevation"
                     },
                     assets: {
                         icons: true,
