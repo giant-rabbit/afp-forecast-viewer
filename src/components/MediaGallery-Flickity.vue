@@ -6,6 +6,7 @@
             :caption="videoCaption"
             :id="videoId"
         />
+        <h2>Media</h2>
         <flickity class="afp-carousel" :options="flickityOptions">
             <div
                 class="afp-carousel-cell"
@@ -24,7 +25,7 @@
                     <img
                         v-if="item.type == 'video'"
                         :class="$style.galleryImg"
-                        :src="'https://img.youtube.com/vi/' + item.url + '/maxresdefault.jpg'"
+                        :src="'https://img.youtube.com/vi/' + item.url + '/mqdefault.jpg'"
                         :alt="item.caption"
                         @click="showVideoModal(item.url,item.caption)"
                     />
@@ -146,7 +147,7 @@ $gallery-height: 200px;
 
 <style lang="scss">
 
-.afp-carousel .flickity-page-dots li:only-child {
+.afp-carousel .owl-dots .owl-dot:only-child {
     display: none !important;
 }
 

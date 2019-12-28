@@ -7,7 +7,16 @@
             :id="videoId"
         />
         <h2>Media</h2>
-        <flickity class="afp-carousel" :options="flickityOptions">
+        <carousel
+            :key="key"
+            class="afp-carousel"
+            :margin="10"
+            :nav="true"
+            :loop="false"
+            :slideBy="'page'"
+            :navText="['<i class=\'mdi mdi-chevron-left-circle\'></i>','<i class=\'mdi mdi-chevron-right-circle\'></i>']"
+            :responsive="{0:{items:1},576:{items:2},768:{items:3},992:{items:4}}"
+        >
             <div
                 class="afp-carousel-cell"
                 v-for="item in media"
@@ -38,12 +47,12 @@
                     <i :class="$style.expandIcon" class="mdi mdi-arrow-expand"></i>
                 </div>
             </div>
-        </flickity>
+        </carousel>
     </div>
 </template>
 
 <script>
-import Flickity from '../components/Flickity'
+import Carousel from 'vue-owl-carousel'
 import VideoModal from '../components/VideoModal'
 
 export default {
@@ -52,14 +61,11 @@ export default {
             videoModal: false,
             videoCaption: '',
             videoId: '',
-            flickityOptions: {
-                cellAlign: "left",
-                groupCells: true
-            }
+            key: 1
         }
     },
     components: {
-        Flickity,
+        Carousel,
         VideoModal
     },
     props: ['media', 'scope'],
@@ -88,16 +94,6 @@ $gallery-height: 200px;
 }
 
 .galleryItem {
-    width: 100%;
-    @include media-breakpoint-up(sm) {
-        width: 50%;
-    }
-    @include media-breakpoint-up(md) {
-        width: 33%;
-    }
-    @include media-breakpoint-up(lg) {
-        width: 25%;
-    }
     overflow: hidden;
     position: relative;
     cursor: zoom-in;
@@ -111,10 +107,10 @@ $gallery-height: 200px;
 
 .galleryImgContainer {
     position: absolute;
-    top: 5px;
-    left: 5px;
-    right: 5px;
-    bottom: 5px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     //z-index: 1;
 }
 .galleryImg {
@@ -146,9 +142,75 @@ $gallery-height: 200px;
 </style>
 
 <style lang="scss">
-
 .afp-carousel .flickity-page-dots li:only-child {
     display: none !important;
 }
+.owl-theme {
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+ 
+.owl-theme .owl-nav {
+    .owl-prev, .owl-next {
+        position: absolute;
+        top: 50%;
+        margin-top: -28px;
+        padding: 0 2px;
+        -webkit-tap-highlight-color: transparent; 
+        color: #FFF !important;
+        opacity: .5;
+        font-size: 36px !important;
+        display: inline-block;
+        cursor: pointer !important
+    }
+    .owl-prev {
+        left: 3px;
+    }
+    .owl-next {
+        right: 3px;
+    }
+}
+
+.owl-theme .owl-nav [class*='owl-']:hover {
+    opacity: 1;
+    text-decoration: none; 
+}
+.owl-theme .owl-nav .disabled {
+    opacity: 0 !important;
+    cursor: default !important; 
+}
+
+.owl-theme .owl-nav.disabled + .owl-dots {
+    margin-top: 10px; 
+}
+
+.owl-theme .owl-dots {
+    text-align: center;
+    -webkit-tap-highlight-color: transparent; 
+    position: absolute;
+    width: 100%;
+}
+
+.owl-theme .owl-dots .owl-dot {
+    display: inline-block;
+    zoom: 1;
+    display: inline; 
+    margin-top: 10px;
+}
+
+.owl-theme .owl-dots .owl-dot span {
+    width: 10px;
+    height: 10px;
+    margin: 5px 7px;
+    //background: @gray-light;
+    display: block;
+    -webkit-backface-visibility: visible;
+    border-radius: 30px; 
+}
+
+// .owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
+//     background: @brand-primary; 
+// }
+
 
 </style>

@@ -6,7 +6,17 @@
             :caption="videoCaption"
             :id="videoId"
         />
-        <carousel class="afp-carousel" :items="2" :margin="10" :rewind="false" :responsive="{0:{items:1, nav: true},576:{items:2, nav: true},768:{items:3, nav: true},992:{items:4, nav: true}}">
+        <h2>Media</h2>
+        <carousel
+            :key="key"
+            class="afp-carousel"
+            :margin="10"
+            :dotsEach="1"
+            :nav="true"
+            :rewind="false"
+            :loop="false"
+            :responsive="{0:{items:1},576:{items:2},768:{items:3},992:{items:4}}"
+        >
             <div
                 class="afp-carousel-cell"
                 v-for="item in media"
@@ -24,7 +34,7 @@
                     <img
                         v-if="item.type == 'video'"
                         :class="$style.galleryImg"
-                        :src="'https://img.youtube.com/vi/' + item.url + '/maxresdefault.jpg'"
+                        :src="'https://img.youtube.com/vi/' + item.url + '/mqdefault.jpg'"
                         :alt="item.caption"
                         @click="showVideoModal(item.url,item.caption)"
                     />
@@ -42,7 +52,7 @@
 </template>
 
 <script>
-import Carousel from 'vue-owl-carousel2'
+import Carousel from 'vue-owl-carousel'
 import VideoModal from '../components/VideoModal'
 
 export default {
@@ -51,11 +61,7 @@ export default {
             videoModal: false,
             videoCaption: '',
             videoId: '',
-            options: {
-                items: 2,
-                margin: 10,
-                rewind: false
-            }
+            key: 1
         }
     },
     components: {
@@ -88,16 +94,6 @@ $gallery-height: 200px;
 }
 
 .galleryItem {
-    // width: 100%;
-    // @include media-breakpoint-up(sm) {
-    //     width: 50%;
-    // }
-    // @include media-breakpoint-up(md) {
-    //     width: 33%;
-    // }
-    // @include media-breakpoint-up(lg) {
-    //     width: 25%;
-    // }
     overflow: hidden;
     position: relative;
     cursor: zoom-in;
@@ -146,9 +142,7 @@ $gallery-height: 200px;
 </style>
 
 <style lang="scss">
-
 .afp-carousel .flickity-page-dots li:only-child {
     display: none !important;
 }
-
 </style>

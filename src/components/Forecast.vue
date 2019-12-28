@@ -109,6 +109,10 @@ export default {
                         if (this.data.product_type == 'forecast') {
                             this.getWeather()
                         }
+                        var media = this.data.media[0]
+                        // this.data.media = []
+                        // this.data.media[0] = media
+                        // this.data.media[1] = media
                         this.data.synopsis_product = {};
                         this.data.synopsis_product.avalanche_center = null
                         this.getWarning()
