@@ -37,7 +37,7 @@ export default {
 
 .dangerScale {
     composes: row from "../assets/css/style.css";
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
         -webkit-box-pack: center !important;
         -ms-flex-pack: center !important;
         justify-content: center !important;
@@ -53,6 +53,12 @@ export default {
         width: 100%;
         padding: 0;
     }
+}
+.firstColumn {
+    composes: col-lg-auto from "../assets/css/style.css";
+}
+.secondColumn {
+    composes: col-lg from "../assets/css/style.css";
 }
 .popover {
     div {
@@ -99,19 +105,24 @@ export default {
 // }
 .low:before {
     border-color: $low;
+    background-color: $low;
     border-radius: $border-radius 0 0 $border-radius;
 }
 .mod:before {
     border-color: $moderate;
+    background-color: $moderate;
 }
 .cons:before {
     border-color: $considerable;
+    background-color: $considerable;
 }
 .high:before {
     border-color: $high;
+    background-color: $high;
 }
 .ext:before {
     border-color: $extreme;
+    background-color: $extreme;
     border-radius: 0 $border-radius $border-radius 0;
 }
 .mod span,
@@ -122,10 +133,4 @@ export default {
     }
 }
 
-.firstColumn {
-    composes: col-lg-auto from "../assets/css/style.css";
-}
-.secondColumn {
-    composes: col-lg-10 from "../assets/css/style.css";
-}
 </style>
