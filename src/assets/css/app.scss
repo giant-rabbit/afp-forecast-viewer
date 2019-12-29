@@ -145,6 +145,9 @@ html {
     .pswp__caption__center {
       text-align: center;
     }
+    img {
+      max-width: none !important;
+    }
   }
 
   // Tooltips
