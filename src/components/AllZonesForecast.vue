@@ -1,52 +1,70 @@
 <template>
+
+<!-- Need:
+Weather forecast
+Warnings
+Mixed forecast/general info products
+Print styles -->
+
     <div :class="$style.container">
-        <!-- All zones forecast -->
-        <div v-if="loaded">
-            <h1 :class="$style.title">All Zones Avalanche Forecast</h1>
-            <!-- Warning -->
-            <avy-warning v-if="data.warning_product" :data="data.warning_product" />
-            <div v-for="(forecast, index) in data.forecasts" v-bind:key="'forecast-' + index">
-                <!-- Title -->
-                <div :class="$style.title">
-                    <h2>
-                        <i class="mdi mdi-map-marker"></i>
-                        {{centerMeta.zones[index].name}}
-                    </h2>
-                </div>
-                <!-- Header -->
-                <product-header
-                    :published="forecast.published_time"
-                    :expires="forecast.expires_time"
-                    :author="forecast.author"
-                />
-                <!-- Bottom line -->
-                <div v-if="forecast.bottom_line != ''" :class="$style.bottomLine">
-                    <v-popover :class="$style.dangerIcon">
-                        <img
-                            :src="$dangerScale[forecast.highestDanger].icon"
-                            v-tooltip="'Click to learn more'"
-                        />
-                        <template slot="popover">
-                            <div v-html="$dangerScale[forecast.highestDanger].advice"></div>
-                        </template>
-                    </v-popover>
-                    <h5 :class="$style.bottomLineTitle">THE BOTTOM LINE</h5>
-                    <div :class="$style.bottomLineText" v-html="forecast.bottom_line"></div>
-                </div>
-                <!-- danger -->
-                <content-panel :class="$style.divider">
-                    <avalanche-danger
-                        :danger="forecast.danger"
-                        :date="forecast.published_time"
-                        :config="config"
+        <div :class="$style.row">
+            <!-- All zones forecast -->
+            <div v-if="loaded" :class="$style.column">
+                <h1 :class="$style.title">Backcountry Avalanche Forecast - All Zones</h1>
+                <!-- Warning -->
+                <div v-for="(forecast, index) in data.forecasts" v-bind:key="'forecast-' + index">
+                    <!-- Title -->
+                    <div :class="$style.title">
+                        <h2>
+                            <i class="mdi mdi-map-marker"></i>
+                            {{centerMeta.zones[index].name}}
+                        </h2>
+                    </div>
+                    <!-- Warning -->
+                    <!-- <avy-warning v-if="data.warning_product" :data="data.warning_product" /> -->
+                    <!-- Header -->
+                    <product-header
+                        :published="forecast.published_time"
+                        :expires="forecast.expires_time"
+                        :author="forecast.author"
                     />
-                </content-panel>
-                <!-- <div :class="$style.divider"></div> -->
+                    <!-- Bottom line -->
+                    <div v-if="forecast.bottom_line != ''" :class="$style.bottomLine">
+                        <v-popover :class="$style.dangerIcon">
+                            <img
+                                :src="$dangerScale[forecast.highestDanger].icon"
+                                v-tooltip="'Click to learn more'"
+                            />
+                            <template slot="popover">
+                                <div v-html="$dangerScale[forecast.highestDanger].advice"></div>
+                            </template>
+                        </v-popover>
+                        <h5 :class="$style.bottomLineTitle">THE BOTTOM LINE</h5>
+                        <div :class="$style.bottomLineText" v-html="forecast.bottom_line"></div>
+                        <!-- danger -->
+                        <avalanche-danger
+                            :class="$style.danger"
+                            :danger="forecast.danger"
+                            :date="forecast.published_time"
+                            :config="config"
+                        />
+                        <div :class="$style.textRight">
+                            <button
+                                @click="$router.push({ name: 'ZoneForecast', params: { zone: urlString(centerMeta.zones[index].name) }})"
+                                :class="$style.btn"
+                                class="afp-btn-primary"
+                            >
+                                Full Forecast
+                                <i class="mdi mdi-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 <disclaimer />
             </div>
+            <not-found v-if="notFound" />
+            <loader />
         </div>
-        <not-found v-if="notFound" />
-        <loader />
     </div>
 </template>
 
@@ -89,6 +107,11 @@ export default {
         Disclaimer
     },
     methods: {
+        urlString(string) {
+            string = string.replace(/ /g, '-')
+            string = string.toLowerCase()
+            return string
+        },
         getForecast(zone) {
             return this.$api
                 .get('/public/product?type=forecast&center_id=' + this.$centerId + '&zone_id=' + zone)
@@ -97,14 +120,12 @@ export default {
                         return false
                     } else {
                         var data = response.data
+                        data.danger.splice(1, 2)
                         data.forecast_avalanche_problems.sort(function (a, b) {
                             return a.rank - b.rank
                         })
                         return data
                         // this.getWarning()
-                        // if (this.data.product_type == 'forecast') {
-                        //     this.getWeather()
-                        // }
                         // document.body.classList.add('afp-forecast-type-' + this.data.product_type)
                         // document.body.classList.add('afp-forecast-zone-' + this.zone)
 
@@ -180,12 +201,18 @@ export default {
     composes: container from "../assets/css/style.css";
     padding-top: $spacer;
 }
-.spacer {
-    margin-bottom: $spacer;
+
+.row {
+    composes: row from "../assets/css/style.css";
+    justify-content: center;
 }
 
-.divider {
-    margin-bottom: 2 * $spacer;
+.column {
+    composes: col-lg-9 from "../assets/css/style.css";
+    composes: col-md-12 from "../assets/css/style.css";
+}
+.spacer {
+    margin-bottom: $spacer;
 }
 
 .title {
@@ -201,12 +228,12 @@ export default {
 .bottomLine {
     position: relative;
     background-color: #fff;
-    padding: $spacer;
+    padding: 2rem 1rem 0 1rem;
     // border-radius: $border-radius;
     border: 1.2px solid $gray-400;
     box-shadow: $app-box-shadow;
     margin-top: 3rem;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 }
 
 .dangerIcon {
@@ -234,17 +261,20 @@ export default {
 .bottomLineTitle {
     display: inline-block;
     border-bottom: 1px solid $gray-400;
-    padding-bottom: 0.1rem;
+    padding: 0.1rem;
+    margin: 1rem;
 }
 
 .bottomLineText {
     font-size: $font-size-lg;
     margin-top: 0.7rem;
+    margin-bottom: 1.5 * $spacer;
+    margin: 0.7rem 1rem 1.5 * $spacer 1rem;
+}
+.danger {
+    margin-bottom: $spacer;
 }
 
-.tabPane {
-    min-height: 80vh;
-}
 .wxSummary {
     @media print {
         display: none;
@@ -254,10 +284,12 @@ export default {
 .btn {
     composes: btn from "../assets/css/style.css";
     composes: btn-primary from "../assets/css/style.css";
+    composes: btn-sm from "../assets/css/style.css";
 }
 
-.textCenter {
-    text-align: center;
+.textRight {
+    text-align: right;
+    margin-bottom: 0.5 * $spacer;
 }
 
 .printWx {

@@ -70,11 +70,11 @@ export default new Router({
 			component: Forecast,
 			meta: { bodyClass: 'afp-forecast-archived' }
 		},
-		{
-			path: '*',
-			redirect: { name: 'AllZonesForecast' },
-			meta: { bodyClass: 'afp-forecast' }
-		}
+		// {
+		// 	path: '*',
+		// 	redirect: { name: 'AllZonesForecast' },
+		// 	meta: { bodyClass: 'afp-forecast' }
+		// }
 	],
 	scrollBehavior(to, from, savedPosition) {
 		return { x: 0, y: 0 }
