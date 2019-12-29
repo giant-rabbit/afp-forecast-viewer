@@ -4,9 +4,11 @@ import forecastView from './plugin.js'
 import router from './routes.js'
 import axios from 'axios'
 import merge from 'deepmerge'
-// import moment from 'moment'
 import moment from 'moment/src/moment.js'
 import vbclass from 'vue-body-class'
+
+// Jquery
+window.$ = window.jQuery = require('jquery')
 
 // Load forecast view plugin
 Vue.use(forecastView)
