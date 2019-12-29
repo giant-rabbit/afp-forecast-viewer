@@ -21,7 +21,8 @@ export default {
             zone: this.$centerMeta.zones[0].id,
             data: {},
             loaded: false,
-            notFound: false
+            notFound: false,
+            centerMeta: this.$centerMeta,
         }
     },
     components: {
@@ -38,6 +39,12 @@ export default {
                         this.$eventBus.$emit('loaded')
                     } else {
                         this.data = response.data
+                        var tables = []
+                        this.centerMeta.zones.forEach(item => {
+                            let temp = this.data.weather_data.find(temp => temp.zone_id == item.id)
+                            tables.push(temp)
+                        })
+                        this.data.weather_data = tables
                         this.loaded = true
                         this.$eventBus.$emit('loaded')
                     }

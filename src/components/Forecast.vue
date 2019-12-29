@@ -109,10 +109,6 @@ export default {
                         if (this.data.product_type == 'forecast') {
                             this.getWeather()
                         }
-                        var media = this.data.media[0]
-                        // this.data.media = []
-                        // this.data.media[0] = media
-                        // this.data.media[1] = media
                         this.data.synopsis_product = {};
                         this.data.synopsis_product.avalanche_center = null
                         this.getWarning()
@@ -139,6 +135,12 @@ export default {
                 .then(response => {
                     if (response.data.published_time != null) {
                         this.data.weather_product = response.data
+                        let tables = []
+                        this.centerMeta.zones.forEach(item => {
+                            let temp = this.data.weather_product.weather_data.find(temp => temp.zone_id == item.id)
+                            tables.push(temp)
+                        })
+                        this.data.weather_product.weather_data = tables
                         let table = this.data.weather_product.weather_data.find(table => table.zone_id == this.zone)
                         if (table != null) {
                             this.data.weather_table = table

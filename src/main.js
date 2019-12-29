@@ -25,10 +25,11 @@ var configDefault = {
         "icons": true,
         "photoswipe": true
     },
-    "baseUrl": ''
+    "baseUrl": '',
+    "zones": false
 }
 var configElement = document.getElementById('afp-public-config')
-if( configElement) {
+if (configElement) {
     var config = JSON.parse(configElement.innerHTML)
     config = merge(configDefault, config)
 } else {
@@ -89,7 +90,17 @@ Vue.use({
 axios
     .get('https://api.avalanche.org/v2/public/avalanche-center/' + config.center)
     .then(response => {
+        // Reorder zones if config property is set
+        var zoneOrder = Vue.prototype.$config.zones
         Vue.prototype.$centerMeta = response.data
+        if (zoneOrder) {
+            var zones = []
+            zoneOrder.forEach(function (item) {
+                var zone = response.data.zones.find(zone => zone.id == item)
+                zones.push(zone)
+            })
+            Vue.prototype.$centerMeta.zones = zones
+        }
         // Vue instance
         window.App = new Vue({
             el: '#afp-public-root',
@@ -98,11 +109,11 @@ axios
         })
 
         // Google analytics
-        if(window.ga && ga.create) {
+        if (window.ga && ga.create) {
             ga('set', 'page', config.baseUrl + '/#' + router.currentRoute.path);
             ga('send', 'pageview');
             console.log(config.baseUrl + '/#' + router.currentRoute.path)
-            router.afterEach(( to, from ) => {
+            router.afterEach((to, from) => {
                 ga('set', 'page', config.baseUrl + '/#' + to.path);
                 ga('send', 'pageview');
                 console.log(config.baseUrl + '/#' + to.path)
