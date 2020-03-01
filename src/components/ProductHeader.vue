@@ -12,7 +12,7 @@
                     {{ published | publicDate }}
                 </div>
             </div>
-            <div v-if="expires" :class="$style.metaColumn">
+            <div v-if="expires && showExpires" :class="$style.metaColumn">
                 <div :class="$style.metaColumnContent">
                     <h6>Expires</h6>
                     {{ expires | publicDate }}
@@ -32,7 +32,7 @@
 import moment from 'moment/src/moment.js'
 
 export default {
-    props: ['preview', 'published', 'expires', 'author'],
+    props: ['preview', 'published', 'expires', 'showExpires', 'author'],
     computed: {
         expired: function () {
             if (this.expires) {
@@ -56,8 +56,8 @@ export default {
 }
 
 .metaColumn {
-    composes: col-md-4 from "../assets/css/style.css";
     composes: col-12 from "../assets/css/style.css";
+    composes: col-md from "../assets/css/style.css";
 }
 
 .metaColumnContent {

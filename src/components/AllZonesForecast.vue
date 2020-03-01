@@ -1,16 +1,16 @@
 <template>
-
-<!-- Need:
+    <!-- Need:
 Weather forecast
 Warnings
+Product expired banner
 Mixed forecast/general info products
-Print styles -->
+    Print styles-->
 
     <div :class="$style.container">
         <div :class="$style.row">
             <!-- All zones forecast -->
             <div v-if="loaded" :class="$style.column">
-                <h1 :class="$style.title">Backcountry Avalanche Forecast - All Zones</h1>
+                <h1 :class="$style.title">Backcountry Avalanche Forecast Summary</h1>
                 <!-- Warning -->
                 <div v-for="(forecast, index) in data.forecasts" v-bind:key="'forecast-' + index">
                     <!-- Title -->
@@ -21,11 +21,12 @@ Print styles -->
                         </h2>
                     </div>
                     <!-- Warning -->
-                    <!-- <avy-warning v-if="data.warning_product" :data="data.warning_product" /> -->
+                    <avy-warning v-if="data.warning_product" :data="data.warning_product" />
                     <!-- Header -->
                     <product-header
                         :published="forecast.published_time"
                         :expires="forecast.expires_time"
+                        :showExpires="false"
                         :author="forecast.author"
                     />
                     <!-- Bottom line -->
@@ -60,6 +61,24 @@ Print styles -->
                         </div>
                     </div>
                 </div>
+                <h1 :class="$style.title">Weather Forecast</h1>
+                <div :class="$style.title">
+                    <h2>
+                        <i class="mdi mdi-map-marker"></i>
+                        All Zones
+                    </h2>
+                </div>
+                <product-header
+                    :published="data.weather_product.published_time"
+                    :author="data.weather_product.author"
+                    :expires="false"
+                />
+                <div
+                    v-if="data.weather_product"
+                    v-html="data.weather_product.weather_discussion"
+                    :class="$style.weather"
+                ></div>
+                <div v-else :class="$style.weather">No Weather Forecast to display.</div>
                 <disclaimer />
             </div>
             <not-found v-if="notFound" />
@@ -121,14 +140,8 @@ export default {
                     } else {
                         var data = response.data
                         data.danger.splice(1, 2)
-                        data.forecast_avalanche_problems.sort(function (a, b) {
-                            return a.rank - b.rank
-                        })
                         return data
-                        // this.getWarning()
-                        // document.body.classList.add('afp-forecast-type-' + this.data.product_type)
-                        // document.body.classList.add('afp-forecast-zone-' + this.zone)
-
+                        //this.getWarning(zone)
                     }
                 })
                 .catch(e => {
@@ -137,7 +150,7 @@ export default {
         },
         getWeather() {
             this.$api
-                .get('/public/product?type=weather&center_id=' + this.$centerId + '&zone_id=' + this.zone + '&published_time=' + this.date)
+                .get('/public/product?type=weather&center_id=' + this.$centerId + '&zone_id=' + this.centerMeta.zones[0].id + '&published_time=' + this.date)
                 .then(response => {
                     if (response.data.published_time != null) {
                         this.data.weather_product = response.data
@@ -151,9 +164,9 @@ export default {
                     }
                 })
         },
-        getWarning() {
+        getWarning(zone) {
             this.$api
-                .get('/public/product?type=warning&center_id=' + this.$centerId + '&zone_id=' + this.zone + '&published_time=' + this.date)
+                .get('/public/product?type=warning&center_id=' + this.$centerId + '&zone_id=' + zone + '&published_time=' + this.date)
                 .then(response => {
                     if (response.data.published_time != null) {
                         this.data.warning_product = response.data
@@ -173,7 +186,7 @@ export default {
         this.centerMeta.zones.forEach(zone => {
             promiseArray.push(this.getForecast(zone.id))
         })
-        Promise.all(promiseArray).then(data => {
+        await Promise.all(promiseArray).then(data => {
             data.forEach(zone => {
                 this.data.forecasts.push(zone)
             })
@@ -185,9 +198,11 @@ export default {
                     zone.highestDanger = 0
                 }
             })
-            this.$eventBus.$emit('loaded')
-            this.loaded = true
         })
+        await this.getWeather()
+        this.$eventBus.$emit('loaded')
+        this.loaded = true
+        document.body.classList.add('afp-forecast-type-all')
     }
 }
 </script>
@@ -269,10 +284,20 @@ export default {
     font-size: $font-size-lg;
     margin-top: 0.7rem;
     margin-bottom: 1.5 * $spacer;
-    margin: 0.7rem 1rem 1.5 * $spacer 1rem;
+    //margin: 0.7rem 1rem 1.5 * $spacer 1rem;
 }
 .danger {
     margin-bottom: $spacer;
+}
+
+.weather {
+    position: relative;
+    background-color: #fff;
+    padding: 2rem 1rem 1rem 1rem;
+    // border-radius: $border-radius;
+    border: 1.2px solid $gray-400;
+    box-shadow: $app-box-shadow;
+    margin-top: $spacer;
 }
 
 .wxSummary {
@@ -284,7 +309,7 @@ export default {
 .btn {
     composes: btn from "../assets/css/style.css";
     composes: btn-primary from "../assets/css/style.css";
-    composes: btn-sm from "../assets/css/style.css";
+    // composes: btn-sm from "../assets/css/style.css";
 }
 
 .textRight {

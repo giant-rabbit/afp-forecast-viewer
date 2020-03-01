@@ -4,7 +4,7 @@ import Forecast from './components/Forecast'
 import Weather from './components/Weather'
 import Synopsis from './components/Synopsis'
 import Archive from './components/Archive'
-//import AllZonesForecast from './components/AllZonesForecast'
+import AllZonesForecast from './components/AllZonesForecast'
 
 Vue.use(Router)
 
@@ -46,12 +46,12 @@ export default new Router({
 			component: Synopsis,
 			meta: { bodyClass: 'afp-blog-archived' }
 		},
-		// {
-		// 	path: '',
-		// 	name: 'AllZonesForecast',
-		// 	component: AllZonesForecast,
-		// 	meta: { bodyClass: 'afp-forecast' }
-		// },
+		{
+			path: '',
+			name: 'AllZonesForecast',
+			component: AllZonesForecast,
+			meta: { bodyClass: 'afp-forecast' }
+		},
 		{
 			path: '',
 			name: 'Forecast',
