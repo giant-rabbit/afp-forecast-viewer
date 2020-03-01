@@ -1,9 +1,6 @@
 <template>
     <!-- Need:
-Weather forecast
 Warnings
-Product expired banner
-Mixed forecast/general info products
     Print styles-->
 
     <div :class="$style.container">
@@ -21,7 +18,7 @@ Mixed forecast/general info products
                         </h2>
                     </div>
                     <!-- Warning -->
-                    <avy-warning v-if="data.warning_product" :data="data.warning_product" />
+                    <avy-warning v-if="data.warning_product[index]" :data="data.warning_product[index]" />
                     <!-- Header -->
                     <product-header
                         :published="forecast.published_time"
@@ -108,7 +105,7 @@ export default {
             data: {
                 forecasts: [],
                 weather_product: false,
-                warning_product: false
+                warning_product: []
             },
             loaded: false,
             notFound: false,
@@ -141,7 +138,20 @@ export default {
                         var data = response.data
                         data.danger.splice(1, 2)
                         return data
-                        //this.getWarning(zone)
+                    }
+                })
+                .catch(e => {
+                    return false
+                })
+        },
+        getWarning(zone) {
+            return this.$api
+                .get('/public/product?type=warning&center_id=' + this.$centerId + '&zone_id=' + zone + '&published_time=2020-01-01' + this.date)
+                .then(response => {
+                    if (response.data.published_time == null) {
+                        return false
+                    } else {
+                        return response.data
                     }
                 })
                 .catch(e => {
@@ -154,31 +164,11 @@ export default {
                 .then(response => {
                     if (response.data.published_time != null) {
                         this.data.weather_product = response.data
-                        let table = this.data.weather_product.weather_data.find(table => table.zone_id == this.zone)
-                        if (table != null) {
-                            this.data.weather_table = table
-                            this.refresh++
-                        }
                     } else {
                         this.data.weather_product = false
                     }
                 })
         },
-        getWarning(zone) {
-            this.$api
-                .get('/public/product?type=warning&center_id=' + this.$centerId + '&zone_id=' + zone + '&published_time=' + this.date)
-                .then(response => {
-                    if (response.data.published_time != null) {
-                        this.data.warning_product = response.data
-                        this.refresh++
-                    } else {
-                        this.data.warning_product = false
-                    }
-                    this.loaded = true
-                    this.$eventBus.$emit('loaded')
-                })
-        }
-
     },
     async mounted() {
         this.$eventBus.$emit('loading')
@@ -197,6 +187,15 @@ export default {
                 } else {
                     zone.highestDanger = 0
                 }
+            })
+        })
+        var promiseArray = []
+        this.centerMeta.zones.forEach(zone => {
+            promiseArray.push(this.getWarning(zone.id))
+        })
+        await Promise.all(promiseArray).then(data => {
+            data.forEach(zone => {
+                this.data.warning_product.push(zone)
             })
         })
         await this.getWeather()
