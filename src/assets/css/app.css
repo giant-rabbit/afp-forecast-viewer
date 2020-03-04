@@ -2,9 +2,9 @@ html {
   font-size: 16px !important; }
 
 @media print {
-  @page {
+  /* @page {
     size: 1200px 11in;
-    margin: 2cm; }
+    margin: 2cm; } */
   table {
     page-break-inside: avoid; }
   body {

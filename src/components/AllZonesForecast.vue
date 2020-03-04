@@ -1,7 +1,6 @@
 <template>
     <!-- Need:
-Warnings
-    Print styles-->
+    Print version-->
 
     <div :class="$style.container">
         <div :class="$style.row">
@@ -18,7 +17,10 @@ Warnings
                         </h2>
                     </div>
                     <!-- Warning -->
-                    <avy-warning v-if="data.warning_product[index]" :data="data.warning_product[index]" />
+                    <avy-warning
+                        v-if="data.warning_product[index]"
+                        :data="data.warning_product[index]"
+                    />
                     <!-- Header -->
                     <product-header
                         :published="forecast.published_time"
@@ -39,24 +41,27 @@ Warnings
                         </v-popover>
                         <h5 :class="$style.bottomLineTitle">THE BOTTOM LINE</h5>
                         <div :class="$style.bottomLineText" v-html="forecast.bottom_line"></div>
+                    </div>
+                    <div :class="$style.danger">
                         <!-- danger -->
                         <avalanche-danger
-                            :class="$style.danger"
+                            :class="$style.spacer"
                             :danger="forecast.danger"
                             :date="forecast.published_time"
                             :config="config"
                         />
                         <div :class="$style.textRight">
-                            <button
-                                @click="$router.push({ name: 'ZoneForecast', params: { zone: urlString(centerMeta.zones[index].name) }})"
+                            <router-link
+                                :to="{ name: 'ZoneForecast', params: { zone: urlString(centerMeta.zones[index].name) }}"
                                 :class="$style.btn"
                                 class="afp-btn-primary"
                             >
                                 Full Forecast
                                 <i class="mdi mdi-arrow-right"></i>
-                            </button>
+                            </router-link>
                         </div>
                     </div>
+                    <div :class="$style.spacer"></div>
                 </div>
                 <h1 :class="$style.title">Weather Forecast</h1>
                 <div :class="$style.title">
@@ -75,7 +80,7 @@ Warnings
                     v-html="data.weather_product.weather_discussion"
                     :class="$style.weather"
                 ></div>
-                <div v-else :class="$style.weather">No Weather Forecast to display.</div>
+                <div v-else :class="$style.weather"><p>No Weather Forecast product found.</p></div>
                 <disclaimer />
             </div>
             <not-found v-if="notFound" />
@@ -97,9 +102,6 @@ import Disclaimer from '../components/Disclaimer'
 export default {
     data() {
         return {
-            zone: '',
-            zoneName: '',
-            date: '',
             centerMeta: this.$centerMeta,
             config: this.$config,
             data: {
@@ -108,8 +110,7 @@ export default {
                 warning_product: []
             },
             loaded: false,
-            notFound: false,
-            refresh: 0
+            notFound: false
         }
     },
     components: {
@@ -141,12 +142,14 @@ export default {
                     }
                 })
                 .catch(e => {
+                    this.notFound = true
+                    this.$eventBus.$emit('loaded')
                     return false
                 })
         },
         getWarning(zone) {
             return this.$api
-                .get('/public/product?type=warning&center_id=' + this.$centerId + '&zone_id=' + zone + '&published_time=2020-01-01' + this.date)
+                .get('/public/product?type=warning&center_id=' + this.$centerId + '&zone_id=' + zone)
                 .then(response => {
                     if (response.data.published_time == null) {
                         return false
@@ -242,12 +245,11 @@ export default {
 .bottomLine {
     position: relative;
     background-color: #fff;
-    padding: 2rem 1rem 0 1rem;
-    // border-radius: $border-radius;
+    padding: $spacer;
     border: 1.2px solid $gray-400;
     box-shadow: $app-box-shadow;
     margin-top: 3rem;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
 }
 
 .dangerIcon {
@@ -275,18 +277,32 @@ export default {
 .bottomLineTitle {
     display: inline-block;
     border-bottom: 1px solid $gray-400;
-    padding: 0.1rem;
-    margin: 1rem;
+    padding-bottom: 0.1rem;
 }
 
 .bottomLineText {
     font-size: $font-size-lg;
     margin-top: 0.7rem;
-    margin-bottom: 1.5 * $spacer;
-    //margin: 0.7rem 1rem 1.5 * $spacer 1rem;
+    // p:last-of-type {
+    //     margin-bottom: 0 !important;
+    // }
 }
+
 .danger {
-    margin-bottom: $spacer;
+    position: relative;
+    background-color: #fff;
+    padding: 2rem 1rem 0 1rem;
+    border: 1.2px solid $gray-400;
+    box-shadow: $app-box-shadow;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    @include media-breakpoint-down(xs) {
+        margin-right: -15px;
+        margin-left: -15px;
+        border-left: none;
+        border-right: none;
+        box-shadow: none;
+    }
 }
 
 .weather {
