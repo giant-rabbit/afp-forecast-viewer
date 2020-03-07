@@ -6,7 +6,7 @@
         <div :class="$style.row">
             <!-- All zones forecast -->
             <div v-if="loaded" :class="$style.column">
-                <h1 :class="$style.title">Backcountry Avalanche Forecast Summary</h1>
+                <h1 :class="$style.title">Backcountry Avalanche Forecast</h1>
                 <!-- Warning -->
                 <div v-for="(forecast, index) in data.forecasts" v-bind:key="'forecast-' + index">
                     <!-- Title -->

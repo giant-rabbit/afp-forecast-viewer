@@ -13,13 +13,12 @@
             <loader />
         </div>
         <forecast-view
-            v-if="loaded"
+            v-if="loaded && !notFound"
             :product="data.product_type"
             :data="data"
             :config="config"
             :preview="preview"
             :zone="zoneName"
-            :key="refresh"
         />
     </div>
 </template>
@@ -44,7 +43,6 @@ export default {
             preview: false,
             loaded: false,
             notFound: false,
-            refresh: 0
         }
     },
     components: {
@@ -75,7 +73,7 @@ export default {
             string = string.toLowerCase()
             return string
         },
-        getProducts() {
+        async getProducts() {
             if (this.$route.params.date != undefined) {
                 this.date = this.$route.params.date
             } else {
@@ -92,10 +90,21 @@ export default {
                 this.zone = this.centerMeta.zones[0].id
                 this.zoneName = this.centerMeta.zones[0].name
             }
-            this.getForecast()
+            await this.getForecast()
+            if (this.data.product_type == 'forecast') {
+                await this.getWeather()
+            }
+            this.data.synopsis_product = {};
+            this.data.synopsis_product.avalanche_center = null
+            await this.getWarning()
+            document.body.classList.add('afp-forecast-type-' + this.data.product_type)
+            document.body.classList.add('afp-forecast-zone-' + this.zone)
+            this.loaded = true
+            this.$eventBus.$emit('loaded')
+            await this.getSynopsis()
         },
         getForecast() {
-            this.$api
+            return this.$api
                 .get('/public/product?type=forecast&center_id=' + this.$centerId + '&zone_id=' + this.zone + '&published_time=' + this.date)
                 .then(response => {
                     if (response.data.published_time == null) {
@@ -106,31 +115,14 @@ export default {
                         this.data.forecast_avalanche_problems.sort(function (a, b) {
                             return a.rank - b.rank
                         })
-                        if (this.data.product_type == 'forecast') {
-                            this.getWeather()
-                        }
-                        this.data.synopsis_product = {};
-                        this.data.synopsis_product.avalanche_center = null
-                        this.getWarning()
-                        this.getSynopsis()
-                        document.body.classList.add('afp-forecast-type-' + this.data.product_type)
-                        document.body.classList.add('afp-forecast-zone-' + this.zone)
-                        //this.loaded = true
-                        //this.$eventBus.$emit('loaded')
-                        // fire event for custom tab content
-                        // this.$nextTick(() => {
-                        //     var event = new Event('forecast-loaded')
-                        //     window.dispatchEvent(event)
-                        // })
                     }
                 })
                 .catch(e => {
                     this.notFound = true
-                    this.$eventBus.$emit('loaded')
                 })
         },
         getWeather() {
-            this.$api
+            return this.$api
                 .get('/public/product?type=weather&center_id=' + this.$centerId + '&zone_id=' + this.zone + '&published_time=' + this.date)
                 .then(response => {
                     if (response.data.published_time != null) {
@@ -144,32 +136,37 @@ export default {
                         let table = this.data.weather_product.weather_data.find(table => table.zone_id == this.zone)
                         if (table != null) {
                             this.data.weather_table = table
-                            this.refresh++
                         }
                     } else {
                         this.data.weather_product = false
                     }
                 })
+                .catch(e => {
+                    this.data.weather_product = false
+                })
         },
         getWarning() {
-            this.$api
+            return this.$api
                 .get('/public/product?type=warning&center_id=' + this.$centerId + '&zone_id=' + this.zone + '&published_time=' + this.date)
                 .then(response => {
                     if (response.data.published_time != null) {
                         this.data.warning_product = response.data
-                        this.refresh++
                     } else {
                         this.data.warning_product = false
                     }
-                    this.loaded = true
-                    this.$eventBus.$emit('loaded')
+                })
+                .catch(e => {
+                    this.data.warning_product = false
                 })
         },
         getSynopsis() {
-            this.$api
+            return this.$api
                 .get('/public/product?type=synopsis&center_id=' + this.$centerId + '&zone_id=' + this.zone + '&published_time=' + this.date)
                 .then(response => {
                     this.data.synopsis_product = response.data
+                })
+                .catch(e => {
+                    this.data.synopsis_product = false
                 })
         },
 

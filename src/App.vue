@@ -45,7 +45,11 @@
             <router-link :to="{ name: 'Synopsis' }">Synopsis</router-link>
         </div>-->
         <transition name="fade" mode="out-in">
-            <router-view></router-view>
+            <keep-alive>
+                <router-view
+                    :key="$route.name + ($route.params.zone || '') + ($route.params.date || '') + ($route.params.product || '')"
+                ></router-view>
+            </keep-alive>
         </transition>
     </div>
 </template>

@@ -32,16 +32,17 @@
         </div>
 
         <!-- Archive -->
-        <content-panel v-if="product" :class="$style.panel">
-            <alert />
-            <loader />
-            <!-- Forecast Archive -->
-            <forecast-list v-if="product != '' && product !='blog'" :zone="product" />
+        <keep-alive>
+            <content-panel v-if="product" :class="$style.panel">
+                <alert />
+                <loader />
+                <!-- Forecast Archive -->
+                <forecast-list v-if="product != '' && product !='blog'" :zone="product" />
 
-            <!-- Blog Archive tab -->
-            <synopsis-list v-if="product == 'blog'" />
-            
-        </content-panel>
+                <!-- Blog Archive tab -->
+                <synopsis-list v-if="product == 'blog'" />
+            </content-panel>
+        </keep-alive>
         <disclaimer />
     </div>
 </template>
@@ -142,7 +143,7 @@ export default {
 .btn {
     composes: btn from "../assets/css/style.css";
     composes: btn-primary from "../assets/css/style.css";
-    margin-bottom: .5 * $spacer !important;
+    margin-bottom: 0.5 * $spacer !important;
 }
 
 .productButtons {

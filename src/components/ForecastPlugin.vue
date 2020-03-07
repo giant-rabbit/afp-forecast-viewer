@@ -1,5 +1,4 @@
 <template>
-    <!-- <div class="afp-forecast-view"> -->
     <div :class="$style.container">
         <forecast-product
             v-if="product == 'forecast' || product == 'summary'"
