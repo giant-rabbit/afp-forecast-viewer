@@ -102,7 +102,7 @@
 
                 <!-- media -->
                 <media-gallery
-                    :class="$style.mediaGallery"
+                    :class="[$style.divider, $style.mediaGallery]"
                     :media="data.media"
                     scope="scope-forecast"
                     v-if="data.media.length > 0"
@@ -152,7 +152,7 @@
                 </div>
                 <!-- media -->
                 <media-gallery
-                    :class="$style.spacer"
+                    :class="[$style.divider, $style.mediaGallery]"
                     :media="data.media"
                     scope="scope-forecast"
                     v-if="data.media.length > 0"
