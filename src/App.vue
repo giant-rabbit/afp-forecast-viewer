@@ -1,10 +1,10 @@
 <template>
     <div id="afp" class="afp-forecast-view">
         <v-style v-if="this.$config.color">
-            .afp-forecast-view a:not(.afp-native-link) {
+            .afp-forecast-view a:not(.afp-native-link):not(.afp-btn-primary) {
             color: {{this.$config.color}} !important;
             }
-            .afp-forecast-view a:not(.afp-native-link):hover,.afp-forecast-view a:not(.afp-native-link):focus {
+            .afp-forecast-view a:not(.afp-native-link):not(.afp-btn-primary):hover,.afp-forecast-view a:not(.afp-native-link):not(.afp-btn-primary):focus {
             color: {{luminance(this.$config.color,-0.3)}} !important;
             }
             .afp-forecast-view .afp-btn-primary {
