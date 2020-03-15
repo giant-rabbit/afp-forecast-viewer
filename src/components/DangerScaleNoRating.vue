@@ -1,7 +1,7 @@
 <template>
     <div :class="$style.dangerScale">
         <div :class="$style.firstColumn">
-            <h5>
+            <h5 class="afp-html-h5">
                 Danger Scale
                 <info :content="this.$helpContent.dangerScale" />
             </h5>

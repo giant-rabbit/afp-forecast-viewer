@@ -1,8 +1,8 @@
 <template>
     <div>
         <div :class="$style.title">
-            <h1>Weather Forecast</h1>
-            <h2>
+            <h1 class="afp-html-h1">Weather Forecast</h1>
+            <h2 class="afp-html-h2">
                 <i class="mdi mdi-map-marker"></i>
                 All Zones
             </h2>

@@ -1,9 +1,9 @@
 <template>
     <div>
         <div :class="$style.title">
-            <h1>Conditions Blog</h1>
-            <h2 v-html="data.bottom_line"></h2>
-            <!-- <h2>
+            <h1 class="afp-html-h1">Conditions Blog</h1>
+            <h2 class="afp-html-h2" v-html="data.bottom_line"></h2>
+            <!-- <h2 class="afp-html-h2">
                 <i class="mdi mdi-map-marker"></i>
                 All Zones
             </h2> -->

@@ -8,8 +8,8 @@
             <!-- Title -->
             <div :class="$style.title">
                 <h1 class="afp-html-h1" v-if="data.product_type == 'forecast'">Backcountry Avalanche Forecast</h1>
-                <h1 v-else>General Avalanche Information</h1>
-                <h2>
+                <h1 class="afp-html-h1" v-else>General Avalanche Information</h1>
+                <h2 class="afp-html-h2">
                     <i class="mdi mdi-map-marker"></i>
                     {{zone}}
                 </h2>
@@ -34,7 +34,7 @@
                     <div v-html="this.$dangerScale[highestDanger].advice"></div>
                 </template>
             </v-popover>
-            <h5 :class="$style.bottomLineTitle">THE BOTTOM LINE</h5>
+            <h5 class="afp-html-h5" :class="$style.bottomLineTitle">THE BOTTOM LINE</h5>
             <div :class="$style.bottomLineText" v-html="data.bottom_line"></div>
         </div>
 
@@ -96,7 +96,7 @@
 
                 <!-- discussion -->
                 <div v-if="data.hazard_discussion != ''" :class="$style.divider">
-                    <h2>Forecast Discussion</h2>
+                    <h2 class="afp-html-h2">Forecast Discussion</h2>
                     <div v-html="data.hazard_discussion"></div>
                 </div>
 
@@ -114,7 +114,7 @@
                     v-if="!preview && data.weather_table && data.product_type == 'forecast'"
                     :class="[$style.divider, $style.wxSummary]"
                 >
-                    <h2>Weather Summary</h2>
+                    <h2 class="afp-html-h2">Weather Summary</h2>
                     <weather-table
                         :periods="data.weather_table.periods"
                         :data="data.weather_table.data"
@@ -131,7 +131,7 @@
 
                 <!-- weather forecast for print -->
                 <div :class="[$style.divider, $style.printWx]">
-                    <h2>Weather Forecast</h2>
+                    <h2 class="afp-html-h2">Weather Forecast</h2>
                     <weather-content v-if="data.weather_product" :data="data.weather_product" />
                 </div>
             </div>
@@ -142,7 +142,7 @@
                 :class="$style.tabPane"
             >
                 <div :class="$style.spacer">
-                    <h2>Forecast Discussion</h2>
+                    <h2 class="afp-html-h2">Forecast Discussion</h2>
                     <div
                         class="afp-discussion"
                         :class="$style.clearfix"
@@ -159,7 +159,7 @@
                 />
                 <!-- weather forecast for print -->
                 <div :class="[$style.divider, $style.printWx]">
-                    <h2>Weather Forecast</h2>
+                    <h2 class="afp-html-h2">Weather Forecast</h2>
                     <div v-if="data.weather_discussion != ''" v-html="data.weather_discussion"></div>
                 </div>
             </div>
@@ -192,7 +192,7 @@
             <div v-if="tabSelected == 'blog'" :class="$style.tabPane">
                 <!-- Title -->
                 <div v-if="data.synopsis_product.avalanche_center != null">
-                    <h1 v-html="data.synopsis_product.bottom_line"></h1>
+                    <h1 class="afp-html-h1" v-html="data.synopsis_product.bottom_line"></h1>
                     <product-header
                         :published="data.synopsis_product.published_time"
                         :author="data.synopsis_product.author"

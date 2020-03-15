@@ -1,6 +1,6 @@
 <template>
     <div :id="'problem-' + problem.rank" :class="$style.problemContainer">
-        <h2>Avalanche Problem #{{problem.rank}}</h2>
+        <h2 class="afp-html-h2">Avalanche Problem #{{problem.rank}}</h2>
         <info :content="this.$helpContent.avalancheProblem" />
         <div :class="$style.infoGraphics">
             <div :class="$style.col12">
@@ -14,7 +14,7 @@
                     {{problem.name}}
                     <!-- <info :content="problem.problem_description" /> -->
                 </div>
-                <h5>
+                <h5 class="afp-html-h5">
                     Problem Type
                     <!-- <info :content="this.$helpContent.problemType" /> -->
                 </h5>
@@ -27,7 +27,7 @@
                     :rank="problem.rank"
                     :location="problem.location"
                 ></locator-rose>
-                <h5>
+                <h5 class="afp-html-h5">
                     Aspect/Elevation
                     <!-- <info :content="this.$helpContent.problemLocation" /> -->
                 </h5>
@@ -39,7 +39,7 @@
                     :labels="likelihoodLabels"
                     :data="problem.likelihood"
                 ></problem-slider>
-                <h5>
+                <h5 class="afp-html-h5">
                     Likelihood
                     <!-- <info :content="this.$helpContent.problemLikelihood" /> -->
                 </h5>
@@ -51,7 +51,7 @@
                     :labels="sizeLabels"
                     :data="problem.size"
                 ></problem-slider>
-                <h5>
+                <h5 class="afp-html-h5">
                     Size
                     <!-- <info :content="this.$helpContent.problemSize" /> -->
                 </h5>

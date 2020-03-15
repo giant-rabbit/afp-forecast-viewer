@@ -2,7 +2,7 @@
     <div :class="$style.container">
         <div :class="$style.title">
             <i class="mdi mdi-alert"></i>
-            <h1>The requested product doesn't exist</h1>View the <router-link :to="{ name: 'Forecast'}">Current Forecast</router-link> or view the <router-link :to="{ name: 'Archive'}">Forecast Archive</router-link>.
+            <h1 class="afp-html-h1">The requested product doesn't exist</h1>View the <router-link :to="{ name: 'Forecast'}">Current Forecast</router-link> or view the <router-link :to="{ name: 'Archive'}">Forecast Archive</router-link>.
         </div>
     </div>
 </template>

@@ -6,12 +6,12 @@
         <div :class="$style.row">
             <!-- All zones forecast -->
             <div v-if="loaded" :class="$style.column">
-                <h1 :class="$style.title">Backcountry Avalanche Forecast</h1>
+                <h1 class="afp-html-h1" :class="$style.title">Backcountry Avalanche Forecast</h1>
                 <!-- Warning -->
                 <div v-for="(forecast, index) in data.forecasts" v-bind:key="'forecast-' + index">
                     <!-- Title -->
                     <div :class="$style.title">
-                        <h2>
+                        <h2 class="afp-html-h2">
                             <i class="mdi mdi-map-marker"></i>
                             {{centerMeta.zones[index].name}}
                         </h2>
@@ -39,7 +39,7 @@
                                 <div v-html="$dangerScale[forecast.highestDanger].advice"></div>
                             </template>
                         </v-popover>
-                        <h5 :class="$style.bottomLineTitle">THE BOTTOM LINE</h5>
+                        <h5 class="afp-html-h5" :class="$style.bottomLineTitle">THE BOTTOM LINE</h5>
                         <div :class="$style.bottomLineText" v-html="forecast.bottom_line"></div>
                     </div>
                     <div :class="$style.danger">
@@ -63,9 +63,9 @@
                     </div>
                     <div :class="$style.spacer"></div>
                 </div>
-                <h1 :class="$style.title">Weather Forecast</h1>
+                <h1 class="afp-html-h1" :class="$style.title">Weather Forecast</h1>
                 <div :class="$style.title">
-                    <h2>
+                    <h2 class="afp-html-h2">
                         <i class="mdi mdi-map-marker"></i>
                         All Zones
                     </h2>

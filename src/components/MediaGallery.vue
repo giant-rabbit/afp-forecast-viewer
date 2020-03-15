@@ -6,7 +6,7 @@
             :caption="videoCaption"
             :id="videoId"
         />
-        <h2>Media</h2>
+        <h2 class="afp-html-h2">Media</h2>
         <div class="afp-carousel">
             <div v-for="item in media" :key="item.id">
                 <div :class="$style.galleryItem">

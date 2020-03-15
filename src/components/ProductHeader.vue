@@ -1,26 +1,26 @@
 <template>
     <div>
         <div v-if="expired && !preview" :class="$style.productExpired">
-            <h2>
+            <h2 class="afp-html-h2">
                 <i class="mdi mdi-clock-alert"></i> This product is expired
             </h2>
         </div>
         <div :class="$style.row">
             <div v-if="published != ''" :class="$style.metaColumn">
                 <div :class="$style.metaColumnContent">
-                    <h6>Issued</h6>
+                    <h6 class="afp-html-h6">Issued</h6>
                     {{ published | publicDate }}
                 </div>
             </div>
             <div v-if="expires && showExpires" :class="$style.metaColumn">
                 <div :class="$style.metaColumnContent">
-                    <h6>Expires</h6>
+                    <h6 class="afp-html-h6">Expires</h6>
                     {{ expires | publicDate }}
                 </div>
             </div>
             <div v-if="author != ''" :class="$style.metaColumn">
                 <div :class="$style.metaColumnContent">
-                    <h6>Author</h6>
+                    <h6 class="afp-html-h6">Author</h6>
                     {{ author }}
                 </div>
             </div>

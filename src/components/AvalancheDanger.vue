@@ -4,7 +4,7 @@
             <div
                 :class="{[$style.today] : outlookDanger, [$style.todayNoOutlook] : !outlookDanger}"
             >
-                <h2>
+                <h2 class="afp-html-h2">
                     Avalanche Danger
                     <info :content="this.$helpContent.avalancheDanger" />
                 </h2>
@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div v-if="outlookDanger" :class="$style.outlook">
-                <h2>
+                <h2 class="afp-html-h2">
                     Outlook
                     <info :content="this.$helpContent.avalancheDangerOutlook" />
                 </h2>
@@ -112,7 +112,7 @@
         </div>
         <div v-if="outlookDanger" :class="$style.outlookMobile">
             <div :class="$style.outlookMobileText">
-                <h2>
+                <h2 class="afp-html-h2">
                     Outlook
                     <info :content="this.$helpContent.avalancheDangerOutlook" />
                 </h2>

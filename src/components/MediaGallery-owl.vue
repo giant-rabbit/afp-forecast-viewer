@@ -6,7 +6,7 @@
             :caption="videoCaption"
             :id="videoId"
         />
-        <h2>Media</h2>
+        <h2 class="afp-html-h2">Media</h2>
         <carousel
             :key="key"
             class="afp-carousel"

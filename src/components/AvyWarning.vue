@@ -1,7 +1,7 @@
 <template>
     <div :class="$style.warning">
         <i class="mdi mdi-alert"></i>
-        <h2>Avalanche Warning In Effect</h2>
+        <h2 class="afp-html-h2">Avalanche Warning In Effect</h2>
         <span><strong>ISSUED</strong>{{ data.published_time | publicDate }}</span>
         <span><strong>EXPIRES</strong>{{ data.expires_time | publicDate }}</span>
     </div>

@@ -26,21 +26,26 @@ html {
   }
 }
 
-// typography
+// Typography
 
-.#{$class-prefix}-html-h1,
-.#{$class-prefix}-html-h2,
-.#{$class-prefix}-html-h3,
-.#{$class-prefix}-html-h4,
-.#{$class-prefix}-html-h5,
-.#{$class-prefix}-html-h6,
-.#{$class-prefix}-h1,
-.#{$class-prefix}-h2,
-.#{$class-prefix}-h3,
-.#{$class-prefix}-h4,
-.#{$class-prefix}-h5,
-.#{$class-prefix}-h6 {
+.afp-html-h1,
+.afp-html-h2,
+.afp-html-h3,
+.afp-html-h4,
+.afp-html-h5,
+.afp-html-h6,
+.afp-h1,
+.afp-h2,
+.afp-h3,
+.afp-h4,
+.afp-h5,
+.afp-h6 {
   text-transform: uppercase;
+  letter-spacing: .5px !important;
+}
+
+.afp-html-h6 {
+  color: $gray-500 !important;
 }
 
 a:not(.afp-btn-primary) {
