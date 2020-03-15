@@ -1,5 +1,5 @@
 <template>
-    <div id="afp" class="afp-forecast-view">
+    <div id="afp" class="afp-forecast-view afp-html-body">
         <v-style v-if="this.$config.color">
             .afp-forecast-view a:not(.afp-native-link):not(.afp-btn-primary) {
             color: {{this.$config.color}} !important;
@@ -84,8 +84,10 @@ export default {
     }
 }
 </script>
-
 <style lang="scss">
-// Import global styles
-@import "./assets/css/app.scss";
+// Import prefixed Bootstrap 4
+$class-prefix: "afp";
+@import "./assets/bootstrap4/bootstrap.scss";
+// Import app stylesheet
+@import "./assets/app.scss";
 </style>

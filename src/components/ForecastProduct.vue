@@ -7,7 +7,7 @@
             </div>
             <!-- Title -->
             <div :class="$style.title">
-                <h1 v-if="data.product_type == 'forecast'">Backcountry Avalanche Forecast</h1>
+                <h1 class="afp-html-h1" v-if="data.product_type == 'forecast'">Backcountry Avalanche Forecast</h1>
                 <h1 v-else>General Avalanche Information</h1>
                 <h2>
                     <i class="mdi mdi-map-marker"></i>

@@ -4,7 +4,6 @@ import PhotoSwipeUI from 'photoswipe/dist/photoswipe-ui-default'
 import createPreviewDirective from "vue-photoswipe-directive";
 import InfoPopover from './components/InfoPopover'
 import VTooltip from 'v-tooltip'
-import styles from './assets/css/app.scss'
 import moment from 'moment/src/moment.js'
 
 export default {
