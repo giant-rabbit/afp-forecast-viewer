@@ -1,32 +1,17 @@
-// Global app styles
+
+/*!
+ * Global App Styles
+ * Prefixed with afp- and afp-html-
+ */
+
+//
+// Typography
+//
 
 // Correct for rem units
 html {
   font-size: 16px !important;
 }
-
-
-@media print {
-  // @page {
-  //   size: 1200px 11in;
-  //   margin: 2cm
-  // }
-
-  table {
-    page-break-inside: avoid;
-  }
-
-  body {
-    margin: 2rem;
-    background-color: #fff !important;
-  }
-
-  .afp-forecast-view {
-    background-color: #fff !important;
-  }
-}
-
-// Typography
 
 .afp-html-h1,
 .afp-html-h2,
@@ -48,19 +33,48 @@ html {
   color: $gray-500 !important;
 }
 
-a:not(.afp-btn-primary) {
-  color: $link-color;
-  text-decoration: $link-decoration;
-  background-color: transparent; // Remove the gray background on active links in IE 10.
+.afp-btn {
+  letter-spacing: .5px;
+}
 
-  @include hover {
-    color: $link-hover-color;
-    text-decoration: $link-hover-decoration;
+// a:not(.afp-btn-primary) {
+//   color: $link-color;
+//   text-decoration: $link-decoration;
+//   background-color: transparent; // Remove the gray background on active links in IE 10.
+
+//   @include hover {
+//     color: $link-hover-color;
+//     text-decoration: $link-hover-decoration;
+//   }
+// }
+
+//
+// Print styles
+//
+
+@media print {
+  // @page {
+  //   size: 1200px 11in;
+  //   margin: 2cm
+  // }
+
+  table {
+    page-break-inside: avoid;
+  }
+
+  body {
+    margin: 2rem;
+    background-color: #fff !important;
+  }
+
+  .afp-forecast-view {
+    background-color: #fff !important;
   }
 }
 
-
+// 
 // Photoswipe
+// 
 
 .pswp {
   font-family: $font-family-base;
@@ -75,7 +89,9 @@ a:not(.afp-btn-primary) {
   }
 }
 
+// 
 // Tooltips
+// 
 .afp-tooltip {
   // display: block !important;
   z-index: 10000;

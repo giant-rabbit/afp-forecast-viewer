@@ -1,11 +1,10 @@
 <template>
     <div>
-        <div :class="$style.container">
+        <div class="afp-container afp-pt-2">
             <button
                 v-if="date != ''"
                 @click="$router.replace({ name: 'ArchiveProduct', params: { product: urlString(zoneName) } })"
-                :class="$style.btn"
-                class="afp-btn-primary"
+                class="afp-html-button afp-btn afp-btn-primary"
             >
                 <i class="mdi mdi-arrow-left"></i> Archive
             </button>
@@ -178,17 +177,3 @@ export default {
 }
 </script>
 
-<style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins";
-
-.container {
-    composes: container from "../assets/css/style.css";
-    padding-top: 0.5 * $spacer;
-}
-.btn {
-    composes: btn from "../assets/css/style.css";
-    composes: btn-primary from "../assets/css/style.css";
-}
-</style>

@@ -84,10 +84,14 @@ export default {
     }
 }
 </script>
+
 <style lang="scss">
+
 // Import prefixed Bootstrap 4
 $class-prefix: "afp";
 @import "./assets/bootstrap4/bootstrap.scss";
+
 // Import app stylesheet
 @import "./assets/app.scss";
+
 </style>
