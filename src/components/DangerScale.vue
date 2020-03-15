@@ -1,7 +1,7 @@
 <template>
     <div :class="$style.dangerScale">
         <div :class="$style.firstColumn">
-            <a href="https://avalanche.org/avalanche-encyclopedia/danger-scale/" target="_blank">
+            <a class="afp-html-a" href="https://avalanche.org/avalanche-encyclopedia/danger-scale/" target="_blank">
                 <h5 class="afp-html-h5" v-tooltip="'Click to learn more'">Danger Scale <i class="mdi mdi-open-in-new"></i></h5>
             </a>
         </div>

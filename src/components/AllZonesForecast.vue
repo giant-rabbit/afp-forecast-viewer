@@ -80,7 +80,7 @@
                     v-html="data.weather_product.weather_discussion"
                     :class="$style.weather"
                 ></div>
-                <div v-else :class="$style.weather"><p>No Weather Forecast product found.</p></div>
+                <div v-else :class="$style.weather"><p class="afp-html-p">No Weather Forecast product found.</p></div>
                 <disclaimer />
             </div>
             <not-found v-if="notFound" />
