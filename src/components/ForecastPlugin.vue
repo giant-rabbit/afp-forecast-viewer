@@ -1,5 +1,5 @@
 <template>
-    <div :class="$style.container">
+    <div class="afp-container">
         <forecast-product
             v-if="product == 'forecast' || product == 'summary'"
             :preview="preview"
@@ -74,13 +74,11 @@ export default {
 }
 </script>
 
-<style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins";
+<style scoped lang="scss">
+@import "../assets/bootstrap4/_functions.scss";
+@import "../assets/bootstrap4/_variables.scss";
 
-.container {
-    composes: container from "../assets/css/style.css";
+.afp-container {
     min-height: 300px;
     position: relative;
     padding-top: .5*$spacer;

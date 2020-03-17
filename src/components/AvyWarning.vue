@@ -1,9 +1,15 @@
 <template>
-    <div :class="$style.warning">
+    <div class="afp-warning afp-alert afp-alert-danger">
         <i class="mdi mdi-alert"></i>
         <h2 class="afp-html-h2">Avalanche Warning In Effect</h2>
-        <span><strong>ISSUED</strong>{{ data.published_time | publicDate }}</span>
-        <span><strong>EXPIRES</strong>{{ data.expires_time | publicDate }}</span>
+        <span>
+            <strong>ISSUED</strong>
+            {{ data.published_time | publicDate }}
+        </span>
+        <span>
+            <strong>EXPIRES</strong>
+            {{ data.expires_time | publicDate }}
+        </span>
     </div>
 </template>
 
@@ -15,13 +21,13 @@ export default {
 }
 </script>
 
-<style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins";
+<style scoped lang="scss">
+@import "../assets/bootstrap4/_functions.scss";
+@import "../assets/bootstrap4/_variables.scss";
+@import "../assets/bootstrap4/_mixins.scss";
 
-.warning {
-    position: relative;
+.afp-warning {
+    -webkit-print-color-adjust: exact;
     h2 {
         color: #fff !important;
         margin-bottom: 0.5rem !important;
@@ -33,19 +39,13 @@ export default {
         color: #fff !important;
         font-size: $font-size-sm;
         margin-left: 75px;
-        border-left: 1.5px solid rgba(255,255,255,0.7);
+        border-left: 1.5px solid rgba(255, 255, 255, 0.7);
         padding: 0.1rem 0 0.1rem 1rem;
         strong {
-            opacity: .7;
-            padding-right: .5rem;
+            opacity: 0.7;
+            padding-right: 0.5rem;
         }
     }
-    padding: 1.5rem;
-    margin-bottom: $spacer;
-    @include border-radius($alert-border-radius);
-    background-color: $high;
-    -webkit-print-color-adjust: exact;
-    border: 2px solid $high;
     i {
         color: #fff !important;
         font-size: 4rem;

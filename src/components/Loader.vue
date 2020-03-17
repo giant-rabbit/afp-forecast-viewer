@@ -1,7 +1,7 @@
 <template>
     <transition name="fade">
-        <div v-if="show" class="afp-loader-container">
-            <div class="afp-loader">
+        <div v-if="show" class="afp-loader">
+            <div>
                 <div></div>
                 <div></div>
                 <div></div>
@@ -28,41 +28,42 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @import "../assets/bootstrap4/_functions.scss";
 @import "../assets/bootstrap4/_variables.scss";
 
-.afp-loader-container {
+.afp-loader {
     text-align: center;
     width: 100%;
     padding-top: 50px;
     height: 80vh;
 
-    .afp-loader {
+    div {
         display: inline-block;
         position: relative;
         width: 64px;
         height: 64px;
-    }
-    .afp-loader div {
-        display: inline-block;
-        position: absolute;
-        left: 6px;
-        width: 13px;
-        background: $gray-500;
-        animation: afp-loader 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
-    }
-    .afp-loader div:nth-child(1) {
-        left: 6px;
-        animation-delay: -0.24s;
-    }
-    .afp-loader div:nth-child(2) {
-        left: 26px;
-        animation-delay: -0.12s;
-    }
-    .afp-loader div:nth-child(3) {
-        left: 45px;
-        animation-delay: 0;
+
+        div {
+            display: inline-block;
+            position: absolute;
+            left: 6px;
+            width: 13px;
+            background: $gray-500;
+            animation: afp-loader 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+        }
+        div:nth-child(1) {
+            left: 6px;
+            animation-delay: -0.24s;
+        }
+        div:nth-child(2) {
+            left: 26px;
+            animation-delay: -0.12s;
+        }
+        div:nth-child(3) {
+            left: 45px;
+            animation-delay: 0;
+        }
     }
 }
 

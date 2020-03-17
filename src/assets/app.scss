@@ -29,6 +29,21 @@ html {
   letter-spacing: .5px !important;
 }
 
+.afp-html-h1,
+.afp-h1 {
+  margin-bottom: 2 * $headings-margin-bottom;
+}
+
+.afp-html-h2,
+.afp-h2 {
+  margin-bottom: 2 * $headings-margin-bottom;
+}
+
+.afp-html-h3,
+.afp-h3 {
+  margin-bottom: 1.5 * $headings-margin-bottom;
+}
+
 .afp-html-h6 {
   color: $gray-500 !important;
 }

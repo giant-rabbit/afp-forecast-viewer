@@ -1,13 +1,16 @@
 <template>
     <div>
-        <div :class="$style.row">
+        <div class="afp-row afp-mb-3">
             <!-- Zone selector -->
-            <div v-if="!preview" :class="$style.zoneSelector">
+            <div v-if="!preview" class="afp-col-md-4 afp-col-lg-3 afp-order-md-2">
                 <zone-selector />
             </div>
             <!-- Title -->
-            <div :class="$style.title">
-                <h1 class="afp-html-h1" v-if="data.product_type == 'forecast'">Backcountry Avalanche Forecast</h1>
+            <div class="afp-col-md-8 afp-col-lg-p">
+                <h1
+                    class="afp-html-h1"
+                    v-if="data.product_type == 'forecast'"
+                >Backcountry Avalanche Forecast</h1>
                 <h1 class="afp-html-h1" v-else>General Avalanche Information</h1>
                 <h2 class="afp-html-h2">
                     <i class="mdi mdi-map-marker"></i>
@@ -27,15 +30,15 @@
         />
 
         <!-- Bottom line -->
-        <div v-if="data.bottom_line != ''" :class="$style.bottomLine">
-            <v-popover :class="$style.dangerIcon">
+        <div v-if="data.bottom_line != ''" class="afp-bottomLine">
+            <v-popover class="afp-bottomLine-icon">
                 <img :src="this.$dangerScale[highestDanger].icon" v-tooltip="'Click to learn more'" />
                 <template slot="popover">
                     <div v-html="this.$dangerScale[highestDanger].advice"></div>
                 </template>
             </v-popover>
-            <h5 class="afp-html-h5" :class="$style.bottomLineTitle">THE BOTTOM LINE</h5>
-            <div :class="$style.bottomLineText" v-html="data.bottom_line"></div>
+            <h5 class="afp-html-h5 afp-bottomLine-title">THE BOTTOM LINE</h5>
+            <div class="afp-bottomLine-text" v-html="data.bottom_line"></div>
         </div>
 
         <!-- Tab navigation -->
@@ -311,6 +314,61 @@ export default {
     }
 }
 </script>
+
+<style scoped lang="scss">
+@import "../assets/bootstrap4/_functions.scss";
+@import "../assets/bootstrap4/_variables.scss";
+@import "../assets/bootstrap4/_mixins.scss";
+
+.afp-html-h2 {
+    color: $gray-700 !important;
+    margin-bottom: 0 !important;
+    text-indent: -0.75rem;
+    margin-left: 1.5rem;
+}
+.afp-bottomLine {
+    position: relative;
+    background-color: #fff;
+    padding: $spacer;
+    // border-radius: $border-radius;
+    border: 1.2px solid $gray-400;
+    box-shadow: $app-box-shadow;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    .afp-bottomLine-icon::v-deep {
+        height: 60px !important;
+        width: 90px !important;
+        position: absolute;
+        top: -20px;
+        left: -20px;
+        @include media-breakpoint-down(xs) {
+            left: -15px;
+        }
+        > div {
+            display: block !important;
+            cursor: help;
+            width: 100%;
+            height: 100%;
+        }
+        img {
+            height: 100% !important;
+            width: auto !important;
+            max-width: initial !important;
+        }
+    }
+
+    .afp-bottomLine-title {
+        display: inline-block;
+        border-bottom: 1px solid $gray-400;
+        padding-bottom: 0.1rem;
+    }
+
+    .afp-bottomLine-text {
+        font-size: $font-size-lg;
+        margin-top: 0.7rem;
+    }
+}
+</style>
 
 <style module lang="scss">
 @import "../assets/css/bootstrap/functions";
