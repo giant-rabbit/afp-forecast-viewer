@@ -389,71 +389,12 @@ export default {
     @include divider;
 }
 
-.title {
-    composes: col-md-8 from "../assets/css/style.css";
-    composes: col-lg-9 from "../assets/css/style.css";
-    h2 {
-        color: $gray-700 !important;
-        margin-bottom: 0 !important;
-        text-indent: -0.75rem;
-        margin-left: 1.5rem;
-    }
-}
-
-.zoneSelector {
-    composes: col-md-4 from "../assets/css/style.css";
-    composes: col-lg-3 from "../assets/css/style.css";
-    composes: order-md-2 from "../assets/css/style.css";
-}
 
 .row {
     composes: row from "../assets/css/style.css";
     margin-bottom: $spacer;
 }
 
-.bottomLine {
-    position: relative;
-    background-color: #fff;
-    padding: $spacer;
-    // border-radius: $border-radius;
-    border: 1.2px solid $gray-400;
-    box-shadow: $app-box-shadow;
-    margin-top: 3rem;
-    margin-bottom: 2rem;
-}
-
-.dangerIcon {
-    height: 60px !important;
-    width: 90px !important;
-    position: absolute;
-    top: -20px;
-    left: -20px;
-    @include media-breakpoint-down(xs) {
-        left: -15px;
-    }
-    div {
-        display: block !important;
-        cursor: help;
-        width: 100%;
-        height: 100%;
-    }
-    img {
-        height: 100% !important;
-        width: auto !important;
-        max-width: initial !important;
-    }
-}
-
-.bottomLineTitle {
-    display: inline-block;
-    border-bottom: 1px solid $gray-400;
-    padding-bottom: 0.1rem;
-}
-
-.bottomLineText {
-    font-size: $font-size-lg;
-    margin-top: 0.7rem;
-}
 
 .tabPane {
     min-height: 80vh;

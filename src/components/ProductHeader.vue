@@ -35,7 +35,7 @@ export default {
     props: {
         preview: Boolean,
         published: String,
-        expires: String,
+        expires: [String,Boolean],
         showExpires: {
             type: Boolean,
             default: true
