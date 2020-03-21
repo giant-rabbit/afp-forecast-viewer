@@ -1,26 +1,22 @@
 <template>
-    <div :class="$style.rose" class="rose">
-        <div :class="$style.roseContainer">
-            <label :class="[$style.aspectMarker, $style.north]">N</label>
-            <label :class="[$style.aspectMarker, $style.east]">E</label>
-            <label :class="[$style.aspectMarker, $style.south]">S</label>
-            <label :class="[$style.aspectMarker, $style.west]">W</label>
-            <label :class="[$style.aspectMarker, $style.northwest]">NW</label>
-            <label :class="[$style.aspectMarker, $style.northeast]">NE</label>
-            <label :class="[$style.aspectMarker, $style.southeast]">SE</label>
-            <label :class="[$style.aspectMarker, $style.southwest]">SW</label>
-            <div :class="[$style.elevationMarker, $style.elevationMarkerUpper]"></div>
-            <div :class="[$style.elevationMarker, $style.elevationMarkerMiddle]"></div>
-            <div :class="[$style.elevationMarker, $style.elevationMarkerLower]"></div>
+    <div class="afp-rose">
+        <div class="afp-roseContainer">
+            <label class="afp-html-label afp-aspectMarker afp-north">N</label>
+            <label class="afp-html-label afp-aspectMarker afp-east">E</label>
+            <label class="afp-html-label afp-aspectMarker afp-south">S</label>
+            <label class="afp-html-label afp-aspectMarker afp-west">W</label>
+            <label class="afp-html-label afp-aspectMarker afp-northwest">NW</label>
+            <label class="afp-html-label afp-aspectMarker afp-northeast">NE</label>
+            <label class="afp-html-label afp-aspectMarker afp-southeast">SE</label>
+            <label class="afp-html-label afp-aspectMarker afp-southwest">SW</label>
+            <div class="afp-elevationMarker afp-elevationMarkerUpper"></div>
+            <div class="afp-elevationMarker afp-elevationMarkerMiddle"></div>
+            <div class="afp-elevationMarker afp-elevationMarkerLower"></div>
+            <div class="afp-elevationLabel afp-elevationLabelUpper">{{this.config.elevations.upper}}</div>
             <div
-                :class="[$style.elevationLabel, $style.elevationLabelUpper]"
-            >{{this.config.elevations.upper}}</div>
-            <div
-                :class="[$style.elevationLabel, $style.elevationLabelMiddle]"
+                class="afp-elevationLabel afp-elevationLabelMiddle"
             >{{this.config.elevations.middle}}</div>
-            <div
-                :class="[$style.elevationLabel, $style.elevationLabelLower]"
-            >{{this.config.elevations.lower}}</div>
+            <div class="afp-elevationLabel afp-elevationLabelLower">{{this.config.elevations.lower}}</div>
             <svg
                 class="afp-rose-svg"
                 width="100%"
@@ -163,8 +159,6 @@
 export default {
     data() {
         return {
-            // borderColor: '#C8CACE',
-            // fillColor: '#515558'
             borderColor: '#515558',
             fillColor: '#C8CACE'
         }
@@ -177,12 +171,12 @@ export default {
     },
     methods: {
         roseColor() {
-            var rose = document.querySelector('#problem-' + this.rank + ' .rose svg')
+            var rose = document.querySelector('#problem-' + this.rank + ' .afp-rose svg')
             var color = this.fillColor
             this.location.forEach(function (each) {
                 rose.querySelector('[data-id="' + each + '"]').style.fill = color
             })
-        },
+        }
     },
     mounted() {
         this.roseColor()
@@ -191,164 +185,161 @@ export default {
 
 </script>
 
-<style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins/breakpoints";
+<style scoped lang="scss">
+@import "../assets/bootstrap4/_functions.scss";
+@import "../assets/bootstrap4/_variables.scss";
+@import "../assets/bootstrap4/_mixins.scss";
 
 $rose-size: 150px;
 $rose-size-xs: 120px;
 $rose-margin: 20px;
 
-.rose {
+.afp-rose {
     width: $rose-size + 2 * $rose-margin;
     margin-left: auto;
     margin-right: auto;
-}
-.roseContainer {
-    margin: $rose-margin;
-    margin-bottom: 80px;
-    position: relative;
-    height: $rose-size;
-    width: $rose-size;
-}
 
-.aspectMarker {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    font-size: 0.7rem;
-    font-weight: bold;
-    margin: 0;
-}
-.north {
-    left: 50%;
-    top: -10px;
-}
-.south {
-    left: 50%;
-    top: $rose-size + 10px;
-}
-.east {
-    top: 50%;
-    left: $rose-size + 10px;
-}
-.west {
-    top: 50%;
-    left: -10px;
-}
-.northwest {
-    left: 13px;
-    top: 13px;
-}
-.northeast {
-    left: $rose-size - 13px;
-    top: 13px;
-}
-.southeast {
-    left: $rose-size - 13px;
-    top: $rose-size - 13px;
-}
-.southwest {
-    left: 13px;
-    top: $rose-size - 13px;
-}
+    .afp-roseContainer {
+        margin: $rose-margin;
+        margin-bottom: 80px;
+        position: relative;
+        height: $rose-size;
+        width: $rose-size;
 
-.elevationMarker {
-    position: absolute;
-    height: $rose-size * 0.6;
-    width: 1px;
-    border-left: 1px solid $gray-700;
-    //border-right: 1px solid $gray-700;
-    background-color: $gray-700;
-    &:before {
-        content: "";
-        position: absolute;
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        border: 2px solid $gray-700;
-        background-color: $gray-700;
-        left: -3px;
+        .afp-aspectMarker {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin: 0;
+        }
+        .afp-north {
+            left: 50%;
+            top: -10px;
+        }
+        .afp-south {
+            left: 50%;
+            top: $rose-size + 10px;
+        }
+        .afp-east {
+            top: 50%;
+            left: $rose-size + 10px;
+        }
+        .afp-west {
+            top: 50%;
+            left: -10px;
+        }
+        .afp-northwest {
+            left: 13px;
+            top: 13px;
+        }
+        .afp-northeast {
+            left: $rose-size - 13px;
+            top: 13px;
+        }
+        .afp-southeast {
+            left: $rose-size - 13px;
+            top: $rose-size - 13px;
+        }
+        .afp-southwest {
+            left: 13px;
+            top: $rose-size - 13px;
+        }
+
+        .afp-elevationMarker {
+            position: absolute;
+            height: $rose-size * 0.6;
+            width: 1px;
+            border-left: 1px solid $gray-700;
+            //border-right: 1px solid $gray-700;
+            background-color: $gray-700;
+            &:before {
+                content: "";
+                position: absolute;
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                border: 2px solid $gray-700;
+                background-color: $gray-700;
+                left: -3px;
+            }
+        }
+        .afp-elevationMarkerUpper {
+            left: $rose-size * 0.42;
+            top: $rose-size * 0.58;
+        }
+        .afp-elevationMarkerMiddle {
+            left: $rose-size * 0.33;
+            top: $rose-size * 0.67;
+        }
+        .afp-elevationMarkerLower {
+            left: $rose-size * 0.23;
+            top: $rose-size * 0.77;
+        }
+        .afp-elevationLabel {
+            position: absolute;
+            font-size: 0.7rem;
+            transform: translateY(-30%);
+            padding-left: 0.3rem;
+            margin: 0;
+        }
+        .afp-elevationLabelUpper {
+            left: $rose-size * 0.42;
+            top: $rose-size * 0.58 + $rose-size * 0.6;
+        }
+        .afp-elevationLabelMiddle {
+            left: $rose-size * 0.33;
+            top: $rose-size * 0.675 + $rose-size * 0.6;
+        }
+        .afp-elevationLabelLower {
+            left: $rose-size * 0.23;
+            top: $rose-size * 0.77 + $rose-size * 0.6;
+        }
     }
-}
-.elevationMarkerUpper {
-    left: $rose-size * 0.42;
-    top: $rose-size * 0.58;
-}
-.elevationMarkerMiddle {
-    left: $rose-size * 0.33;
-    top: $rose-size * 0.67;
-}
-.elevationMarkerLower {
-    left: $rose-size * 0.23;
-    top: $rose-size * 0.77;
-}
 
-.elevationLabel {
-    position: absolute;
-    font-size: 0.7rem;
-    transform: translateY(-30%);
-    padding-left: 0.3rem;
-    margin: 0;
-}
-
-.elevationLabelUpper {
-    left: $rose-size * 0.42;
-    top: $rose-size * 0.58 + $rose-size * 0.6;
-}
-.elevationLabelMiddle {
-    left: $rose-size * 0.33;
-    top: $rose-size * 0.675 + $rose-size * 0.6;
-}
-.elevationLabelLower {
-    left: $rose-size * 0.23;
-    top: $rose-size * 0.77 + $rose-size * 0.6;
-}
-
-@include media-breakpoint-down(xs) {
-    .elevationLabel,
-    .elevationMarker {
-        display: none;
-    }
-    .rose {
+    @include media-breakpoint-down(xs) {
         width: $rose-size-xs + 2 * $rose-margin;
-    }
-    .roseContainer {
-        margin-bottom: 55px;
-        height: $rose-size-xs;
-        width: $rose-size-xs;
-    }
-    .north {
-        left: 50%;
-        top: -8px;
-    }
-    .south {
-        left: 50%;
-        top: $rose-size-xs + 8px;
-    }
-    .east {
-        top: 50%;
-        left: $rose-size-xs + 8px;
-    }
-    .west {
-        top: 50%;
-        left: -8px;
-    }
-    .northwest {
-        left: 10px;
-        top: 10px;
-    }
-    .northeast {
-        left: $rose-size-xs - 10px;
-        top: 10px;
-    }
-    .southeast {
-        left: $rose-size-xs - 10px;
-        top: $rose-size-xs - 10px;
-    }
-    .southwest {
-        left: 10px;
-        top: $rose-size-xs - 10px;
+        .afp-roseContainer {
+            margin-bottom: 55px;
+            height: $rose-size-xs;
+            width: $rose-size-xs;
+
+            .afp-elevationLabel .afp-elevationMarker {
+                display: none;
+            }
+            .afp-north {
+                left: 50%;
+                top: -8px;
+            }
+            .afp-south {
+                left: 50%;
+                top: $rose-size-xs + 8px;
+            }
+            .afp-east {
+                top: 50%;
+                left: $rose-size-xs + 8px;
+            }
+            .afp-west {
+                top: 50%;
+                left: -8px;
+            }
+            .afp-northwest {
+                left: 10px;
+                top: 10px;
+            }
+            .afp-northeast {
+                left: $rose-size-xs - 10px;
+                top: 10px;
+            }
+            .afp-southeast {
+                left: $rose-size-xs - 10px;
+                top: $rose-size-xs - 10px;
+            }
+            .afp-southwest {
+                left: 10px;
+                top: $rose-size-xs - 10px;
+            }
+        }
     }
 }
 </style>

@@ -1,21 +1,22 @@
 <template>
-    <div :class="$style.slider">
-        <div :class="$style.rail">
+    <div class="afp-slider">
+        <div class="afp-rail">
             <div
-                :class="$style.step"
+                class="afp-step"
                 v-for="(label, index) in labels"
                 :key="'step' + index"
                 :style="'bottom: ' + index / (options.length - 1) * 100 + '%'"
                 v-if="label != ''"
             ></div>
             <div
-                :class="[{[$style.labelActive] : index >= markActive[0] && index <= markActive[1]},  $style.label]"
+                :class="{'afp-active' : index >= markActive[0] && index <= markActive[1]}"
+                class="afp-label"
                 v-for="(label, index) in labels"
                 :key="'label' + index"
                 :style="'bottom: ' + index / (options.length - 1) * 100 + '%'"
             >{{label}}</div>
             <div
-                :class="$style.process"
+                class="afp-process"
                 :style="'bottom: calc(' + markActive[0] / (options.length - 1) * 100 + '% - 4px); top: calc(' + (100 - (markActive[1] / (options.length - 1) * 100)) + '% - 4px)'"
             ></div>
         </div>
@@ -45,15 +46,15 @@ export default {
 
 </script>
 
-<style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins/breakpoints";
+<style scoped lang="scss">
+@import "../assets/bootstrap4/_functions.scss";
+@import "../assets/bootstrap4/_variables.scss";
+@import "../assets/bootstrap4/_mixins.scss";
 
 $border: $gray-700;
 $fill: $gray-400;
 
-.slider {
+.afp-slider {
     position: relative;
     margin-left: auto;
     margin-right: auto;
@@ -64,54 +65,54 @@ $fill: $gray-400;
     @include media-breakpoint-down(xs) {
         height: 175px;
     }
-}
 
-.rail {
-    height: 100%;
-    border-left: 1px solid $border;
-    border-right: 1px solid $border;
-    background-color: $border;
-    -webkit-print-color-adjust: exact;
-    width: 1px;
-    position: relative;
-    top: 0;
-    left: 15px;
-}
+    .afp-rail {
+        height: 100%;
+        border-left: 1px solid $border;
+        border-right: 1px solid $border;
+        background-color: $border;
+        -webkit-print-color-adjust: exact;
+        width: 1px;
+        position: relative;
+        top: 0;
+        left: 15px;
+    }
 
-.step {
-    position: absolute;
-    border-top: 1px solid $border;
-    border-bottom: 1px solid $border;
-    background-color: $border;
-    -webkit-print-color-adjust: exact;
-    width: 24px;
-    height: 2px;
-    left: -12px !important;
-}
+    .afp-step {
+        position: absolute;
+        border-top: 1px solid $border;
+        border-bottom: 1px solid $border;
+        background-color: $border;
+        -webkit-print-color-adjust: exact;
+        width: 24px;
+        height: 2px;
+        left: -12px !important;
+    }
 
-.process {
-    position: absolute;
-    border: 2px solid $border;
-    background-color: $fill;
-    -webkit-print-color-adjust: exact;
-    width: 24px !important;
-    left: -12px;
-    transform: translateY(-1px);
-}
-.label {
-    position: absolute;
-    font-size: 14px;
-    line-height: 1;
-    text-transform: capitalize;
-    text-align: left;
-    color: $gray-500;
-    width: 8rem;
-    left: 30px;
-    transform: translateY(6px);
-}
+    .afp-process {
+        position: absolute;
+        border: 2px solid $border;
+        background-color: $fill;
+        -webkit-print-color-adjust: exact;
+        width: 24px !important;
+        left: -12px;
+        transform: translateY(-1px);
+    }
+    .afp-label {
+        position: absolute;
+        font-size: 14px;
+        line-height: 1;
+        text-transform: capitalize;
+        text-align: left;
+        color: $gray-500;
+        width: 8rem;
+        left: 30px;
+        transform: translateY(6px);
+    }
 
-.labelActive {
-    font-weight: bold;
-    color: $body-color;
+    .afp-Active {
+        font-weight: bold;
+        color: $body-color;
+    }
 }
 </style>
