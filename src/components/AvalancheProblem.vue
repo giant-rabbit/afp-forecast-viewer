@@ -61,7 +61,7 @@
                 </h5>
             </div>
         </div>
-        <figure v-if="problem.media.url !=''" class="afp-html-figure">
+        <figure v-if="problem.media.url !=''" class="afp-html-figure afp-print-hide">
             <div class="afp-imageContainer">
                 <img
                     v-if="problem.media.type == 'photo'"
@@ -90,7 +90,7 @@
             :caption="problem.media.caption"
             :id="problem.media.url"
         />
-        <div v-html="problem.discussion"></div>
+        <div class="afp-tinymce" v-html="problem.discussion"></div>
     </div>
 </template>
 

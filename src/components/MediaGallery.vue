@@ -102,9 +102,6 @@ $gallery-height: 200px;
 
 .gallery {
     margin-bottom: 2.5 * $spacer;
-    @media print {
-        display: none;
-    }
 }
 
 .galleryItem {

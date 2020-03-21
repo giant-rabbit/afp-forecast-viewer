@@ -62,35 +62,3 @@ export default {
     text-align: center;
 }
 </style>
-
-<style scoped lang="scss">
-.afp-synopsis::v-deep {
-    img {
-        max-width: 100% !important;
-        height: auto !important;
-    }
-    figure {
-        margin: 0 1rem 1rem 1rem !important;
-        display: table;
-        figcaption {
-            font-style: italic;
-            font-size: 80%;
-            display: table-caption;
-            caption-side: bottom;
-        }
-    }
-    figure.align-right {
-        float: right !important;
-        margin: 0 0 1rem 1rem !important;
-    }
-    figure.align-left {
-        float: left !important;
-        margin: 0 1rem 1rem 0 !important;
-    }
-    figure.align-center {
-        display: table;
-        margin-left: auto !important;
-        margin-right: auto !important;
-    }
-}
-</style>

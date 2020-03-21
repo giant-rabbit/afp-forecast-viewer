@@ -38,7 +38,7 @@
                 </template>
             </v-popover>
             <h5 class="afp-html-h5 afp-bottomLine-title">THE BOTTOM LINE</h5>
-            <div class="afp-bottomLine-text" v-html="data.bottom_line"></div>
+            <div class="afp-bottomLine-text afp-tinymce" v-html="data.bottom_line"></div>
         </div>
 
         <!-- Tab navigation -->
@@ -98,14 +98,14 @@
                 />
 
                 <!-- discussion -->
-                <div v-if="data.hazard_discussion != ''" :class="$style.divider">
+                <div v-if="data.hazard_discussion != ''" class="afp-divider afp-mb-4">
                     <h2 class="afp-html-h2">Forecast Discussion</h2>
-                    <div v-html="data.hazard_discussion"></div>
+                    <div class="afp-tinymce" v-html="data.hazard_discussion"></div>
                 </div>
 
                 <!-- media -->
                 <media-gallery
-                    :class="[$style.divider, $style.mediaGallery]"
+                    class="afp-divider afp-print-hide afp-mb-4"
                     :media="data.media"
                     scope="scope-forecast"
                     v-if="data.media.length > 0"
@@ -115,7 +115,7 @@
                 <!-- weather summary -->
                 <div
                     v-if="!preview && data.weather_table && data.product_type == 'forecast'"
-                    :class="[$style.divider, $style.wxSummary]"
+                    class="afp-divider afp-print-hide"
                 >
                     <h2 class="afp-html-h2">Weather Summary</h2>
                     <weather-table
@@ -123,17 +123,16 @@
                         :data="data.weather_table.data"
                         :zone="data.weather_table.zone_name"
                     />
-                    <div :class="$style.textCenter">
+                    <div class="afp-text-center">
                         <button
                             @click="scrollToTabs('weather')"
-                            :class="$style.btn"
-                            class="afp-btn-primary"
+                            class="afp-html-button afp-btn afp-btn-primary"
                         >Full Weather Forecast</button>
                     </div>
                 </div>
 
                 <!-- weather forecast for print -->
-                <div :class="[$style.divider, $style.printWx]">
+                <div class="afp-divider afp-print-show">
                     <h2 class="afp-html-h2">Weather Forecast</h2>
                     <weather-content v-if="data.weather_product" :data="data.weather_product" />
                 </div>
@@ -144,24 +143,23 @@
                 v-if="tabSelected == 'forecast' && data.product_type == 'summary'"
                 class="afp-tabPane"
             >
-                <div :class="$style.spacer">
+                <div class="afp-mb-3">
                     <h2 class="afp-html-h2">Forecast Discussion</h2>
                     <div
-                        class="afp-discussion"
-                        :class="$style.clearfix"
+                        class="afp-tinymce"
                         v-if="data.hazard_discussion != ''"
                         v-html="data.hazard_discussion"
                     ></div>
                 </div>
                 <!-- media -->
                 <media-gallery
-                    :class="[$style.divider, $style.mediaGallery]"
+                    class="afp-divider afp-print-hide afp-mb-4"
                     :media="data.media"
                     scope="scope-forecast"
                     v-if="data.media.length > 0"
                 />
                 <!-- weather forecast for print -->
-                <div :class="[$style.divider, $style.printWx]">
+                <div class="afp-divider afp-print-show">
                     <h2 class="afp-html-h2">Weather Forecast</h2>
                     <div v-if="data.weather_discussion != ''" v-html="data.weather_discussion"></div>
                 </div>
@@ -371,85 +369,5 @@ export default {
 
 .afp-tabPane {
     min-height: 80vh;
-}
-</style>
-
-<style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins";
-
-.spacer {
-    margin-bottom: $spacer;
-}
-.clearfix::after {
-    display: block;
-    content: "";
-    clear: both;
-}
-
-.divider {
-    margin-bottom: 1.5 * $spacer;
-    @include divider;
-}
-
-.row {
-    composes: row from "../assets/css/style.css";
-    margin-bottom: $spacer;
-}
-
-.wxSummary {
-    @media print {
-        display: none;
-    }
-}
-
-.btn {
-    composes: btn from "../assets/css/style.css";
-    composes: btn-primary from "../assets/css/style.css";
-}
-
-.textCenter {
-    text-align: center;
-}
-
-.printWx {
-    display: none;
-    @media print {
-        display: block;
-        margin-top: $spacer;
-    }
-}
-</style>
-
-<style scoped lang="scss">
-.afp-discussion::v-deep {
-    img {
-        max-width: 100% !important;
-        height: auto !important;
-    }
-    figure {
-        margin: 0 1rem 1rem 1rem !important;
-        display: table;
-        figcaption {
-            font-style: italic;
-            font-size: 80%;
-            display: table-caption;
-            caption-side: bottom;
-        }
-    }
-    figure.align-right {
-        float: right !important;
-        margin: 0 0 1rem 1rem !important;
-    }
-    figure.align-left {
-        float: left !important;
-        margin: 0 1rem 1rem 0 !important;
-    }
-    figure.align-center {
-        display: table;
-        margin-left: auto !important;
-        margin-right: auto !important;
-    }
 }
 </style>

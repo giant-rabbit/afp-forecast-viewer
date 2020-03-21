@@ -1,8 +1,8 @@
-
 /*!
  * Global App Styles
  * Prefixed with afp- and afp-html-
  */
+
 
 //
 // Typography
@@ -63,6 +63,44 @@ html {
 //   }
 // }
 
+
+//
+// TinyMCE styles
+// 
+
+.afp-tinymce {
+  @include clearfix;
+}
+
+.afp-tinymce-figure {
+  margin: 0 1rem 1rem 1rem !important;
+  display: table;
+
+  figcaption {
+    font-style: italic;
+    font-size: 80%;
+    display: table-caption;
+    caption-side: bottom;
+  }
+
+  &.align-right {
+    float: right !important;
+    margin: 0 0 1rem 1rem !important;
+  }
+
+  &.align-left {
+    float: left !important;
+    margin: 0 1rem 1rem 0 !important;
+  }
+
+  &.align-center {
+    display: table;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+
 // 
 // Misc
 // 
@@ -71,6 +109,8 @@ html {
   padding-top: 1.5 * $spacer;
   border-top: 1.5px solid $gray-200;
 }
+
+
 
 //
 // Print styles
@@ -96,6 +136,22 @@ html {
   }
 }
 
+.afp-print-hide {
+  @media print {
+    display: none;
+  }
+}
+
+.afp-print-show {
+  display: none;
+
+  @media print {
+    display: block;
+    margin-top: $spacer;
+  }
+}
+
+
 // 
 // Photoswipe
 // 
@@ -112,6 +168,7 @@ html {
     max-width: none !important;
   }
 }
+
 
 // 
 // Tooltips
@@ -132,7 +189,7 @@ html {
 
   &[x-placement^="top"] {
     margin-bottom: 5px;
- 
+
     .afp-tooltip-arrow {
       border-width: 5px 5px 0 5px;
       border-left-color: transparent !important;
