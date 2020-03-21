@@ -43,7 +43,7 @@ export default {
                     defaultClass: '',
                     defaultBaseClass: 'afp-popover',
                     defaultWrapperClass: 'afp-wrapper',
-                    defaultInnerClass: 'afp-popover-inner',
+                    defaultInnerClass: 'afp-popover-body',
                     defaultArrowClass: 'afp-popover-arrow',
                     defaultOpenClass: 'afp-popover-open',
                     defaultContainer: '.afp-forecast-view',
