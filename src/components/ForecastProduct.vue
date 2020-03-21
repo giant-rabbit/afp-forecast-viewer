@@ -105,7 +105,7 @@
 
                 <!-- media -->
                 <media-gallery
-                    class="afp-divider afp-print-hide afp-mb-4"
+                    class="afp-divider afp-print-hide"
                     :media="data.media"
                     scope="scope-forecast"
                     v-if="data.media.length > 0"
@@ -115,7 +115,7 @@
                 <!-- weather summary -->
                 <div
                     v-if="!preview && data.weather_table && data.product_type == 'forecast'"
-                    class="afp-divider afp-print-hide"
+                    class="afp-divider afp-print-hide afp-mb-4"
                 >
                     <h2 class="afp-html-h2">Weather Summary</h2>
                     <weather-table
@@ -153,7 +153,7 @@
                 </div>
                 <!-- media -->
                 <media-gallery
-                    class="afp-divider afp-print-hide afp-mb-4"
+                    class="afp-divider afp-print-hide"
                     :media="data.media"
                     scope="scope-forecast"
                     v-if="data.media.length > 0"
