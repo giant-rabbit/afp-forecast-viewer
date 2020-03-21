@@ -6,7 +6,7 @@
                 <zone-selector />
             </div>
             <!-- Title -->
-            <div class="afp-col-md-8 afp-col-lg-9 afp-col-lg-p">
+            <div class="afp-forecast-title afp-col-md-8 afp-col-lg-9 afp-col-lg-p">
                 <h1
                     class="afp-html-h1"
                     v-if="data.product_type == 'forecast'"
@@ -320,7 +320,7 @@ export default {
 @import "../assets/bootstrap4/_variables.scss";
 @import "../assets/bootstrap4/_mixins.scss";
 
-.afp-html-h2 {
+.afp-forecast-title .afp-html-h2 {
     color: $gray-700 !important;
     margin-bottom: 0 !important;
     text-indent: -0.75rem;

@@ -42,7 +42,7 @@
 
 // stylelint-disable selector-list-comma-newline-after
 // Shim for "new" HTML5 structural elements to display correctly (IE10, older browsers)
-.#{$class-prefix}-html-article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, section {
+.#{$class-prefix}-html-article, .#{$class-prefix}-html-aside, .#{$class-prefix}-html-dialog, .#{$class-prefix}-html-figcaption, .#{$class-prefix}-html-figure, .#{$class-prefix}-html-footer, .#{$class-prefix}-html-header, .#{$class-prefix}-html-hgroup, .#{$class-prefix}-html-main, .#{$class-prefix}-html-nav, .#{$class-prefix}-html-section {
   display: block;
 }
 // stylelint-enable selector-list-comma-newline-after
