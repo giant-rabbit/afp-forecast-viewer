@@ -1,20 +1,19 @@
 <template>
-    <div :class="$style.contentPanel">
+    <div class="afp-contentPanel afp-pt-3">
         <slot></slot>
     </div>
 </template>
 
-<style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins";
+<style scoped lang="scss">
+@import "../assets/bootstrap4/_functions.scss";
+@import "../assets/bootstrap4/_variables.scss";
+@import "../assets/bootstrap4/_mixins.scss";
 
-.contentPanel {
+.afp-contentPanel {
     background-color: #fff;
     position: relative;
     padding-right: 15px;
     padding-left: 15px;
-    padding-top: $spacer;
     border: 1px solid $gray-400;
     box-shadow: $app-box-shadow;
     @include media-breakpoint-down(xs) {

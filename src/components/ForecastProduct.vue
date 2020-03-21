@@ -2,11 +2,11 @@
     <div>
         <div class="afp-row afp-mb-3">
             <!-- Zone selector -->
-            <div v-if="!preview" class="afp-col-md-4 afp-col-lg-3 afp-order-md-2">
+            <div v-if="!preview" class="afp-col-md-4 afp-col-lg-3 afp-order-md-2 text-md-right">
                 <zone-selector />
             </div>
             <!-- Title -->
-            <div class="afp-col-md-8 afp-col-lg-p">
+            <div class="afp-col-md-8 afp-col-lg-9 afp-col-lg-p">
                 <h1
                     class="afp-html-h1"
                     v-if="data.product_type == 'forecast'"
@@ -80,7 +80,7 @@
             <!-- Avalanche forecast tab -->
             <div
                 v-if="tabSelected == 'forecast' && data.product_type == 'forecast'"
-                :class="$style.tabPane"
+                class="afp-tabPane"
             >
                 <!-- danger -->
                 <avalanche-danger
@@ -142,7 +142,7 @@
             <!-- Summary tab -->
             <div
                 v-if="tabSelected == 'forecast' && data.product_type == 'summary'"
-                :class="$style.tabPane"
+                class="afp-tabPane"
             >
                 <div :class="$style.spacer">
                     <h2 class="afp-html-h2">Forecast Discussion</h2>
@@ -170,7 +170,7 @@
             <!-- Forecast Weather tab -->
             <div
                 v-if="tabSelected == 'weather' && data.product_type == 'forecast'"
-                :class="$style.tabPane"
+                class="afp-tabPane"
             >
                 <div v-if="data.weather_product">
                     <product-header
@@ -186,13 +186,13 @@
             <!-- Summary Weather tab -->
             <div
                 v-if="tabSelected == 'weatherSummary'  && data.product_type == 'summary'"
-                :class="$style.tabPane"
+                class="afp-tabPane"
             >
                 <div v-if="data.weather_discussion != ''" v-html="data.weather_discussion"></div>
             </div>
 
             <!-- Blog tab -->
-            <div v-if="tabSelected == 'blog'" :class="$style.tabPane">
+            <div v-if="tabSelected == 'blog'" class="afp-tabPane">
                 <!-- Title -->
                 <div v-if="data.synopsis_product.avalanche_center != null">
                     <h1 class="afp-html-h1" v-html="data.synopsis_product.bottom_line"></h1>
@@ -208,7 +208,7 @@
 
             <!-- Custom tab content -->
             <div v-for="customTab in config.tabs" v-bind:key="customTab.id">
-                <div v-show="tabSelected == customTab.id" :class="$style.tabPane">
+                <div v-show="tabSelected == customTab.id" class="afp-tabPane">
                     <custom-tab :id="customTab.id" :tab="customTab.id"></custom-tab>
                 </div>
             </div>
@@ -368,6 +368,10 @@ export default {
         margin-top: 0.7rem;
     }
 }
+
+.afp-tabPane {
+    min-height: 80vh;
+}
 </style>
 
 <style module lang="scss">
@@ -389,16 +393,11 @@ export default {
     @include divider;
 }
 
-
 .row {
     composes: row from "../assets/css/style.css";
     margin-bottom: $spacer;
 }
 
-
-.tabPane {
-    min-height: 80vh;
-}
 .wxSummary {
     @media print {
         display: none;
