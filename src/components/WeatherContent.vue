@@ -3,12 +3,12 @@
         <!-- Weather discussion -->
         <div
             v-show="data.weather_discussion != ''"
-            :class="$style.spacer"
+            class="afp-tinymce afp-mb-3"
             v-html="data.weather_discussion"
         ></div>
 
         <!-- Weather tables -->
-        <div :class="$style.wxTable" v-for="(zone,index) in data.weather_data" :key="zone.zone_id">
+        <div class="afp-print-hide" v-for="(zone,index) in data.weather_data" :key="zone.zone_id">
             <weather-table
                 :periods="zone.periods"
                 :data="zone.data"
@@ -31,18 +31,3 @@ export default {
     }
 }
 </script>
-
-<style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins";
-
-.spacer {
-    margin-bottom: $spacer;
-}
-.wxTable {
-    @media print {
-        display: none;
-    }
-}
-</style>

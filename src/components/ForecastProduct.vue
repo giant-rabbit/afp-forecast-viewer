@@ -161,7 +161,7 @@
                 <!-- weather forecast for print -->
                 <div class="afp-divider afp-print-show">
                     <h2 class="afp-html-h2">Weather Forecast</h2>
-                    <div v-if="data.weather_discussion != ''" v-html="data.weather_discussion"></div>
+                    <div class="afp-tinymce" v-if="data.weather_discussion != ''" v-html="data.weather_discussion"></div>
                 </div>
             </div>
 
@@ -186,7 +186,7 @@
                 v-if="tabSelected == 'weatherSummary'  && data.product_type == 'summary'"
                 class="afp-tabPane"
             >
-                <div v-if="data.weather_discussion != ''" v-html="data.weather_discussion"></div>
+                <div class="afp-tinymce" v-if="data.weather_discussion != ''" v-html="data.weather_discussion"></div>
             </div>
 
             <!-- Blog tab -->
