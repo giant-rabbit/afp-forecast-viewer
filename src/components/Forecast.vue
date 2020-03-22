@@ -98,9 +98,9 @@ export default {
             await this.getWarning()
             document.body.classList.add('afp-forecast-type-' + this.data.product_type)
             document.body.classList.add('afp-forecast-zone-' + this.zone)
+            await this.getSynopsis()
             this.loaded = true
             this.$eventBus.$emit('loaded')
-            await this.getSynopsis()
         },
         getForecast() {
             return this.$api

@@ -45,11 +45,9 @@
             <router-link :to="{ name: 'Synopsis' }">Synopsis</router-link>
         </div>-->
         <transition name="fade" mode="out-in">
-            <keep-alive>
-                <router-view
-                    :key="$route.name + ($route.params.zone || '') + ($route.params.date || '') + ($route.params.product || '')"
-                ></router-view>
-            </keep-alive>
+            <router-view
+                :key="$route.name + ($route.params.zone || '') + ($route.params.date || '') + ($route.params.product || '')"
+            ></router-view>
         </transition>
     </div>
 </template>
@@ -86,12 +84,10 @@ export default {
 </script>
 
 <style lang="scss">
-
 // Import prefixed Bootstrap 4
 $class-prefix: "afp";
 @import "./assets/bootstrap4/bootstrap.scss";
 
 // Import app stylesheet
 @import "./assets/app.scss";
-
 </style>

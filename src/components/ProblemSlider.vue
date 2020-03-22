@@ -1,5 +1,5 @@
 <template>
-    <div class="afp-slider">
+    <div class="afp-problemSlider">
         <div class="afp-rail">
             <div
                 class="afp-step"
@@ -54,7 +54,7 @@ export default {
 $border: $gray-700;
 $fill: $gray-400;
 
-.afp-slider {
+.afp-problemSlider {
     position: relative;
     margin-left: auto;
     margin-right: auto;
@@ -98,6 +98,7 @@ $fill: $gray-400;
         left: -12px;
         transform: translateY(-1px);
     }
+    
     .afp-label {
         position: absolute;
         font-size: 14px;
@@ -108,11 +109,10 @@ $fill: $gray-400;
         width: 8rem;
         left: 30px;
         transform: translateY(6px);
-    }
-
-    .afp-Active {
-        font-weight: bold;
-        color: $body-color;
+        &.afp-active {
+            font-weight: bold;
+            color: $body-color;
+        }
     }
 }
 </style>
