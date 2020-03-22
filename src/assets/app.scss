@@ -13,6 +13,12 @@ html {
   font-size: 16px !important;
 }
 
+.afp-html-body {
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .afp-html-h1,
 .afp-html-h2,
 .afp-html-h3,
@@ -50,6 +56,11 @@ html {
 
 .afp-btn {
   letter-spacing: .5px;
+}
+
+.afp-html-label {
+  font-size: .8rem;
+  font-weight: 700;
 }
 
 // a:not(.afp-btn-primary) {
@@ -174,7 +185,7 @@ html {
 // Tooltips
 // 
 .afp-tooltip {
-  //z-index: 10000;
+  z-index: 10000;
   opacity: 1;
 
   .afp-tooltip-arrow {
@@ -219,14 +230,14 @@ html {
 }
 
 .afp-popover {
-  // z-index: 10000;
+  z-index: 10000;
   box-shadow: $popover-box-shadow;
 
   &:focus {
     outline: none;
   }
 
-  .afp-popover body {
+  .afp-popover-body {
     // color: $popover-body-color;
     // background: $popover-bg;
     // font-size: $popover-font-size;
@@ -234,19 +245,22 @@ html {
     // border-radius: $popover-border-radius;
     // max-width: $popover-max-width;
 
-    // h1,
-    // h2,
-    // h3,
-    // h4,
-    // h5,
-    // h5,
-    // h6 {
-    //   color: $gray-400 !important
-    // }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h5,
+    h6 {
+      color: $gray-400 !important
+    }
 
     .afp-html-a,
     .afp-html-a:hover {
       color: $no-rating-border !important;
+    }
+    .afp-html-p:last-of-type {
+      margin-bottom: 0;
     }
   }
 
