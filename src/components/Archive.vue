@@ -1,39 +1,38 @@
 <template>
-    <div :class="$style.container">
+    <div class="afp-container afp-pt-3">
         <!-- Title -->
-        <div :class="$style.title">
+        <div class="afp-mb-3">
             <button
                 v-if="product"
                 @click="$router.replace({ name: 'Archive' })"
-                :class="$style.btn"
-                class="afp-btn-primary"
+                class="afp-html-button afp-btn afp-btn-primary afp-mb-2"
             >
                 <i class="mdi mdi-arrow-left"></i> All Products
             </button>
             <h1 class="afp-html-h1">Forecast Archive</h1>
-            <h2 class="afp-html-h2" v-if="productName" v-html="productName"></h2>
-            <h2 class="afp-html-h2" v-else>Choose a zone or product:</h2>
+            <h2 class="afp-html-h2 afp-gray-700" v-if="productName" v-html="productName"></h2>
+            <h2 class="afp-html-h2 afp-gray-700" v-else>Choose a zone or product:</h2>
         </div>
 
         <!-- Product selector buttons -->
-        <div v-if="!product" :class="$style.productButtons">
-            <button
-                :class="$style.productButton"
-                @click="$router.replace({ name: 'ArchiveProduct', params: { product: urlString(zone.name) } })"
-                v-for="zone in centerMeta.zones"
-                :key="zone.id"
-            >{{zone.name}}</button>
-        </div>
-        <div v-if="!product" :class="$style.productButtons">
-            <button
-                @click="$router.replace({ name: 'ArchiveProduct', params: { product: 'blog' } })"
-                :class="$style.productButton"
-            >Conditions Blog</button>
+        <div v-if="!product" class="afp-row">
+            <div class="afp-col-md-8 afp-col-lg-6">
+                <button
+                    class="afp-html-button afp-btn afp-btn-archive"
+                    @click="$router.replace({ name: 'ArchiveProduct', params: { product: urlString(zone.name) } })"
+                    v-for="zone in centerMeta.zones"
+                    :key="zone.id"
+                >{{zone.name}}</button>
+                <button
+                    @click="$router.replace({ name: 'ArchiveProduct', params: { product: 'blog' } })"
+                    class="afp-html-button afp-btn afp-btn-archive afp-mt-3"
+                >Conditions Blog</button>
+            </div>
         </div>
 
         <!-- Archive -->
         <keep-alive>
-            <content-panel v-if="product" :class="$style.panel">
+            <content-panel v-if="product">
                 <alert />
                 <loader />
                 <!-- Forecast Archive -->
@@ -114,52 +113,16 @@ export default {
 }
 </script>
 
-<style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins";
+<style scoped lang="scss">
+@import "../assets/bootstrap4/_functions.scss";
+@import "../assets/bootstrap4/_variables.scss";
+@import "../assets/bootstrap4/_mixins.scss";
 
-.spacer {
-    margin-bottom: $spacer;
-}
-
-.container {
-    composes: container from "../assets/css/style.css";
+.afp-container {
     min-height: 100vh;
-    position: relative;
-    padding-top: $spacer;
-    @media print {
-        width: 100% !important;
-        max-width: none;
-    }
 }
 
-.title {
-    h2 {
-        color: $gray-700 !important;
-    }
-    margin-bottom: $spacer !important;
-}
-.btn {
-    composes: btn from "../assets/css/style.css";
-    composes: btn-primary from "../assets/css/style.css";
-    margin-bottom: 0.5 * $spacer !important;
-}
-
-.productButtons {
-    margin-bottom: $spacer;
-    @include media-breakpoint-up(md) {
-        width: 75%;
-        // margin-left: auto;
-        // margin-right: auto;
-    }
-    @include media-breakpoint-up(lg) {
-        width: 50%;
-    }
-}
-
-.productButton {
-    composes: btn from "../assets/css/style.css";
+.afp-btn.afp-btn-archive {
     background-color: #fff;
     border-color: $gray-400;
     color: $gray-700;
