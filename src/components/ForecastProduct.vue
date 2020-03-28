@@ -30,16 +30,7 @@
         />
 
         <!-- Bottom line -->
-        <div v-if="data.bottom_line != ''" class="afp-bottomLine">
-            <v-popover class="afp-bottomLine-icon">
-                <img :src="this.$dangerScale[highestDanger].icon" v-tooltip="'Click to learn more'" />
-                <template slot="popover">
-                    <div v-html="this.$dangerScale[highestDanger].advice"></div>
-                </template>
-            </v-popover>
-            <h5 class="afp-html-h5 afp-bottomLine-title">THE BOTTOM LINE</h5>
-            <div class="afp-bottomLine-text afp-tinymce" v-html="data.bottom_line"></div>
-        </div>
+        <bottom-line v-if="data.bottom_line != ''" :bottomLine="data.bottom_line" :highestDanger="highestDanger" />
 
         <!-- Tab navigation -->
         <tabs
@@ -219,6 +210,7 @@
 import ZoneSelector from '../components/ZoneSelector'
 import ProductHeader from '../components/ProductHeader'
 import AvyWarning from '../components/AvyWarning'
+import BottomLine from '../components/BottomLine'
 import Tabs from '../components/Tabs'
 import ContentPanel from '../components/ContentPanel'
 import AvalancheDanger from '../components/AvalancheDanger'
@@ -287,6 +279,7 @@ export default {
         ZoneSelector,
         ProductHeader,
         AvyWarning,
+        BottomLine,
         Tabs,
         ContentPanel,
         AvalancheDanger,
