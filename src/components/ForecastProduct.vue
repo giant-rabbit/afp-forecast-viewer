@@ -6,13 +6,13 @@
                 <zone-selector />
             </div>
             <!-- Title -->
-            <div class="afp-forecast-title afp-col-md-8 afp-col-lg-9 afp-col-lg-p">
+            <div class="afp-forecast-title afp-col-md-8 afp-col-lg-9">
                 <h1
                     class="afp-html-h1"
                     v-if="data.product_type == 'forecast'"
                 >Backcountry Avalanche Forecast</h1>
                 <h1 class="afp-html-h1" v-else>General Avalanche Information</h1>
-                <h2 class="afp-html-h2">
+                <h2 class="afp-html-h2 afp-gray-700">
                     <i class="mdi mdi-map-marker"></i>
                     {{zone}}
                 </h2>
@@ -307,58 +307,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../assets/bootstrap4/_functions.scss";
-@import "../assets/bootstrap4/_variables.scss";
-@import "../assets/bootstrap4/_mixins.scss";
-
-.afp-forecast-title .afp-html-h2 {
-    color: $gray-700 !important;
-    margin-bottom: 0 !important;
-    text-indent: -0.75rem;
-    margin-left: 1.5rem;
-}
-.afp-bottomLine {
-    position: relative;
-    background-color: #fff;
-    padding: $spacer;
-    // border-radius: $border-radius;
-    border: 1.2px solid $gray-400;
-    box-shadow: $app-box-shadow;
-    margin-top: 3rem;
-    margin-bottom: 2rem;
-    .afp-bottomLine-icon::v-deep {
-        height: 60px !important;
-        width: 90px !important;
-        position: absolute;
-        top: -20px;
-        left: -20px;
-        @include media-breakpoint-down(xs) {
-            left: -15px;
-        }
-        > div {
-            display: block !important;
-            cursor: help;
-            width: 100%;
-            height: 100%;
-        }
-        img {
-            height: 100% !important;
-            width: auto !important;
-            max-width: initial !important;
-        }
-    }
-
-    .afp-bottomLine-title {
-        display: inline-block;
-        border-bottom: 1px solid $gray-400;
-        padding-bottom: 0.1rem;
-    }
-
-    .afp-bottomLine-text {
-        font-size: $font-size-lg;
-        margin-top: 0.7rem;
-    }
-}
 
 .afp-tabPane {
     min-height: 80vh;

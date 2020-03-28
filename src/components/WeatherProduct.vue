@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div class="afp-weather afp-mb-3">
+        <div class="afp-mb-3">
             <h1 class="afp-html-h1">Weather Forecast</h1>
-            <h2 class="afp-html-h2">
+            <h2 class="afp-html-h2 afp-gray-700">
                 <i class="mdi mdi-map-marker"></i>
                 All Zones
             </h2>
@@ -45,13 +45,3 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-@import "../assets/bootstrap4/_functions.scss";
-@import "../assets/bootstrap4/_variables.scss";
-
-.afp-weather {
-    .afp-html-h2 {
-        color: $gray-700 !important;
-    }
-}
-</style>

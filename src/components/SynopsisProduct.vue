@@ -1,12 +1,8 @@
 <template>
     <div>
-        <div class="afp-blog afp-mb-3">
+        <div class="afp-mb-3">
             <h1 class="afp-html-h1">Conditions Blog</h1>
-            <h2 class="afp-html-h2" v-html="data.bottom_line"></h2>
-            <!-- <h2 class="afp-html-h2">
-                <i class="mdi mdi-map-marker"></i>
-                All Zones
-            </h2> -->
+            <h2 class="afp-html-h2 afp-gray-700" v-html="data.bottom_line"></h2>
         </div>
         <!-- Header -->
         <product-header
@@ -46,13 +42,3 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-@import "../assets/bootstrap4/_functions.scss";
-@import "../assets/bootstrap4/_variables.scss";
-
-.afp-blog {
-    .afp-html-h2 {
-        color: $gray-700 !important;
-    }
-}
-</style>
