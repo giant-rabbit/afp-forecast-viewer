@@ -100,10 +100,6 @@ export default {
                 let zone = this.centerMeta.zones.find(zone => zone.name == this.product)
                 this.product = zone.id
                 this.productName = '<i class="mdi mdi-map-marker"></i>' + zone.name
-                // this.loaded = false
-                // this.notFound = false
-                // this.$eventBus.$emit('loading')
-                // this.getProducts()
             }
         }
     },

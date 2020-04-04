@@ -1,11 +1,11 @@
 <template>
-    <div v-show="loaded">
+    <div class="afp-blog-archive" v-show="loaded">
         <synopsis-filter :data="data" ref="synopsisFilter" key="synopsisFilter" />
         <v-client-table :columns="columns" :data="data" :options="options" ref="synopsisTable" key="synopsisTable">
             <div slot="start_date" slot-scope="props">
                 <!-- need logic for link based on product type -->
                 <router-link
-                    class
+                    class="afp-html-a"
                     v-tooltip="'View product'"
                     :to="{ name: 'ArchivedSynopsis', params: { date: props.row.start_date } }"
                 >{{props.row.start_date}}</router-link>
@@ -49,7 +49,7 @@ export default {
                 },
                 sortable: ['start_date'],
                 filterable: true,
-                perPage: 100,
+                perPage: 20,
                 pagination: { chunk: 5 },
                 sortIcon: {
                     base: 'mdi',
@@ -125,17 +125,6 @@ export default {
 
 </script>
 
-<style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins";
-
-.container,
-.title {
-    margin-bottom: $spacer !important;
-}
-</style>
-
 <style scoped lang="scss">
 @import "../assets/css/bootstrap/functions";
 @import "../assets/css/_variables.scss";
@@ -143,37 +132,10 @@ export default {
 
 .VueTables::v-deep {
     padding-bottom: 1rem;
-    table {
-        border-collapse: collapse;
-        width: 100%;
-        margin-bottom: $spacer;
-        color: $table-color;
-        background-color: $table-bg; // Reset for nesting within parents with `background-color`.
-
+    .afp-table {
         th,
         td {
-            padding: $table-cell-padding;
-            vertical-align: top;
-            border-top: $table-border-width solid $table-border-color;
-        }
-
-        thead th {
-            vertical-align: bottom;
-            border-bottom: (2 * $table-border-width) solid $table-border-color;
-        }
-
-        tbody + tbody {
-            border-top: (2 * $table-border-width) solid $table-border-color;
-        }
-        th {
-            font-family: $headings-font-family;
-            font-weight: $headings-font-weight;
-            font-size: $font-size-sm;
-            text-transform: uppercase;
-        }
-        td,
-        th {
-            vertical-align: middle !important;
+            padding: 0.3rem 0.75rem;
             border-top: none;
             &.afp-table-time {
                 width: 140px;
@@ -182,7 +144,16 @@ export default {
                 white-space: initial !important;
             }
         }
+
+        th {
+            font-family: $headings-font-family;
+            font-weight: $headings-font-weight;
+            font-size: $font-size-sm;
+            text-transform: uppercase;
+            padding: $table-cell-padding;
+        }
     }
+  
     .VueTables__sort-icon {
         float: none !important;
         margin-left: 3px;
@@ -194,50 +165,12 @@ export default {
         cursor: pointer;
     }
     .VuePagination {
-        nav {
-            width: 100%;
-            text-align: center;
-            .afp-pagination {
-                display: flex;
-                @include list-unstyled();
-                @include border-radius();
-                justify-content: center;
-            }
-            .afp-page-link {
-                position: relative;
-                display: block;
-                padding: $pagination-padding-y $pagination-padding-x;
-                margin-left: -$pagination-border-width;
-                line-height: $pagination-line-height;
-                color: $gray-900 !important;
-                background-color: $pagination-bg;
-                border-radius: $border-radius;
-                border: none;
-                font-weight: bold;
-                margin: 0 1px;
-                &:hover {
-                    color: $pagination-hover-color;
-                    text-decoration: none;
-                    background-color: $pagination-hover-bg;
-                }
-
-                &:focus {
-                    outline: $pagination-focus-outline;
-                }
-            }
-            .afp-page-item {
-                &.afp-page-link-active .afp-page-link {
-                    color: #fff !important;
-                    background-color: $gray-600;
-                }
-
-                &.afp-page-link-disabled .afp-page-link {
-                    color: $gray-300 !important;
-                    cursor: not-allowed;
-                    background-color: $pagination-disabled-bg;
-                }
-            }
+        .afp-page-link {
+            border-radius: $border-radius;
+            font-weight: bold;
+            margin: 0 1px;
         }
+
         .VuePagination__count {
             width: 100%;
             font-family: $headings-font-family;

@@ -67,17 +67,16 @@ html {
   color: $gray-700 !important;
 }
 
-// a:not(.afp-btn-primary) {
-//   color: $link-color;
-//   text-decoration: $link-decoration;
-//   background-color: transparent; // Remove the gray background on active links in IE 10.
+    
+//
+// Forms
+// 
 
-//   @include hover {
-//     color: $link-hover-color;
-//     text-decoration: $link-hover-decoration;
-//   }
-// }
-
+.afp-html-input,
+.afp-html-select {
+    height: 2.5rem !important;
+    font-size: $font-size-sm;
+}
 
 //
 // TinyMCE styles

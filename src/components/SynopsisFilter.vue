@@ -1,27 +1,25 @@
 <template>
-    <div :class="$style.spacer">
-        <div :class="$style.row">
-            <div :class="[$style.column]">
+    <div class="afp-filter afp-mb-2">
+        <div class="afp-filter-row">
+            <div class="afp-filter-column">
                 <input
-                    :class="$style.input"
+                    class="afp-html-input afp-form-control"
                     placeholder="Filter by Date (YYYY or YYYY-MM-DD)"
                     v-model="dateFilter"
                     type="text"
                 />
             </div>
-            <div :class="[$style.columnButton]">
+            <div class="afp-filter-columnButton">
                 <button
                     v-tooltip="'Clear filters'"
                     @click="resetTableFilter"
-                    :class="$style.reset"
-                    class="afp-btn-primary"
-                >
-                    <i class="mdi mdi-filter-remove"></i>
-                </button>
+                    class="afp-html-button afp-btn afp-btn-primary"
+                ><i class="mdi mdi-filter-remove"></i></button>
             </div>
         </div>
     </div>
 </template>
+
 
 <script>
 import Vue from 'vue'
@@ -65,81 +63,42 @@ export default {
 
 </script>
 
-<style module lang="scss">
+<style scoped lang="scss">
 @import "../assets/css/bootstrap/functions";
 @import "../assets/css/_variables.scss";
 @import "../assets/css/bootstrap/mixins";
-
-.spacer {
-    margin-bottom: .5 * $spacer;
-}
-
-.row {
-    width: 100%;
-    display: flex;
-}
-
-.column,
-.columnButton {
-    padding: 0 0.1rem 0.5rem 0.1rem;
-}
-
-.column {
-    width: calc(100% - 3rem);
-    display: inline-block;
-}
-
-.columnButton {
-    width: 3rem;
-    display: inline-block;
-}
-
-@include media-breakpoint-up(md) {
-    .column {
-        width: 50%;
+.afp-filter {
+    .afp-filter-column,
+    .afp-filter-columnButton {
+        padding: 0 0.1rem 0.5rem 0.1rem;
     }
-}
-@include media-breakpoint-up(lg) {
-    .column {
-        width: 33%;
-    }
-}
 
-.input,
-.select {
-    display: block;
-    width: 100%;
-    height: 2.5rem;
-    font-family: $font-family-base;
-    padding: 0.4rem 2.5rem 0.4rem 1rem;
-    font-size: $font-size-sm;
-    line-height: 1.5;
-    color: $gray-700;
-    background-color: $gray-300;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: $border-radius;
-    appearance: none !important;
-    box-shadow: none;
-    &:focus {
-        background-color: #fff;
-        border: 1px solid #c8ced3;
-        outline: 0;
-        box-shadow: none;
+    .afp-filter-column {
+        width: calc(100% - 3rem);
+        display: inline-block;
     }
-}
-.select {
-    background-position: right 5px top 50%;
-    background-repeat: no-repeat;
-    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 140 140' width='16' height='16' xmlns='http://www.w3.org/2000/svg'><g><path d='m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z' fill='@text-color'/></g></svg>");
-    padding-right: 26px;
-}
 
-.reset {
-    composes: btn from "../assets/css/style.css";
-    composes: btn-primary from "../assets/css/style.css";
-    display: block;
-    width: 100%;
-    height: 2.5rem;
+    .afp-filter-columnButton {
+        width: 3rem;
+        display: inline-block;
+    }
+
+    @include media-breakpoint-up(md) {
+        .afp-filter-column {
+            width: 50%;
+        }
+    }
+    @include media-breakpoint-up(lg) {
+        .afp-filter-column {
+            width: 33%;
+        }
+    }
+
+    .afp-html-button {
+        display: block;
+        width: 100%;
+        height: 2.5rem;
+        padding: .375rem .75rem;
+    }
 }
 </style>
