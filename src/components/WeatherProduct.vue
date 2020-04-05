@@ -2,9 +2,8 @@
     <div>
         <div class="afp-mb-3">
             <h1 class="afp-html-h1">Weather Forecast</h1>
-            <h2 class="afp-html-h2 afp-gray-700">
-                <i class="mdi mdi-map-marker"></i>
-                All Zones
+            <h2 class="afp-html-h2 afp-gray-700 afp-zone-title">
+                <i class="mdi mdi-map-marker"></i>All Zones
             </h2>
         </div>
         <!-- Header -->

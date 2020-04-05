@@ -10,9 +10,8 @@
                 <!-- Warning -->
                 <div v-for="(forecast, index) in data.forecasts" v-bind:key="'forecast-' + index">
                     <!-- Title -->
-                    <h2 class="afp-html-h2 afp-gray-700 afp-mb-3">
-                        <i class="mdi mdi-map-marker"></i>
-                        {{centerMeta.zones[index].name}}
+                    <h2 class="afp-html-h2 afp-gray-700 afp-zone-title afp-mb-3">
+                        <i class="mdi mdi-map-marker"></i>{{centerMeta.zones[index].name}}
                     </h2>
                     <!-- Warning -->
                     <avy-warning

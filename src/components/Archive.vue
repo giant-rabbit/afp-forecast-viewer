@@ -10,7 +10,7 @@
                 <i class="mdi mdi-arrow-left"></i> All Products
             </button>
             <h1 class="afp-html-h1">Forecast Archive</h1>
-            <h2 class="afp-html-h2 afp-gray-700" v-if="productName" v-html="productName"></h2>
+            <h2 class="afp-html-h2 afp-gray-700 afp-zone-title" v-if="productName" v-html="productName"></h2>
             <h2 class="afp-html-h2 afp-gray-700" v-else>Choose a zone or product:</h2>
         </div>
 

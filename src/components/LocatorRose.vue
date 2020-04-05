@@ -304,7 +304,7 @@ $rose-margin: 20px;
             height: $rose-size-xs;
             width: $rose-size-xs;
 
-            .afp-elevationLabel .afp-elevationMarker {
+            .afp-elevationLabel, .afp-elevationMarker {
                 display: none;
             }
             .afp-north {

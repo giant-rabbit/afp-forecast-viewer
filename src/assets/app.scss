@@ -67,15 +67,23 @@ html {
   color: $gray-700 !important;
 }
 
-    
+.afp-zone-title {
+  text-indent: -.8rem;
+  margin-left: 1.4rem;
+  i {
+    padding-right: .3rem;
+  }
+}
+
+
 //
 // Forms
 // 
 
 .afp-html-input,
 .afp-html-select {
-    height: 2.5rem !important;
-    font-size: $font-size-sm;
+  height: 2.5rem !important;
+  font-size: $font-size-sm;
 }
 
 //
@@ -262,6 +270,7 @@ html {
     .afp-html-a:hover {
       color: $no-rating-border !important;
     }
+
     .afp-html-p:last-of-type {
       margin-bottom: 0;
     }

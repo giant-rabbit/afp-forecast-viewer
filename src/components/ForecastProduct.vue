@@ -12,9 +12,8 @@
                     v-if="data.product_type == 'forecast'"
                 >Backcountry Avalanche Forecast</h1>
                 <h1 class="afp-html-h1" v-else>General Avalanche Information</h1>
-                <h2 class="afp-html-h2 afp-gray-700">
-                    <i class="mdi mdi-map-marker"></i>
-                    {{zone}}
+                <h2 class="afp-html-h2 afp-gray-700 afp-zone-title">
+                    <i class="mdi mdi-map-marker"></i>{{zone}}
                 </h2>
             </div>
         </div>
