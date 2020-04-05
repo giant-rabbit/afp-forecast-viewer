@@ -107,7 +107,7 @@ $fill: $gray-400;
         text-align: left;
         color: $gray-500;
         width: 8rem;
-        left: 30px;
+        left: 20px;
         transform: translateY(6px);
         &.afp-active {
             font-weight: bold;

@@ -127,6 +127,7 @@ export default {
 @import "../assets/bootstrap4/_mixins.scss";
 
 .afp-problem {
+    overflow: hidden;
     @include clearfix;
     .afp-html-h2 {
         display: inline-block;

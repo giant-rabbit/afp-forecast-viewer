@@ -83,7 +83,6 @@ html {
 .afp-html-input,
 .afp-html-select {
   height: 2.5rem !important;
-  font-size: $font-size-sm;
 }
 
 //
@@ -122,6 +121,13 @@ html {
   }
 }
 
+.afp-tinymce-img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.afp-tinymce-iframe {
+  max-width: 100% !important;
+}
 
 // 
 // Misc
