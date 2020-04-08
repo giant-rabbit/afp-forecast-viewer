@@ -20,7 +20,7 @@
       box-shadow: none !important;
     }
 
-    a {
+    .#{$class-prefix}-html-a {
       &:not(.#{$class-prefix}-btn) {
         text-decoration: underline;
       }
@@ -46,11 +46,11 @@
     // content: "";
     //}
 
-    pre {
+    .#{$class-prefix}-html-pre {
       white-space: pre-wrap !important;
     }
-    pre,
-    blockquote {
+    .#{$class-prefix}-html-pre,
+    .#{$class-prefix}-html-blockquote {
       border: $border-width solid #999;   // Bootstrap custom code; using `$border-width` instead of 1px
       page-break-inside: avoid;
     }
@@ -65,19 +65,19 @@
     }
 
     tr,
-    img {
+    .#{$class-prefix}-html-img {
       page-break-inside: avoid;
     }
 
-    p,
-    h2,
-    h3 {
+    .#{$class-prefix}-html-p,
+    .#{$class-prefix}-html-h2,
+    .#{$class-prefix}-html-h3 {
       orphans: 3;
       widows: 3;
     }
 
-    h2,
-    h3 {
+    .#{$class-prefix}-html-h2,
+    .#{$class-prefix}-html-h3 {
       page-break-after: avoid;
     }
 
@@ -89,7 +89,7 @@
     @page {
       size: $print-page-size;
     }
-    body {
+    .#{$class-prefix}-html-body {
       min-width: $print-body-min-width !important;
     }
     .#{$class-prefix}-container {
