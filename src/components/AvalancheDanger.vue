@@ -1,21 +1,22 @@
 <template>
-    <div :class="$style.danger">
-        <div :class="$style.row">
+    <div class="afp-danger afp-mb-4">
+        <div class="afp-row">
             <div
-                :class="{[$style.today] : outlookDanger, [$style.todayNoOutlook] : !outlookDanger}"
+                class="afp-danger-today afp-mb-3"
+                :class="{'afp-danger-noOutlook' : !outlookDanger }"
             >
-                <h2>
+                <h2 class="afp-html-h2">
                     Avalanche Danger
                     <info :content="this.$helpContent.avalancheDanger" />
                 </h2>
                 {{ todayDate }}
-                <div :class="$style.dangerGraphic">
-                    <div :class="$style.elevationBlock">
-                        <span :class="$style.elevationLabel">{{config.elevations.upper}}</span>
+                <div class="afp-dangerGraphic">
+                    <div class="afp-elevationBlock">
+                        <span class="afp-elevationLabel">{{config.elevations.upper}}</span>
                         <span
-                            :class="$style.dangerLabel"
+                            class="afp-dangerLabel"
                         >{{this.$dangerScale[currentDanger.upper].rating}} ({{currentDanger.upper}})</span>
-                        <v-popover :class="$style.dangerIcon">
+                        <v-popover class="afp-dangerIcon">
                             <img
                                 :src="this.$dangerScale[currentDanger.upper].icon"
                                 v-tooltip="'Click to learn more'"
@@ -25,12 +26,12 @@
                             </template>
                         </v-popover>
                     </div>
-                    <div :class="$style.elevationBlock">
-                        <span :class="$style.elevationLabel">{{config.elevations.middle}}</span>
+                    <div class="afp-elevationBlock">
+                        <span class="afp-elevationLabel">{{config.elevations.middle}}</span>
                         <span
-                            :class="$style.dangerLabel"
+                            class="afp-dangerLabel"
                         >{{this.$dangerScale[currentDanger.middle].rating}} ({{currentDanger.middle}})</span>
-                        <v-popover :class="$style.dangerIcon">
+                        <v-popover class="afp-dangerIcon">
                             <img
                                 :src="this.$dangerScale[currentDanger.middle].icon"
                                 v-tooltip="'Click to learn more'"
@@ -40,12 +41,12 @@
                             </template>
                         </v-popover>
                     </div>
-                    <div :class="$style.elevationBlock">
-                        <span :class="$style.elevationLabel">{{config.elevations.lower}}</span>
+                    <div class="afp-elevationBlock">
+                        <span class="afp-elevationLabel">{{config.elevations.lower}}</span>
                         <span
-                            :class="$style.dangerLabel"
+                            class="afp-dangerLabel"
                         >{{this.$dangerScale[currentDanger.lower].rating}} ({{currentDanger.lower}})</span>
-                        <v-popover :class="$style.dangerIcon">
+                        <v-popover class="afp-dangerIcon">
                             <img
                                 :src="this.$dangerScale[currentDanger.lower].icon"
                                 v-tooltip="'Click to learn more'"
@@ -55,21 +56,21 @@
                             </template>
                         </v-popover>
                     </div>
-                    <danger-elevation :class="$style.dangerMountain" :danger="currentDanger"></danger-elevation>
+                    <danger-elevation class="afp-dangerMountain" :danger="currentDanger"></danger-elevation>
                 </div>
             </div>
-            <div v-if="outlookDanger" :class="$style.outlook">
-                <h2>
+            <div v-if="outlookDanger" class="afp-outlook">
+                <h2 class="afp-html-h2">
                     Outlook
                     <info :content="this.$helpContent.avalancheDangerOutlook" />
                 </h2>
                 {{outlookDate}}
-                <div :class="$style.dangerGraphic">
-                    <div :class="$style.elevationOutlookBlock">
+                <div class="afp-dangerGraphic">
+                    <div class="afp-elevationOutlookBlock">
                         <span
-                            :class="$style.dangerOutlookLabel"
+                            class="afp-dangerOutlookLabel"
                         >{{this.$dangerScale[outlookDanger.upper].rating}} ({{outlookDanger.upper}})</span>
-                        <v-popover :class="[$style.dangerIcon, $style.dangerIconOutlook]">
+                        <v-popover class="afp-dangerIcon afp-dangerIconOutlook">
                             <img
                                 :src="this.$dangerScale[outlookDanger.upper].icon"
                                 v-tooltip="'Click to learn more'"
@@ -79,11 +80,11 @@
                             </template>
                         </v-popover>
                     </div>
-                    <div :class="$style.elevationOutlookBlock">
+                    <div class="afp-elevationOutlookBlock">
                         <span
-                            :class="$style.dangerOutlookLabel"
+                            class="afp-dangerOutlookLabel"
                         >{{this.$dangerScale[outlookDanger.middle].rating}} ({{outlookDanger.middle}})</span>
-                        <v-popover :class="[$style.dangerIcon, $style.dangerIconOutlook]">
+                        <v-popover class="afp-dangerIcon afp-dangerIconOutlook">
                             <img
                                 :src="this.$dangerScale[outlookDanger.middle].icon"
                                 v-tooltip="'Click to learn more'"
@@ -93,11 +94,11 @@
                             </template>
                         </v-popover>
                     </div>
-                    <div :class="$style.elevationOutlookBlock">
+                    <div class="afp-elevationOutlookBlock">
                         <span
-                            :class="$style.dangerOutlookLabel"
+                            class="afp-dangerOutlookLabel"
                         >{{this.$dangerScale[outlookDanger.lower].rating}} ({{outlookDanger.lower}})</span>
-                        <v-popover :class="[$style.dangerIcon, $style.dangerIconOutlook]">
+                        <v-popover class="afp-dangerIcon afp-dangerIconOutlook">
                             <img
                                 :src="this.$dangerScale[outlookDanger.lower].icon"
                                 v-tooltip="'Click to learn more'"
@@ -110,19 +111,16 @@
                 </div>
             </div>
         </div>
-        <div v-if="outlookDanger" :class="$style.outlookMobile">
-            <div :class="$style.outlookMobileText">
-                <h2>
+        <div v-if="outlookDanger" class="afp-outlookMobile">
+            <div class="afp-outlookMobileText">
+                <h2 class="afp-html-h2">
                     Outlook
                     <info :content="this.$helpContent.avalancheDangerOutlook" />
                 </h2>
                 {{outlookDate}}
             </div>
-            <div :class="$style.outlookMobileGraphic">
-                <danger-elevation-mobile
-                    :class="$style.dangerMountainMobile"
-                    :danger="outlookDanger"
-                ></danger-elevation-mobile>
+            <div class="afp-outlookMobileGraphic">
+                <danger-elevation-mobile class="afp-dangerMountainMobile" :danger="outlookDanger"></danger-elevation-mobile>
             </div>
         </div>
         <danger-scale />
@@ -197,235 +195,219 @@ export default {
 
 </script>
 
-<style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins";
+<style scoped lang="scss">
+@import "../assets/bootstrap4/_functions.scss";
+@import "../assets/bootstrap4/_variables.scss";
+@import "../assets/bootstrap4/_mixins.scss";
 
-.danger {
-    margin-bottom: 1.5 * $spacer;
-    h2 {
-        margin-bottom: .5rem !important;
+.afp-danger {
+    .afp-html-h2 {
+        margin-bottom: 0.5rem !important;
     }
-}
-.row {
-    composes: row from "../assets/css/style.css";
-    justify-content: space-between;
-}
 
-.today {
-    // composes: col-lg-8 from "../assets/css/style.css";
-    // composes: col-md-12 from "../assets/css/style.css";
-    margin-bottom: $spacer;
-    width: 100%;
-    padding-left: 15px;
-    padding-right: 15px;
-    @include media-breakpoint-up(lg) {
-        flex: 0 0 70%;
-        max-width: 70%;
-    }
-    @media print {
+    .afp-danger-today {
         width: 100%;
-        flex: initial;
-        max-width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        @include media-breakpoint-up(lg) {
+            flex: 0 0 70%;
+            max-width: 70%;
+        }
+        @media print {
+            width: 100%;
+            flex: initial;
+            max-width: 100%;
+        }
+        &.afp-danger-noOutlook {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
     }
-}
 
-.todayNoOutlook {
-    // composes: col-lg-8 from "../assets/css/style.css";
-    // composes: col-md-12 from "../assets/css/style.css";
-    composes: col-12 from "../assets/css/style.css";
-    margin-bottom: $spacer;
-}
+    .afp-outlook {
+        flex: 0 0 260px;
+        max-width: 260px;
+        padding-right: 15px;
+        margin-bottom: $spacer;
+        @include media-breakpoint-up(xl) {
+            flex: 0 0 280px;
+            max-width: 280px;
+        }
+        @include media-breakpoint-down(md) {
+            display: none;
+        }
+        @media print {
+            display: none !important;
+        }
+    }
 
-.outlook {
-    // composes: col-lg-3 from "../assets/css/style.css";
-    // composes: offset-lg-1 from "../assets/css/style.css";
-    // composes: col-md-12 from "../assets/css/style.css";
-    flex: 0 0 260px;
-    max-width: 260px;
-    padding-right: 15px;
-    margin-bottom: $spacer;
-    @include media-breakpoint-up(xl) {
-        flex: 0 0 280px;
-        max-width: 280px;
+    .afp-dangerGraphic {
+        position: relative;
+        padding-top: $spacer;
+        overflow: hidden;
+        page-break-inside: avoid;
+        @include media-breakpoint-down(sm) {
+            margin-left: -15px;
+            margin-right: -10px;
+        }
     }
-    @include media-breakpoint-down(md) {
-        display: none;
-    }
-    @media print {
-        display: none !important;
-    }
-}
 
-.dangerGraphic {
-    position: relative;
-    padding-top: $spacer;
-    overflow: hidden;
-    page-break-inside: avoid;
-    @include media-breakpoint-down(sm) {
-        margin-left: -15px;
-        margin-right: -10px;
+    .afp-dangerMountain {
+        position: absolute;
+        bottom: 5px;
+        left: 100px;
+        width: 250px;
+        height: 300px;
+        @include media-breakpoint-between(lg, lg) {
+            left: 90px;
+        }
+        @include media-breakpoint-down(sm) {
+            left: initial;
+            right: 185px;
+        }
     }
-}
 
-.dangerMountain {
-    position: absolute;
-    bottom: 5px;
-    left: 100px;
-    width: 250px;
-    height: 300px;
-    @include media-breakpoint-between(lg, lg) {
-        left: 90px;
-    }
-    // @include media-breakpoint-down(sm) {
-    //     left: 90px;
-    // }
-    @include media-breakpoint-down(sm) {
-        left: initial;
-        right: 185px;
-    }
-}
+    $elevation-height: 90px;
 
-$elevation-height: 90px;
+    .afp-elevationBlock {
+        -webkit-print-color-adjust: exact;
+        position: relative;
+        background-color: $gray-300;
+        border: 2px solid $gray-300;
+        height: $elevation-height;
+        margin-right: 60px;
+        margin-bottom: 5px;
+        @include media-breakpoint-down(sm) {
+            margin-right: 45px;
+        }
+    }
 
-.elevationBlock {
-    -webkit-print-color-adjust: exact;
-    position: relative;
-    background-color: $gray-300;
-    border: 2px solid $gray-300;
-    height: $elevation-height;
-    margin-right: 60px;
-    margin-bottom: 5px;
-    @include media-breakpoint-down(sm) {
-        margin-right: 45px;
-    }
-}
-
-.elevationLabel {
-    position: absolute;
-    left: 15px;
-    transform: translate(0, -50%);
-    top: 50%;
-    width: 80px;
-    display: block;
-    font-size: $font-size-sm;
-    font-weight: bold;
-    color: $gray-600;
-    @include media-breakpoint-down(sm) {
-        background-color: #fff;
-        z-index: 1;
-        padding: 0.2rem 0.4rem;
-        width: auto;
-        left: -2px;
-    }
-}
-
-.dangerLabel {
-    position: absolute;
-    right: 50px;
-    transform: translate(0, -50%);
-    top: 50%;
-    width: 230px;
-    display: block;
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: $gray-800;
-    text-transform: uppercase;
-    @include media-breakpoint-between(lg, lg) {
-        width: 160px;
-    }
-    @include media-breakpoint-between(md, md) {
-        width: 180px;
-    }
-    @include media-breakpoint-down(sm) {
+    .afp-elevationLabel {
+        position: absolute;
+        left: 15px;
+        transform: translate(0, -50%);
+        top: 50%;
+        width: 80px;
+        display: block;
         font-size: $font-size-sm;
-        width: auto;
-        z-index: 1;
-        right: 35px;
-        text-align: right;
+        font-weight: bold;
+        color: $gray-600;
+        @include media-breakpoint-down(sm) {
+            background-color: #fff;
+            z-index: 1;
+            padding: 0.2rem 0.4rem;
+            width: auto;
+            left: -2px;
+        }
     }
-}
 
-.dangerIcon {
-    position: absolute;
-    left: 100%;
-    height: 86px !important;
-    width: 70px !important;
-    padding: 10px 0;
-    margin-left: -31px;
-    z-index: 1;
-    @include media-breakpoint-down(sm) {
-        padding: 20px 0;
+    .afp-dangerLabel {
+        position: absolute;
+        right: 50px;
+        transform: translate(0, -50%);
+        top: 50%;
+        width: 230px;
+        display: block;
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: $gray-800;
+        text-transform: uppercase;
+        @include media-breakpoint-between(lg, lg) {
+            width: 160px;
+        }
+        @include media-breakpoint-between(md, md) {
+            width: 180px;
+        }
+        @include media-breakpoint-down(sm) {
+            font-size: $font-size-sm;
+            width: auto;
+            z-index: 1;
+            right: 35px;
+            text-align: right;
+        }
+    }
+
+    .afp-dangerIcon::v-deep {
+        position: absolute;
+        left: 100%;
+        height: 86px !important;
+        width: 70px !important;
+        padding: 10px 0;
+        margin-left: -31px;
+        z-index: 1;
+        @include media-breakpoint-down(sm) {
+            padding: 20px 0;
+            margin-left: -25px;
+        }
+        div {
+            display: block !important;
+            cursor: help;
+            width: 100%;
+            height: 100%;
+        }
+        img {
+            height: 100%;
+            width: auto;
+            max-width: initial;
+        }
+    }
+
+    .afp-elevationOutlookBlock {
+        -webkit-print-color-adjust: exact;
+        position: relative;
+        background-color: $gray-300;
+        border: 2px solid $gray-300;
+        height: $elevation-height;
+        margin-bottom: 5px;
+        margin-right: 50px;
+    }
+
+    .afp-dangerOutlookLabel {
+        position: absolute;
+        left: 20px;
+        transform: translate(0, -50%);
+        top: 50%;
+        width: 200px;
+        display: block;
+        font-weight: bold;
+        font-size: 0.9rem;
+        color: $gray-800;
+        text-transform: uppercase;
+    }
+
+    .afp-dangerIconOutlook {
+        height: 86px !important;
+        width: 70px !important;
+        padding: 16px 0;
         margin-left: -25px;
     }
-    div {
-        display: block !important;
-        cursor: help;
-        width: 100%;
-        height: 100%;
+
+    .afp-outlookMobile {
+        position: relative;
+        width: 330px;
+        height: 140px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 1rem;
+        page-break-inside: avoid;
+        @include media-breakpoint-up(lg) {
+            display: none;
+        }
+        @media print {
+            display: block !important;
+        }
     }
-    img {
-        height: 100% !important;
-        width: auto !important;
-        max-width: initial !important;
+
+    .afp-outlookMobileText {
+        position: absolute;
+        top: 0;
+        left: 0;
     }
-}
 
-.elevationOutlookBlock {
-    -webkit-print-color-adjust: exact;
-    position: relative;
-    background-color: $gray-300;
-    border: 2px solid $gray-300;
-    height: $elevation-height;
-    margin-bottom: 5px;
-    margin-right: 50px;
-}
-
-.dangerOutlookLabel {
-    position: absolute;
-    left: 20px;
-    transform: translate(0, -50%);
-    top: 50%;
-    width: 200px;
-    display: block;
-    font-weight: bold;
-    font-size: 0.9rem;
-    color: $gray-800;
-    text-transform: uppercase;
-}
-
-.dangerIconOutlook {
-    height: 86px !important;
-    width: 70px !important;
-    padding: 16px 0;
-    margin-left: -25px;
-}
-
-.outlookMobile {
-    position: relative;
-    width: 330px;
-    height: 140px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 1rem;
-    page-break-inside: avoid;
-    @include media-breakpoint-up(lg) {
-        display: none;
+    .afp-outlookMobileGraphic {
+        position: absolute;
+        top: 0;
+        right: 0;
     }
-    @media print {
-        display: block !important;
-    }
-}
-
-.outlookMobileText {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-.outlookMobileGraphic {
-    position: absolute;
-    top: 0;
-    right: 0;
 }
 </style>

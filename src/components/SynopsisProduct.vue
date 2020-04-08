@@ -1,12 +1,8 @@
 <template>
     <div>
-        <div :class="$style.title">
-            <h1>Conditions Blog</h1>
-            <h2 v-html="data.bottom_line"></h2>
-            <!-- <h2>
-                <i class="mdi mdi-map-marker"></i>
-                All Zones
-            </h2> -->
+        <div class="afp-mb-3">
+            <h1 class="afp-html-h1">Conditions Blog</h1>
+            <h2 class="afp-html-h2 afp-gray-700" v-html="data.bottom_line"></h2>
         </div>
         <!-- Header -->
         <product-header
@@ -46,16 +42,3 @@ export default {
 }
 </script>
 
-<style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins";
-
-.title {
-    h2 {
-        color: $gray-700 !important;
-        margin-bottom: 0 !important;
-    }
-    margin-bottom: $spacer;
-}
-</style>

@@ -1,22 +1,22 @@
 <template>
-    <div :class="$style.container">
+    <div class="afp-container">
         <forecast-product
             v-if="product == 'forecast' || product == 'summary'"
             :preview="preview"
-            :data="data"
+            :data="forecastData"
             :config="config"
-            :zone = "zone"
+            :zone="zone"
         />
         <weather-product
             v-if="product == 'weather'"
             :preview="preview"
-            :data="data"
+            :data="forecastData"
             :config="config"
         />
         <synopsis-product
             v-if="product == 'synopsis'"
             :preview="preview"
-            :data="data"
+            :data="forecastData"
             :config="config"
         />
     </div>
@@ -31,6 +31,7 @@ import SynopsisProduct from '../components/SynopsisProduct'
 export default {
     data() {
         return {
+            forecastData: {}
         }
     },
     props: {
@@ -70,20 +71,52 @@ export default {
         ForecastProduct,
         WeatherProduct,
         SynopsisProduct
+    },
+    // watch: {
+    //     data: {
+    //         handler: function () {
+    //             this.data.hazard_discussion = this.tineMCEclass(this.data.hazard_discussion)
+    //         }
+    //     },
+    // },
+    methods: {
+        tineMCEclass(search) {
+            // Add AFP specific classes to TinyMCE tags
+            search = JSON.stringify(search)
+            search = search
+                .replace(/<p/g, '<p class=\\"afp-html-p\\"')
+                .replace(/<a/g, '<a class=\\"afp-html-a\\"')
+                .replace(/<hr>/g, '<hr class=\\"afp-html-hr\\">')
+                .replace(/<table/g, '<table class=\\"afp-html-table\\"')
+                .replace(/<figure class=\\"/g, '<figure class=\\"afp-html-figure afp-tinymce-figure ')
+                .replace(/<img/g, '<img class=\\"afp-html-img afp-tinymce-img\\"')
+                .replace(/<h1>/g, '<h1 class=\\"afp-html-h1\\">')
+                .replace(/<h2>/g, '<h2 class=\\"afp-html-h2\\">')
+                .replace(/<h3>/g, '<h3 class=\\"afp-html-h3\\">')
+                .replace(/<h4>/g, '<h4 class=\\"afp-html-h4\\">')
+                .replace(/<h5>/g, '<h5 class=\\"afp-html-h5\\">')
+                .replace(/<h6>/g, '<h6 class=\\"afp-html-h6\\">')
+                .replace(/<ul>/g, '<ul class=\\"afp-html-ul\\">')
+                .replace(/<li>/g, '<li class=\\"afp-html-li\\">')
+                .replace(/<iframe/g, '<iframe class=\\"afp-html-iframe afp-tinymce-iframe\\"')
+            return JSON.parse(search)
+        },
+    },
+    mounted() {
+        this.forecastData = this.data
+        this.forecastData = this.tineMCEclass(this.forecastData)
     }
 }
 </script>
 
-<style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins";
+<style scoped lang="scss">
+@import "../assets/bootstrap4/_functions.scss";
+@import "../assets/bootstrap4/_variables.scss";
 
-.container {
-    composes: container from "../assets/css/style.css";
+.afp-container {
     min-height: 300px;
     position: relative;
-    padding-top: .5*$spacer;
+    padding-top: 0.5 * $spacer;
     @media print {
         width: 100% !important;
         max-width: none;

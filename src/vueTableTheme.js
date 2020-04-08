@@ -20,16 +20,16 @@ module.exports = function () {
         small: '',
         button: '',
         pagination: {
-            nav: '',
+            nav: 'afp-html-nav',
             count: '',
             wrapper: '',
-            list: 'afp-pagination',
-            item: 'afp-page-item',
-            link: 'afp-page-link',
+            list: 'afp-html-ul afp-pagination afp-justify-content-center',
+            item: 'afp-html-li afp-page-item',
+            link: 'afp-html-a afp-page-link afp-native-link',
             next: '',
             prev: '',
-            active: 'afp-page-link-active',
-            disabled: 'afp-page-link-disabled'
+            active: 'afp-active',
+            disabled: 'afp-disabled'
         }
     };
 };

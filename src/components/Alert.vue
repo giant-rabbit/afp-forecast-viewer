@@ -1,18 +1,8 @@
 <template>
     <transition name="fade">
-        <div v-if="show" :class="$style.alert">
+        <div v-if="show" class="afp-alert afp-alert-secondary">
             <i class="mdi mdi-alert"></i>
             <span>There was an error loading the data.</span>
-            <button
-                @click="show = false"
-                type="button"
-                class="close"
-                data-dismiss="alert"
-                aria-label="Close"
-                :class="$style.close"
-            >
-                <i class="mdi mdi-close"></i>
-            </button>
         </div>
     </transition>
 </template>
@@ -32,18 +22,12 @@ export default {
 }
 </script>
 
-<style module lang="scss">
+<style scoped lang="scss">
 @import "../assets/css/bootstrap/functions";
 @import "../assets/css/_variables.scss";
 @import "../assets/css/bootstrap/mixins";
 
-.alert {
-    padding: $alert-padding-y $alert-padding-x;
-    position: relative;
-    margin-bottom: $spacer;
-    @include border-radius($alert-border-radius);
-    background-color: $high;
-    color: #fff !important;
+.afp-alert {
     span {
         vertical-align: middle;
     }
@@ -54,14 +38,5 @@ export default {
         padding-right: $spacer * 0.5;
     }
 }
-.close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: .75rem;
-    color: inherit;
-    background-color: transparent;
-    border: 0;
-    -webkit-appearance: none;
-}
+
 </style>

@@ -1,21 +1,28 @@
 <template>
-    <div :class="$style.dangerScale">
-        <div :class="$style.firstColumn">
-            <a href="https://avalanche.org/avalanche-encyclopedia/danger-scale/" target="_blank">
-                <h5 v-tooltip="'Click to learn more'">Danger Scale <i class="mdi mdi-open-in-new"></i></h5>
+    <div class="afp-dangerScale afp-row">
+        <div class="afp-col-lg-auto">
+            <a
+                class="afp-html-a"
+                href="https://avalanche.org/avalanche-encyclopedia/danger-scale/"
+                target="_blank"
+            >
+                <h5 class="afp-html-h5" v-tooltip="'Click to learn more'">
+                    Danger Scale
+                    <i class="mdi mdi-open-in-new"></i>
+                </h5>
             </a>
         </div>
-        <div :class="$style.secondColumn">
-            <ul>
-                <li :class="[$style.low, $style.li]">Low (1)</li>
-                <li :class="[$style.mod, $style.li]">
+        <div class="afp-col-lg">
+            <ul class="afp-html-ul">
+                <li class="afp-html-li afp-low">Low (1)</li>
+                <li class="afp-html-li afp-mod">
                     Mod<span>erate</span> (2)
                 </li>
-                <li :class="[$style.cons, $style.li]">
+                <li class="afp-html-li afp-cons">
                     Cons<span>iderable</span> (3)
                 </li>
-                <li :class="[$style.high, $style.li]">High (4)</li>
-                <li :class="[$style.ext, $style.li]">
+                <li class="afp-html-li afp-high">High (4)</li>
+                <li class="afp-html-li afp-ext">
                     Extr<span>eme</span> (5)
                 </li>
             </ul>
@@ -30,107 +37,101 @@ export default {
 
 </script>
 
-<style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins/breakpoints";
+<style scoped lang="scss">
+@import "../assets/bootstrap4/_functions.scss";
+@import "../assets/bootstrap4/_variables.scss";
+@import "../assets/bootstrap4/_mixins.scss";
 
-.dangerScale {
-    composes: row from "../assets/css/style.css";
+.afp-dangerScale {
     @include media-breakpoint-up(md) {
         -webkit-box-pack: center !important;
         -ms-flex-pack: center !important;
         justify-content: center !important;
     }
-    h5 {
+    .afp-html-h5 {
         margin-bottom: 1em;
     }
-    a {
+    .afp-html-a {
         text-decoration: none !important;
     }
-    ul {
+
+    .afp-html-ul {
         margin: 0;
         width: 100%;
         padding: 0;
     }
-}
-.firstColumn {
-    composes: col-lg-auto from "../assets/css/style.css";
-}
-.secondColumn {
-    composes: col-lg from "../assets/css/style.css";
-}
-.popover {
-    div {
-        display: block !important;
-        cursor: help;
-    }
-}
-.li {
-    display: block;
-    float: left;
-    width: 20%;
-    font-size: 0.6rem;
-    line-height: 1.1;
-    margin-right: 0px;
-    overflow: hidden;
-    text-align: center;
-    @include media-breakpoint-up(md) {
-        font-size: $font-size-sm;
-    }
-    &:before {
-        content: "";
-        display: block;
-        height: 10px;
-        border: 5px solid $no-rating;
-        margin-bottom: 0.3rem;
-    }
-}
-// .none {
-//     margin-right: 2%;
-//     br {
-//         @include media-breakpoint-up(lg) {
-//             display: none;
-//         }
-//     }
-//     span {
-//         display: none;
-//         @include media-breakpoint-up(xl) {
-//             display: inline;
-//         }
-//     }
-//     &:before {
-//         border-radius: $border-radius;
-//     }
-// }
-.low:before {
-    border-color: $low;
-    background-color: $low;
-    border-radius: $border-radius 0 0 $border-radius;
-}
-.mod:before {
-    border-color: $moderate;
-    background-color: $moderate;
-}
-.cons:before {
-    border-color: $considerable;
-    background-color: $considerable;
-}
-.high:before {
-    border-color: $high;
-    background-color: $high;
-}
-.ext:before {
-    border-color: $extreme;
-    background-color: $extreme;
-    border-radius: 0 $border-radius $border-radius 0;
-}
-.mod span,
-.cons span,
-.ext span {
-    @include media-breakpoint-down(xs) {
-        display: none;
-    }
-}
 
+    // .popover {
+    //     div {
+    //         display: block !important;
+    //         cursor: help;
+    //     }
+    // }
+    .afp-html-li {
+        display: block;
+        float: left;
+        width: 20%;
+        font-size: 0.6rem;
+        line-height: 1.1;
+        margin-right: 0px;
+        overflow: hidden;
+        text-align: center;
+        @include media-breakpoint-up(md) {
+            font-size: $font-size-sm;
+        }
+        &:before {
+            content: "";
+            display: block;
+            height: 10px;
+            border: 5px solid $no-rating;
+            margin-bottom: 0.3rem;
+        }
+    }
+    // .none {
+    //     margin-right: 2%;
+    //     br {
+    //         @include media-breakpoint-up(lg) {
+    //             display: none;
+    //         }
+    //     }
+    //     span {
+    //         display: none;
+    //         @include media-breakpoint-up(xl) {
+    //             display: inline;
+    //         }
+    //     }
+    //     &:before {
+    //         border-radius: $border-radius;
+    //     }
+    // }
+    .afp-low:before {
+        border-color: $low;
+        background-color: $low;
+        border-radius: $border-radius 0 0 $border-radius;
+    }
+    .afp-mod:before {
+        border-color: $moderate;
+        background-color: $moderate;
+    }
+    .afp-cons:before {
+        border-color: $considerable;
+        background-color: $considerable;
+    }
+    .afp-high:before {
+        border-color: $high;
+        background-color: $high;
+    }
+    .afp-ext:before {
+        border-color: $extreme;
+        background-color: $extreme;
+        border-radius: 0 $border-radius $border-radius 0;
+    }
+    .afp-mod span,
+    .afp-cons span,
+    .afp-ext span {
+        @include media-breakpoint-down(xs) {
+            display: none;
+        }
+    }
+}
 </style>

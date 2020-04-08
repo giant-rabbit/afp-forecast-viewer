@@ -1,0 +1,166 @@
+// stylelint-disable selector-no-qualifying-type
+
+// Make the div behave like a button
+.#{$class-prefix}-btn-group,
+.#{$class-prefix}-btn-group-vertical {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle; // match .#{$class-prefix}-btn alignment given font-size hack above
+
+  > .#{$class-prefix}-btn {
+    position: relative;
+    flex: 0 1 auto;
+
+    // Bring the hover, focused, and "active" buttons to the front to overlay
+    // the borders properly
+    @include hover {
+      z-index: 1;
+    }
+    &:focus,
+    &:active,
+    &.#{$class-prefix}-active {
+      z-index: 1;
+    }
+  }
+
+  // Prevent double borders when buttons are next to each other
+  .#{$class-prefix}-btn + .#{$class-prefix}-btn,
+  .#{$class-prefix}-btn + .#{$class-prefix}-btn-group,
+  .#{$class-prefix}-btn-group + .#{$class-prefix}-btn,
+  .#{$class-prefix}-btn-group + .#{$class-prefix}-btn-group {
+    margin-left: -$btn-border-width;
+  }
+}
+
+// Optional: Group multiple button groups together for a toolbar
+.#{$class-prefix}-btn-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  .#{$class-prefix}-input-group {
+    width: auto;
+  }
+}
+
+.#{$class-prefix}-btn-group {
+  > .#{$class-prefix}-btn:first-child {
+    margin-left: 0;
+  }
+
+  // Reset rounded corners
+  > .#{$class-prefix}-btn:not(:last-child):not(.#{$class-prefix}-dropdown-toggle),
+  > .#{$class-prefix}-btn-group:not(:last-child) > .#{$class-prefix}-btn {
+    @include border-right-radius(0);
+  }
+
+  > .#{$class-prefix}-btn:not(:first-child),
+  > .#{$class-prefix}-btn-group:not(:first-child) > .#{$class-prefix}-btn {
+    @include border-left-radius(0);
+  }
+}
+
+// Sizing
+//
+// Remix the default button sizing classes into new ones for easier manipulation.
+
+.#{$class-prefix}-btn-group-sm > .#{$class-prefix}-btn { @extend .#{$class-prefix}-btn-sm; }
+.#{$class-prefix}-btn-group-lg > .#{$class-prefix}-btn { @extend .#{$class-prefix}-btn-lg; }
+
+
+//
+// Split button dropdowns
+//
+
+.#{$class-prefix}-dropdown-toggle-split {
+  padding-right: $btn-padding-x * .75;
+  padding-left: $btn-padding-x * .75;
+
+  &::after {
+    margin-left: 0;
+  }
+}
+
+.#{$class-prefix}-btn-sm + .#{$class-prefix}-dropdown-toggle-split {
+  padding-right: $btn-padding-x-sm * .75;
+  padding-left: $btn-padding-x-sm * .75;
+}
+
+.#{$class-prefix}-btn-lg + .#{$class-prefix}-dropdown-toggle-split {
+  padding-right: $btn-padding-x-lg * .75;
+  padding-left: $btn-padding-x-lg * .75;
+}
+
+
+// The clickable button for toggling the menu
+// Set the same inset shadow as the :active state
+.#{$class-prefix}-btn-group.#{$class-prefix}-show .#{$class-prefix}-dropdown-toggle {
+  @include box-shadow($btn-active-box-shadow);
+
+  // Show no shadow for `.#{$class-prefix}-btn-link` since it has no other button styles.
+  &.#{$class-prefix}-btn-link {
+    @include box-shadow(none);
+  }
+}
+
+
+//
+// Vertical button groups
+//
+
+.#{$class-prefix}-btn-group-vertical {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  .#{$class-prefix}-btn,
+  .#{$class-prefix}-btn-group {
+    width: 100%;
+  }
+
+  > .#{$class-prefix}-btn + .#{$class-prefix}-btn,
+  > .#{$class-prefix}-btn + .#{$class-prefix}-btn-group,
+  > .#{$class-prefix}-btn-group + .#{$class-prefix}-btn,
+  > .#{$class-prefix}-btn-group + .#{$class-prefix}-btn-group {
+    margin-top: -$btn-border-width;
+    margin-left: 0;
+  }
+
+  // Reset rounded corners
+  > .#{$class-prefix}-btn:not(:last-child):not(.#{$class-prefix}-dropdown-toggle),
+  > .#{$class-prefix}-btn-group:not(:last-child) > .#{$class-prefix}-btn {
+    @include border-bottom-radius(0);
+  }
+
+  > .#{$class-prefix}-btn:not(:first-child),
+  > .#{$class-prefix}-btn-group:not(:first-child) > .#{$class-prefix}-btn {
+    @include border-top-radius(0);
+  }
+}
+
+
+// Checkbox and radio options
+//
+// In order to support the browser's form validation feedback, powered by the
+// `required` attribute, we have to "hide" the inputs via `clip`. We cannot use
+// `display: none;` or `visibility: hidden;` as that also hides the popover.
+// Simply visually hiding the inputs via `opacity` would leave them clickable in
+// certain cases which is prevented by using `clip` and `pointer-events`.
+// This way, we ensure a DOM element is visible to position the popover from.
+//
+// See https://github.#{$class-prefix}-com/twbs/bootstrap/pull/12794 and
+// https://github.#{$class-prefix}-com/twbs/bootstrap/pull/14559 for more information.
+
+.#{$class-prefix}-btn-group-toggle {
+  > .#{$class-prefix}-btn,
+  > .#{$class-prefix}-btn-group > .#{$class-prefix}-btn {
+    margin-bottom: 0; // Override default `<label>` value
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      position: absolute;
+      clip: rect(0, 0, 0, 0);
+      pointer-events: none;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 <template>
-    <div :class="$style.tableResponsive">
-        <table :class="$style.table">
+    <div class="afp-weather-table afp-my-3">
+        <table class="afp-html-table afp-table">
             <thead>
                 <tr>
                     <th>{{zone}}</th>
@@ -10,11 +10,10 @@
             <tbody>
                 <tr v-for="(row, rowIndex) in data" :key="rowIndex">
                     <td>
-                        <label>{{row.field}}</label>
-                        <info v-if="row.field == 'Ridgeline Wind Speed'" :content="'<h5>Ridgetop Wind Speed</h5><strong>CALM</strong> - No air motion. Smoke rises vertically.<br><strong>LIGHT</strong> - Light to gentle breeze, flags and twigs in motion.<br><strong>MODERATE</strong> - Fresh breeze. Small trees sway. Flags stretched. Snow begins to drift.<br><strong>STRONG</strong> - Strong breeze. Whole trees in motion.<br><strong>EXTREME</strong> - Gale force or higher. '" />
-                        <info v-if="row.field == 'Snowfall'" :content="'<h5>Snowfall</h5>Values are estimates from middle and upper elevation.<br><strong>24hr</strong> - Snow total from yesterday morning through this morning.<br><strong>12hr</strong> - Snow total from last night through this morning.'" />
-                        <info v-if="row.field == 'Snow Water Equivalent'" :content="'<h5>Snow Water Equivalent (SWE)</h5>The depth of water that would result if you melted the snowfall. SWE is a better estimate of weight added to the snowpack than snowfall.'" />
-
+                        <label class="afp-html-label">{{row.field}}</label>
+                        <info v-if="row.field == 'Ridgeline Wind Speed'" content="<h5 class='afp-html-h5'>Ridgetop Wind Speed</h5><strong>CALM</strong> - No air motion. Smoke rises vertically.<br><strong>LIGHT</strong> - Light to gentle breeze, flags and twigs in motion.<br><strong>MODERATE</strong> - Fresh breeze. Small trees sway. Flags stretched. Snow begins to drift.<br><strong>STRONG</strong> - Strong breeze. Whole trees in motion.<br><strong>EXTREME</strong> - Gale force or higher. " />
+                        <info v-if="row.field == 'Snowfall'" content="<h5 class='afp-html-h5'>Snowfall</h5>Values are estimates from middle and upper elevation.<br><strong>24hr</strong> - Snow total from yesterday morning through this morning.<br><strong>12hr</strong> - Snow total from last night through this morning." />
+                        <info v-if="row.field == 'Snow Water Equivalent'" content="<h5 class='afp-html-h5'>Snow Water Equivalent (SWE)</h5>The depth of water that would result if you melted the snowfall. SWE is a better estimate of weight added to the snowpack than snowfall." />
                     </td>
                     <td v-for="(column, index) in row.values" :key="index">
                         <span v-if="typeof column === 'string'">
@@ -22,13 +21,19 @@
                             <span v-if="row.unit != '' && column != ''">{{row.unit}}</span>
                         </span>
                         <span v-else>
-                            <span :class="$style.splitCell">
-                                <label>{{column[0].label}}:</label>
-                                {{column[0].value}}<span v-if="row.unit != '' && column[0].value != ''">{{row.unit}}</span>
+                            <span class="afp-table-splitCell">
+                                <label class="afp-html-label">{{column[0].label}}:</label>
+                                {{column[0].value}}
+                                <span
+                                    v-if="row.unit != '' && column[0].value != ''"
+                                >{{row.unit}}</span>
                             </span>
-                            <span :class="$style.splitCell">
-                                <label>{{column[1].label}}:</label>
-                                {{column[1].value}}<span v-if="row.unit != '' && column[1].value != ''">{{row.unit}}</span>
+                            <span class="afp-table-splitCell">
+                                <label class="afp-html-label">{{column[1].label}}:</label>
+                                {{column[1].value}}
+                                <span
+                                    v-if="row.unit != '' && column[1].value != ''"
+                                >{{row.unit}}</span>
                             </span>
                         </span>
                     </td>
@@ -45,64 +50,47 @@ export default {
 }
 
 </script>
-<style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins/breakpoints";
+<style scoped lang="scss">
+@import "../assets/bootstrap4/_functions.scss";
+@import "../assets/bootstrap4/_variables.scss";
+@import "../assets/bootstrap4/_mixins.scss";
 
-.table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-bottom: $spacer;
-    color: $table-color;
-    background-color: $table-bg; // Reset for nesting within parents with `background-color`.
-    border-bottom: $table-border-width solid $table-border-color;
-    th,
-    td {
-        padding: $table-cell-padding;
-        vertical-align: top;
-        border-top: $table-border-width solid $table-border-color;
-        text-align: center;
-        &:first-of-type {
-            text-align: left;
-            width: 300px;
+.afp-weather-table {
+    @include table-responsive;
+    .afp-table {
+        border-bottom: $table-border-width solid $table-border-color;
+        .afp-html-label {
+            margin-bottom: 0;
+        }
+        th,
+        td {
+            vertical-align: middle;
+            text-align: center;
+            &:first-of-type {
+                text-align: left;
+                width: 300px;
+            }
+        }
+        th {
+            &::v-deep {
+                font-family: $headings-font-family;
+                font-size: $font-size-sm;
+                text-transform: capitalize;
+                font-weight: normal;
+                span {
+                    font-weight: bold;
+                    margin-right: 0.5rem;
+                }
+            }
+            &:first-of-type {
+                font-size: $font-size-base;
+                font-weight: $headings-font-weight;
+                background-color: $gray-200;
+            }
+        }
+        .afp-table-splitCell:first-of-type {
+            padding-right: 15px;
         }
     }
-
-    thead th {
-        vertical-align: bottom;
-        border-bottom: (2 * $table-border-width) solid $table-border-color;
-    }
-
-    tbody + tbody {
-        border-top: (2 * $table-border-width) solid $table-border-color;
-    }
-    th {
-        font-family: $headings-font-family;
-        font-size: $font-size-sm;
-        text-transform: capitalize;
-        font-weight: normal;
-        //border-top: 1px solid $border-color !important;
-        span {
-            font-weight: $headings-font-weight;
-            margin-right: 0.5rem;
-        }
-    }
-    td,
-    th {
-        vertical-align: middle !important;
-    }
-    th:first-of-type {
-        font-size: $font-size-base;
-        font-weight: $headings-font-weight;
-        background-color: $gray-200;
-    }
-}
-.tableResponsive {
-    composes: table-responsive from "../assets/css/style.css";
-}
-
-.splitCell:first-of-type {
-    padding-right: 15px;
 }
 </style>

@@ -1,0 +1,367 @@
+/*!
+ * Global App Styles
+ * Prefixed with afp- and afp-html-
+ */
+
+
+//
+// Typography
+//
+
+// Correct for rem units
+html {
+  font-size: 16px !important;
+}
+
+.afp-html-body {
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.afp-html-h1,
+.afp-html-h2,
+.afp-html-h3,
+.afp-html-h4,
+.afp-html-h5,
+.afp-html-h6,
+.afp-h1,
+.afp-h2,
+.afp-h3,
+.afp-h4,
+.afp-h5,
+.afp-h6 {
+  text-transform: uppercase;
+  letter-spacing: .5px !important;
+}
+
+.afp-html-h1,
+.afp-h1 {
+  margin-bottom: 2 * $headings-margin-bottom;
+}
+
+.afp-html-h2,
+.afp-h2 {
+  margin-bottom: 2 * $headings-margin-bottom;
+}
+
+.afp-html-h3,
+.afp-h3 {
+  margin-bottom: 1.5 * $headings-margin-bottom;
+}
+
+.afp-html-h6 {
+  color: $gray-500 !important;
+}
+
+.afp-btn {
+  letter-spacing: .5px;
+}
+
+.afp-html-label {
+  font-size: .8rem;
+  font-weight: 700;
+}
+
+.afp-gray-700 {
+  color: $gray-700 !important;
+}
+
+.afp-zone-title {
+  text-indent: -.8rem;
+  margin-left: 1.4rem;
+  i {
+    padding-right: .3rem;
+  }
+}
+
+
+//
+// Forms
+// 
+
+.afp-html-input,
+.afp-html-select {
+  height: 2.5rem !important;
+}
+
+//
+// TinyMCE styles
+// 
+
+.afp-tinymce {
+  @include clearfix;
+}
+
+.afp-tinymce-figure {
+  margin: 0 1rem 1rem 1rem !important;
+  display: table;
+
+  figcaption {
+    font-style: italic;
+    font-size: 80%;
+    display: table-caption;
+    caption-side: bottom;
+  }
+
+  &.align-right {
+    float: right !important;
+    margin: 0 0 1rem 1rem !important;
+  }
+
+  &.align-left {
+    float: left !important;
+    margin: 0 1rem 1rem 0 !important;
+  }
+
+  &.align-center {
+    display: table;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+.afp-tinymce-img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.afp-tinymce-iframe {
+  max-width: 100% !important;
+  border: none;
+}
+
+// 
+// Misc
+// 
+
+.afp-divider {
+  padding-top: 1.5 * $spacer;
+  border-top: 1.5px solid $gray-200;
+}
+
+
+
+//
+// Print styles
+//
+
+@media print {
+  // @page {
+  //   size: 1200px 11in;
+  //   margin: 2cm
+  // }
+
+  table {
+    page-break-inside: avoid;
+  }
+
+  body {
+    margin: 2rem;
+    background-color: #fff !important;
+  }
+
+  .afp-forecast-view {
+    background-color: #fff !important;
+  }
+}
+
+.afp-print-hide {
+  @media print {
+    display: none;
+  }
+}
+
+.afp-print-show {
+  display: none;
+
+  @media print {
+    display: block;
+    margin-top: $spacer;
+  }
+}
+
+
+// 
+// Photoswipe
+// 
+
+.afp-photoswipe.pswp {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+
+  .pswp__caption__center {
+    text-align: center;
+  }
+
+  img {
+    max-width: none !important;
+  }
+}
+
+
+// 
+// Tooltips
+// 
+.afp-tooltip {
+  z-index: 10000;
+  opacity: 1;
+
+  .afp-tooltip-arrow {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    margin: 5px;
+    border-color: $tooltip-bg;
+    z-index: 1;
+  }
+
+  &[x-placement^="top"] {
+    margin-bottom: 5px;
+
+    .afp-tooltip-arrow {
+      border-width: 5px 5px 0 5px;
+      border-left-color: transparent !important;
+      border-right-color: transparent !important;
+      border-bottom-color: transparent !important;
+      bottom: -5px;
+      left: calc(50% - 5px);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &[x-placement^="bottom"] {
+    margin-top: 5px;
+
+    .afp-tooltip-arrow {
+      border-width: 0 5px 5px 5px;
+      border-left-color: transparent !important;
+      border-right-color: transparent !important;
+      border-top-color: transparent !important;
+      top: -5px;
+      left: calc(50% - 5px);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.afp-popover {
+  z-index: 10000;
+  box-shadow: $popover-box-shadow;
+
+  &:focus {
+    outline: none;
+  }
+
+  .afp-popover-body {
+    // color: $popover-body-color;
+    // background: $popover-bg;
+    // font-size: $popover-font-size;
+    // padding: $popover-body-padding-y $popover-body-padding-x;
+    // border-radius: $popover-border-radius;
+    // max-width: $popover-max-width;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h5,
+    h6 {
+      color: $gray-400 !important
+    }
+
+    .afp-html-a,
+    .afp-html-a:hover {
+      color: $no-rating-border !important;
+    }
+
+    .afp-html-p:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  .afp-popover-arrow {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    margin: 5px;
+    border-color: $popover-bg;
+    z-index: 1;
+  }
+
+  &[x-placement^="top"] {
+    margin-bottom: 5px;
+
+    .afp-popover-arrow {
+      border-width: 5px 5px 0 5px;
+      border-left-color: transparent !important;
+      border-right-color: transparent !important;
+      border-bottom-color: transparent !important;
+      bottom: -5px;
+      left: calc(50% - 5px);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &[x-placement^="bottom"] {
+    margin-top: 5px;
+
+    .afp-popover-arrow {
+      border-width: 0 5px 5px 5px;
+      border-left-color: transparent !important;
+      border-right-color: transparent !important;
+      border-top-color: transparent !important;
+      top: -5px;
+      left: calc(50% - 5px);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &[x-placement^="right"] {
+    margin-left: 5px;
+
+    .afp-popover-arrow {
+      border-width: 5px 5px 5px 0;
+      border-left-color: transparent !important;
+      border-top-color: transparent !important;
+      border-bottom-color: transparent !important;
+      left: -5px;
+      top: calc(50% - 5px);
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  &[x-placement^="left"] {
+    margin-right: 5px;
+
+    .afp-popover {
+      border-width: 5px 0 5px 5px;
+      border-top-color: transparent !important;
+      border-right-color: transparent !important;
+      border-bottom-color: transparent !important;
+      right: -5px;
+      top: calc(50% - 5px);
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  &[aria-hidden="true"] {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.15s, visibility 0.15s;
+  }
+
+  &[aria-hidden="false"] {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.15s;
+  }
+}

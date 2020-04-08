@@ -2,20 +2,17 @@
     <!-- Need:
     Print version-->
 
-    <div :class="$style.container">
-        <div :class="$style.row">
+    <div class="afp-container afp-pt-3">
+        <div class="afp-row afp-justify-content-center">
             <!-- All zones forecast -->
-            <div v-if="loaded" :class="$style.column">
-                <h1 :class="$style.title">Backcountry Avalanche Forecast</h1>
+            <div v-if="loaded" class="afp-col-lg-9 afp-col-md-12">
+                <h1 class="afp-html-h1">Backcountry Avalanche Forecast</h1>
                 <!-- Warning -->
                 <div v-for="(forecast, index) in data.forecasts" v-bind:key="'forecast-' + index">
                     <!-- Title -->
-                    <div :class="$style.title">
-                        <h2>
-                            <i class="mdi mdi-map-marker"></i>
-                            {{centerMeta.zones[index].name}}
-                        </h2>
-                    </div>
+                    <h2 class="afp-html-h2 afp-gray-700 afp-zone-title afp-mb-3">
+                        <i class="mdi mdi-map-marker"></i>{{centerMeta.zones[index].name}}
+                    </h2>
                     <!-- Warning -->
                     <avy-warning
                         v-if="data.warning_product[index]"
@@ -29,58 +26,51 @@
                         :author="forecast.author"
                     />
                     <!-- Bottom line -->
-                    <div v-if="forecast.bottom_line != ''" :class="$style.bottomLine">
-                        <v-popover :class="$style.dangerIcon">
-                            <img
-                                :src="$dangerScale[forecast.highestDanger].icon"
-                                v-tooltip="'Click to learn more'"
-                            />
-                            <template slot="popover">
-                                <div v-html="$dangerScale[forecast.highestDanger].advice"></div>
-                            </template>
-                        </v-popover>
-                        <h5 :class="$style.bottomLineTitle">THE BOTTOM LINE</h5>
-                        <div :class="$style.bottomLineText" v-html="forecast.bottom_line"></div>
-                    </div>
-                    <div :class="$style.danger">
+                    <bottom-line
+                        class="afp-mb-2"
+                        v-if="forecast.bottom_line != ''"
+                        :bottomLine="forecast.bottom_line"
+                        :highestDanger="forecast.highestDanger"
+                    />
+
+                    <content-panel class="afp-mb-3">
                         <!-- danger -->
                         <avalanche-danger
-                            :class="$style.spacer"
                             :danger="forecast.danger"
                             :date="forecast.published_time"
                             :config="config"
                         />
-                        <div :class="$style.textRight">
+                        <div class="afp-text-right afp-mb-2">
                             <router-link
                                 :to="{ name: 'ZoneForecast', params: { zone: urlString(centerMeta.zones[index].name) }}"
-                                :class="$style.btn"
-                                class="afp-btn-primary"
+                                class="afp-html-a afp-btn afp-btn-primary"
                             >
                                 Full Forecast
                                 <i class="mdi mdi-arrow-right"></i>
                             </router-link>
                         </div>
-                    </div>
-                    <div :class="$style.spacer"></div>
+                    </content-panel>
                 </div>
-                <h1 :class="$style.title">Weather Forecast</h1>
-                <div :class="$style.title">
-                    <h2>
-                        <i class="mdi mdi-map-marker"></i>
-                        All Zones
-                    </h2>
-                </div>
+                <h1 class="afp-html-h1">Weather Forecast</h1>
+                <h2 class="afp-html-h2 afp-gray-700 afp-mb-3">
+                    <i class="mdi mdi-map-marker"></i>
+                    All Zones
+                </h2>
                 <product-header
                     :published="data.weather_product.published_time"
                     :author="data.weather_product.author"
                     :expires="false"
                 />
-                <div
-                    v-if="data.weather_product"
-                    v-html="data.weather_product.weather_discussion"
-                    :class="$style.weather"
-                ></div>
-                <div v-else :class="$style.weather"><p>No Weather Forecast product found.</p></div>
+                <content-panel>
+                    <div
+                        class="afp-pb-2"
+                        v-if="data.weather_product"
+                        v-html="data.weather_product.weather_discussion"
+                    ></div>
+                    <div class="afp-pb-2" v-else>
+                        <p class="afp-html-p">No Weather Forecast product found.</p>
+                    </div>
+                </content-panel>
                 <disclaimer />
             </div>
             <not-found v-if="notFound" />
@@ -94,6 +84,7 @@ import Loader from '../components/Loader'
 import NotFound from '../components/NotFound'
 import AvyWarning from '../components/AvyWarning'
 import ProductHeader from '../components/ProductHeader'
+import BottomLine from '../components/BottomLine'
 import ContentPanel from '../components/ContentPanel'
 import AvalancheDanger from '../components/AvalancheDanger'
 import WeatherContent from '../components/WeatherContent'
@@ -118,6 +109,7 @@ export default {
         NotFound,
         ProductHeader,
         AvyWarning,
+        BottomLine,
         ContentPanel,
         AvalancheDanger,
         WeatherContent,
@@ -129,6 +121,27 @@ export default {
             string = string.toLowerCase()
             return string
         },
+        tineMCEclass(search) {
+            // Add AFP specific classes to TinyMCE tags
+            search = JSON.stringify(search)
+            search = search
+                .replace(/<p/g, '<p class=\\"afp-html-p\\"')
+                .replace(/<a/g, '<a class=\\"afp-html-a\\"')
+                .replace(/<hr>/g, '<hr class=\\"afp-html-hr\\">')
+                .replace(/<table/g, '<table class=\\"afp-html-table\\"')
+                .replace(/<figure class=\\"/g, '<figure class=\\"afp-html-figure afp-tinymce-figure ')
+                .replace(/<img/g, '<img class=\\"afp-html-img afp-tinymce-img\\"')
+                .replace(/<h1>/g, '<h1 class=\\"afp-html-h1\\">')
+                .replace(/<h2>/g, '<h2 class=\\"afp-html-h2\\">')
+                .replace(/<h3>/g, '<h3 class=\\"afp-html-h3\\">')
+                .replace(/<h4>/g, '<h4 class=\\"afp-html-h4\\">')
+                .replace(/<h5>/g, '<h5 class=\\"afp-html-h5\\">')
+                .replace(/<h6>/g, '<h6 class=\\"afp-html-h6\\">')
+                .replace(/<ul>/g, '<ul class=\\"afp-html-ul\\">')
+                .replace(/<li>/g, '<li class=\\"afp-html-li\\">')
+                .replace(/<iframe/g, '<iframe class=\\"afp-html-iframe\\"')
+            return JSON.parse(search)
+        },
         getForecast(zone) {
             return this.$api
                 .get('/public/product?type=forecast&center_id=' + this.$centerId + '&zone_id=' + zone)
@@ -138,7 +151,7 @@ export default {
                     } else {
                         var data = response.data
                         data.danger.splice(1, 2)
-                        return data
+                        return this.tineMCEclass(data)
                     }
                 })
                 .catch(e => {
@@ -162,13 +175,13 @@ export default {
                 })
         },
         getWeather() {
-            this.$api
+            return this.$api
                 .get('/public/product?type=weather&center_id=' + this.$centerId + '&zone_id=' + this.centerMeta.zones[0].id + '&published_time=' + this.date)
                 .then(response => {
                     if (response.data.published_time != null) {
-                        this.data.weather_product = response.data
+                        return this.tineMCEclass(response.data)
                     } else {
-                        this.data.weather_product = false
+                        return false
                     }
                 })
         },
@@ -201,142 +214,10 @@ export default {
                 this.data.warning_product.push(zone)
             })
         })
-        await this.getWeather()
+        this.data.weather_product = await this.getWeather()
         this.$eventBus.$emit('loaded')
         this.loaded = true
         document.body.classList.add('afp-forecast-type-all')
     }
 }
 </script>
-
-<style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins";
-
-.container {
-    composes: container from "../assets/css/style.css";
-    padding-top: $spacer;
-}
-
-.row {
-    composes: row from "../assets/css/style.css";
-    justify-content: center;
-}
-
-.column {
-    composes: col-lg-9 from "../assets/css/style.css";
-    composes: col-md-12 from "../assets/css/style.css";
-}
-.spacer {
-    margin-bottom: $spacer;
-}
-
-.title {
-    margin-bottom: $spacer !important;
-    h2 {
-        color: $gray-700 !important;
-        margin-bottom: 0 !important;
-        text-indent: -0.75rem;
-        margin-left: 1.5rem;
-    }
-}
-
-.bottomLine {
-    position: relative;
-    background-color: #fff;
-    padding: $spacer;
-    border: 1.2px solid $gray-400;
-    box-shadow: $app-box-shadow;
-    margin-top: 3rem;
-    margin-bottom: 1rem;
-}
-
-.dangerIcon {
-    height: 60px !important;
-    width: 90px !important;
-    position: absolute;
-    top: -20px;
-    left: -20px;
-    @include media-breakpoint-down(xs) {
-        left: -15px;
-    }
-    div {
-        display: block !important;
-        cursor: help;
-        width: 100%;
-        height: 100%;
-    }
-    img {
-        height: 100% !important;
-        width: auto !important;
-        max-width: initial !important;
-    }
-}
-
-.bottomLineTitle {
-    display: inline-block;
-    border-bottom: 1px solid $gray-400;
-    padding-bottom: 0.1rem;
-}
-
-.bottomLineText {
-    font-size: $font-size-lg;
-    margin-top: 0.7rem;
-    // p:last-of-type {
-    //     margin-bottom: 0 !important;
-    // }
-}
-
-.danger {
-    position: relative;
-    background-color: #fff;
-    padding: 2rem 1rem 0 1rem;
-    border: 1.2px solid $gray-400;
-    box-shadow: $app-box-shadow;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    @include media-breakpoint-down(xs) {
-        margin-right: -15px;
-        margin-left: -15px;
-        border-left: none;
-        border-right: none;
-        box-shadow: none;
-    }
-}
-
-.weather {
-    position: relative;
-    background-color: #fff;
-    padding: 2rem 1rem 1rem 1rem;
-    // border-radius: $border-radius;
-    border: 1.2px solid $gray-400;
-    box-shadow: $app-box-shadow;
-    margin-top: $spacer;
-}
-
-.wxSummary {
-    @media print {
-        display: none;
-    }
-}
-
-.btn {
-    composes: btn from "../assets/css/style.css";
-    composes: btn-primary from "../assets/css/style.css";
-    // composes: btn-sm from "../assets/css/style.css";
-}
-
-.textRight {
-    text-align: right;
-    margin-bottom: 0.5 * $spacer;
-}
-
-.printWx {
-    display: none;
-    @media print {
-        display: block;
-        margin-top: $spacer;
-    }
-}
-</style>

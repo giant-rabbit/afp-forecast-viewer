@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div :class="$style.container">
+        <div class="afp-container afp-pt-2">
             <div v-if="notFound" style="min-height: 80vh;">
                 There is no current Weather Forecast product to display. View the <router-link :to="{ name: 'Forecast'}">Current Avalanche Forecast</router-link> product.
             </div>
@@ -61,14 +61,3 @@ export default {
     },
 }
 </script>
-
-<style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins";
-
-.container {
-    composes: container from "../assets/css/style.css";
-    padding-top: .5*$spacer;
-}
-</style>

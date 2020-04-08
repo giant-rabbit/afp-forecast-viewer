@@ -1,0 +1,125 @@
+// stylelint-disable declaration-no-important, selector-list-comma-newline-after
+
+//
+// Headings
+//
+
+.#{$class-prefix}-html-h1,.#{$class-prefix}-html-h2, .#{$class-prefix}-html-h3, .#{$class-prefix}-html-h4, .#{$class-prefix}-html-h5, .#{$class-prefix}-html-h6,
+.#{$class-prefix}-h1, .#{$class-prefix}-h2, .#{$class-prefix}-h3, .#{$class-prefix}-h4, .#{$class-prefix}-h5, .#{$class-prefix}-h6 {
+  margin-bottom: $headings-margin-bottom;
+  font-family: $headings-font-family;
+  font-weight: $headings-font-weight;
+  line-height: $headings-line-height;
+  color: $headings-color;
+}
+
+.#{$class-prefix}-html-h1, .#{$class-prefix}-h1 { font-size: $h1-font-size; }
+.#{$class-prefix}-html-h2, .#{$class-prefix}-h2 { font-size: $h2-font-size; }
+.#{$class-prefix}-html-h3, .#{$class-prefix}-h3 { font-size: $h3-font-size; }
+.#{$class-prefix}-html-h4, .#{$class-prefix}-h4 { font-size: $h4-font-size; }
+.#{$class-prefix}-html-h5, .#{$class-prefix}-h5 { font-size: $h5-font-size; }
+.#{$class-prefix}-html-h6, .#{$class-prefix}-h6 { font-size: $h6-font-size; }
+
+.#{$class-prefix}-lead {
+  font-size: $lead-font-size;
+  font-weight: $lead-font-weight;
+}
+
+// Type display classes
+.#{$class-prefix}-display-1 {
+  font-size: $display1-size;
+  font-weight: $display1-weight;
+  line-height: $display-line-height;
+}
+.#{$class-prefix}-display-2 {
+  font-size: $display2-size;
+  font-weight: $display2-weight;
+  line-height: $display-line-height;
+}
+.#{$class-prefix}-display-3 {
+  font-size: $display3-size;
+  font-weight: $display3-weight;
+  line-height: $display-line-height;
+}
+.#{$class-prefix}-display-4 {
+  font-size: $display4-size;
+  font-weight: $display4-weight;
+  line-height: $display-line-height;
+}
+
+
+//
+// Horizontal rules
+//
+
+.#{$class-prefix}-html-hr {
+  margin-top: $hr-margin-y;
+  margin-bottom: $hr-margin-y;
+  border: 0;
+  border-top: $hr-border-width solid $hr-border-color;
+}
+
+
+//
+// Emphasis
+//
+
+.#{$class-prefix}-html-small,
+.#{$class-prefix}-small {
+  font-size: $small-font-size;
+  font-weight: $font-weight-normal;
+}
+
+mark,
+.#{$class-prefix}-mark {
+  padding: $mark-padding;
+  background-color: $mark-bg;
+}
+
+
+//
+// Lists
+//
+
+.#{$class-prefix}-list-unstyled {
+  @include list-unstyled;
+}
+
+// Inline turns list items into inline-block
+.#{$class-prefix}-list-inline {
+  @include list-unstyled;
+}
+.#{$class-prefix}-list-inline-item {
+  display: inline-block;
+
+  &:not(:last-child) {
+    margin-right: $list-inline-padding;
+  }
+}
+
+
+//
+// Misc
+//
+
+// Builds on `abbr`
+.#{$class-prefix}-initialism {
+  font-size: 90%;
+  text-transform: uppercase;
+}
+
+// Blockquotes
+.#{$class-prefix}-blockquote {
+  margin-bottom: $spacer;
+  font-size: $blockquote-font-size;
+}
+
+.#{$class-prefix}-blockquote-footer {
+  display: block;
+  font-size: 80%; // back to default font-size
+  color: $blockquote-small-color;
+
+  &::before {
+    content: "\2014 \00A0"; // em dash, nbsp
+  }
+}

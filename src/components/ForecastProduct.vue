@@ -1,17 +1,19 @@
 <template>
     <div>
-        <div :class="$style.row">
+        <div class="afp-row afp-mb-3">
             <!-- Zone selector -->
-            <div v-if="!preview" :class="$style.zoneSelector">
+            <div v-if="!preview" class="afp-col-md-4 afp-col-lg-3 afp-order-md-2 text-md-right">
                 <zone-selector />
             </div>
             <!-- Title -->
-            <div :class="$style.title">
-                <h1 v-if="data.product_type == 'forecast'">Backcountry Avalanche Forecast</h1>
-                <h1 v-else>General Avalanche Information</h1>
-                <h2>
-                    <i class="mdi mdi-map-marker"></i>
-                    {{zone}}
+            <div class="afp-forecast-title afp-col-md-8 afp-col-lg-9">
+                <h1
+                    class="afp-html-h1"
+                    v-if="data.product_type == 'forecast'"
+                >Backcountry Avalanche Forecast</h1>
+                <h1 class="afp-html-h1" v-else>General Avalanche Information</h1>
+                <h2 class="afp-html-h2 afp-gray-700 afp-zone-title">
+                    <i class="mdi mdi-map-marker"></i>{{zone}}
                 </h2>
             </div>
         </div>
@@ -27,16 +29,7 @@
         />
 
         <!-- Bottom line -->
-        <div v-if="data.bottom_line != ''" :class="$style.bottomLine">
-            <v-popover :class="$style.dangerIcon">
-                <img :src="this.$dangerScale[highestDanger].icon" v-tooltip="'Click to learn more'" />
-                <template slot="popover">
-                    <div v-html="this.$dangerScale[highestDanger].advice"></div>
-                </template>
-            </v-popover>
-            <h5 :class="$style.bottomLineTitle">THE BOTTOM LINE</h5>
-            <div :class="$style.bottomLineText" v-html="data.bottom_line"></div>
-        </div>
+        <bottom-line v-if="data.bottom_line != ''" :bottomLine="data.bottom_line" :highestDanger="highestDanger" />
 
         <!-- Tab navigation -->
         <tabs
@@ -77,7 +70,7 @@
             <!-- Avalanche forecast tab -->
             <div
                 v-if="tabSelected == 'forecast' && data.product_type == 'forecast'"
-                :class="$style.tabPane"
+                class="afp-tabPane"
             >
                 <!-- danger -->
                 <avalanche-danger
@@ -95,14 +88,14 @@
                 />
 
                 <!-- discussion -->
-                <div v-if="data.hazard_discussion != ''" :class="$style.divider">
-                    <h2>Forecast Discussion</h2>
-                    <div v-html="data.hazard_discussion"></div>
+                <div v-if="data.hazard_discussion != ''" class="afp-divider afp-mb-4">
+                    <h2 class="afp-html-h2">Forecast Discussion</h2>
+                    <div class="afp-tinymce" v-html="data.hazard_discussion"></div>
                 </div>
 
                 <!-- media -->
                 <media-gallery
-                    :class="[$style.divider, $style.mediaGallery]"
+                    class="afp-divider afp-print-hide"
                     :media="data.media"
                     scope="scope-forecast"
                     v-if="data.media.length > 0"
@@ -112,26 +105,25 @@
                 <!-- weather summary -->
                 <div
                     v-if="!preview && data.weather_table && data.product_type == 'forecast'"
-                    :class="[$style.divider, $style.wxSummary]"
+                    class="afp-divider afp-print-hide afp-mb-4"
                 >
-                    <h2>Weather Summary</h2>
+                    <h2 class="afp-html-h2">Weather Summary</h2>
                     <weather-table
                         :periods="data.weather_table.periods"
                         :data="data.weather_table.data"
                         :zone="data.weather_table.zone_name"
                     />
-                    <div :class="$style.textCenter">
+                    <div class="afp-text-center">
                         <button
                             @click="scrollToTabs('weather')"
-                            :class="$style.btn"
-                            class="afp-btn-primary"
+                            class="afp-html-button afp-btn afp-btn-primary"
                         >Full Weather Forecast</button>
                     </div>
                 </div>
 
                 <!-- weather forecast for print -->
-                <div :class="[$style.divider, $style.printWx]">
-                    <h2>Weather Forecast</h2>
+                <div class="afp-divider afp-print-show">
+                    <h2 class="afp-html-h2">Weather Forecast</h2>
                     <weather-content v-if="data.weather_product" :data="data.weather_product" />
                 </div>
             </div>
@@ -139,35 +131,34 @@
             <!-- Summary tab -->
             <div
                 v-if="tabSelected == 'forecast' && data.product_type == 'summary'"
-                :class="$style.tabPane"
+                class="afp-tabPane"
             >
-                <div :class="$style.spacer">
-                    <h2>Forecast Discussion</h2>
+                <div class="afp-mb-3">
+                    <h2 class="afp-html-h2">Forecast Discussion</h2>
                     <div
-                        class="afp-discussion"
-                        :class="$style.clearfix"
+                        class="afp-tinymce"
                         v-if="data.hazard_discussion != ''"
                         v-html="data.hazard_discussion"
                     ></div>
                 </div>
                 <!-- media -->
                 <media-gallery
-                    :class="[$style.divider, $style.mediaGallery]"
+                    class="afp-divider afp-print-hide"
                     :media="data.media"
                     scope="scope-forecast"
                     v-if="data.media.length > 0"
                 />
                 <!-- weather forecast for print -->
-                <div :class="[$style.divider, $style.printWx]">
-                    <h2>Weather Forecast</h2>
-                    <div v-if="data.weather_discussion != ''" v-html="data.weather_discussion"></div>
+                <div class="afp-divider afp-print-show">
+                    <h2 class="afp-html-h2">Weather Forecast</h2>
+                    <div class="afp-tinymce" v-if="data.weather_discussion != ''" v-html="data.weather_discussion"></div>
                 </div>
             </div>
 
             <!-- Forecast Weather tab -->
             <div
                 v-if="tabSelected == 'weather' && data.product_type == 'forecast'"
-                :class="$style.tabPane"
+                class="afp-tabPane"
             >
                 <div v-if="data.weather_product">
                     <product-header
@@ -183,16 +174,16 @@
             <!-- Summary Weather tab -->
             <div
                 v-if="tabSelected == 'weatherSummary'  && data.product_type == 'summary'"
-                :class="$style.tabPane"
+                class="afp-tabPane"
             >
-                <div v-if="data.weather_discussion != ''" v-html="data.weather_discussion"></div>
+                <div class="afp-tinymce" v-if="data.weather_discussion != ''" v-html="data.weather_discussion"></div>
             </div>
 
             <!-- Blog tab -->
-            <div v-if="tabSelected == 'blog'" :class="$style.tabPane">
+            <div v-if="tabSelected == 'blog'" class="afp-tabPane">
                 <!-- Title -->
                 <div v-if="data.synopsis_product.avalanche_center != null">
-                    <h1 v-html="data.synopsis_product.bottom_line"></h1>
+                    <h1 class="afp-html-h1" v-html="data.synopsis_product.bottom_line"></h1>
                     <product-header
                         :published="data.synopsis_product.published_time"
                         :author="data.synopsis_product.author"
@@ -205,7 +196,7 @@
 
             <!-- Custom tab content -->
             <div v-for="customTab in config.tabs" v-bind:key="customTab.id">
-                <div v-show="tabSelected == customTab.id" :class="$style.tabPane">
+                <div v-show="tabSelected == customTab.id" class="afp-tabPane">
                     <custom-tab :id="customTab.id" :tab="customTab.id"></custom-tab>
                 </div>
             </div>
@@ -218,6 +209,7 @@
 import ZoneSelector from '../components/ZoneSelector'
 import ProductHeader from '../components/ProductHeader'
 import AvyWarning from '../components/AvyWarning'
+import BottomLine from '../components/BottomLine'
 import Tabs from '../components/Tabs'
 import ContentPanel from '../components/ContentPanel'
 import AvalancheDanger from '../components/AvalancheDanger'
@@ -286,6 +278,7 @@ export default {
         ZoneSelector,
         ProductHeader,
         AvyWarning,
+        BottomLine,
         Tabs,
         ContentPanel,
         AvalancheDanger,
@@ -312,146 +305,9 @@ export default {
 }
 </script>
 
-<style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins";
-
-.spacer {
-    margin-bottom: $spacer;
-}
-.clearfix::after {
-    display: block;
-    content: "";
-    clear: both;
-}
-
-.divider {
-    margin-bottom: 1.5 * $spacer;
-    @include divider;
-}
-
-.title {
-    composes: col-md-8 from "../assets/css/style.css";
-    composes: col-lg-9 from "../assets/css/style.css";
-    h2 {
-        color: $gray-700 !important;
-        margin-bottom: 0 !important;
-        text-indent: -0.75rem;
-        margin-left: 1.5rem;
-    }
-}
-
-.zoneSelector {
-    composes: col-md-4 from "../assets/css/style.css";
-    composes: col-lg-3 from "../assets/css/style.css";
-    composes: order-md-2 from "../assets/css/style.css";
-}
-
-.row {
-    composes: row from "../assets/css/style.css";
-    margin-bottom: $spacer;
-}
-
-.bottomLine {
-    position: relative;
-    background-color: #fff;
-    padding: $spacer;
-    // border-radius: $border-radius;
-    border: 1.2px solid $gray-400;
-    box-shadow: $app-box-shadow;
-    margin-top: 3rem;
-    margin-bottom: 2rem;
-}
-
-.dangerIcon {
-    height: 60px !important;
-    width: 90px !important;
-    position: absolute;
-    top: -20px;
-    left: -20px;
-    @include media-breakpoint-down(xs) {
-        left: -15px;
-    }
-    div {
-        display: block !important;
-        cursor: help;
-        width: 100%;
-        height: 100%;
-    }
-    img {
-        height: 100% !important;
-        width: auto !important;
-        max-width: initial !important;
-    }
-}
-
-.bottomLineTitle {
-    display: inline-block;
-    border-bottom: 1px solid $gray-400;
-    padding-bottom: 0.1rem;
-}
-
-.bottomLineText {
-    font-size: $font-size-lg;
-    margin-top: 0.7rem;
-}
-
-.tabPane {
-    min-height: 80vh;
-}
-.wxSummary {
-    @media print {
-        display: none;
-    }
-}
-
-.btn {
-    composes: btn from "../assets/css/style.css";
-    composes: btn-primary from "../assets/css/style.css";
-}
-
-.textCenter {
-    text-align: center;
-}
-
-.printWx {
-    display: none;
-    @media print {
-        display: block;
-        margin-top: $spacer;
-    }
-}
-</style>
-
 <style scoped lang="scss">
-.afp-discussion::v-deep {
-    img {
-        max-width: 100% !important;
-        height: auto !important;
-    }
-    figure {
-        margin: 0 1rem 1rem 1rem !important;
-        display: table;
-        figcaption {
-            font-style: italic;
-            font-size: 80%;
-            display: table-caption;
-            caption-side: bottom;
-        }
-    }
-    figure.align-right {
-        float: right !important;
-        margin: 0 0 1rem 1rem !important;
-    }
-    figure.align-left {
-        float: left !important;
-        margin: 0 1rem 1rem 0 !important;
-    }
-    figure.align-center {
-        display: table;
-        margin-left: auto !important;
-        margin-right: auto !important;
-    }
+
+.afp-tabPane {
+    min-height: 80vh;
 }
 </style>

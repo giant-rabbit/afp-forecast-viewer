@@ -1,5 +1,5 @@
 <template>
-    <div id="afp" class="afp-forecast-view">
+    <div id="afp" class="afp-forecast-view afp-html-body">
         <v-style v-if="this.$config.color">
             .afp-forecast-view a:not(.afp-native-link):not(.afp-btn-primary) {
             color: {{this.$config.color}} !important;
@@ -45,11 +45,9 @@
             <router-link :to="{ name: 'Synopsis' }">Synopsis</router-link>
         </div>-->
         <transition name="fade" mode="out-in">
-            <keep-alive>
-                <router-view
-                    :key="$route.name + ($route.params.zone || '') + ($route.params.date || '') + ($route.params.product || '')"
-                ></router-view>
-            </keep-alive>
+            <router-view
+                :key="$route.name + ($route.params.zone || '') + ($route.params.date || '') + ($route.params.product || '')"
+            ></router-view>
         </transition>
     </div>
 </template>
@@ -86,6 +84,10 @@ export default {
 </script>
 
 <style lang="scss">
-// Import global styles
-@import "./assets/css/app.scss";
+// Import prefixed Bootstrap 4
+$class-prefix: "afp";
+@import "./assets/bootstrap4/bootstrap.scss";
+
+// Import app stylesheet
+@import "./assets/app.scss";
 </style>

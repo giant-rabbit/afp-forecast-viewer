@@ -1,5 +1,5 @@
 <template>
-    <div :class="$style.dangerMobile">
+    <div class="afp-dangerMobile">
         <svg
             width="160"
             height="140"
@@ -31,10 +31,10 @@
                 style="fill:none;stroke:#ccc;stroke-width:2.51px;"
             />
         </svg>
-        <div :class="$style.dangerNumbers">
-            <span :class="{[$style.extremeText]:(danger.upper == 5)}">{{danger.upper}}</span>
-            <span :class="{[$style.extremeText]:(danger.middle == 5)}">{{danger.middle}}</span>
-            <span :class="{[$style.extremeText]:(danger.lower == 5)}">{{danger.lower}}</span>
+        <div class="afp-dangerNumbers">
+            <span :class="{'afp-extremeText':(danger.upper == 5)}">{{danger.upper}}</span>
+            <span :class="{'afp-extremeText':(danger.middle == 5)}">{{danger.middle}}</span>
+            <span :class="{'afp-extremeText':(danger.lower == 5)}">{{danger.lower}}</span>
         </div>
     </div>
 </template>
@@ -60,39 +60,37 @@ export default {
 
 </script>
 
-<style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins/breakpoints";
+<style scoped lang="scss">
 
-.dangerMobile {
+.afp-dangerMobile {
     height: 140px;
     width: 160px;
     position: relative;
     page-break-inside: avoid;
-}
 
-.dangerNumbers {
-    page-break-inside: avoid;
-    position: absolute;
-    top:0;
-    width: 40px;
-    left: calc(50% - 20px);
-    z-index: 4;
-    font-weight: bold;
-    text-align: center;
-    font-size: 16px;
-    span {
-        &:first-of-type {
-            margin-top: 14px;
+    .afp-dangerNumbers {
+        page-break-inside: avoid;
+        position: absolute;
+        top: 0;
+        width: 40px;
+        left: calc(50% - 20px);
+        z-index: 4;
+        font-weight: bold;
+        text-align: center;
+        font-size: 16px;
+        span {
+            &:first-of-type {
+                margin-top: 14px;
+            }
+            display: block;
+            line-height: 1;
+            padding-top: 12px;
+            padding-bottom: 12px;
         }
-        display: block;
-        line-height: 1;
-        padding-top: 12px;
-        padding-bottom: 12px;
     }
-}
-.extremeText {
-    color: #fff;
+
+    .afp-extremeText {
+        color: #fff;
+    }
 }
 </style>

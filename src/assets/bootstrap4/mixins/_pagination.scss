@@ -1,0 +1,22 @@
+// Pagination
+
+@mixin pagination-size($padding-y, $padding-x, $font-size, $line-height, $border-radius) {
+  .#{$class-prefix}-page-link {
+    padding: $padding-y $padding-x;
+    font-size: $font-size;
+    line-height: $line-height;
+  }
+
+  .#{$class-prefix}-page-item {
+    &:first-child {
+      .#{$class-prefix}-page-link {
+        @include border-left-radius($border-radius);
+      }
+    }
+    &:last-child {
+      .#{$class-prefix}-page-link {
+        @include border-right-radius($border-radius);
+      }
+    }
+  }
+}

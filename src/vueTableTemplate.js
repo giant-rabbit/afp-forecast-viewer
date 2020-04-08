@@ -78,7 +78,7 @@ module.exports = function (h, modules, classes, slots) {
             { 'class': 'afp-table-responsive' },
             [h(
                 'table',
-                { 'class': 'VueTables__table ' + (this.opts.skin ? this.opts.skin : classes.table) },
+                { 'class': 'afp-html-table VueTables__table afp-table' },
                 [h('thead', [h('tr', [modules.headings(classes.right)]), slots.beforeFilters, modules.columnFilters(classes), slots.afterFilters]), footerHeadings, slots.beforeBody, h('tbody', [slots.prependBody, modules.rows(classes), slots.appendBody]), slots.afterBody]
             )]
         ), slots.afterTable, modules.pagination((0, _merge2.default)(classes.pagination, {
