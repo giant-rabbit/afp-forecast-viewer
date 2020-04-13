@@ -42,7 +42,7 @@ export default new Router({
 			meta: { bodyClass: 'afp-blog-archived' }
 		},
 		{
-			path: '',
+			path: '/all',
 			name: 'AllZonesForecast',
 			component: AllZonesForecast,
 			meta: { bodyClass: 'afp-forecast' }

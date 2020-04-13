@@ -109,15 +109,15 @@ axios
         if (window.ga && ga.create) {
             ga('set', 'page', config.baseUrl + '/#' + router.currentRoute.path);
             ga('send', 'pageview');
-            console.log(config.baseUrl + '/#' + router.currentRoute.path)
+            //console.log(config.baseUrl + '/#' + router.currentRoute.path)
             router.afterEach((to, from) => {
                 ga('set', 'page', config.baseUrl + '/#' + to.path);
                 ga('send', 'pageview');
-                console.log(config.baseUrl + '/#' + to.path)
+                //console.log(config.baseUrl + '/#' + to.path)
             })
-            console.log('GA loaded')
+            console.log('Google Analytics loaded')
         } else {
-            console.log('GA not loaded')
+            console.log('Google Analytics not loaded')
         }
     })
     .catch(e => {
