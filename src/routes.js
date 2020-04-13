@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Forecast from './components/Forecast'
-import Weather from './components/Weather'
-import Synopsis from './components/Synopsis'
-import Archive from './components/Archive'
-import AllZonesForecast from './components/AllZonesForecast'
+import Forecast from './views/Forecast'
+import Weather from './views/Weather'
+import Synopsis from './views/Synopsis'
+import Archive from './views/Archive'
+import AllZonesForecast from './views/AllZonesForecast'
 
 Vue.use(Router)
 
