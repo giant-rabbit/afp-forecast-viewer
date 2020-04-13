@@ -85,7 +85,7 @@
                 <disclaimer />
             </div>
             <not-found v-if="notFound" />
-            <loader />
+            <loader :show="!loaded" />
         </div>
     </div>
 </template>
@@ -168,7 +168,6 @@ export default {
                 })
                 .catch(e => {
                     this.notFound = true
-                    this.$eventBus.$emit('loaded')
                     return false
                 })
         },
@@ -199,7 +198,6 @@ export default {
         },
     },
     async mounted() {
-        this.$eventBus.$emit('loading')
         var promiseArray = []
         this.centerMeta.zones.forEach(zone => {
             promiseArray.push(this.getForecast(zone.id))
@@ -229,7 +227,6 @@ export default {
             })
         })
         this.data.weather_product = await this.getWeather()
-        this.$eventBus.$emit('loaded')
         this.loaded = true
         document.body.classList.add('afp-forecast-type-all')
     }

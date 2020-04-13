@@ -33,12 +33,6 @@
             background-color: #fff;
         }
     </style>
-    <script type="text/javascript">
-        window.addEventListener('observations-tab-loaded', function (e) {
-            console.log('forecast loaded');
-            document.getElementById('observations').innerHTML = "Custom content loaded from parent website";
-        }, false);
-    </script>
 </head>
 
 <body>
@@ -50,7 +44,8 @@
             "tabs": [
                 {
                     "name": "Observations",
-                    "id": "observations"
+                    "id": "observations",
+                    "url": "http://192.168.1.4:5757/forecast-observation-tab/"
                 }
             ],
             "blog": true,

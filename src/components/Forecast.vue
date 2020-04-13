@@ -9,7 +9,7 @@
                 <i class="mdi mdi-arrow-left"></i> Archive
             </button>
             <not-found v-if="notFound" />
-            <loader />
+            <loader :show="!loaded" />
         </div>
         <forecast-view
             v-if="loaded && !notFound"
@@ -53,7 +53,6 @@ export default {
             handler: function () {
                 this.loaded = false
                 this.notFound = false
-                this.$eventBus.$emit('loading')
                 this.getProducts()
             }
         },
@@ -61,7 +60,6 @@ export default {
             handler: function () {
                 this.loaded = false
                 this.notFound = false
-                this.$eventBus.$emit('loading')
                 this.getProducts()
             }
         }
@@ -100,7 +98,6 @@ export default {
             document.body.classList.add('afp-forecast-zone-' + this.zone)
             await this.getSynopsis()
             this.loaded = true
-            this.$eventBus.$emit('loaded')
         },
         getForecast() {
             return this.$api
@@ -108,7 +105,6 @@ export default {
                 .then(response => {
                     if (response.data.published_time == null) {
                         this.notFound = true
-                        this.$eventBus.$emit('loaded')
                     } else {
                         this.data = response.data
                         this.data.forecast_avalanche_problems.sort(function (a, b) {
@@ -171,7 +167,6 @@ export default {
 
     },
     mounted() {
-        this.$eventBus.$emit('loading')
         this.getProducts()
     }
 }

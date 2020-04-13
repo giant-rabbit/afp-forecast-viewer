@@ -4,15 +4,14 @@
             <div v-if="notFound" style="min-height: 80vh;">
                 There is no current Weather Forecast product to display. View the <router-link :to="{ name: 'Forecast'}">Current Avalanche Forecast</router-link> product.
             </div>
-            <loader />
+            <loader :show="!loaded" />
         </div>
-        <forecast-view v-if="loaded" product="weather" :data="data" />
+        <forecast-view v-if="loaded && !notFound" product="weather" :data="data" />
     </div>
 </template>
 
 <script>
 import Loader from '../components/Loader'
-import NotFound from '../components/NotFound'
 
 export default {
     data() {
@@ -26,8 +25,7 @@ export default {
         }
     },
     components: {
-        Loader,
-        NotFound
+        Loader
     },
     methods: {
         getWeather() {
@@ -36,7 +34,6 @@ export default {
                 .then(response => {
                     if (response.data.published_time == null) {
                         this.notFound = true
-                        this.$eventBus.$emit('loaded')
                     } else {
                         this.data = response.data
                         var tables = []
@@ -46,17 +43,15 @@ export default {
                         })
                         this.data.weather_data = tables
                         this.loaded = true
-                        this.$eventBus.$emit('loaded')
                     }
                 })
                 .catch(e => {
+                    this.loaded = true
                     this.notFound = true
-                    this.$eventBus.$emit('loaded')
                 })
         }
     },
     mounted() {
-        this.$eventBus.$emit('loading')
         this.getWeather()
     },
 }

@@ -1,16 +1,26 @@
 <template>
-    <div class="afp-blog-archive" v-show="loaded">
-        <synopsis-filter :data="data" ref="synopsisFilter" key="synopsisFilter" />
-        <v-client-table :columns="columns" :data="data" :options="options" ref="synopsisTable" key="synopsisTable">
-            <div slot="start_date" slot-scope="props">
-                <!-- need logic for link based on product type -->
-                <router-link
-                    class="afp-html-a"
-                    v-tooltip="'View product'"
-                    :to="{ name: 'ArchivedSynopsis', params: { date: props.row.start_date } }"
-                >{{props.row.start_date}}</router-link>
-            </div>
-        </v-client-table>
+    <div class="afp-blog-archive">
+        <loader :show="!loaded" />
+        <alert :show="error"/>
+        <div v-show="loaded">
+            <synopsis-filter :data="data" ref="synopsisFilter" key="synopsisFilter" />
+            <v-client-table
+                :columns="columns"
+                :data="data"
+                :options="options"
+                ref="synopsisTable"
+                key="synopsisTable"
+            >
+                <div slot="start_date" slot-scope="props">
+                    <!-- need logic for link based on product type -->
+                    <router-link
+                        class="afp-html-a"
+                        v-tooltip="'View product'"
+                        :to="{ name: 'ArchivedSynopsis', params: { date: props.row.start_date } }"
+                    >{{props.row.start_date}}</router-link>
+                </div>
+            </v-client-table>
+        </div>
     </div>
 </template>
 
@@ -18,6 +28,8 @@
 import Vue from 'vue'
 import { ClientTable, Event } from 'vue-tables-2'
 import SynopsisFilter from '../components/SynopsisFilter'
+import Loader from '../components/Loader'
+import Alert from '../components/Alert'
 import tableTheme from '../vueTableTheme'
 import tableTemplate from '../vueTableTemplate'
 import moment from 'moment/src/moment.js'
@@ -28,6 +40,7 @@ export default {
     data() {
         return {
             loaded: false,
+            error: false,
             selected: [],
             /**
              * Set up Vue Tables 2
@@ -90,7 +103,9 @@ export default {
         }
     },
     components: {
-        SynopsisFilter
+        SynopsisFilter,
+        Loader,
+        Alert
     },
     methods: {
         getProducts() {
@@ -108,17 +123,15 @@ export default {
                             forecast.start_date = moment(forecast.start_date).format('YYYY-MM-DD')
                         }
                     })
-                    this.$eventBus.$emit('loaded')
                     this.loaded = true
                 })
                 .catch(e => {
-                    this.$eventBus.$emit('showAlert')
-                    this.$eventBus.$emit('loaded')
+                    this.loaded = true
+                    this.error = true
                 })
         }
     },
     mounted() {
-        this.$eventBus.$emit('loading')
         this.getProducts()
     }
 }
@@ -153,7 +166,7 @@ export default {
             padding: $table-cell-padding;
         }
     }
-  
+
     .VueTables__sort-icon {
         float: none !important;
         margin-left: 3px;

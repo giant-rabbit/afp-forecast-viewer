@@ -33,8 +33,6 @@
         <!-- Archive -->
         <keep-alive>
             <content-panel v-if="product">
-                <alert />
-                <loader />
                 <!-- Forecast Archive -->
                 <forecast-list v-if="product != '' && product !='blog'" :zone="product" />
 
@@ -48,8 +46,6 @@
 
 <script>
 import Tabs from '../components/Tabs'
-import Loader from '../components/Loader'
-import Alert from '../components/Alert'
 import ContentPanel from '../components/ContentPanel'
 import ForecastList from '../components/ForecastList'
 import SynopsisList from '../components/SynopsisList'
@@ -66,8 +62,6 @@ export default {
     },
     components: {
         Tabs,
-        Loader,
-        Alert,
         ContentPanel,
         ForecastList,
         SynopsisList,

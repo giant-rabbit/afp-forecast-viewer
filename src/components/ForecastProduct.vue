@@ -197,7 +197,7 @@
             <!-- Custom tab content -->
             <div v-for="customTab in config.tabs" v-bind:key="customTab.id">
                 <div v-show="tabSelected == customTab.id" class="afp-tabPane">
-                    <custom-tab :id="customTab.id" :tab="customTab.id"></custom-tab>
+                    <custom-tab :id="customTab.id" :tab="customTab.id" :url="customTab.url"></custom-tab>
                 </div>
             </div>
         </content-panel>
@@ -260,7 +260,7 @@ export default {
                     name: "Weather Summary"
                 }
             ],
-            tabSelected: 'forecast'
+            tabSelected: 'observations'
         }
     },
     computed: {

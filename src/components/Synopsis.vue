@@ -9,9 +9,9 @@
                 <i class="mdi mdi-arrow-left"></i> Archive
             </button>
             <not-found v-if="notFound" />
-            <loader />
+            <loader :show="!loaded" />
         </div>
-        <forecast-view v-if="loaded" product="synopsis" :data="data" />
+        <forecast-view v-if="loaded && !notFound" product="synopsis" :data="data" />
     </div>
 </template>
 
@@ -38,7 +38,6 @@ export default {
             handler: function () {
                 this.loaded = false
                 this.notFound = false
-                this.$eventBus.$emit('loading')
                 this.getProduct()
             },
             deep: true,
@@ -58,21 +57,18 @@ export default {
                 .then(response => {
                     if (response.data.published_time == null) {
                         this.notFound = true
-                        this.$eventBus.$emit('loaded')
                     } else {
                         this.data = response.data
                         this.loaded = true
-                        this.$eventBus.$emit('loaded')
                     }
                 })
                 .catch(e => {
+                    this.loaded = true
                     this.notFound = true
-                    this.$eventBus.$emit('loaded')
                 })
         }
     },
     mounted() {
-        this.$eventBus.$emit('loading')
         this.getProduct()
     },
 }

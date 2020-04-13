@@ -1,28 +1,32 @@
 <template>
-    <div class="afp-forecast-archive" v-show="loaded">
-        <forecast-filter :data="data" ref="forecastFilter" key="forecastFilter" />
-        <v-client-table
-            :columns="columns"
-            :data="data"
-            :options="options"
-            ref="forecastTable"
-            key="forecastTable"
-        >
-            <div slot="start_date" slot-scope="props">
-                <router-link
-                    class="afp-html-a"
-                    v-tooltip="'View product'"
-                    :to="{ name: 'ArchivedForecast', params: { zone: zoneName, date: props.row.start_date  }}"
-                >{{props.row.start_date}}</router-link>
-            </div>
-            <span slot="danger_rating" slot-scope="props">
-                <span v-if="props.row.danger_rating == ''"></span>
-                <span
-                    v-else
-                    :class="'afp-danger afp-danger-' + props.row.danger_rating"
-                >{{props.row.danger_rating}}</span>
-            </span>
-        </v-client-table>
+    <div class="afp-forecast-archive">
+        <loader :show="!loaded" />
+        <alert :show="error"/>
+        <div v-show="loaded">
+            <forecast-filter :data="data" ref="forecastFilter" key="forecastFilter" />
+            <v-client-table
+                :columns="columns"
+                :data="data"
+                :options="options"
+                ref="forecastTable"
+                key="forecastTable"
+            >
+                <div slot="start_date" slot-scope="props">
+                    <router-link
+                        class="afp-html-a"
+                        v-tooltip="'View product'"
+                        :to="{ name: 'ArchivedForecast', params: { zone: zoneName, date: props.row.start_date  }}"
+                    >{{props.row.start_date}}</router-link>
+                </div>
+                <span slot="danger_rating" slot-scope="props">
+                    <span v-if="props.row.danger_rating == ''"></span>
+                    <span
+                        v-else
+                        :class="'afp-danger afp-danger-' + props.row.danger_rating"
+                    >{{props.row.danger_rating}}</span>
+                </span>
+            </v-client-table>
+        </div>
     </div>
 </template>
 
@@ -30,6 +34,8 @@
 import Vue from 'vue'
 import { ClientTable, Event } from 'vue-tables-2'
 import ForecastFilter from '../components/ForecastFilter'
+import Loader from '../components/Loader'
+import Alert from '../components/Alert'
 import tableTheme from '../vueTableTheme'
 import tableTemplate from '../vueTableTemplate'
 import moment from 'moment/src/moment.js'
@@ -40,6 +46,7 @@ export default {
     data() {
         return {
             loaded: false,
+            error: false,
             selected: [],
             /**
              * Set up Vue Tables 2
@@ -105,7 +112,9 @@ export default {
     },
     props: ['zone'],
     components: {
-        ForecastFilter
+        ForecastFilter,
+        Loader,
+        Alert
     },
     methods: {
         urlString(string) {
@@ -162,18 +171,16 @@ export default {
                                 forecast.danger_rating = "no rating"
                         }
                     })
-                    this.$eventBus.$emit('loaded')
                     this.loaded = true
                 })
                 .catch(e => {
-                    this.$eventBus.$emit('showAlert')
-                    this.$eventBus.$emit('loaded')
+                    this.loaded = true
+                    this.error = true
                 })
         }
     },
     mounted() {
         this.zoneName = this.$route.params.product
-        this.$eventBus.$emit('loading')
         this.getProducts()
     }
 }
