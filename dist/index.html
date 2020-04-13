@@ -22,16 +22,14 @@
             color: #212529;
             text-align: left;
             background-color: #fff;
-        }</style><script>window.addEventListener('observations-tab-loaded', function (e) {
-            console.log('forecast loaded');
-            document.getElementById('observations').innerHTML = "Custom content loaded from parent website";
-        }, false);</script><link href=/app.css rel=preload as=style><link href=/app.js rel=preload as=script><link href=/app.css rel=stylesheet></head><body><div id=afp-public-root></div><script id=afp-public-config type=application/json>{
+        }</style><link href=/app.css rel=preload as=style><link href=/app.js rel=preload as=script><link href=/app.css rel=stylesheet></head><body><div id=afp-public-root></div><script id=afp-public-config type=application/json>{
             "center": "SNFAC",
             "color": "#0fa6a2",
             "tabs": [
                 {
                     "name": "Observations",
-                    "id": "observations"
+                    "id": "observations",
+                    "url": "http://192.168.1.4:5757/forecasts/observation-tab/"
                 }
             ],
             "blog": true,

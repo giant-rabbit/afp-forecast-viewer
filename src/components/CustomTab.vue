@@ -1,7 +1,7 @@
 <template>
-    <div class="afp-custom-tab-content">
+    <div class="afp-custom-tab-content afp-mb-3">
         <div v-html="content"></div>
-        <loader />
+        <loader :show="!loaded" />
     </div>
 </template>
 
@@ -13,6 +13,7 @@ export default {
     data() {
         return {
             content: '',
+            loaded: false
         }
     },
     props: ['tab', 'url'],
@@ -20,9 +21,14 @@ export default {
         Loader,
     },
     async mounted() {
-        var response = await axios.get(this.url);
-        console.log(response)
-        this.content = response.data
+        try {
+            var response = await axios.get(this.url);
+            this.content = response.data
+            this.loaded = true
+        } catch (e) {
+            this.content = "<p class='afp-html-p afp-mb-3'>The content could not be loaded.</p>"
+            this.loaded = true
+        }
     }
 }
 </script>

@@ -176,7 +176,7 @@
                 v-if="tabSelected == 'weatherSummary'  && data.product_type == 'summary'"
                 class="afp-tabPane"
             >
-                <div class="afp-tinymce" v-if="data.weather_discussion != ''" v-html="data.weather_discussion"></div>
+                <div class="afp-tinymce afp-mb-3" v-if="data.weather_discussion != ''" v-html="data.weather_discussion"></div>
             </div>
 
             <!-- Blog tab -->
@@ -260,7 +260,7 @@ export default {
                     name: "Weather Summary"
                 }
             ],
-            tabSelected: 'observations'
+            tabSelected: 'forecast'
         }
     },
     computed: {
@@ -307,7 +307,7 @@ export default {
 
 <style scoped lang="scss">
 
-.afp-tabPane {
-    min-height: 80vh;
-}
+// .afp-tabPane {
+//     min-height: 80vh;
+// }
 </style>
