@@ -6,12 +6,13 @@
         <div class="afp-row afp-justify-content-center">
             <!-- All zones forecast -->
             <div v-if="loaded" class="afp-col-lg-9 afp-col-md-12">
-                <h1 class="afp-html-h1">Backcountry Avalanche Forecast</h1>
+                <h1 class="afp-html-h1">{{title}}</h1>
                 <!-- Warning -->
                 <div v-for="(forecast, index) in data.forecasts" v-bind:key="'forecast-' + index">
                     <!-- Title -->
                     <h2 class="afp-html-h2 afp-gray-700 afp-zone-title afp-mb-3">
-                        <i class="mdi mdi-map-marker"></i>{{centerMeta.zones[index].name}}
+                        <i class="mdi mdi-map-marker"></i>
+                        {{centerMeta.zones[index].name}}
                     </h2>
                     <!-- Warning -->
                     <avy-warning
@@ -33,7 +34,17 @@
                         :highestDanger="forecast.highestDanger"
                     />
 
-                    <content-panel class="afp-mb-3">
+                    <div class="afp-text-right afp-mb-3" v-if="forecast.product_type == 'summary'">
+                        <router-link
+                            :to="{ name: 'ZoneForecast', params: { zone: urlString(centerMeta.zones[index].name) }}"
+                            class="afp-html-a afp-btn afp-btn-primary"
+                        >
+                            More Information
+                            <i class="mdi mdi-arrow-right"></i>
+                        </router-link>
+                    </div>
+
+                    <content-panel class="afp-mb-3" v-if="forecast.product_type == 'forecast'">
                         <!-- danger -->
                         <avalanche-danger
                             :danger="forecast.danger"
@@ -101,7 +112,8 @@ export default {
                 warning_product: []
             },
             loaded: false,
-            notFound: false
+            notFound: false,
+            title: "General Avalanche Information"
         }
     },
     components: {
@@ -192,12 +204,14 @@ export default {
         this.centerMeta.zones.forEach(zone => {
             promiseArray.push(this.getForecast(zone.id))
         })
+
         await Promise.all(promiseArray).then(data => {
             data.forEach(zone => {
                 this.data.forecasts.push(zone)
             })
             this.data.forecasts.forEach(zone => {
                 if (zone.product_type == 'forecast') {
+                    this.title = "Backcountry Avalanche Forecast"
                     let current = zone.danger.find(current => current.valid_day == "current");
                     zone.highestDanger = Math.max(current.lower, current.middle, current.upper)
                 } else {
