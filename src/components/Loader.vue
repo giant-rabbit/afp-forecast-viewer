@@ -12,19 +12,7 @@
 
 <script>
 export default {
-    data() {
-        return {
-            show: false,
-        }
-    },
-    mounted() {
-        this.$eventBus.$on('loaded', data => {
-            this.show = false
-        })
-        this.$eventBus.$on('loading', data => {
-            this.show = true
-        })
-    }
+    props: ['show']
 }
 </script>
 

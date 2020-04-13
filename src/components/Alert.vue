@@ -9,16 +9,7 @@
 
 <script>
 export default {
-    data() {
-        return {
-            show: false,
-        }
-    },
-    mounted() {
-        this.$eventBus.$on('showAlert', data => {
-            this.show = true
-        })
-    }
+    props: ['show']
 }
 </script>
 

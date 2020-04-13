@@ -176,7 +176,7 @@
                 v-if="tabSelected == 'weatherSummary'  && data.product_type == 'summary'"
                 class="afp-tabPane"
             >
-                <div class="afp-tinymce" v-if="data.weather_discussion != ''" v-html="data.weather_discussion"></div>
+                <div class="afp-tinymce afp-mb-3" v-if="data.weather_discussion != ''" v-html="data.weather_discussion"></div>
             </div>
 
             <!-- Blog tab -->
@@ -197,7 +197,7 @@
             <!-- Custom tab content -->
             <div v-for="customTab in config.tabs" v-bind:key="customTab.id">
                 <div v-show="tabSelected == customTab.id" class="afp-tabPane">
-                    <custom-tab :id="customTab.id" :tab="customTab.id"></custom-tab>
+                    <custom-tab :id="customTab.id" :tab="customTab.id" :url="customTab.url"></custom-tab>
                 </div>
             </div>
         </content-panel>
@@ -307,7 +307,7 @@ export default {
 
 <style scoped lang="scss">
 
-.afp-tabPane {
-    min-height: 80vh;
-}
+// .afp-tabPane {
+//     min-height: 80vh;
+// }
 </style>

@@ -38,9 +38,6 @@ if (configElement) {
 Vue.prototype.$config = config
 Vue.prototype.$centerId = config.center
 
-// Event bus
-Vue.prototype.$eventBus = new Vue()
-
 // Router
 Vue.use(vbclass, router)
 
