@@ -65,9 +65,10 @@
             <div class="afp-imageContainer">
                 <img
                     v-if="problem.media.type == 'photo'"
-                    v-preview:scope-forecast
                     :src="problem.media.url"
                     :alt="problem.media.caption"
+                    :data-pswp-src="problem.media.url"
+                    :data-pswp-title="problem.media.caption"
                 />
                 <img
                     v-if="problem.media.type == 'video'"

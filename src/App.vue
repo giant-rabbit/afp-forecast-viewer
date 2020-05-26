@@ -21,7 +21,7 @@
             color: {{this.$config.color}} !important;
             }
         </v-style>
-        <link
+        <!-- <link
             v-if="this.$config.assets.photoswipe"
             rel="stylesheet"
             href="https://unpkg.com/photoswipe/dist/photoswipe.css"
@@ -37,7 +37,7 @@
             media="all"
             rel="stylesheet"
             type="text/css"
-        />
+        /> -->
 
         <!-- <div style="background-color: #444;">
             <router-link to="/archive">Archive</router-link>

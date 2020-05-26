@@ -3,7 +3,7 @@
         <button
             v-show="visible"
             @click="backToTop"
-            class="afp-to-top afp-button afp-btn afp-btn-secondary afp-btn-sm"
+            class="afp-to-top afp-html-button afp-btn afp-btn-secondary afp-btn-sm"
         >
             <i class="mdi mdi-arrow-up"></i>
             <br />Back

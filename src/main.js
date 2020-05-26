@@ -7,6 +7,7 @@ import merge from 'deepmerge'
 import moment from 'moment/src/moment.js'
 import vbclass from 'vue-body-class'
 import Router from 'vue-router'
+import mixins from './mixins.js'
 // Components
 import Forecast from './views/Forecast'
 import Weather from './views/Weather'

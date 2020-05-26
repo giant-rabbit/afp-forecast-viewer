@@ -100,7 +100,7 @@ export default {
                 .replace(/<li>/g, '<li class=\\"afp-html-li\\">')
                 .replace(/<iframe/g, '<iframe class=\\"afp-html-iframe afp-tinymce-iframe\\"')
             return JSON.parse(search)
-        },
+        }
     },
     mounted() {
         this.forecastData = this.data

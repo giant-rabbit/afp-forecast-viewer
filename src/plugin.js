@@ -1,7 +1,7 @@
 import ForecastPlugin from './components/ForecastPlugin';
 import PhotoSwipe from 'photoswipe/dist/photoswipe'
 import PhotoSwipeUI from 'photoswipe/dist/photoswipe-ui-default'
-import createPreviewDirective from "vue-photoswipe-directive";
+import photoswipe from 'vue-pswipe'
 import InfoPopover from './components/InfoPopover'
 import VTooltip from 'v-tooltip'
 import moment from 'moment/src/moment.js'
@@ -51,17 +51,14 @@ export default {
             }
         )
         // Photoswipe
-        Vue.directive('preview', createPreviewDirective({
+        Vue.use(photoswipe, {
             shareEl: false,
             history: false,
             clickToCloseNonZoomable: false,
             bgOpacity: 0.9,
             allowPanToNext: false,
             mainClass: 'afp-photoswipe'
-        },
-            PhotoSwipe,
-            PhotoSwipeUI)
-        )
+        })
 
         // Load content for help popovers
         Vue.prototype.$helpContent = {

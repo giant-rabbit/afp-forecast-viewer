@@ -2,7 +2,10 @@
     <div>
         <div class="afp-row afp-mb-3">
             <!-- Zone selector -->
-            <div v-if="!preview && centerMeta.zones.length > 1" class="afp-col-md-4 afp-col-lg-3 afp-order-md-2 text-md-right">
+            <div
+                v-if="!preview && centerMeta.zones.length > 1"
+                class="afp-col-md-4 afp-col-lg-3 afp-order-md-2 text-md-right"
+            >
                 <zone-selector />
             </div>
             <!-- Title -->
@@ -13,7 +16,8 @@
                 >Backcountry Avalanche Forecast</h1>
                 <h1 class="afp-html-h1" v-else>General Avalanche Information</h1>
                 <h2 class="afp-html-h2 afp-gray-700 afp-zone-title">
-                    <i class="mdi mdi-map-marker"></i>{{zone}}
+                    <i class="mdi mdi-map-marker"></i>
+                    {{zone}}
                 </h2>
             </div>
         </div>
@@ -29,7 +33,11 @@
         />
 
         <!-- Bottom line -->
-        <bottom-line v-if="data.bottom_line != ''" :bottomLine="data.bottom_line" :highestDanger="highestDanger" />
+        <bottom-line
+            v-if="data.bottom_line != ''"
+            :bottomLine="data.bottom_line"
+            :highestDanger="highestDanger"
+        />
 
         <!-- Tab navigation -->
         <tabs
@@ -67,93 +75,94 @@
 
         <!-- Tab container -->
         <content-panel>
-            <!-- Avalanche forecast tab -->
-            <div
-                v-if="tabSelected == 'forecast' && data.product_type == 'forecast'"
-                class="afp-tabPane"
-            >
-                <!-- danger -->
-                <avalanche-danger
-                    :danger="data.danger"
-                    :date="data.published_time"
-                    :config="config"
-                />
-
-                <!-- problems -->
-                <avalanche-problem
-                    v-for="problem in data.forecast_avalanche_problems"
-                    v-bind:key="problem.rank"
-                    :problem="problem"
-                    :config="config"
-                />
-
-                <!-- discussion -->
-                <div v-if="data.hazard_discussion != ''" class="afp-divider afp-mb-4">
-                    <h2 class="afp-html-h2">Forecast Discussion</h2>
-                    <div class="afp-tinymce" v-html="data.hazard_discussion"></div>
-                </div>
-
-                <!-- media -->
-                <media-gallery
-                    class="afp-divider afp-print-hide"
-                    :media="data.media"
-                    scope="scope-forecast"
-                    v-if="data.media.length > 0"
-                    key="forecast"
-                />
-
-                <!-- weather summary -->
+            <photoswipe>
+                <!-- Avalanche forecast tab -->
                 <div
-                    v-if="!preview && data.weather_table && data.product_type == 'forecast'"
-                    class="afp-divider afp-print-hide afp-mb-4"
+                    v-if="tabSelected == 'forecast' && data.product_type == 'forecast'"
+                    class="afp-tabPane"
                 >
-                    <h2 class="afp-html-h2">Weather Summary</h2>
-                    <weather-table
-                        :periods="data.weather_table.periods"
-                        :data="data.weather_table.data"
-                        :zone="data.weather_table.zone_name"
+                    <!-- danger -->
+                    <avalanche-danger
+                        :danger="data.danger"
+                        :date="data.published_time"
+                        :config="config"
                     />
-                    <div class="afp-text-center">
-                        <button
-                            @click="scrollToTabs('weather')"
-                            class="afp-html-button afp-btn afp-btn-primary"
-                        >Full Weather Forecast</button>
+
+                    <!-- problems -->
+                    <avalanche-problem
+                        v-for="problem in data.forecast_avalanche_problems"
+                        v-bind:key="problem.rank"
+                        :problem="problem"
+                        :config="config"
+                    />
+
+                    <!-- discussion -->
+                    <div v-if="data.hazard_discussion != ''" class="afp-divider afp-mb-4">
+                        <h2 class="afp-html-h2">Forecast Discussion</h2>
+                        <div class="afp-tinymce" v-html="data.hazard_discussion"></div>
+                    </div>
+
+                    <!-- media -->
+                    <media-gallery
+                        class="afp-divider afp-print-hide"
+                        :media="data.media"
+                        scope="scope-forecast"
+                        v-if="data.media.length > 0"
+                        key="forecast"
+                    />
+
+                    <!-- weather summary -->
+                    <div
+                        v-if="!preview && data.weather_table && data.product_type == 'forecast'"
+                        class="afp-divider afp-print-hide afp-mb-4"
+                    >
+                        <h2 class="afp-html-h2">Weather Summary</h2>
+                        <weather-table
+                            :periods="data.weather_table.periods"
+                            :data="data.weather_table.data"
+                            :zone="data.weather_table.zone_name"
+                        />
+                        <div class="afp-text-center">
+                            <button
+                                @click="scrollToTabs('weather')"
+                                class="afp-html-button afp-btn afp-btn-primary"
+                            >Full Weather Forecast</button>
+                        </div>
+                    </div>
+
+                    <!-- weather forecast for print -->
+                    <div class="afp-divider afp-print-show">
+                        <h2 class="afp-html-h2">Weather Forecast</h2>
+                        <weather-content v-if="data.weather_product" :data="data.weather_product" />
                     </div>
                 </div>
 
-                <!-- weather forecast for print -->
-                <div class="afp-divider afp-print-show">
-                    <h2 class="afp-html-h2">Weather Forecast</h2>
-                    <weather-content v-if="data.weather_product" :data="data.weather_product" />
+                <!-- Summary tab -->
+                <div
+                    v-if="tabSelected == 'forecast' && data.product_type == 'summary'"
+                    class="afp-tabPane"
+                >
+                    <div v-if="data.hazard_discussion != 'null' && data.hazard_discussion != ''" class="afp-mb-3">
+                        <h2 class="afp-html-h2">Forecast Discussion</h2>
+                        <div
+                            class="afp-tinymce"
+                            v-html="addPswp(data.hazard_discussion)"
+                        ></div>
+                    </div>
+                    <!-- media -->
+                    <media-gallery
+                        class="afp-divider afp-print-hide"
+                        :media="data.media"
+                        scope="scope-forecast"
+                        v-if="data.media.length > 0"
+                    />
+                    <!-- weather forecast for print -->
+                    <div class="afp-divider afp-print-show">
+                        <h2 class="afp-html-h2">Weather Forecast</h2>
+                        <weather-content v-if="data.weather_product" :data="data.weather_product" />
+                    </div>
                 </div>
-            </div>
-
-            <!-- Summary tab -->
-            <div
-                v-if="tabSelected == 'forecast' && data.product_type == 'summary'"
-                class="afp-tabPane"
-            >
-                <div class="afp-mb-3">
-                    <h2 class="afp-html-h2">Forecast Discussion</h2>
-                    <div
-                        class="afp-tinymce"
-                        v-if="data.hazard_discussion != ''"
-                        v-html="data.hazard_discussion"
-                    ></div>
-                </div>
-                <!-- media -->
-                <media-gallery
-                    class="afp-divider afp-print-hide"
-                    :media="data.media"
-                    scope="scope-forecast"
-                    v-if="data.media.length > 0"
-                />
-                <!-- weather forecast for print -->
-                <div class="afp-divider afp-print-show">
-                    <h2 class="afp-html-h2">Weather Forecast</h2>
-                    <weather-content v-if="data.weather_product" :data="data.weather_product" />
-                </div>
-            </div>
+            </photoswipe>
 
             <!-- Weather tab -->
             <div
@@ -265,6 +274,19 @@ export default {
                 return 0
             }
         },
+        generalContent: function () {
+            var element = document.createElement('div')
+            element.insertAdjacentHTML('beforeend', this.data.hazard_discussion)
+            var figures = element.querySelectorAll('.afp-tinymce-figure')
+            figures.forEach((figure) => {
+                var caption = figure.getElementsByTagName('figcaption')
+                var image = figure.getElementsByTagName('img')
+                caption = caption[0].innerHTML
+                image[0].setAttribute('data-pswp-title', caption)
+                image[0].setAttribute('data-pswp-src', image[0].src)
+            })
+            return element.innerHTML
+        }
     },
     props: ['preview', 'data', 'config', 'zone'],
     components: {
@@ -299,7 +321,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 // .afp-tabPane {
 //     min-height: 80vh;
 // }

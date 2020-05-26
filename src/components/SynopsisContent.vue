@@ -1,18 +1,24 @@
 <template>
     <div>
-        <!-- discussion -->
-        <div class="afp-tinymce afp-mb-3" v-html="data.hazard_discussion"></div>
+        <photoswipe>
+            <!-- discussion -->
+            <div class="afp-tinymce afp-mb-3" v-html="addPswp(data.hazard_discussion)"></div>
 
-        <!-- media -->
-        <media-gallery v-if="data.media.length > 0" :media="data.media" scope="scope-synopsis" key="synopsis" />
+            <!-- media -->
+            <media-gallery
+                v-if="data.hasOwnProperty('media') && data.media.length > 0"
+                :media="data.media"
+                key="synopsis"
+            />
 
-        <!-- Older posts -->
-        <div v-if="!preview" class="afp-text-center afp-mb-3">
-            <button
-                @click="$router.replace({ name: 'ArchiveProduct', params: { product: 'blog' } })"
-                class="afp-html-button afp-btn afp-btn-primary"
-            >View Previous Posts</button>
-        </div>
+            <!-- Older posts -->
+            <div v-if="!preview" class="afp-text-center afp-mb-3">
+                <button
+                    @click="$router.replace({ name: 'ArchiveProduct', params: { product: 'blog' } })"
+                    class="afp-html-button afp-btn afp-btn-primary"
+                >View Previous Posts</button>
+            </div>
+        </photoswipe>
     </div>
 </template>
 

@@ -14,9 +14,10 @@
                         <img
                             v-if="item.type == 'photo'"
                             class="afp-galleryImg"
-                            v-preview:[scope]
                             :src="item.url"
                             :alt="item.caption"
+                            :data-pswp-title="item.caption"
+                            :data-pswp-src="item.url"
                         />
                         <img
                             v-if="item.type == 'video'"
