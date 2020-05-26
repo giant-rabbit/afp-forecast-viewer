@@ -85,7 +85,7 @@ Vue.directive('closable', {
 Vue.use({
     install(Vue) {
         Vue.prototype.$api = axios.create({
-            baseURL: 'https://api.avalanche.org/v2'
+            baseURL: 'https://staging-api.avalanche.org/v2'
         })
     }
 })

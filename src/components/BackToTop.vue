@@ -56,7 +56,7 @@ export default {
     position: fixed;
     right: 0;
     bottom: 20px;
-    z-index: 10000;
+    z-index: 1049;
     box-shadow: $app-box-shadow;
     border-radius: $border-radius-lg;
     border-top-right-radius: 0;

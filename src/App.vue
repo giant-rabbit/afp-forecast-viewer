@@ -38,6 +38,7 @@
             rel="stylesheet"
             type="text/css"
         />
+
         <!-- <div style="background-color: #444;">
             <router-link to="/archive">Archive</router-link>
             <router-link :to="{ name: 'Forecast' }">Forecast</router-link>
@@ -84,6 +85,14 @@ export default {
             }
             return rgb;
         }
+    },
+    mounted() {
+        let photoswipeJS = document.createElement('script')
+        photoswipeJS.setAttribute('src', 'https://unpkg.com/photoswipe/dist/photoswipe.min.js')
+        document.head.appendChild(photoswipeJS)
+        let photoswipeUIJS = document.createElement('script')
+        photoswipeUIJS.setAttribute('src', 'https://unpkg.com/photoswipe/dist/photoswipe-ui-default.min.js')
+        document.head.appendChild(photoswipeUIJS)
     }
 }
 </script>
