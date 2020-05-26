@@ -107,7 +107,18 @@ export default {
         this.forecastData = this.tineMCEclass(this.forecastData)
     }
 }
+
 </script>
+
+<style lang="scss">
+// Do the following in plugin so it's available when used as stand-along previewer
+// Import prefixed Bootstrap 4
+$class-prefix: "afp";
+@import "../assets/bootstrap4/bootstrap.scss";
+
+// Import app stylesheet
+@import "../assets/app.scss";
+</style>
 
 <style scoped lang="scss">
 @import "../assets/bootstrap4/_functions.scss";

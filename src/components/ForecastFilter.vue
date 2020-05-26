@@ -109,9 +109,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins";
+@import "../assets/bootstrap4/functions";
+@import "../assets/bootstrap4/_variables.scss";
+@import "../assets/bootstrap4/mixins";
+
 .afp-filter {
     .afp-filter-column,
     .afp-filter-columnButton {
@@ -122,7 +123,6 @@ export default {
 
     @include media-breakpoint-up(sm) {
         .afp-filter-row {
-            // composes: row from "../assets/css/style.css";
             width: 100%;
             display: flex;
         }

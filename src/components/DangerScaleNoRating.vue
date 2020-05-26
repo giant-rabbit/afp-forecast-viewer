@@ -34,9 +34,9 @@ export default {
 </script>
 
 <style module lang="scss">
-@import "../assets/css/bootstrap/functions";
-@import "../assets/css/_variables.scss";
-@import "../assets/css/bootstrap/mixins/breakpoints";
+@import "../assets/bootstrap4/functions";
+@import "../assets/bootstrap4/_variables.scss";
+@import "../assets/bootstrap4/mixins/breakpoints";
 
 .dangerScale {
     composes: row from "../assets/css/style.css";
