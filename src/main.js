@@ -6,6 +6,7 @@ import axios from 'axios'
 import merge from 'deepmerge'
 import moment from 'moment/src/moment.js'
 import vbclass from 'vue-body-class'
+import Synopsis from './views/Synopsis'
 
 // Load forecast view plugin
 Vue.use(forecastView)
@@ -38,7 +39,7 @@ if (configElement) {
 Vue.prototype.$config = config
 Vue.prototype.$centerId = config.center
 
-// Router
+// Add Body class
 Vue.use(vbclass, router)
 
 // Style tag
@@ -87,9 +88,14 @@ Vue.use({
 axios
     .get('https://api.avalanche.org/v2/public/avalanche-center/' + config.center)
     .then(response => {
-        // Reorder zones if config property is set
-        var zoneOrder = Vue.prototype.$config.zones
         Vue.prototype.$centerMeta = response.data
+        // Dummy config data
+        var zoneOrder = [295, 296, 294, 293]
+        Vue.prototype.$centerMeta.config = {
+            zoneOrder: zoneOrder,
+            blog: true,
+        }
+        // Reorder zones if config property is set
         if (zoneOrder) {
             var zones = []
             zoneOrder.forEach(function (item) {
@@ -102,7 +108,24 @@ axios
         window.App = new Vue({
             el: '#afp-public-root',
             router,
-            render: h => h(App)
+            render: h => h(App),
+            // created() {
+            //     this.$router.addRoutes([
+            //         {
+            //             path: '/blog',
+            //             name: 'Synopsis',
+            //             component: Synopsis,
+            //             meta: { bodyClass: 'afp-blog' }
+            //         },
+            //         {
+            //             path: '/blog/:date/',
+            //             name: 'ArchivedSynopsis',
+            //             component: Synopsis,
+            //             meta: { bodyClass: 'afp-blog-archived' }
+            //         }
+            //     ])
+            //     console.log(this.$router)
+            // }
         })
 
         // Google analytics

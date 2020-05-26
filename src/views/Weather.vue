@@ -2,7 +2,8 @@
     <div>
         <div class="afp-container afp-pt-2">
             <div v-if="notFound" style="min-height: 80vh;">
-                There is no current Weather Forecast product to display. View the <router-link :to="{ name: 'Forecast'}">Current Avalanche Forecast</router-link> product.
+                There is no current Weather Forecast product to display. View the
+                <router-link :to="{ name: 'Forecast'}">Current Avalanche Forecast</router-link>product.
             </div>
             <loader :show="!loaded" />
         </div>
@@ -36,12 +37,14 @@ export default {
                         this.notFound = true
                     } else {
                         this.data = response.data
-                        var tables = []
-                        this.centerMeta.zones.forEach(item => {
-                            let temp = this.data.weather_data.find(temp => temp.zone_id == item.id)
-                            tables.push(temp)
-                        })
-                        this.data.weather_data = tables
+                        if (this.data.weather_data.length > 0) {
+                            var tables = []
+                            this.centerMeta.zones.forEach(item => {
+                                let temp = this.data.weather_data.find(temp => temp.zone_id == item.id)
+                                tables.push(temp)
+                            })
+                            this.data.weather_data = tables
+                        } 
                         this.loaded = true
                     }
                 })

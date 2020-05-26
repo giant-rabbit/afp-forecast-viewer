@@ -88,7 +88,7 @@ export default {
                 this.zoneName = this.centerMeta.zones[0].name
             }
             await this.getForecast()
-            if (this.data.product_type == 'forecast') {
+            if (this.data.product_type == 'forecast' || this.data.product_type == 'summary') {
                 await this.getWeather()
             }
             this.data.synopsis_product = {};
@@ -122,19 +122,21 @@ export default {
                 .then(response => {
                     if (response.data.published_time != null) {
                         this.data.weather_product = response.data
-                        let tables = []
-                        this.centerMeta.zones.forEach(item => {
-                            let temp = this.data.weather_product.weather_data.find(temp => temp.zone_id == item.id)
-                            tables.push(temp)
-                        })
-                        this.data.weather_product.weather_data = tables
-                        let table = this.data.weather_product.weather_data.find(table => table.zone_id == this.zone)
-                        if (table != null) {
-                            this.data.weather_table = table
+                        if (this.data.weather_product.weather_data.length > 0) {
+                            let tables = []
+                            this.centerMeta.zones.forEach(item => {
+                                let temp = this.data.weather_product.weather_data.find(temp => temp.zone_id == item.id)
+                                tables.push(temp)
+                            })
+                            this.data.weather_product.weather_data = tables
+                            let table = this.data.weather_product.weather_data.find(table => table.zone_id == this.zone)
+                            if (table != null) {
+                                this.data.weather_table = table
+                            }
+                        } else {
+                            this.data.weather_product.weather_data = false
                         }
-                    } else {
-                        this.data.weather_product = false
-                    }
+                    } 
                 })
                 .catch(e => {
                     this.data.weather_product = false

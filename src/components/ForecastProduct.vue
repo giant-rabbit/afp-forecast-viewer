@@ -2,7 +2,7 @@
     <div>
         <div class="afp-row afp-mb-3">
             <!-- Zone selector -->
-            <div v-if="!preview" class="afp-col-md-4 afp-col-lg-3 afp-order-md-2 text-md-right">
+            <div v-if="!preview && centerMeta.zones.length > 1" class="afp-col-md-4 afp-col-lg-3 afp-order-md-2 text-md-right">
                 <zone-selector />
             </div>
             <!-- Title -->
@@ -151,13 +151,13 @@
                 <!-- weather forecast for print -->
                 <div class="afp-divider afp-print-show">
                     <h2 class="afp-html-h2">Weather Forecast</h2>
-                    <div class="afp-tinymce" v-if="data.weather_discussion != ''" v-html="data.weather_discussion"></div>
+                    <weather-content v-if="data.weather_product" :data="data.weather_product" />
                 </div>
             </div>
 
-            <!-- Forecast Weather tab -->
+            <!-- Weather tab -->
             <div
-                v-if="tabSelected == 'weather' && data.product_type == 'forecast'"
+                v-if="tabSelected == 'weather' && (data.product_type == 'forecast' || data.product_type == 'summary')"
                 class="afp-tabPane"
             >
                 <div v-if="data.weather_product">
@@ -168,15 +168,7 @@
                     />
                     <weather-content :data="data.weather_product" />
                 </div>
-                <div v-else>No Weather Forecast to display.</div>
-            </div>
-
-            <!-- Summary Weather tab -->
-            <div
-                v-if="tabSelected == 'weatherSummary'  && data.product_type == 'summary'"
-                class="afp-tabPane"
-            >
-                <div class="afp-tinymce afp-mb-3" v-if="data.weather_discussion != ''" v-html="data.weather_discussion"></div>
+                <p v-else>No Weather Forecast to display.</p>
             </div>
 
             <!-- Blog tab -->
@@ -240,7 +232,7 @@ export default {
                     name: "Avalanche Information"
                 },
                 {
-                    id: "weatherSummary",
+                    id: "weather",
                     name: "Weather Summary"
                 }
             ],
@@ -260,7 +252,8 @@ export default {
                     name: "Weather Summary"
                 }
             ],
-            tabSelected: 'forecast'
+            tabSelected: 'forecast',
+            centerMeta: this.$centerMeta
         }
     },
     computed: {
