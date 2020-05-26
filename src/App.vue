@@ -49,17 +49,22 @@
                 :key="$route.name + ($route.params.zone || '') + ($route.params.date || '') + ($route.params.product || '')"
             ></router-view>
         </transition>
+        <back-to-top />
     </div>
 </template>
 
 <script>
 import Vue from 'vue'
+import BackToTop from './components/BackToTop'
 
 export default {
     name: 'app',
     data() {
         return {
         }
+    },
+    components: {
+        BackToTop
     },
     methods: {
         // Function to darken link color

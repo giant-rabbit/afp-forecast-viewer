@@ -23,7 +23,6 @@ var configDefault = {
     "center": "SNFAC",
     "color": false,
     "tabs": [],
-    "blog": true,
     "elevations": {
         "upper": "Upper Elevation",
         "middle": "Middle Elevation",
@@ -98,7 +97,7 @@ axios
         // Dummy config data
         var config = {
             zoneOrder: [295, 296, 294, 293],
-            blog: false,
+            blog: true,
         }
         // Reorder zones if config property is set
         if (config.zoneOrder) {

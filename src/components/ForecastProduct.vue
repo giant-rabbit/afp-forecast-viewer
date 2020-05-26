@@ -37,7 +37,7 @@
             ref="tabs"
             :tabs="tabsForecast"
             :custom="$config.tabs"
-            :blog="$config.blog"
+            :blog="$centerMeta.config.blog"
             :selected="tabSelected"
             @changeTab="changeTab"
         />
@@ -46,7 +46,7 @@
             ref="tabs"
             :tabs="tabsSummary"
             :custom="$config.tabs"
-            :blog="$config.blog"
+            :blog="$centerMeta.config.blog"
             :selected="tabSelected"
             @changeTab="changeTab"
         />

@@ -24,6 +24,7 @@
                     :key="zone.id"
                 >{{zone.name}}</button>
                 <button
+                v-if="centerMeta.config.blog"
                     @click="$router.replace({ name: 'ArchiveProduct', params: { product: 'blog' } })"
                     class="afp-html-button afp-btn afp-btn-archive afp-mt-3"
                 >Conditions Blog</button>
