@@ -1,12 +1,19 @@
 import Vue from 'vue'
 import App from './App.vue'
 import forecastView from './plugin.js'
-import router from './routes.js'
+import { baseRoutes } from './routes.js'
 import axios from 'axios'
 import merge from 'deepmerge'
 import moment from 'moment/src/moment.js'
 import vbclass from 'vue-body-class'
+import Router from 'vue-router'
+// Components
+import Forecast from './views/Forecast'
+import Weather from './views/Weather'
 import Synopsis from './views/Synopsis'
+import Archive from './views/Archive'
+import AllZonesForecast from './views/AllZonesForecast'
+
 
 // Load forecast view plugin
 Vue.use(forecastView)
@@ -26,8 +33,7 @@ var configDefault = {
         "icons": true,
         "photoswipe": true
     },
-    "baseUrl": '',
-    "zones": false
+    "baseUrl": ''
 }
 var configElement = document.getElementById('afp-public-config')
 if (configElement) {
@@ -40,7 +46,7 @@ Vue.prototype.$config = config
 Vue.prototype.$centerId = config.center
 
 // Add Body class
-Vue.use(vbclass, router)
+// Vue.use(vbclass, router)
 
 // Style tag
 Vue.component('v-style', {
@@ -90,42 +96,41 @@ axios
     .then(response => {
         Vue.prototype.$centerMeta = response.data
         // Dummy config data
-        var zoneOrder = [295, 296, 294, 293]
-        Vue.prototype.$centerMeta.config = {
-            zoneOrder: zoneOrder,
-            blog: true,
+        var config = {
+            zoneOrder: [295, 296, 294, 293],
+            blog: false,
         }
         // Reorder zones if config property is set
-        if (zoneOrder) {
+        if (config.zoneOrder) {
             var zones = []
-            zoneOrder.forEach(function (item) {
+            config.zoneOrder.forEach(function (item) {
                 var zone = response.data.zones.find(zone => zone.id == item)
                 zones.push(zone)
             })
             Vue.prototype.$centerMeta.zones = zones
+            Vue.prototype.$centerMeta.config = config
         }
+
+        // Router
+        Vue.use(Router)
+        var routes = baseRoutes
+        const router = new Router({
+            mode: 'hash',
+            routes,
+            scrollBehavior(to, from, savedPosition) {
+                if (savedPosition) {
+                    return savedPosition
+                } else {
+                    return { x: 0, y: 0 }
+                }
+            }
+        })
+
         // Vue instance
         window.App = new Vue({
             el: '#afp-public-root',
             router,
             render: h => h(App),
-            // created() {
-            //     this.$router.addRoutes([
-            //         {
-            //             path: '/blog',
-            //             name: 'Synopsis',
-            //             component: Synopsis,
-            //             meta: { bodyClass: 'afp-blog' }
-            //         },
-            //         {
-            //             path: '/blog/:date/',
-            //             name: 'ArchivedSynopsis',
-            //             component: Synopsis,
-            //             meta: { bodyClass: 'afp-blog-archived' }
-            //         }
-            //     ])
-            //     console.log(this.$router)
-            // }
         })
 
         // Google analytics
