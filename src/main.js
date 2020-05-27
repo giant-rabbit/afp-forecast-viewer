@@ -134,18 +134,22 @@ axios
 
         // Google analytics
         if (window.ga && ga.create) {
-            ga('set', 'page', config.baseUrl + '/#' + router.currentRoute.path);
+            ga('set', 'page', Vue.prototype.$config.baseUrl + '/#' + router.currentRoute.path);
             ga('send', 'pageview');
             //console.log(config.baseUrl + '/#' + router.currentRoute.path)
             router.afterEach((to, from) => {
-                ga('set', 'page', config.baseUrl + '/#' + to.path);
+                ga('set', 'page', Vue.prototype.$config.baseUrl + '/#' + to.path);
                 ga('send', 'pageview');
-                //console.log(config.baseUrl + '/#' + to.path)
+                // console.log(config.baseUrl + '/#' + to.path)
             })
             console.log('Google Analytics loaded')
         } else {
             console.log('Google Analytics not loaded')
         }
+        console.log(Vue.prototype.$config.baseUrl + '/#' + router.currentRoute.path)
+        router.afterEach((to, from) => {
+            console.log(Vue.prototype.$config.baseUrl + '/#' + to.path)
+        })
     })
     .catch(e => {
         console.log('error retrieving avalanche center meta')
