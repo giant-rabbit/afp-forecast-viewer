@@ -7,6 +7,7 @@ import merge from 'deepmerge'
 import moment from 'moment/src/moment.js'
 import vbclass from 'vue-body-class'
 import Router from 'vue-router'
+import VueGtag from "vue-gtag"
 // import mixins from './mixins.js'
 // Components
 import Forecast from './views/Forecast'
@@ -122,8 +123,26 @@ axios
                 }
             }
         })
+
         // Add Body class based on route
         Vue.use(vbclass, router)
+
+        // Google Analytics
+        Vue.use(VueGtag, {
+            config: {
+                id: "UA-167871391-1",
+                params: {
+                    send_page_view: false
+                }
+            },
+            pageTrackerTemplate(to) {
+                return {
+                    page_title: 'AFP Forecast Viewer',
+                    page_path: to.path
+                }
+            },
+            disableScriptLoad: true,
+        }, router)
 
         // Vue instance
         window.App = new Vue({
@@ -133,23 +152,23 @@ axios
         })
 
         // Google analytics
-        if (window.ga && ga.create) {
-            ga('set', 'page', Vue.prototype.$config.baseUrl + '/#' + router.currentRoute.path);
-            ga('send', 'pageview');
-            //console.log(config.baseUrl + '/#' + router.currentRoute.path)
-            router.afterEach((to, from) => {
-                ga('set', 'page', Vue.prototype.$config.baseUrl + '/#' + to.path);
-                ga('send', 'pageview');
-                // console.log(config.baseUrl + '/#' + to.path)
-            })
-            console.log('Google Analytics loaded')
-        } else {
-            console.log('Google Analytics not loaded')
-        }
-        console.log(Vue.prototype.$config.baseUrl + '/#' + router.currentRoute.path)
-        router.afterEach((to, from) => {
-            console.log(Vue.prototype.$config.baseUrl + '/#' + to.path)
-        })
+        // if (window.ga && ga.create) {
+        //     ga('set', 'page', Vue.prototype.$config.baseUrl + '/#' + router.currentRoute.path);
+        //     ga('send', 'pageview');
+        //     //console.log(config.baseUrl + '/#' + router.currentRoute.path)
+        //     router.afterEach((to, from) => {
+        //         ga('set', 'page', Vue.prototype.$config.baseUrl + '/#' + to.path);
+        //         ga('send', 'pageview');
+        //         // console.log(config.baseUrl + '/#' + to.path)
+        //     })
+        //     console.log('Google Analytics loaded')
+        // } else {
+        //     console.log('Google Analytics not loaded')
+        // }
+        // console.log(Vue.prototype.$config.baseUrl + '/#' + router.currentRoute.path)
+        // router.afterEach((to, from) => {
+        //     console.log(Vue.prototype.$config.baseUrl + '/#' + to.path)
+        // })
     })
     .catch(e => {
         console.log('error retrieving avalanche center meta')

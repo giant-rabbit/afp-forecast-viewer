@@ -77,10 +77,7 @@
         <content-panel>
             <photoswipe v-if="data.product_type == 'forecast'" key="forecast">
                 <!-- Avalanche forecast tab -->
-                <div
-                    v-show="tabSelected == 'forecast'"
-                    class="afp-tabPane"
-                >
+                <div v-show="tabSelected == 'forecast'" class="afp-tabPane">
                     <!-- danger -->
                     <avalanche-danger
                         :danger="data.danger"
@@ -138,10 +135,7 @@
             </photoswipe>
             <photoswipe v-if="data.product_type == 'summary'" key="summary">
                 <!-- Summary tab -->
-                <div
-                    v-show="tabSelected == 'forecast'"
-                    class="afp-tabPane"
-                >
+                <div v-show="tabSelected == 'forecast'" class="afp-tabPane">
                     <div
                         v-if="data.hazard_discussion != 'null' && data.hazard_discussion != ''"
                         class="afp-mb-3"
@@ -182,7 +176,9 @@
             <!-- Blog tab -->
             <div v-show="tabSelected == 'blog'" class="afp-tabPane">
                 <!-- Title -->
-                <div v-if="data.hasOwnProperty('synopsis_product') && data.synopsis_product.avalanche_center != null">
+                <div
+                    v-if="data.hasOwnProperty('synopsis_product') && data.synopsis_product.avalanche_center != null"
+                >
                     <h1 class="afp-html-h1" v-html="data.synopsis_product.bottom_line"></h1>
                     <product-header
                         :published="data.synopsis_product.published_time"
@@ -254,10 +250,6 @@ export default {
                 {
                     id: "forecast",
                     name: "Avalanche Information"
-                },
-                {
-                    id: "weatherSummary",
-                    name: "Weather Summary"
                 }
             ],
             tabSelected: 'forecast',
@@ -295,13 +287,21 @@ export default {
         changeTab(tab) {
             this.tabSelected = tab
             // this.$router.push({ query: { nav: this.tabSelected } })
+            // this.$gtag.pageview({
+            //     page_title: 'AFP Forecast Viewer',
+            //     page_path: this.$router.currentRoute.path + '/' + tab
+            // })
+            this.$gtag.event('Forecast Tab Click', {
+                'event_category': 'AFP Forecast Viewer',
+                'event_label': tab
+            })
         },
         scrollToTabs(tab) {
             this.tabSelected = tab
             document.getElementById("tabs").scrollIntoView()
         },
     },
-    mounted() {}
+    mounted() { }
 }
 </script>
 
