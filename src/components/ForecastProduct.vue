@@ -106,7 +106,6 @@
                     <media-gallery
                         class="afp-divider afp-print-hide"
                         :media="data.media"
-                        scope="scope-forecast"
                         v-if="data.media.length > 0"
                         key="forecast"
                     />
@@ -154,7 +153,6 @@
                     <media-gallery
                         class="afp-divider afp-print-hide"
                         :media="data.media"
-                        scope="scope-forecast"
                         v-if="data.media.length > 0"
                     />
                     <!-- weather forecast for print -->

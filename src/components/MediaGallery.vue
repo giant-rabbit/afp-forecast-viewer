@@ -1,33 +1,31 @@
 <template>
     <div class="afp-media-gallery">
         <h2 class="afp-html-h2">Media</h2>
-        <div class="afp-carousel">
-            <div v-for="item in media" :key="item.id">
-                <div class="afp-galleryItem">
-                    <div
-                        v-if="item.type == 'photo'"
-                        class="afp-image-container afp-galleryImgContainer"
-                    >
-                        <img
-                            class="afp-galleryImg"
-                            :src="item.url"
-                            :alt="item.caption"
-                            :data-pswp-title="item.caption"
-                            :data-pswp-src="item.url"
-                        />
-                    </div>
-                    <div
-                        v-if="item.type == 'video'"
-                        class="afp-image-container afp-galleryImgContainer afp-video-container afp-video-modal"
-                    >
-                        <img
-                            class="afp-galleryImg"
-                            :src="'https://img.youtube.com/vi/' + item.url + '/mqdefault.jpg'"
-                            :alt="item.caption"
-                            :data-video-id="item.url"
-                            :data-video-caption="item.caption"
-                        />
-                    </div>
+        <div class="afp-owl-carousel afp-owl-theme">
+            <div v-for="(item, index) in media" :key="index" class="afp-galleryItem">
+                <div
+                    v-if="item.type == 'photo'"
+                    class="afp-image-container afp-galleryImgContainer"
+                >
+                    <img
+                        class="afp-galleryImg"
+                        :src="item.url"
+                        :alt="item.caption"
+                        :data-pswp-title="item.caption"
+                        :data-pswp-src="item.url"
+                    />
+                </div>
+                <div
+                    v-if="item.type == 'video'"
+                    class="afp-image-container afp-galleryImgContainer afp-video-container afp-video-modal"
+                >
+                    <img
+                        class="afp-galleryImg"
+                        :src="'https://img.youtube.com/vi/' + item.url + '/mqdefault.jpg'"
+                        :alt="item.caption"
+                        :data-video-id="item.url"
+                        :data-video-caption="item.caption"
+                    />
                 </div>
             </div>
         </div>
@@ -35,7 +33,10 @@
 </template>
 
 <script>
-import { tns } from "tiny-slider/src/tiny-slider.js"
+// import JQuery from 'jquery'
+// window.$ = JQuery
+// import 'owl.carousel/dist/assets/owl.carousel.css'
+import 'owl.carousel'
 
 export default {
     data() {
@@ -46,31 +47,38 @@ export default {
     methods: {
     },
     mounted() {
-        var slider = tns({
-            container: '.afp-carousel',
-            slideBy: 'page',
-            gutter: 10,
-            controlsPosition: 'bottom',
-            controlsText: ["<i class='mdi mdi-chevron-left-circle'></i>", "<i class='mdi mdi-chevron-right-circle'></i>"],
-            navPosition: 'bottom',
+        $('.afp-owl-carousel').owlCarousel({
             loop: false,
-            swipeAngle: 30,
-            speed: 500,
+            nav: true,
+            margin: 10,
+            navText: ["<i class='mdi mdi-chevron-left-circle'></i>", "<i class='mdi mdi-chevron-right-circle'></i>"],
+            slideBy: "page",
             responsive: {
                 0: {
                     items: 1,
-                    gutter: 10
-                },
-                576: {
-                    items: 2
                 },
                 768: {
-                    items: 3
+                    items: 2,
                 },
                 992: {
-                    items: 4
+                    items: 3,
+                },
+                1200: {
+                    items: 4,
                 }
-            }
+            },
+            refreshClass: "afp-owl-refresh",
+            loadingClass: "afp-owl-loading",
+            loadedClass: "afp-owl-loaded",
+            dragClass: "afp-owl-drag",
+            grabClass: "afp-owl-grab",
+            stageClass: "afp-owl-stage",
+            stageOuterClass: "afp-owl-stage-outer",
+            navContainerClass: "afp-owl-nav",
+            navClass: ["afp-owl-prev", "afp-owl-next"],
+            dotClass: "afp-owl-dot",
+            dotsClass: "afp-owl-dots",
+            itemClass: "afp-owl-item"
         })
     }
 }
@@ -84,7 +92,7 @@ export default {
 $gallery-height: 200px;
 
 .afp-media-gallery {
-    margin-bottom: 2.5 * $spacer;
+    margin-bottom: 1.5 * $spacer;
 
     .afp-galleryItem {
         overflow: hidden;
@@ -115,194 +123,179 @@ $gallery-height: 200px;
     }
 
     &::v-deep {
-        // custom theme start
-        .tns-outer {
-            position: relative;
+        // Owl Carousel Theme
+        .afp-owl-theme {
+            margin-top: .5 * $spacer;
+            margin-bottom: .5 * $spacer;
         }
-        .tns-controls {
-            [aria-controls] {
+
+        .afp-owl-theme .afp-owl-nav {
+            .afp-owl-prev,
+            .afp-owl-next {
                 position: absolute;
-                top: 50%;
-                margin-top: -25px;
-                font-size: 50px;
-                line-height: 1;
-                padding: 0;
-                background: none;
-                border: none;
-                color: #fff;
+                top: calc(50% - 18px);
+                margin-top: -28px;
+                padding: 0 2px;
+                -webkit-tap-highlight-color: transparent;
+                color: #fff !important;
                 opacity: 0.5;
-                &:hover {
-                    opacity: 1;
-                }
-                &:disabled {
-                    display: none;
-                }
+                font-size: 40px !important;
+                display: inline-block;
+                cursor: pointer !important;
             }
-            [data-controls="prev"] {
-                left: 0;
+            .afp-owl-prev {
+                left: 3px;
             }
-            [data-controls="next"] {
-                right: 0;
+            .afp-owl-next {
+                right: 3px;
             }
         }
-        .tns-outer [aria-controls],
-        .tns-outer [data-action] {
-            cursor: pointer;
-            &:focus {
-                outline: none;
-            }
+
+        .afp-owl-theme .afp-owl-nav [class*="owl-"]:hover {
+            opacity: 1;
+            text-decoration: none;
+            transition: opacity $transition;
         }
-        .tns-nav {
-            position: absolute;
-            top: 100%;
-            width: 100%;
-            margin-top: 0.5rem;
+        .afp-owl-theme .afp-owl-nav .disabled {
+            opacity: 0 !important;
+            cursor: default !important;
+        }
+
+        .afp-owl-theme .afp-owl-nav.disabled + .afp-owl-dots {
+            margin-top: 10px;
+        }
+
+        .afp-owl-theme .afp-owl-dots {
             text-align: center;
+            -webkit-tap-highlight-color: transparent;
+            position: relative;
+            width: 100%;
         }
-        .tns-nav > [aria-controls] {
+
+        .afp-owl-theme .afp-owl-dots .afp-owl-dot {
+            display: inline-block;
+            zoom: 1;
+            display: inline;
+            margin-top: 10px;
+        }
+
+        .afp-owl-theme .afp-owl-dots .afp-owl-dot span {
             width: 10px;
             height: 10px;
-            padding: 0;
-            margin: 0 8px;
-            border-radius: 50%;
-            background: #333;
-            opacity: 0.25;
-            border: 0;
-        }
-        .tns-nav > .tns-nav-active {
-            opacity: 1;
-        }
-        // custom theme end
-        .tns-outer {
-            padding: 0 !important; // remove padding: clientWidth = width + padding (0) = width
-            [hidden] {
-                display: none !important;
-            }
-            [aria-controls],
-            [data-action] {
-                cursor: pointer;
-            }
-        }
-        .tns-slider {
-            -webkit-transition: all 0s;
-            -moz-transition: all 0s;
-            transition: all 0s;
-            > .tns-item {
-                -webkit-box-sizing: border-box;
-                -moz-box-sizing: border-box;
-                box-sizing: border-box;
-            }
+            margin: 5px 7px;
+            background: $gray-500;
+            display: block;
+            -webkit-backface-visibility: visible;
+            transition: opacity $transition;
+            border-radius: 30px;
         }
 
-        .tns-horizontal {
-            &.tns-subpixel {
-                white-space: nowrap;
-                > .tns-item {
-                    display: inline-block;
-                    vertical-align: top;
-                    white-space: normal;
-                }
-            }
-            &.tns-no-subpixel {
-                &:after {
-                    content: "";
-                    display: table;
-                    clear: both;
-                }
-                > .tns-item {
-                    float: left;
-                }
-            }
-            &.tns-carousel {
-                &.tns-no-subpixel {
-                    > .tns-item {
-                        margin-right: -100%;
-                    }
-                }
-            }
+        .afp-owl-theme .afp-owl-dots .afp-owl-dot.active span,
+        .afp-owl-theme .afp-owl-dots .afp-owl-dot:hover span {
+            background: $gray-900;
         }
-        .tns-no-calc {
+
+        // Owl Carousel Core
+        .afp-owl-carousel {
+            display: none;
+            width: 100%;
+            -webkit-tap-highlight-color: transparent;
+            /* position relative and z-index fix webkit rendering fonts issue */
             position: relative;
-            left: 0;
+            z-index: 1;
         }
-        .tns-gallery {
+        .afp-owl-carousel .afp-owl-stage {
             position: relative;
-            left: 0;
-            min-height: 1px; // make sure slider container is visible
-            // overflow: hidden;
-            > .tns-item {
-                position: absolute;
-                left: -100%;
-                -webkit-transition: transform 0s, opacity 0s;
-                -moz-transition: transform 0s, opacity 0s;
-                transition: transform 0s, opacity 0s;
-            }
-            > .tns-slide-active {
-                position: relative;
-                left: auto !important;
-            }
-            > .tns-moving {
-                -webkit-transition: all 0.25s;
-                -moz-transition: all 0.25s;
-                transition: all 0.25s;
-            }
+            -ms-touch-action: pan-Y;
+            touch-action: manipulation;
+            -moz-backface-visibility: hidden;
+            /* fix firefox animation glitch */
         }
-        .tns-ovh {
+        .afp-owl-carousel .afp-owl-stage:after {
+            content: ".";
+            display: block;
+            clear: both;
+            visibility: hidden;
+            line-height: 0;
+            height: 0;
+        }
+        .afp-owl-carousel .afp-owl-stage-outer {
+            position: relative;
             overflow: hidden;
+            /* fix for flashing background */
+            -webkit-transform: translate3d(0px, 0px, 0px);
         }
-        .tns-visually-hidden {
-            position: absolute;
-            left: -10000em;
+        .afp-owl-carousel .afp-owl-wrapper,
+        .afp-owl-carousel .afp-owl-item {
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            -ms-backface-visibility: hidden;
+            -webkit-transform: translate3d(0, 0, 0);
+            -moz-transform: translate3d(0, 0, 0);
+            -ms-transform: translate3d(0, 0, 0);
         }
-        .tns-transparent {
+        .afp-owl-carousel .afp-owl-item {
+            position: relative;
+            min-height: 1px;
+            float: left;
+            -webkit-backface-visibility: hidden;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+        }
+        .afp-owl-carousel .afp-owl-item img {
+            display: block;
+            width: 100%;
+        }
+        .afp-owl-carousel .afp-owl-nav.disabled,
+        .afp-owl-carousel .afp-owl-dots.disabled {
+            display: none;
+        }
+        .afp-owl-carousel .afp-owl-nav .afp-owl-prev,
+        .afp-owl-carousel .afp-owl-nav .afp-owl-next,
+        .afp-owl-carousel .afp-owl-dot {
+            cursor: pointer;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .afp-owl-carousel .afp-owl-nav button.afp-owl-prev,
+        .afp-owl-carousel .afp-owl-nav button.afp-owl-next,
+        .afp-owl-carousel button.afp-owl-dot {
+            background: none;
+            color: inherit;
+            border: none;
+            padding: 0 !important;
+            font: inherit;
+        }
+        .afp-owl-carousel.afp-owl-loaded {
+            display: block;
+        }
+        .afp-owl-carousel.afp-owl-loading {
             opacity: 0;
+            display: block;
+        }
+        .afp-owl-carousel.afp-owl-hidden {
+            opacity: 0;
+        }
+        .afp-owl-carousel.afp-owl-refresh .afp-owl-item {
             visibility: hidden;
         }
-
-        // *** Fix a viewport issue in initialization
-        .tns-vpfix {
-            white-space: nowrap;
-            > div,
-            > li {
-                display: inline-block;
-            }
+        .afp-owl-carousel.afp-owl-drag .afp-owl-item {
+            -ms-touch-action: pan-y;
+            touch-action: pan-y;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
-
-        // *** Detecting browser capability ***
-        $width: 310px;
-        $height: 10px;
-        $count: 70;
-        $perpage: 3;
-
-        .tns-t {
-            &-subp2 {
-                margin: 0 auto;
-                width: $width;
-                position: relative;
-                height: $height;
-                overflow: hidden;
-            }
-            &-ct {
-                width: (100% * $count / $perpage);
-                width: -webkit-calc(100% * #{$count} / #{$perpage});
-                width: -moz-calc(100% * #{$count} / #{$perpage});
-                width: calc(100% * #{$count} / #{$perpage});
-                position: absolute;
-                right: 0;
-                &:after {
-                    content: "";
-                    display: table;
-                    clear: both;
-                }
-                > div {
-                    width: (100% / $count);
-                    width: -webkit-calc(100% / #{$count});
-                    width: -moz-calc(100% / #{$count});
-                    width: calc(100% / #{$count});
-                    height: $height;
-                    float: left;
-                }
-            }
+        .afp-owl-carousel.afp-owl-grab {
+            cursor: move;
+            cursor: grab;
+        }
+        .no-js .afp-owl-carousel {
+            display: block;
         }
     }
 }
