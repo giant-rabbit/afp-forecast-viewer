@@ -30,21 +30,14 @@
             v-if="this.$config.assets.photoswipe"
             rel="stylesheet"
             href="https://unpkg.com/photoswipe/dist/default-skin/default-skin.css"
-        />
+        />-->
         <link
             v-if="this.$config.assets.icons"
             href="https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css"
             media="all"
             rel="stylesheet"
             type="text/css"
-        /> -->
-
-        <!-- <div style="background-color: #444;">
-            <router-link to="/archive">Archive</router-link>
-            <router-link :to="{ name: 'Forecast' }">Forecast</router-link>
-            <router-link :to="{ name: 'Weather' }">Weather</router-link>
-            <router-link :to="{ name: 'Synopsis' }">Synopsis</router-link>
-        </div>-->
+        />
         <transition name="fade" mode="out-in">
             <router-view
                 :key="$route.name + ($route.params.zone || '') + ($route.params.date || '') + ($route.params.product || '')"
