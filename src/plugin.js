@@ -1,6 +1,4 @@
 import ForecastPlugin from './components/ForecastPlugin';
-import PhotoSwipe from 'photoswipe/dist/photoswipe'
-import PhotoSwipeUI from 'photoswipe/dist/photoswipe-ui-default'
 import photoswipe from 'vue-pswipe'
 import InfoPopover from './components/InfoPopover'
 import VTooltip from 'v-tooltip'

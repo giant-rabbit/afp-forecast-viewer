@@ -70,6 +70,7 @@ html {
 .afp-zone-title {
   text-indent: -.8rem;
   margin-left: 1.4rem;
+
   i {
     padding-right: .3rem;
   }
@@ -83,6 +84,51 @@ html {
 .afp-html-input,
 .afp-html-select {
   height: 2.5rem !important;
+}
+
+// 
+// Media
+// 
+
+.afp-image-container {
+  position: relative;
+
+  &:after {
+    content: "\F616";
+    display: inline-block;
+    font: normal normal normal 24px/1 "Material Design Icons";
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-size: 1.3rem;
+    position: absolute;
+    bottom: 0.3rem;
+    left: 0.3rem;
+    border-radius: $border-radius;
+    line-height: 1;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 0.2rem;
+    color: $gray-800;
+    pointer-events: none;
+  }
+}
+
+.afp-video-container {
+  position: relative;
+
+  &:before {
+    content: "\F5C3";
+    display: inline-block;
+    font: normal normal normal 24px/1 "Material Design Icons";
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: $red;
+    font-size: 5rem;
+    pointer-events: none;
+  }
 }
 
 //
@@ -125,6 +171,7 @@ html {
   max-width: 100% !important;
   height: auto !important;
 }
+
 .afp-tinymce-iframe {
   max-width: 100% !important;
   border: none;

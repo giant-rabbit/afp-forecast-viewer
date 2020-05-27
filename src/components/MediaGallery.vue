@@ -10,7 +10,7 @@
         <div class="afp-carousel">
             <div v-for="item in media" :key="item.id">
                 <div class="afp-galleryItem">
-                    <div class="afp-galleryImgContainer">
+                    <div class="afp-image-container afp-galleryImgContainer" :class="item.type == 'video' ? 'afp-video-container' : ''">
                         <img
                             v-if="item.type == 'photo'"
                             class="afp-galleryImg"
@@ -26,12 +26,6 @@
                             :alt="item.caption"
                             @click="showVideoModal(item.url,item.caption)"
                         />
-                        <i
-                            @click="showVideoModal(item.url,item.caption)"
-                            v-if="item.type == 'video'"
-                            class="mdi mdi-youtube"
-                        ></i>
-                        <i class="mdi mdi-arrow-expand"></i>
                     </div>
                 </div>
             </div>
@@ -129,27 +123,6 @@ $gallery-height: 200px;
         height: 100% !important;
         width: 100% !important;
         object-fit: cover;
-    }
-
-    .mdi-arrow-expand {
-        font-size: 1.3rem;
-        position: absolute;
-        bottom: 0.3rem;
-        left: 0.3rem;
-        border-radius: $border-radius;
-        line-height: 1;
-        background-color: rgba(255, 255, 255, 0.5);
-        padding: 0.2rem;
-        color: $gray-800;
-    }
-
-    .mdi-youtube {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: $red;
-        font-size: 5rem;
     }
 
     &::v-deep {

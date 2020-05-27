@@ -29,12 +29,15 @@
     "vue-tables-2": "^1.4.70"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
     "@vue/cli-plugin-babel": "^3.11.0",
     "@vue/cli-plugin-eslint": "^3.11.0",
     "@vue/cli-service": "^3.11.0",
+    "@vue/eslint-config-typescript": "^5.0.2",
     "babel-eslint": "^10.0.1",
-    "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.0.0",
+    "eslint": "^6.0.0",
+    "eslint-plugin-vue": "^6.0.0",
     "node-sass": "^4.12.0",
     "sass": "^1.22.0",
     "sass-loader": "^8.0.0",
