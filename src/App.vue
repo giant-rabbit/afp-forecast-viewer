@@ -21,23 +21,6 @@
             color: {{this.$config.color}} !important;
             }
         </v-style>
-        <!-- <link
-            v-if="this.$config.assets.photoswipe"
-            rel="stylesheet"
-            href="https://unpkg.com/photoswipe/dist/photoswipe.css"
-        />
-        <link
-            v-if="this.$config.assets.photoswipe"
-            rel="stylesheet"
-            href="https://unpkg.com/photoswipe/dist/default-skin/default-skin.css"
-        />-->
-        <link
-            v-if="this.$config.assets.icons"
-            href="https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css"
-            media="all"
-            rel="stylesheet"
-            type="text/css"
-        />
         <transition name="fade" mode="out-in">
             <router-view
                 :key="$route.name + ($route.params.zone || '') + ($route.params.date || '') + ($route.params.product || '')"
@@ -78,14 +61,6 @@ export default {
             }
             return rgb;
         }
-    },
-    mounted() {
-        let photoswipeJS = document.createElement('script')
-        photoswipeJS.setAttribute('src', 'https://unpkg.com/photoswipe/dist/photoswipe.min.js')
-        document.head.appendChild(photoswipeJS)
-        let photoswipeUIJS = document.createElement('script')
-        photoswipeUIJS.setAttribute('src', 'https://unpkg.com/photoswipe/dist/photoswipe-ui-default.min.js')
-        document.head.appendChild(photoswipeUIJS)
     }
 }
 </script>
