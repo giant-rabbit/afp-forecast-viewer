@@ -3,11 +3,10 @@
         <button
             v-show="visible"
             @click="backToTop"
-            class="afp-to-top afp-html-button afp-btn afp-btn-secondary afp-btn-sm"
+            class="afp-to-top afp-html-button afp-btn afp-btn-secondary"
         >
             <i class="mdi mdi-arrow-up"></i>
-            <br />Back
-            <br />to Top
+            <br />Top
         </button>
     </transition>
 </template>
