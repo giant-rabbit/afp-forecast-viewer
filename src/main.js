@@ -7,7 +7,7 @@ import merge from 'deepmerge'
 import moment from 'moment/src/moment.js'
 import vbclass from 'vue-body-class'
 import Router from 'vue-router'
-import mixins from './mixins.js'
+// import mixins from './mixins.js'
 // Components
 import Forecast from './views/Forecast'
 import Weather from './views/Weather'
@@ -44,9 +44,6 @@ if (configElement) {
 }
 Vue.prototype.$config = config
 Vue.prototype.$centerId = config.center
-
-// Add Body class
-// Vue.use(vbclass, router)
 
 // Style tag
 Vue.component('v-style', {
@@ -125,6 +122,8 @@ axios
                 }
             }
         })
+        // Add Body class based on route
+        Vue.use(vbclass, router)
 
         // Vue instance
         window.App = new Vue({

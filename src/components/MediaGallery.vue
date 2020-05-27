@@ -1,30 +1,31 @@
 <template>
     <div class="afp-media-gallery">
-        <video-modal
-            @close="videoModal = false"
-            :show="videoModal"
-            :caption="videoCaption"
-            :id="videoId"
-        />
         <h2 class="afp-html-h2">Media</h2>
         <div class="afp-carousel">
             <div v-for="item in media" :key="item.id">
                 <div class="afp-galleryItem">
-                    <div class="afp-image-container afp-galleryImgContainer" :class="item.type == 'video' ? 'afp-video-container' : ''">
+                    <div
+                        v-if="item.type == 'photo'"
+                        class="afp-image-container afp-galleryImgContainer"
+                    >
                         <img
-                            v-if="item.type == 'photo'"
                             class="afp-galleryImg"
                             :src="item.url"
                             :alt="item.caption"
                             :data-pswp-title="item.caption"
                             :data-pswp-src="item.url"
                         />
+                    </div>
+                    <div
+                        v-if="item.type == 'video'"
+                        class="afp-image-container afp-galleryImgContainer afp-video-container afp-video-modal"
+                    >
                         <img
-                            v-if="item.type == 'video'"
                             class="afp-galleryImg"
                             :src="'https://img.youtube.com/vi/' + item.url + '/mqdefault.jpg'"
                             :alt="item.caption"
-                            @click="showVideoModal(item.url,item.caption)"
+                            :data-video-id="item.url"
+                            :data-video-caption="item.caption"
                         />
                     </div>
                 </div>
@@ -35,26 +36,14 @@
 
 <script>
 import { tns } from "tiny-slider/src/tiny-slider.js"
-import VideoModal from '../components/VideoModal'
 
 export default {
     data() {
         return {
-            videoModal: false,
-            videoCaption: '',
-            videoId: ''
         }
     },
-    components: {
-        VideoModal
-    },
-    props: ['media', 'scope'],
+    props: ['media'],
     methods: {
-        showVideoModal(id, caption) {
-            this.videoId = id
-            this.videoCaption = caption
-            this.videoModal = true
-        }
     },
     mounted() {
         var slider = tns({

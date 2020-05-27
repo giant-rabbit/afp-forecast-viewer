@@ -1,8 +1,8 @@
 <template>
     <div>
-        <photoswipe>
+        <photoswipe key="blog">
             <!-- discussion -->
-            <div class="afp-tinymce afp-mb-3" v-html="addPswp(data.hazard_discussion)"></div>
+            <div class="afp-tinymce afp-mb-3" v-html="data.hazard_discussion"></div>
 
             <!-- media -->
             <media-gallery

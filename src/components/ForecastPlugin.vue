@@ -19,6 +19,12 @@
             :data="forecastData"
             :config="config"
         />
+        <video-modal
+            @close="videoModal = false"
+            :show="videoModal"
+            :caption="videoCaption"
+            :id="videoId"
+        />
     </div>
 </template>
 
@@ -27,11 +33,15 @@
 import ForecastProduct from '../components/ForecastProduct'
 import WeatherProduct from '../components/WeatherProduct'
 import SynopsisProduct from '../components/SynopsisProduct'
+import VideoModal from '../components/VideoModal'
 
 export default {
     data() {
         return {
-            forecastData: {}
+            forecastData: {},
+            videoModal: false,
+            videoCaption: '',
+            videoId: ''
         }
     },
     props: {
@@ -70,15 +80,9 @@ export default {
     components: {
         ForecastProduct,
         WeatherProduct,
-        SynopsisProduct
+        SynopsisProduct,
+        VideoModal
     },
-    // watch: {
-    //     data: {
-    //         handler: function () {
-    //             this.data.hazard_discussion = this.tineMCEclass(this.data.hazard_discussion)
-    //         }
-    //     },
-    // },
     methods: {
         tineMCEclass(search) {
             // Add AFP specific classes to TinyMCE tags
@@ -105,6 +109,32 @@ export default {
     mounted() {
         this.forecastData = this.data
         this.forecastData = this.tineMCEclass(this.forecastData)
+        this.$nextTick(function () {
+            // add event listener to open video modal
+            var videos = document.querySelectorAll('.afp-video-modal')
+            videos.forEach(el => {
+                var caption = el.getElementsByTagName('figcaption')
+                if(caption.length != 0) {
+                    var image = el.getElementsByTagName('img')
+                    caption = caption[0].innerHTML
+                    image[0].setAttribute('data-video-caption', caption)
+                }
+                el.addEventListener('click', event => {
+                    this.videoId = event.target.dataset.videoId
+                    this.videoCaption = event.target.dataset.videoCaption
+                    this.videoModal = true
+                })
+            })
+            // add data atttributes to figures to open in photoswipe
+            var figures = document.querySelectorAll('.afp-photoswipe')
+            figures.forEach((figure) => {
+                var caption = figure.getElementsByTagName('figcaption')
+                var image = figure.getElementsByTagName('img')
+                caption = caption[0].innerHTML
+                image[0].setAttribute('data-pswp-title', caption)
+                image[0].setAttribute('data-pswp-src', image[0].src)
+            })
+        })
     }
 }
 

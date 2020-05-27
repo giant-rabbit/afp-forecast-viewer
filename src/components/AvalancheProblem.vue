@@ -61,36 +61,30 @@
                 </h5>
             </div>
         </div>
-        <figure v-if="problem.media.url !=''" class="afp-html-figure afp-print-hide">
-            <div class="afp-imageContainer">
+        <figure v-if="problem.media.url !='' && problem.media.type == 'photo' " class="afp-html-figure afp-print-hide">
+            <div class="afp-imageContainer afp-image-container">
                 <img
-                    v-if="problem.media.type == 'photo'"
                     :src="problem.media.url"
                     :alt="problem.media.caption"
                     :data-pswp-src="problem.media.url"
                     :data-pswp-title="problem.media.caption"
+                    class="afp-html-img"
                 />
-                <img
-                    v-if="problem.media.type == 'video'"
-                    :src="'https://img.youtube.com/vi/' + problem.media.url + '/mqdefault.jpg'"
-                    :alt="problem.media.caption"
-                    @click="videoModal = true"
-                />
-                <i class="mdi mdi-arrow-expand"></i>
-                <i
-                    @click="videoModal = true"
-                    v-if="problem.media.type == 'video'"
-                    class="mdi mdi-youtube"
-                ></i>
             </div>
             <figcaption class="afp-html-figcaption">{{problem.media.caption}}</figcaption>
         </figure>
-        <video-modal
-            @close="videoModal = false"
-            :show="videoModal"
-            :caption="problem.media.caption"
-            :id="problem.media.url"
-        />
+        <figure v-if="problem.media.url !='' && problem.media.type == 'video' " class="afp-html-figure afp-print-hide afp-video-modal">
+            <div class="afp-imageContainer afp-image-container afp-video-container">
+                <img
+                    :src="'https://img.youtube.com/vi/' + problem.media.url + '/mqdefault.jpg'"
+                    :alt="problem.media.caption"
+                    @click="videoModal = true"
+                    :data-video-id=" problem.media.url"
+                    class="afp-html-img"
+                />
+            </div>
+            <figcaption class="afp-html-figcaption">{{problem.media.caption}}</figcaption>
+        </figure>
         <div class="afp-tinymce" v-html="problem.discussion"></div>
     </div>
 </template>
@@ -98,12 +92,10 @@
 <script>
 import LocatorRose from '../components/LocatorRose'
 import ProblemSlider from '../components/ProblemSlider'
-import VideoModal from '../components/VideoModal'
 
 export default {
     data() {
         return {
-            videoModal: false,
             likelihoodOptions: ['unlikely', 'possible', 'likely', 'very likely', 'almost certain'],
             likelihoodLabels: ['Unlikely', 'Possible', 'Likely', 'Very Likely', 'Almost Certain'],
             sizeOptions: ['1', '1.5', '2', '2.5', '3', '3.5', '4'],
@@ -112,8 +104,7 @@ export default {
     },
     components: {
         LocatorRose,
-        ProblemSlider,
-        VideoModal
+        ProblemSlider
     },
     props: ['problem', 'config'],
     mounted() {
@@ -196,27 +187,6 @@ export default {
             width: 100%;
             cursor: zoom-in;
         }
-    }
-
-    .mdi-arrow-expand {
-        font-size: 1.3rem;
-        position: absolute;
-        bottom: 0.6rem;
-        left: 0.3rem;
-        border-radius: $border-radius;
-        line-height: 1;
-        background-color: rgba(255, 255, 255, 0.5);
-        padding: 0.2rem;
-        color: $gray-800;
-    }
-
-    .mdi-youtube {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: $red;
-        font-size: 5rem;
     }
 }
 </style>

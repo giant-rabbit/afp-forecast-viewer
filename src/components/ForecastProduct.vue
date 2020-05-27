@@ -75,10 +75,10 @@
 
         <!-- Tab container -->
         <content-panel>
-            <photoswipe>
+            <photoswipe v-if="data.product_type == 'forecast'" key="forecast">
                 <!-- Avalanche forecast tab -->
                 <div
-                    v-if="tabSelected == 'forecast' && data.product_type == 'forecast'"
+                    v-show="tabSelected == 'forecast'"
                     class="afp-tabPane"
                 >
                     <!-- danger -->
@@ -136,18 +136,19 @@
                         <weather-content v-if="data.weather_product" :data="data.weather_product" />
                     </div>
                 </div>
-
+            </photoswipe>
+            <photoswipe v-if="data.product_type == 'summary'" key="summary">
                 <!-- Summary tab -->
                 <div
-                    v-if="tabSelected == 'forecast' && data.product_type == 'summary'"
+                    v-show="tabSelected == 'forecast'"
                     class="afp-tabPane"
                 >
-                    <div v-if="data.hazard_discussion != 'null' && data.hazard_discussion != ''" class="afp-mb-3">
+                    <div
+                        v-if="data.hazard_discussion != 'null' && data.hazard_discussion != ''"
+                        class="afp-mb-3"
+                    >
                         <h2 class="afp-html-h2">Forecast Discussion</h2>
-                        <div
-                            class="afp-tinymce"
-                            v-html="addPswp(data.hazard_discussion)"
-                        ></div>
+                        <div class="afp-tinymce" v-html="data.hazard_discussion"></div>
                     </div>
                     <!-- media -->
                     <media-gallery
@@ -166,7 +167,7 @@
 
             <!-- Weather tab -->
             <div
-                v-if="tabSelected == 'weather' && (data.product_type == 'forecast' || data.product_type == 'summary')"
+                v-show="tabSelected == 'weather' && (data.product_type == 'forecast' || data.product_type == 'summary')"
                 class="afp-tabPane"
             >
                 <div v-if="data.weather_product">
@@ -181,9 +182,9 @@
             </div>
 
             <!-- Blog tab -->
-            <div v-if="tabSelected == 'blog'" class="afp-tabPane">
+            <div v-show="tabSelected == 'blog'" class="afp-tabPane">
                 <!-- Title -->
-                <div v-if="data.synopsis_product.avalanche_center != null">
+                <div v-if="data.hasOwnProperty('synopsis_product') && data.synopsis_product.avalanche_center != null">
                     <h1 class="afp-html-h1" v-html="data.synopsis_product.bottom_line"></h1>
                     <product-header
                         :published="data.synopsis_product.published_time"
@@ -274,19 +275,6 @@ export default {
                 return 0
             }
         },
-        generalContent: function () {
-            var element = document.createElement('div')
-            element.insertAdjacentHTML('beforeend', this.data.hazard_discussion)
-            var figures = element.querySelectorAll('.afp-tinymce-figure')
-            figures.forEach((figure) => {
-                var caption = figure.getElementsByTagName('figcaption')
-                var image = figure.getElementsByTagName('img')
-                caption = caption[0].innerHTML
-                image[0].setAttribute('data-pswp-title', caption)
-                image[0].setAttribute('data-pswp-src', image[0].src)
-            })
-            return element.innerHTML
-        }
     },
     props: ['preview', 'data', 'config', 'zone'],
     components: {
@@ -315,8 +303,7 @@ export default {
             document.getElementById("tabs").scrollIntoView()
         },
     },
-    mounted() {
-    }
+    mounted() {}
 }
 </script>
 
