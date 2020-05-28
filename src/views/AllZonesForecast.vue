@@ -229,6 +229,7 @@ export default {
         this.data.weather_product = await this.getWeather()
         this.loaded = true
         document.body.classList.add('afp-forecast-type-all')
+        this.trackPage('Avalanche Forecast')
     }
 }
 </script>

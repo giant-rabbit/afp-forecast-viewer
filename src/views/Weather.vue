@@ -56,6 +56,7 @@ export default {
     },
     mounted() {
         this.getWeather()
+        this.trackPage('Weather Forecast')
     },
 }
 </script>

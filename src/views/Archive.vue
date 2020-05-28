@@ -100,6 +100,7 @@ export default {
     },
     mounted() {
         this.getArchive()
+        this.trackPage('Archive')
     }
 }
 </script>

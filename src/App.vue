@@ -63,10 +63,6 @@ export default {
         }
     },
     mounted() {
-        this.$gtag.pageview({
-            page_title: 'AFP Forecast Viewer',
-            page_path: this.$router.currentRoute.path
-        })
     }
 }
 </script>

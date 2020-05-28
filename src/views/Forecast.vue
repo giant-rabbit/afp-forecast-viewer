@@ -170,6 +170,7 @@ export default {
     },
     mounted() {
         this.getProducts()
+        this.trackPage('Avalanche Forecast')
     }
 }
 </script>

@@ -70,6 +70,7 @@ export default {
     },
     mounted() {
         this.getProduct()
+        this.trackPage('Conditions Blog')
     },
 }
 </script>

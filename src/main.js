@@ -8,7 +8,7 @@ import moment from 'moment/src/moment.js'
 import vbclass from 'vue-body-class'
 import Router from 'vue-router'
 import VueGtag from "vue-gtag"
-// import mixins from './mixins.js'
+import mixins from './mixins.js'
 // Components
 import Forecast from './views/Forecast'
 import Weather from './views/Weather'
@@ -127,22 +127,21 @@ axios
         // Add Body class based on route
         Vue.use(vbclass, router)
 
-        // Google Analytics
+        // Google Analytics - gtag
         Vue.use(VueGtag, {
             config: {
-                id: "UA-167871391-1",
                 params: {
                     send_page_view: false
                 }
             },
-            pageTrackerTemplate(to) {
-                return {
-                    page_title: 'AFP Forecast Viewer',
-                    page_path: to.path
-                }
-            },
+            // pageTrackerTemplate(to) {
+            //     return {
+            //         page_title: 'AFP Forecast Viewer',
+            //         page_path: Vue.prototype.$config.baseUrl + '/#' + to.path
+            //     }
+            // },
             disableScriptLoad: true,
-        }, router)
+        })
 
         // Vue instance
         window.App = new Vue({
