@@ -1,9 +1,9 @@
 <template>
     <div class="afp-forecast-archive">
+        <forecast-filter :data="data" v-model="season" />
         <loader :show="!loaded" />
-        <alert :show="error"/>
+        <alert :show="error" />
         <div v-show="loaded">
-            <forecast-filter :data="data" ref="forecastFilter" key="forecastFilter" />
             <v-client-table
                 :columns="columns"
                 :data="data"
@@ -47,13 +47,13 @@ export default {
         return {
             loaded: false,
             error: false,
-            selected: [],
             /**
-             * Set up Vue Tables 2
+             * Set up Vue Tables 2s
              */
             columns: ['start_date', 'danger_rating'],
             data: [],
             zoneName: '',
+            season: null,
             options: {
                 skin: 'table',
                 columnsClasses: {
@@ -116,6 +116,21 @@ export default {
         Loader,
         Alert
     },
+    computed: {
+        currentSeason: function () {
+            var now = moment()
+            if (now.isBefore(now.year() + '-08-31')) {
+                return now.year()
+            } else {
+                return now.year() + 1
+            }
+        },
+    },
+    watch: {
+        season: function () {
+            this.getProducts()
+        }
+    },
     methods: {
         urlString(string) {
             string = string.replace(/ /g, '-')
@@ -123,9 +138,18 @@ export default {
             return string
         },
         getProducts() {
-            var ref = this
+            this.loaded = false
+            var start = ""
+            var end = ""
+            if (this.season == null || this.season == 'current') {
+                start = (this.currentSeason - 1) + "-09-01"
+                end = this.currentSeason + "-08-31"
+            } else {
+                start = (this.season - 1) + "-09-01"
+                end = this.season + "-08-31"
+            }
             this.$api
-                .get('/public/products?avalanche_center_id=' + this.$centerId)
+                .get('/public/products?avalanche_center_id=' + this.$centerId + '&date_start=' + start + '&date_end=' + end)
                 .then(response => {
                     this.data = response.data
                     // filter by zone

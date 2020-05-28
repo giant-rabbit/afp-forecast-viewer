@@ -1,9 +1,10 @@
 <template>
     <div class="afp-blog-archive">
+        <forecast-filter :data="data" :blog="true" v-model="season" />
         <loader :show="!loaded" />
         <alert :show="error"/>
         <div v-show="loaded">
-            <synopsis-filter :data="data" ref="synopsisFilter" key="synopsisFilter" />
+            <!-- <synopsis-filter :data="data" ref="synopsisFilter" key="synopsisFilter" /> -->
             <v-client-table
                 :columns="columns"
                 :data="data"
@@ -27,7 +28,7 @@
 <script>
 import Vue from 'vue'
 import { ClientTable, Event } from 'vue-tables-2'
-import SynopsisFilter from '../components/SynopsisFilter'
+import ForecastFilter from '../components/ForecastFilter'
 import Loader from '../components/Loader'
 import Alert from '../components/Alert'
 import tableTheme from '../vueTableTheme'
@@ -41,7 +42,7 @@ export default {
         return {
             loaded: false,
             error: false,
-            selected: [],
+            season: null,
             /**
              * Set up Vue Tables 2
              */
@@ -62,7 +63,7 @@ export default {
                 },
                 sortable: ['start_date'],
                 filterable: true,
-                perPage: 20,
+                perPage: 100,
                 pagination: { chunk: 5 },
                 sortIcon: {
                     base: 'mdi',
@@ -103,15 +104,39 @@ export default {
         }
     },
     components: {
-        SynopsisFilter,
+        ForecastFilter,
         Loader,
         Alert
     },
+    computed: {
+        currentSeason: function () {
+            var now = moment()
+            if (now.isBefore(now.year() + '-08-31')) {
+                return now.year()
+            } else {
+                return now.year() + 1
+            }
+        },
+    },
+    watch: {
+        season: function () {
+            this.getProducts()
+        }
+    },
     methods: {
         getProducts() {
-            var ref = this
+            this.loaded = false
+            var start = ""
+            var end = ""
+            if (this.season == null || this.season == 'current') {
+                start = (this.currentSeason - 1) + "-09-01"
+                end = this.currentSeason + "-08-31"
+            } else {
+                start = (this.season - 1) + "-09-01"
+                end = this.season + "-08-31"
+            }
             this.$api
-                .get('/public/products?avalanche_center_id=' + this.$centerId)
+                .get('/public/products?avalanche_center_id=' + this.$centerId + '&date_start=' + start + '&date_end=' + end)
                 .then(response => {
                     this.data = response.data
                     // filter forecasts

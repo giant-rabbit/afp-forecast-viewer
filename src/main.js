@@ -4,7 +4,7 @@ import forecastView from './plugin.js'
 import { baseRoutes } from './routes.js'
 import axios from 'axios'
 import merge from 'deepmerge'
-import moment from 'moment/src/moment.js'
+import moment from 'moment'
 import vbclass from 'vue-body-class'
 import Router from 'vue-router'
 import VueGtag from "vue-gtag"
@@ -84,7 +84,7 @@ Vue.directive('closable', {
 Vue.use({
     install(Vue) {
         Vue.prototype.$api = axios.create({
-            baseURL: 'https://staging-api.avalanche.org/v2'
+            baseURL: 'https://api.avalanche.org/v2'
         })
     }
 })
