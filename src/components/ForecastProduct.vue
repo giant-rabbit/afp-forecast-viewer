@@ -82,7 +82,6 @@
                     <avalanche-danger
                         :danger="data.danger"
                         :date="data.published_time"
-                        :config="config"
                     />
 
                     <!-- problems -->
@@ -90,7 +89,6 @@
                         v-for="problem in data.forecast_avalanche_problems"
                         v-bind:key="problem.rank"
                         :problem="problem"
-                        :config="config"
                     />
 
                     <!-- discussion -->

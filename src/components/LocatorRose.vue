@@ -12,11 +12,11 @@
             <div class="afp-elevationMarker afp-elevationMarkerUpper"></div>
             <div class="afp-elevationMarker afp-elevationMarkerMiddle"></div>
             <div class="afp-elevationMarker afp-elevationMarkerLower"></div>
-            <div class="afp-elevationLabel afp-elevationLabelUpper">{{this.config.elevations.upper}}</div>
+            <div class="afp-elevationLabel afp-elevationLabelUpper">{{elevations.upper.title}}</div>
             <div
                 class="afp-elevationLabel afp-elevationLabelMiddle"
-            >{{this.config.elevations.middle}}</div>
-            <div class="afp-elevationLabel afp-elevationLabelLower">{{this.config.elevations.lower}}</div>
+            >{{elevations.middle.title}}</div>
+            <div class="afp-elevationLabel afp-elevationLabelLower">{{elevations.lower.title}}</div>
             <svg
                 class="afp-rose-svg"
                 width="100%"
@@ -160,7 +160,8 @@ export default {
     data() {
         return {
             borderColor: '#515558',
-            fillColor: '#C8CACE'
+            fillColor: '#C8CACE',
+            elevations: this.$centerMeta.config.elevations
         }
     },
     props: ['location', 'rank', 'config'],

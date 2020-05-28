@@ -27,7 +27,6 @@
                 <locator-rose
                     ref="rose"
                     class="location"
-                    :config="config"
                     :rank="problem.rank"
                     :location="problem.location"
                 ></locator-rose>
@@ -61,7 +60,10 @@
                 </h5>
             </div>
         </div>
-        <figure v-if="problem.media.url !='' && problem.media.type == 'photo' " class="afp-html-figure afp-print-hide">
+        <figure
+            v-if="problem.media.url !='' && problem.media.type == 'photo' "
+            class="afp-html-figure afp-print-hide"
+        >
             <div class="afp-imageContainer afp-image-container">
                 <img
                     :src="problem.media.url"
@@ -73,7 +75,10 @@
             </div>
             <figcaption class="afp-html-figcaption">{{problem.media.caption}}</figcaption>
         </figure>
-        <figure v-if="problem.media.url !='' && problem.media.type == 'video' " class="afp-html-figure afp-print-hide afp-video-modal">
+        <figure
+            v-if="problem.media.url !='' && problem.media.type == 'video' "
+            class="afp-html-figure afp-print-hide afp-video-modal"
+        >
             <div class="afp-imageContainer afp-image-container afp-video-container">
                 <img
                     :src="'https://img.youtube.com/vi/' + problem.media.url + '/mqdefault.jpg'"
@@ -106,7 +111,7 @@ export default {
         LocatorRose,
         ProblemSlider
     },
-    props: ['problem', 'config'],
+    props: ['problem'],
     mounted() {
 
     }

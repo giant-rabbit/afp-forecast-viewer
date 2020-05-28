@@ -12,7 +12,7 @@
                 {{ todayDate }}
                 <div class="afp-dangerGraphic">
                     <div class="afp-elevationBlock">
-                        <span class="afp-elevationLabel">{{config.elevations.upper}}</span>
+                        <span class="afp-elevationLabel">{{elevations.upper.title}}</span>
                         <span
                             class="afp-dangerLabel"
                         >{{this.$dangerScale[currentDanger.upper].rating}} ({{currentDanger.upper}})</span>
@@ -27,7 +27,7 @@
                         </v-popover>
                     </div>
                     <div class="afp-elevationBlock">
-                        <span class="afp-elevationLabel">{{config.elevations.middle}}</span>
+                        <span class="afp-elevationLabel">{{elevations.middle.title}}</span>
                         <span
                             class="afp-dangerLabel"
                         >{{this.$dangerScale[currentDanger.middle].rating}} ({{currentDanger.middle}})</span>
@@ -42,7 +42,7 @@
                         </v-popover>
                     </div>
                     <div class="afp-elevationBlock">
-                        <span class="afp-elevationLabel">{{config.elevations.lower}}</span>
+                        <span class="afp-elevationLabel">{{elevations.lower.title}}</span>
                         <span
                             class="afp-dangerLabel"
                         >{{this.$dangerScale[currentDanger.lower].rating}} ({{currentDanger.lower}})</span>
@@ -136,6 +136,7 @@ import moment from 'moment/src/moment.js'
 export default {
     data() {
         return {
+            elevations: this.$centerMeta.config.elevations
         }
     },
     components: {
@@ -143,7 +144,7 @@ export default {
         DangerElevationMobile,
         DangerScale
     },
-    props: ['danger', 'date', 'config'],
+    props: ['danger', 'date'],
     computed: {
         currentDanger: function () {
             let current = this.danger.find(current => current.valid_day == "current");
@@ -299,6 +300,11 @@ export default {
             width: auto;
             left: -2px;
         }
+        // .afp-popover-trigger {
+        //     position: absolute;
+        //     top: 0;
+        //     left: -10px;
+        // }
     }
 
     .afp-dangerLabel {

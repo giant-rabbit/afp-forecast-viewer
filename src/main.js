@@ -97,6 +97,20 @@ axios
         var config = {
             zoneOrder: [295, 296, 294, 293],
             blog: true,
+            elevations: {
+                upper: {
+                    title: "Upper Elevation",
+                    description: "Upper elevation description",
+                },
+                middle: {
+                    title: "Middle Elevation",
+                    description: "Middle elevation description",
+                },
+                lower: {
+                    title: "Lower Elevation",
+                    description: "Lower elevation description",
+                }
+            },
         }
         // Reorder zones if config property is set
         if (config.zoneOrder) {
