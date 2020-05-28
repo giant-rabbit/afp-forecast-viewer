@@ -286,19 +286,16 @@ export default {
     methods: {
         changeTab(tab) {
             this.tabSelected = tab
-            // this.$router.push({ query: { nav: this.tabSelected } })
-            // this.$gtag.pageview({
-            //     page_title: 'AFP Forecast Viewer',
-            //     page_path: this.$router.currentRoute.path + '/' + tab
+            // this.$gtag.event('Forecast Tab Click', {
+            //     'event_category': 'AFP Forecast Viewer',
+            //     'event_label': tab
             // })
-            this.$gtag.event('Forecast Tab Click', {
-                'event_category': 'AFP Forecast Viewer',
-                'event_label': tab
-            })
+            this.uiClick('tab click » ' + tab)
         },
         scrollToTabs(tab) {
             this.tabSelected = tab
             document.getElementById("tabs").scrollIntoView()
+            this.uiClick('full weather forecast')
         },
     },
     mounted() { }

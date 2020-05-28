@@ -1,5 +1,5 @@
 <template>
-    <v-popover class="afp-popover-trigger">
+    <v-popover class="afp-popover-trigger" @show="uiClick('info pop up')">
         <button v-tooltip="'Click to learn more'" class="afp-html-button afp-btn">
             <i class="mdi mdi-information-variant"></i>
         </button>
@@ -23,6 +23,7 @@ export default {
 @import "../assets/bootstrap4/_functions.scss";
 @import "../assets/bootstrap4/_variables.scss";
 @import "../assets/bootstrap4/_mixins.scss";
+
 .afp-popover-trigger {
     display: inline-block;
     &::v-deep .trigger {

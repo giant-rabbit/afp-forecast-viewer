@@ -29,6 +29,7 @@ export default {
         },
         backToTop() {
             window.smoothscroll()
+            this.uiClick('back to top')
         }
     },
     mounted() {

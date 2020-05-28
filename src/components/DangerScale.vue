@@ -3,8 +3,9 @@
         <div class="afp-col-lg-auto">
             <a
                 class="afp-html-a"
-                href="https://avalanche.org/avalanche-encyclopedia/danger-scale/"
+                href="#"
                 target="_blank"
+                @click.prevent="dangerScaleLink"
             >
                 <h5 class="afp-html-h5" v-tooltip="'Click to learn more'">
                     Danger Scale
@@ -16,14 +17,17 @@
             <ul class="afp-html-ul">
                 <li class="afp-html-li afp-low">Low (1)</li>
                 <li class="afp-html-li afp-mod">
-                    Mod<span>erate</span> (2)
+                    Mod
+                    <span>erate</span> (2)
                 </li>
                 <li class="afp-html-li afp-cons">
-                    Cons<span>iderable</span> (3)
+                    Cons
+                    <span>iderable</span> (3)
                 </li>
                 <li class="afp-html-li afp-high">High (4)</li>
                 <li class="afp-html-li afp-ext">
-                    Extr<span>eme</span> (5)
+                    Extr
+                    <span>eme</span> (5)
                 </li>
             </ul>
         </div>
@@ -33,6 +37,12 @@
 <script>
 
 export default {
+    methods: {
+        dangerScaleLink() {
+            this.uiClick('danger scale link')
+            window.open('https://avalanche.org/avalanche-encyclopedia/danger-scale/')
+        }
+    }
 }
 
 </script>

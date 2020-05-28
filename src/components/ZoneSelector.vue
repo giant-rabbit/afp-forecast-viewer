@@ -1,6 +1,6 @@
 <template>
     <div class="afp-zone-selector">
-        <button ref="button" @click="show = !show" class="afp-html-button afp-btn">Choose Zone</button>
+        <button ref="button" @click="show = !show; uiClick('zone selector')" class="afp-html-button afp-btn">Choose Zone</button>
         <transition name="expand" @enter="enter" @after-enter="afterEnter" @leave="leave">
             <div
                 v-closable="{

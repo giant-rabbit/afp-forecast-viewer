@@ -4,7 +4,7 @@
         <info :content="this.$helpContent.avalancheProblem" />
         <div class="afp-infoGraphics afp-row">
             <div class="afp-problem-column afp-col-lg-3 afp-col-6 afp-text-center afp-mb-3">
-                <v-popover>
+                <v-popover @show="uiClick('info pop up » problem')">
                     <img
                         v-tooltip="'Click to learn more'"
                         class="afp-problemIcon"

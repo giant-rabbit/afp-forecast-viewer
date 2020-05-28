@@ -16,7 +16,7 @@
                         <span
                             class="afp-dangerLabel"
                         >{{this.$dangerScale[currentDanger.upper].rating}} ({{currentDanger.upper}})</span>
-                        <v-popover class="afp-dangerIcon">
+                        <v-popover class="afp-dangerIcon" @show="uiClick('info pop up » danger')">
                             <img
                                 :src="this.$dangerScale[currentDanger.upper].icon"
                                 v-tooltip="'Click to learn more'"
@@ -31,7 +31,7 @@
                         <span
                             class="afp-dangerLabel"
                         >{{this.$dangerScale[currentDanger.middle].rating}} ({{currentDanger.middle}})</span>
-                        <v-popover class="afp-dangerIcon">
+                        <v-popover class="afp-dangerIcon" @show="uiClick('info pop up » danger')">
                             <img
                                 :src="this.$dangerScale[currentDanger.middle].icon"
                                 v-tooltip="'Click to learn more'"
@@ -46,7 +46,7 @@
                         <span
                             class="afp-dangerLabel"
                         >{{this.$dangerScale[currentDanger.lower].rating}} ({{currentDanger.lower}})</span>
-                        <v-popover class="afp-dangerIcon">
+                        <v-popover class="afp-dangerIcon" @show="uiClick('info pop up » danger')">
                             <img
                                 :src="this.$dangerScale[currentDanger.lower].icon"
                                 v-tooltip="'Click to learn more'"
@@ -70,7 +70,7 @@
                         <span
                             class="afp-dangerOutlookLabel"
                         >{{this.$dangerScale[outlookDanger.upper].rating}} ({{outlookDanger.upper}})</span>
-                        <v-popover class="afp-dangerIcon afp-dangerIconOutlook">
+                        <v-popover class="afp-dangerIcon afp-dangerIconOutlook" @show="uiClick('info pop up » danger')">
                             <img
                                 :src="this.$dangerScale[outlookDanger.upper].icon"
                                 v-tooltip="'Click to learn more'"
@@ -84,7 +84,7 @@
                         <span
                             class="afp-dangerOutlookLabel"
                         >{{this.$dangerScale[outlookDanger.middle].rating}} ({{outlookDanger.middle}})</span>
-                        <v-popover class="afp-dangerIcon afp-dangerIconOutlook">
+                        <v-popover class="afp-dangerIcon afp-dangerIconOutlook" @show="uiClick('info pop up » danger')">
                             <img
                                 :src="this.$dangerScale[outlookDanger.middle].icon"
                                 v-tooltip="'Click to learn more'"
@@ -98,7 +98,7 @@
                         <span
                             class="afp-dangerOutlookLabel"
                         >{{this.$dangerScale[outlookDanger.lower].rating}} ({{outlookDanger.lower}})</span>
-                        <v-popover class="afp-dangerIcon afp-dangerIconOutlook">
+                        <v-popover class="afp-dangerIcon afp-dangerIconOutlook" @show="uiClick('info pop up » danger')">
                             <img
                                 :src="this.$dangerScale[outlookDanger.lower].icon"
                                 v-tooltip="'Click to learn more'"

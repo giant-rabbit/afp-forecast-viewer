@@ -2,7 +2,7 @@
     <div class="afp-filter afp-mb-2">
         <div class="afp-filter-row">
             <div class="afp-filter-column">
-                <select v-model="dangerFilter" class="afp-html-select afp-form-control afp-custom-select">
+                <select v-model="dangerFilter" @change="uiClick('forecast filter » danger')" class="afp-html-select afp-form-control afp-custom-select" >
                     <option class="afp-html-option" value>Filter by Danger</option>
                     <option class="afp-html-option"
                         v-for="(rating, index) in danger"
@@ -16,6 +16,7 @@
                     class="afp-html-input afp-form-control"
                     placeholder="Filter by Date (YYYY or YYYY-MM-DD)"
                     v-model="dateFilter"
+                    @click="uiClick('forecast filter » year')"
                     type="text"
                 />
             </div>
