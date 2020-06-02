@@ -1,95 +1,148 @@
 <template>
-    <div data-html2canvas-ignore>
-        <button ref="button" @click="print" :class="$style.btn">{{button}}</button>
-        <div id="afp-pdf"></div>
+    <div>
+        <button
+            ref="button"
+            @click="print"
+            class="afp-html-button afp-btn afp-btn-primary afp-btn-sm"
+        >{{button}}</button>
+        <hr />
+        <div v-show="show" id="afp-pdf">
+            <!-- PDF Header -->
+            <div class="afp-pdfHeader afp-mb-2">
+                <qrcode-vue class="afp-qrcode" :value="url" size="100" level="H"></qrcode-vue>
+                <h3 class="afp-mb-1 afp-html-h6">{{centerMeta.name}} - {{centerMeta.url}}</h3>
+                <h2
+                    class="afp-html-h2 afp-mb-1"
+                    v-if="data.product_type == 'forecast'"
+                >Backcountry Avalanche Forecast</h2>
+                <h2 class="afp-html-h2 afp-mb-1" v-else>General Avalanche Information</h2>
+                <h3 class="afp-html-h3 afp-text-muted">
+                    <i class="mdi mdi-map-marker"></i>
+                    {{zone}}
+                </h3>
+                <!-- <span>{{url}}</span> -->
+            </div>
+            <!-- Title -->
+            <div class="afp-forecast-title">
+            </div>
+            <!-- Warning -->
+            <avy-warning v-if="data.warning_product" :data="data.warning_product" />
+
+            <!-- Header -->
+            <!-- <product-header
+                :published="data.published_time"
+                :expires="data.expires_time"
+                :author="data.author"
+            />-->
+            <product-header :published="data.published_time" :author="data.author" />
+
+            <!-- Bottom line -->
+            <div v-if="data.bottom_line != ''" class="afp-bottomLine">
+                <h4 class="afp-html-h4 afp-bottomLine-title">THE BOTTOM LINE</h4>
+                <div class="afp-bottomLine-text afp-tinymce" v-html="data.bottom_line"></div>
+            </div>
+            <!-- Danger -->
+            <avalanche-danger v-if="data.product_type == 'forecast'" :danger="data.danger" />
+        </div>
+        <hr />
     </div>
 </template>
 
 <script>
-import html2canvas from 'html2canvas'
-import * as JsPDF from 'jspdf'
+import ProductHeader from '../components/ProductHeader'
+import AvyWarning from '../components/AvyWarning'
+import AvalancheDanger from '../components/AvalancheDanger'
+// import html2canvas from 'html2canvas'
+import html2pdf from 'html2pdf.js'
+import QrcodeVue from 'qrcode.vue'
 
 export default {
     data() {
         return {
-            button: 'Print'
+            button: 'Print',
+            show: true,
         }
+    },
+    props: ['data', 'zone', 'danger', 'centerMeta'],
+    computed: {
+        url: function () {
+            return window.location.href
+        }
+    },
+    components: {
+        ProductHeader,
+        AvyWarning,
+        AvalancheDanger,
+        QrcodeVue
     },
     methods: {
         print() {
             this.button = 'Generating PDF...'
-            var element = document.querySelector('body')
-            html2canvas(element, {
-                imageTimeout: 1000,
-                scale: 2,
-                windowWidth: 1200,
-                width: 1200,
-                // windowWidth: element.scrollWidth,
-                // windowHeight: element.scrollHeight,
-                // allowTaint: true,
-                // foreignObjectRendering: true
-            }).then(canvas => {
-                canvas.getContext('2d');
-                var imgData = canvas.toDataURL("image/jpeg", 1.0)
-                var pdf = new JsPDF('p', 'px', 'letter')
-
-                var pageWidth = pdf.internal.pageSize.getWidth()
-                var HTML_Width = 1200
-                var HTML_Height = element.scrollHeight
-                var PDF_Width = HTML_Width
-                var PDF_Height = PDF_Width * 1.29412
-                var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1
-                var canvas_image_width = pageWidth
-                var canvas_image_height = pageWidth / HTML_Width * HTML_Height
-
-                pdf.addImage(imgData, 'JPG', 0, 0, canvas_image_width, canvas_image_height)
-                for (var i = 1; i <= totalPDFPages; i++) {
-                    pdf.addPage('letter')
-                    pdf.addImage(imgData, 'JPG', 0, -(canvas_image_width * 1.29412 * i), canvas_image_width, canvas_image_height)
-                }
-                pdf.save("forecast.pdf")
-                this.button = "Print"
-            });
-        },
-        render() {
-            var element = document.querySelector('#afp')
-            html2canvas(element, {
-                imageTimeout: 1000,
-                scale: 1,
-                windowWidth: 1200,
-                width: 1200,
-                // windowWidth: element.scrollWidth,
-                // windowHeight: element.scrollHeight,
-                // allowTaint: true,
-                // foreignObjectRendering: true
-            }).then(canvas => {
-                document.getElementById('afp-pdf').appendChild(canvas)
-                // toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
-                // var a = document.createElement('a');
-                // a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
-                // a.download = 'somefilename.jpg';
-                // a.click();
+            this.show = true
+            var element = document.getElementById('afp-pdf')
+            var opt = {
+                margin: .4,
+                filename: 'forecast.pdf',
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: { scale: 4 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            }
+            html2pdf().set(opt).from(element).toPdf().get('pdf').then(pdf => {
+                window.open(pdf.output('bloburl'), '_blank')
+                this.button = 'Print'
             })
         }
     },
     mounted() {
+
     }
 }
 </script>
 
-<style module lang="scss">
-@import "../assets/bootstrap4/functions";
+<style scoped lang="scss">
+@import "../assets/bootstrap4/_functions.scss";
 @import "../assets/bootstrap4/_variables.scss";
-@import "../assets/bootstrap4/mixins";
+@import "../assets/bootstrap4/_mixins.scss";
 
-.btn {
-    composes: btn from "../assets/css/style.css";
+#afp-pdf {
     background-color: #fff;
-    border-color: $gray-400;
-    color: $gray-700;
-    box-shadow: $app-box-shadow;
-    &:hover {
-        border-color: $gray-500;
+    padding: 0 1rem;
+    .afp-pdfHeader {
+        position: relative;
+        .afp-qrcode {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+    .afp-bottomLine {
+        .afp-bottomLine-title {
+            display: inline-block;
+            border-bottom: 1px solid $gray-400;
+            padding-bottom: 0.1rem;
+        }
+
+        .afp-bottomLine-text {
+            font-size: $font-size-lg;
+        }
+    }
+    &::v-deep {
+        .afp-header {
+            margin-bottom: 0.5 * $spacer !important;
+        }
+        .afp-danger-today {
+            -webkit-box-flex: 0;
+            -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+
+        .afp-outlook,
+        .afp-popover-trigger,
+        .afp-dangerScale,
+        .afp-dangerScale .afp-col-lg-auto {
+            display: none;
+        }
     }
 }
 </style>

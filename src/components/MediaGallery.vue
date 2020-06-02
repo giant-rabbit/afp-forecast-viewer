@@ -33,9 +33,6 @@
 </template>
 
 <script>
-// import JQuery from 'jquery'
-// window.$ = JQuery
-// import 'owl.carousel/dist/assets/owl.carousel.css'
 import 'owl.carousel'
 
 export default {
@@ -266,6 +263,7 @@ $gallery-height: 200px;
             background: none;
             color: inherit;
             border: none;
+            outline: none;
             padding: 0 !important;
             font: inherit;
         }

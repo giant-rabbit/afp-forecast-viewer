@@ -177,10 +177,12 @@ export default {
             }
         },
         todayDate: function () {
-            if (moment(this.date).hours() > 12) {
-                return moment(this.date).add(24, 'h').format('dddd, MMMM D, YYYY')
-            } else {
-                return moment(this.date).format('dddd, MMMM D, YYYY')
+            if(this.date) {
+                if (moment(this.date).hours() > 12) {
+                    return moment(this.date).add(24, 'h').format('dddd, MMMM D, YYYY')
+                } else {
+                    return moment(this.date).format('dddd, MMMM D, YYYY')
+                }
             }
 
         },

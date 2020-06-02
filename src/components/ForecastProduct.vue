@@ -1,5 +1,6 @@
 <template>
     <div>
+        <print :data="data" :zone="zone" :danger="highestDanger" :centerMeta="centerMeta" />
         <div class="afp-row afp-mb-3">
             <!-- Zone selector -->
             <div
@@ -79,10 +80,7 @@
                 <!-- Avalanche forecast tab -->
                 <div v-show="tabSelected == 'forecast'" class="afp-tabPane">
                     <!-- danger -->
-                    <avalanche-danger
-                        :danger="data.danger"
-                        :date="data.published_time"
-                    />
+                    <avalanche-danger :danger="data.danger" :date="data.published_time" />
 
                     <!-- problems -->
                     <avalanche-problem
@@ -200,6 +198,7 @@
 </template>
 
 <script>
+import Print from '../components/Print'
 import ZoneSelector from '../components/ZoneSelector'
 import ProductHeader from '../components/ProductHeader'
 import AvyWarning from '../components/AvyWarning'
@@ -266,6 +265,7 @@ export default {
     },
     props: ['preview', 'data', 'config', 'zone'],
     components: {
+        Print,
         ZoneSelector,
         ProductHeader,
         AvyWarning,
