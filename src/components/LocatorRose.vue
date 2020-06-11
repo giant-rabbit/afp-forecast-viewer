@@ -13,14 +13,13 @@
             <div class="afp-elevationMarker afp-elevationMarkerMiddle"></div>
             <div class="afp-elevationMarker afp-elevationMarkerLower"></div>
             <div class="afp-elevationLabel afp-elevationLabelUpper">{{elevations.upper.title}}</div>
-            <div
-                class="afp-elevationLabel afp-elevationLabelMiddle"
-            >{{elevations.middle.title}}</div>
+            <div class="afp-elevationLabel afp-elevationLabelMiddle">{{elevations.middle.title}}</div>
             <div class="afp-elevationLabel afp-elevationLabelLower">{{elevations.lower.title}}</div>
             <svg
+                ref="rose"
                 class="afp-rose-svg"
-                width="100%"
-                height="100%"
+                width="150px"
+                height="150px"
                 viewBox="0 0 1050 1050"
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
@@ -172,7 +171,8 @@ export default {
     },
     methods: {
         roseColor() {
-            var rose = document.querySelector('#problem-' + this.rank + ' .afp-rose svg')
+            //var rose = document.querySelector('#problem-' + this.rank + ' .afp-rose svg')
+            var rose = this.$refs.rose
             var color = this.fillColor
             this.location.forEach(function (each) {
                 rose.querySelector('[data-id="' + each + '"]').style.fill = color
@@ -305,7 +305,8 @@ $rose-margin: 20px;
             height: $rose-size-xs;
             width: $rose-size-xs;
 
-            .afp-elevationLabel, .afp-elevationMarker {
+            .afp-elevationLabel,
+            .afp-elevationMarker {
                 display: none;
             }
             .afp-north {
@@ -339,6 +340,10 @@ $rose-margin: 20px;
             .afp-southwest {
                 left: 10px;
                 top: $rose-size-xs - 10px;
+            }
+            .afp-rose-svg {
+                height: $rose-size-xs;
+                width: $rose-size-xs;
             }
         }
     }

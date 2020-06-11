@@ -85,7 +85,7 @@
                     <!-- problems -->
                     <avalanche-problem
                         v-for="problem in data.forecast_avalanche_problems"
-                        v-bind:key="problem.rank"
+                        v-bind:key="'problem'+problem.rank"
                         :problem="problem"
                     />
 

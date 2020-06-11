@@ -20,7 +20,6 @@
                 <!-- <span>{{url}}</span> -->
             </div>
             <!-- Title -->
-            <div class="afp-forecast-title"></div>
             <!-- Warning -->
             <avy-warning v-if="data.warning_product" :data="data.warning_product" />
 
@@ -34,15 +33,41 @@
 
             <!-- Bottom line -->
             <div v-if="data.bottom_line != ''" class="afp-bottomLine">
-                <h4 class="afp-html-h4 afp-printHeader">THE BOTTOM LINE</h4>
+                <h4 class="afp-html-h4 afp-printHeader">The Bottom Line</h4>
                 <div class="afp-bottomLine-text afp-tinymce" v-html="data.bottom_line"></div>
             </div>
 
             <!-- Danger -->
-            <avalanche-danger v-if="data.product_type == 'forecast'" :danger="data.danger" />
+            <avalanche-danger
+                v-if="data.product_type == 'forecast'"
+                :danger="data.danger"
+                class="afp-pageBreak"
+            />
+
+            <!-- problems -->
+            <avalanche-problem
+                v-for="problem in data.forecast_avalanche_problems"
+                v-bind:key="'printProblem'+problem.rank"
+                :problem="problem"
+                class="afp-pageBreak"
+            />
+            <!-- <div class="afp-pageBreak">
+                <div v-for="problem in data.forecast_avalanche_problems" v-bind:key="problem.rank">
+                    <h4
+                        class="afp-html-h4 afp-printHeader mb-2"
+                    >Avalanche Problem #{{problem.rank}}:</h4>
+                    <h4 class="afp-html-h4 afp-d-inline-block afp-text-muted">{{problem.name}}</h4>
+                    <div class="afp-tinymce afp-mb-3" v-html="problem.discussion"></div>
+                </div>
+            </div>-->
 
             <!-- Weather -->
-
+            <div
+                v-if="data.hasOwnProperty('weather_product') && data.weather_product.weather_discussion != ''"
+            >
+                <h4 class="afp-html-h4 afp-printHeader">Weather Forecast</h4>
+                <div class="afp-tinymce afp-mb-3" v-html="data.weather_product.weather_discussion"></div>
+            </div>
         </div>
         <hr />
     </div>
@@ -52,6 +77,7 @@
 import ProductHeader from '../components/ProductHeader'
 import AvyWarning from '../components/AvyWarning'
 import AvalancheDanger from '../components/AvalancheDanger'
+import AvalancheProblem from '../components/AvalancheProblem'
 import WeatherTable from '../components/WeatherTable'
 // import html2canvas from 'html2canvas'
 import html2pdf from 'html2pdf.js'
@@ -74,6 +100,7 @@ export default {
         ProductHeader,
         AvyWarning,
         AvalancheDanger,
+        AvalancheProblem,
         WeatherTable,
         QrcodeVue
     },
@@ -86,12 +113,16 @@ export default {
                 margin: .4,
                 filename: 'forecast.pdf',
                 image: { type: 'jpeg', quality: 1 },
-                html2canvas: { scale: 4 },
+                html2canvas: { scale: 2 },
                 jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
-                html2canvas: { useCORS: true }
+                html2canvas: { useCORS: true },
+                pagebreak: { after: ['.afp-pageBreak'], avoid: ['img', 'svg'] }
             }
+
+            // Change to .save() for production
             html2pdf().set(opt).from(element).toPdf().get('pdf').save().then(pdf => {
-                // window.open(pdf.output('bloburl'), '_blank')
+            // html2pdf().set(opt).from(element).toPdf().get('pdf').then(pdf => {
+            //     window.open(pdf.output('bloburl'), '_blank')
                 this.button = 'Print'
             })
         }
@@ -108,6 +139,10 @@ export default {
 @import "../assets/bootstrap4/_mixins.scss";
 
 #afp-pdf {
+    // .afp-pageBreak {
+    //     page-break-after: always;
+    //     break-after: always;
+    // }
     background-color: #fff;
     padding: 0 1rem;
     .afp-pdfHeader {
@@ -148,7 +183,35 @@ export default {
                 }
             }
         }
-
+        .afp-problem {
+            padding-top: 0;
+            border: none;
+            margin-bottom: 0.5 * $spacer !important;
+            figure,
+            .afp-elevationLabel,
+            .afp-elevationMarker {
+                display: none;
+            }
+            .afp-infoGraphics {
+                margin-top: .5*$spacer;
+            }
+            .afp-problem-column .afp-html-h5:first-of-type {
+                margin-top: 0.5rem !important;
+            }
+            .afp-problemIcon {
+                height: 140px !important;
+                width: 140px !important;
+                margin: 0;
+            }
+            .afp-roseContainer {
+                margin: 0;
+                margin-bottom: 2rem;
+            }
+            .afp-problemSlider {
+                height: 180px;
+                margin-bottom: 0;
+            }
+        }
         .afp-weather-table {
             margin: 0 !important;
             .afp-table th,

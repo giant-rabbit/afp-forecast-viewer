@@ -1,5 +1,5 @@
 <template>
-    <div :id="'problem-' + problem.rank" class="afp-problem afp-mb-4 afp-divider">
+    <div class="afp-problem afp-mb-4 afp-divider">
         <h2 class="afp-html-h2">Avalanche Problem #{{problem.rank}}</h2>
         <info :content="this.$helpContent.avalancheProblem" />
         <div class="afp-infoGraphics afp-row">
@@ -29,6 +29,7 @@
                     class="location"
                     :rank="problem.rank"
                     :location="problem.location"
+                    :key="'rose'+problem.rank"
                 ></locator-rose>
                 <h5 class="afp-html-h5">
                     Aspect/Elevation
