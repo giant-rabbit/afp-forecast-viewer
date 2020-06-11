@@ -1,12 +1,7 @@
 <template>
     <div class="afp-dangerScale afp-row">
         <div class="afp-col-lg-auto">
-            <a
-                class="afp-html-a"
-                href="#"
-                target="_blank"
-                @click.prevent="dangerScaleLink"
-            >
+            <a class="afp-html-a" href="#" target="_blank" @click.prevent="dangerScaleLink">
                 <h5 class="afp-html-h5" v-tooltip="'Click to learn more'">
                     Danger Scale
                     <i class="mdi mdi-open-in-new"></i>
@@ -14,19 +9,32 @@
             </a>
         </div>
         <div class="afp-col-lg">
-            <ul class="afp-html-ul">
-                <li class="afp-html-li afp-low">Low (1)</li>
-                <li class="afp-html-li afp-mod">
-                    Mod<span>erate</span> (2)
-                </li>
-                <li class="afp-html-li afp-cons">
-                    Cons<span>iderable</span> (3)
-                </li>
-                <li class="afp-html-li afp-high">High (4)</li>
-                <li class="afp-html-li afp-ext">
-                    Extr<span>eme</span> (5)
-                </li>
-            </ul>
+            <table class="afp-html-table afp-table">
+                <thead class="afp-html-thead">
+                    <tr class="afp-html-tr">
+                        <th class="afp-html-th afp-low"></th>
+                        <th class="afp-html-th afp-mod"></th>
+                        <th class="afp-html-th afp-cons"></th>
+                        <th class="afp-html-th afp-high"></th>
+                        <th class="afp-html-th afp-ext"></th>
+                    </tr>
+                </thead>
+                <tbody class="afp-html-tbody">
+                    <tr class="afp-html-tr">
+                        <td class="afp-html-td">Low (1)</td>
+                        <td class="afp-html-td">
+                            Mod<span>erate</span> (2)
+                        </td>
+                        <td class="afp-html-td">
+                            Cons<span>iderable</span> (3)
+                        </td>
+                        <td class="afp-html-td">High (4)</td>
+                        <td class="afp-html-td">
+                            Extr<span>eme</span> (5)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </template>
@@ -94,50 +102,45 @@ export default {
             margin-bottom: 0.3rem;
         }
     }
-    // .none {
-    //     margin-right: 2%;
-    //     br {
-    //         @include media-breakpoint-up(lg) {
-    //             display: none;
-    //         }
-    //     }
-    //     span {
-    //         display: none;
-    //         @include media-breakpoint-up(xl) {
-    //             display: inline;
-    //         }
-    //     }
-    //     &:before {
-    //         border-radius: $border-radius;
-    //     }
-    // }
-    .afp-low:before {
-        border-color: $low;
-        background-color: $low;
-        border-radius: $border-radius 0 0 $border-radius;
-    }
-    .afp-mod:before {
-        border-color: $moderate;
-        background-color: $moderate;
-    }
-    .afp-cons:before {
-        border-color: $considerable;
-        background-color: $considerable;
-    }
-    .afp-high:before {
-        border-color: $high;
-        background-color: $high;
-    }
-    .afp-ext:before {
-        border-color: $extreme;
-        background-color: $extreme;
-        border-radius: 0 $border-radius $border-radius 0;
-    }
-    .afp-mod span,
-    .afp-cons span,
-    .afp-ext span {
-        @include media-breakpoint-down(xs) {
-            display: none;
+    .afp-table {
+        margin: 0;
+        th,
+        td {
+            border: none;
+            width: 20%;
+            max-width: 20%;
+            min-width: 20%;
+            text-align: center;
+            font-size: 0.6rem;
+            line-height: 1.1;
+            padding: 5px 0;
+            @include media-breakpoint-up(md) {
+                font-size: $font-size-sm;
+            }
+        }
+        thead {
+            .afp-low {
+                background-color: $low;
+                border-radius: 5px 0 0 5px;
+            }
+            .afp-mod {
+                background-color: $moderate;
+            }
+            .afp-cons {
+                background-color: $considerable;
+            }
+            .afp-high {
+                background-color: $high;
+            }
+            .afp-ext {
+                background-color: $extreme;
+                border-radius: 0 5px 5px 0;
+            }
+        }
+        span {
+            @include media-breakpoint-down(xs) {
+                display: none;
+            }
         }
     }
 }

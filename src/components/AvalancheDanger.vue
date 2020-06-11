@@ -17,10 +17,7 @@
                             class="afp-dangerLabel"
                         >{{this.$dangerScale[currentDanger.upper].rating}} ({{currentDanger.upper}})</span>
                         <v-popover class="afp-dangerIcon" @show="uiClick('info pop up » danger')">
-                            <img
-                                :src="this.$dangerScale[currentDanger.upper].icon"
-                                v-tooltip="'Click to learn more'"
-                            />
+                            <img :src="this.$dangerScale[currentDanger.upper].icon" v-tooltip="'Click to learn more'" />
                             <template slot="popover">
                                 <div v-html="this.$dangerScale[currentDanger.upper].advice"></div>
                             </template>
@@ -70,7 +67,10 @@
                         <span
                             class="afp-dangerOutlookLabel"
                         >{{this.$dangerScale[outlookDanger.upper].rating}} ({{outlookDanger.upper}})</span>
-                        <v-popover class="afp-dangerIcon afp-dangerIconOutlook" @show="uiClick('info pop up » danger')">
+                        <v-popover
+                            class="afp-dangerIcon afp-dangerIconOutlook"
+                            @show="uiClick('info pop up » danger')"
+                        >
                             <img
                                 :src="this.$dangerScale[outlookDanger.upper].icon"
                                 v-tooltip="'Click to learn more'"
@@ -84,7 +84,10 @@
                         <span
                             class="afp-dangerOutlookLabel"
                         >{{this.$dangerScale[outlookDanger.middle].rating}} ({{outlookDanger.middle}})</span>
-                        <v-popover class="afp-dangerIcon afp-dangerIconOutlook" @show="uiClick('info pop up » danger')">
+                        <v-popover
+                            class="afp-dangerIcon afp-dangerIconOutlook"
+                            @show="uiClick('info pop up » danger')"
+                        >
                             <img
                                 :src="this.$dangerScale[outlookDanger.middle].icon"
                                 v-tooltip="'Click to learn more'"
@@ -98,7 +101,10 @@
                         <span
                             class="afp-dangerOutlookLabel"
                         >{{this.$dangerScale[outlookDanger.lower].rating}} ({{outlookDanger.lower}})</span>
-                        <v-popover class="afp-dangerIcon afp-dangerIconOutlook" @show="uiClick('info pop up » danger')">
+                        <v-popover
+                            class="afp-dangerIcon afp-dangerIconOutlook"
+                            @show="uiClick('info pop up » danger')"
+                        >
                             <img
                                 :src="this.$dangerScale[outlookDanger.lower].icon"
                                 v-tooltip="'Click to learn more'"
@@ -146,6 +152,16 @@ export default {
     },
     props: ['danger', 'date'],
     computed: {
+        // dangerIcon: function () {
+        //     var icon = []
+        //     icon[0] = require('@/assets/images/danger/no.png')
+        //     icon[1] = require('@/assets/images/danger/low.png')
+        //     icon[2] = require('@/assets/images/danger/moderate.png')
+        //     icon[3] = require('@/assets/images/danger/considerable.png')
+        //     icon[4] = require('@/assets/images/danger/high.png')
+        //     icon[5] = require('@/assets/images/danger/extreme.png')
+        //     return icon
+        // },
         currentDanger: function () {
             let current = this.danger.find(current => current.valid_day == "current");
             if (current.upper == null) {
@@ -177,7 +193,7 @@ export default {
             }
         },
         todayDate: function () {
-            if(this.date) {
+            if (this.date) {
                 if (moment(this.date).hours() > 12) {
                     return moment(this.date).add(24, 'h').format('dddd, MMMM D, YYYY')
                 } else {

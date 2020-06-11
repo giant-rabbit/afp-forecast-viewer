@@ -13,7 +13,7 @@
     "dist/*"
   ],
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.19.2",
     "core-js": "^2.6.5",
     "html2pdf.js": "^0.9.2",
     "moment": "^2.24.0",
