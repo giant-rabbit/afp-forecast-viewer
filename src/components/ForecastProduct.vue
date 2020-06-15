@@ -1,13 +1,13 @@
 <template>
     <div>
-        <print :data="data" :zone="zone" :danger="highestDanger" :centerMeta="centerMeta" />
         <div class="afp-row afp-mb-3">
             <!-- Zone selector -->
             <div
                 v-if="!preview && centerMeta.zones.length > 1"
-                class="afp-col-md-4 afp-col-lg-3 afp-order-md-2 text-md-right"
+                class="afp-col-md-4 afp-col-lg-3 afp-order-md-2"
             >
                 <zone-selector />
+                <print :data="data" :zone="zone" :danger="highestDanger" :centerMeta="centerMeta" />
             </div>
             <!-- Title -->
             <div class="afp-forecast-title afp-col-md-8 afp-col-lg-9">
