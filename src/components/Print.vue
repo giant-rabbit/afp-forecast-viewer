@@ -10,7 +10,7 @@
             <!-- PDF Header -->
             <div class="afp-pdfHeader afp-mb-2">
                 <qrcode-vue class="afp-qrcode" :value="url" size="100" level="H"></qrcode-vue>
-                <h3 class="afp-mb-1 afp-html-h6">{{centerMeta.name}} - {{centerMeta.url}}</h3>
+                <h6 class="afp-mb-1 afp-html-h6">{{centerMeta.name}} - {{centerMeta.url}}</h6>
                 <h2
                     class="afp-html-h2 afp-mb-1"
                     v-if="data.product_type == 'forecast'"
@@ -51,15 +51,6 @@
                 :problem="problem"
                 class="afp-pageBreak"
             />
-            <!-- <div class="afp-pageBreak">
-                <div v-for="problem in data.forecast_avalanche_problems" v-bind:key="problem.rank">
-                    <h4
-                        class="afp-html-h4 afp-printHeader mb-2"
-                    >Avalanche Problem #{{problem.rank}}:</h4>
-                    <h4 class="afp-html-h4 afp-d-inline-block afp-text-muted">{{problem.name}}</h4>
-                    <div class="afp-tinymce afp-mb-3" v-html="problem.discussion"></div>
-                </div>
-            </div>-->
 
             <!-- Weather -->
             <div
@@ -67,6 +58,11 @@
             >
                 <h4 class="afp-html-h4 afp-printHeader">Weather Forecast</h4>
                 <div class="afp-tinymce afp-mb-3" v-html="data.weather_product.weather_discussion"></div>
+                <weather-table
+                    :periods="data.weather_table.periods"
+                    :data="data.weather_table.data"
+                    :zone="data.weather_table.zone_name"
+                />
             </div>
         </div>
         <hr />
@@ -120,9 +116,9 @@ export default {
             }
 
             // Change to .save() for production
-            html2pdf().set(opt).from(element).toPdf().get('pdf').save().then(pdf => {
-            // html2pdf().set(opt).from(element).toPdf().get('pdf').then(pdf => {
-            //     window.open(pdf.output('bloburl'), '_blank')
+            //html2pdf().set(opt).from(element).toPdf().get('pdf').save().then(pdf => {
+            html2pdf().set(opt).from(element).toPdf().get('pdf').then(pdf => {
+                window.open(pdf.output('bloburl'), '_blank')
                 this.button = 'Print'
             })
         }
@@ -187,13 +183,16 @@ export default {
             padding-top: 0;
             border: none;
             margin-bottom: 0.5 * $spacer !important;
+            .afp-html-h2 {
+                font-size: $h4-font-size;
+            }
             figure,
             .afp-elevationLabel,
             .afp-elevationMarker {
                 display: none;
             }
             .afp-infoGraphics {
-                margin-top: .5*$spacer;
+                margin-top: 0.5 * $spacer;
             }
             .afp-problem-column .afp-html-h5:first-of-type {
                 margin-top: 0.5rem !important;
