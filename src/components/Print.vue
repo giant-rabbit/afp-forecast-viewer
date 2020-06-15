@@ -11,10 +11,12 @@
         </transition>
         <transition name="fade">
             <div v-if="modal" @click="modal = false" class="afp-modal">
-                <div class="afp-modal-dialog" role="document">
+                <div class="afp-modal-dialog afp-modal-dialog-centered" role="document">
                     <div class="afp-modal-content" @click.stop>
                         <div class="afp-modal-header">
-                            <h3 class="afp-html-h3 afp-mb-0 afp-modal-title">Print Options</h3>
+                            <h3
+                                class="afp-html-h4 afp-mb-0 afp-modal-title"
+                            >Select forecast sections to print:</h3>
                             <button
                                 type="button"
                                 class="afp-html-button afp-close"
@@ -23,7 +25,148 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="afp-modal-body"></div>
+                        <div class="afp-modal-body afp-pt-0 afp-pb-0">
+                            <!-- <p class="afp-html-p afp-font-italic">Select the forecast sections you'd like to print:</p> -->
+                            <div>
+                                <input
+                                    class="afp-checkbox afp-html-input"
+                                    id="bottomLine"
+                                    type="checkbox"
+                                    v-model="bottomLine"
+                                />
+                                <label for="bottomLine">Bottom Line (Recommended)</label>
+                            </div>
+                            <div v-if="data.product_type == 'forecast'">
+                                <input
+                                    class="afp-checkbox afp-html-input"
+                                    id="avyDanger"
+                                    type="checkbox"
+                                    v-model="avyDanger"
+                                />
+                                <label for="avyDanger">Avalanche Danger (Recommended)</label>
+                            </div>
+                            <div v-if="data.product_type == 'forecast'">
+                                <input
+                                    class="afp-checkbox afp-html-input"
+                                    id="problems"
+                                    type="checkbox"
+                                    v-model="problems"
+                                />
+                                <label for="problems">Avalanche Problems</label>
+                            </div>
+                            <div>
+                                <input
+                                    class="afp-checkbox afp-html-input"
+                                    id="discussion"
+                                    type="checkbox"
+                                    v-model="discussion"
+                                />
+                                <label for="discussion">Forecast Discussion</label>
+                            </div>
+                            <div>
+                                <input
+                                    class="afp-checkbox afp-html-input"
+                                    id="weather"
+                                    type="checkbox"
+                                    v-model="weather"
+                                />
+                                <label for="weather">Weather Forecast</label>
+                            </div>
+                            <!-- Hidden container for PDF -->
+                            <div id="afp-pdf-container">
+                                <div id="afp-pdf">
+                                    <!-- Title, etc -->
+                                    <div class="afp-pdfHeader afp-mb-2">
+                                        <qrcode-vue
+                                            class="afp-qrcode"
+                                            :value="url"
+                                            size="100"
+                                            level="H"
+                                        ></qrcode-vue>
+                                        <h6
+                                            class="afp-mb-1 afp-html-h6"
+                                        >{{centerMeta.name}} - {{centerMeta.url}}</h6>
+                                        <h2
+                                            class="afp-html-h2 afp-mb-1"
+                                            v-if="data.product_type == 'forecast'"
+                                        >Backcountry Avalanche Forecast</h2>
+                                        <h2
+                                            class="afp-html-h2 afp-mb-1"
+                                            v-else
+                                        >General Avalanche Information</h2>
+                                        <h3 class="afp-html-h3 afp-text-muted">{{zone}}</h3>
+                                        <!-- <span>{{url}}</span> -->
+                                    </div>
+
+                                    <!-- Header -->
+                                    <product-header
+                                        :published="data.published_time"
+                                        :author="data.author"
+                                    />
+
+                                    <!-- Warning -->
+                                    <avy-warning
+                                        v-if="data.warning_product"
+                                        :data="data.warning_product"
+                                    />
+
+                                    <!-- Bottom line -->
+                                    <div
+                                        v-if="data.bottom_line != '' && bottomLine"
+                                        class="afp-bottomLine"
+                                    >
+                                        <h4 class="afp-html-h4 afp-printHeader">The Bottom Line</h4>
+                                        <div
+                                            class="afp-bottomLine-text afp-tinymce"
+                                            v-html="data.bottom_line"
+                                        ></div>
+                                    </div>
+
+                                    <!-- Danger -->
+                                    <avalanche-danger
+                                        v-if="data.product_type == 'forecast' && avyDanger"
+                                        :danger="data.danger"
+                                        class="afp-pageBreak"
+                                    />
+                                    <div v-else class="afp-pageBreak"></div>
+
+                                    <!-- problems -->
+                                    <avalanche-problem
+                                        v-if="problems"
+                                        v-for="problem in data.forecast_avalanche_problems"
+                                        v-bind:key="'printProblem'+problem.rank"
+                                        :problem="problem"
+                                        class="afp-pageBreak"
+                                    />
+
+                                    <!-- Discussion -->
+                                    <div v-if="data.hazard_discussion != '' && discussion">
+                                        <h4 class="afp-html-h4 afp-printHeader">Forecast Discussion</h4>
+                                        <div
+                                            class="afp-tinymce afp-mb-3 afp-pageBreak"
+                                            v-html="data.hazard_discussion"
+                                        ></div>
+                                    </div>
+
+                                    <!-- Weather -->
+                                    <div
+                                        v-if="data.hasOwnProperty('weather_product') && data.weather_product.weather_discussion != '' && weather"
+                                    >
+                                        <h4 class="afp-html-h4 afp-printHeader">Weather Forecast</h4>
+                                        <div
+                                            class="afp-tinymce afp-mb-3"
+                                            v-html="data.weather_product.weather_discussion"
+                                        ></div>
+                                        <weather-table
+                                            v-if="data.product_type == 'forecast'"
+                                            :periods="data.weather_table.periods"
+                                            :data="data.weather_table.data"
+                                            :zone="data.weather_table.zone_name"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="afp-modal-footer">
                             <button
                                 type="button"
@@ -32,7 +175,7 @@
                             >Cancel</button>
                             <button
                                 type="button"
-                                @click="print"
+                                @click="printProduct"
                                 class="afp-html-button afp-btn afp-btn-sm afp-btn-primary"
                             >{{button}}</button>
                         </div>
@@ -40,67 +183,6 @@
                 </div>
             </div>
         </transition>
-
-        <!-- Hidden container for PDF -->
-        <div id="afp-pdf-container">
-            <div id="afp-pdf">
-                <!-- Title, etc -->
-                <div class="afp-pdfHeader afp-mb-2">
-                    <qrcode-vue class="afp-qrcode" :value="url" size="100" level="H"></qrcode-vue>
-                    <h6 class="afp-mb-1 afp-html-h6">{{centerMeta.name}} - {{centerMeta.url}}</h6>
-                    <h2
-                        class="afp-html-h2 afp-mb-1"
-                        v-if="data.product_type == 'forecast'"
-                    >Backcountry Avalanche Forecast</h2>
-                    <h2 class="afp-html-h2 afp-mb-1" v-else>General Avalanche Information</h2>
-                    <h3 class="afp-html-h3 afp-text-muted">{{zone}}</h3>
-                    <!-- <span>{{url}}</span> -->
-                </div>
-
-                <!-- Header -->
-                <product-header :published="data.published_time" :author="data.author" />
-
-                <!-- Warning -->
-                <avy-warning v-if="data.warning_product" :data="data.warning_product" />
-
-                <!-- Bottom line -->
-                <div v-if="data.bottom_line != ''" class="afp-bottomLine">
-                    <h4 class="afp-html-h4 afp-printHeader">The Bottom Line</h4>
-                    <div class="afp-bottomLine-text afp-tinymce" v-html="data.bottom_line"></div>
-                </div>
-
-                <!-- Danger -->
-                <avalanche-danger
-                    v-if="data.product_type == 'forecast'"
-                    :danger="data.danger"
-                    class="afp-pageBreak"
-                />
-
-                <!-- problems -->
-                <avalanche-problem
-                    v-for="problem in data.forecast_avalanche_problems"
-                    v-bind:key="'printProblem'+problem.rank"
-                    :problem="problem"
-                    class="afp-pageBreak"
-                />
-
-                <!-- Weather -->
-                <div
-                    v-if="data.hasOwnProperty('weather_product') && data.weather_product.weather_discussion != ''"
-                >
-                    <h4 class="afp-html-h4 afp-printHeader">Weather Forecast</h4>
-                    <div
-                        class="afp-tinymce afp-mb-3"
-                        v-html="data.weather_product.weather_discussion"
-                    ></div>
-                    <weather-table
-                        :periods="data.weather_table.periods"
-                        :data="data.weather_table.data"
-                        :zone="data.weather_table.zone_name"
-                    />
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 
@@ -119,6 +201,11 @@ export default {
         return {
             button: 'Print',
             modal: false,
+            bottomLine: true,
+            avyDanger: true,
+            discussion: true,
+            problems: true,
+            weather: true
         }
     },
     props: ['data', 'zone', 'danger', 'centerMeta'],
@@ -136,9 +223,8 @@ export default {
         QrcodeVue
     },
     methods: {
-        print() {
+        printProduct() {
             this.button = 'Generating PDF...'
-            this.show = true
             var element = document.getElementById('afp-pdf')
             var opt = {
                 margin: .4,
@@ -155,6 +241,7 @@ export default {
             html2pdf().set(opt).from(element).toPdf().get('pdf').then(pdf => {
                 window.open(pdf.output('bloburl'), '_blank')
                 this.button = 'Print'
+                this.modal = false
             })
         }
     },
@@ -171,20 +258,16 @@ export default {
 
 .afp-modal {
     display: block;
-    //padding-right: 15px;
-    // .afp-close {
-    //     background-color: transparent;
-    //     border: 0;
-    //     -webkit-appearance: none;
-    //     outline: none;
-    // }
+    .afp-close {
+        outline: none;
+    }
 }
 .afp-modal-backdrop {
     background-color: rgba($modal-backdrop-bg, 70%);
 }
 
 #afp-pdf-container {
-    // display: none;
+    display: none;
 }
 
 #afp-pdf {

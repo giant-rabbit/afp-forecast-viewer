@@ -96,6 +96,66 @@ html {
   height: 2.5rem !important;
 }
 
+.afp-checkbox {
+  position: absolute; // take it out of document flow
+  opacity: 0; // hide it
+
+  & + label {
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  // Box.
+  & + label:before {
+    content: '';
+    margin-right: .5rem;
+    display: inline-block;
+    vertical-align: text-top;
+    width: 20px;
+    height: 20px;
+    border-color: $gray-400;
+    border: 2px solid $gray-400;
+    border-radius: $border-radius-sm;
+    transition: all $transition;
+  }
+
+  // Box hover
+  &:hover + label:before {
+    border-color: $gray-700;
+  }
+  
+  // Box focus
+  &:focus + label:before {
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
+  }
+
+  // Box checked
+  &:checked + label:before {
+    background: $gray-700;
+    border-color: $gray-700;
+  }
+
+  // Checkmark. Could be replaced with an image
+  &:checked + label:after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 9px;
+    background: white;
+    width: 2px;
+    height: 2px;
+    box-shadow: 
+      2px 0 0 white,
+      4px 0 0 white,
+      4px -2px 0 white,
+      4px -4px 0 white,
+      4px -6px 0 white,
+      4px -8px 0 white;
+    transform: rotate(45deg) scale(1.2);
+  }
+}
+
 // 
 // Media
 // 
