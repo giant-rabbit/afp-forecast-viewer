@@ -2,13 +2,48 @@
     <div>
         <button
             ref="button"
-            @click="print"
+            @click="modal = true"
             class="afp-html-button afp-btn afp-btn-primary afp-btn-sm"
-        >{{button}}</button>
+        >Print</button>
+
+        <transition name="fade">
+            <div v-if="modal" @click="modal = false" class="afp-modal-backdrop"></div>
+        </transition>
+        <transition name="fade">
+            <div v-if="modal" @click="modal = false" class="afp-modal">
+                <div class="afp-modal-dialog" role="document">
+                    <div class="afp-modal-content" @click.stop>
+                        <div class="afp-modal-header">
+                            <h3 class="afp-html-h3 afp-mb-0 afp-modal-title">Print Options</h3>
+                            <button
+                                type="button"
+                                class="afp-html-button afp-close"
+                                @click="modal = false"
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="afp-modal-body"></div>
+                        <div class="afp-modal-footer">
+                            <button
+                                type="button"
+                                @click="modal = false"
+                                class="afp-html-button afp-btn afp-btn-sm afp-btn-secondary"
+                            >Cancel</button>
+                            <button
+                                type="button"
+                                @click="print"
+                                class="afp-html-button afp-btn afp-btn-sm afp-btn-primary"
+                            >{{button}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </transition>
 
         <!-- Hidden container for PDF -->
         <div id="afp-pdf-container">
-            <div v-show="show" id="afp-pdf">
+            <div id="afp-pdf">
                 <!-- Title, etc -->
                 <div class="afp-pdfHeader afp-mb-2">
                     <qrcode-vue class="afp-qrcode" :value="url" size="100" level="H"></qrcode-vue>
@@ -83,7 +118,7 @@ export default {
     data() {
         return {
             button: 'Print',
-            show: true,
+            modal: false,
         }
     },
     props: ['data', 'zone', 'danger', 'centerMeta'],
@@ -134,6 +169,20 @@ export default {
 @import "../assets/bootstrap4/_variables.scss";
 @import "../assets/bootstrap4/_mixins.scss";
 
+.afp-modal {
+    display: block;
+    //padding-right: 15px;
+    // .afp-close {
+    //     background-color: transparent;
+    //     border: 0;
+    //     -webkit-appearance: none;
+    //     outline: none;
+    // }
+}
+.afp-modal-backdrop {
+    background-color: rgba($modal-backdrop-bg, 70%);
+}
+
 #afp-pdf-container {
     // display: none;
 }
@@ -164,14 +213,12 @@ export default {
         }
         .afp-warning {
             margin-bottom: 0.5 * $spacer !important;
-            i {
-                font-family: inherit;
+            i:before {
+                font-family: $font-family-sans-serif;
                 font-style: normal;
                 font-weight: 700;
-                padding-left: 0.5*$spacer;
-                &:before {
-                    content: "!";
-                }
+                padding-left: 0.5 * $spacer;
+                content: "!";
             }
         }
         .afp-danger {

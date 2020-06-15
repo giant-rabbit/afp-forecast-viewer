@@ -713,8 +713,8 @@ $form-validation-states: map-merge(
 $zindex-dropdown:                   1000 !default;
 $zindex-sticky:                     1020 !default;
 $zindex-fixed:                      1030 !default;
-$zindex-modal-backdrop:             1040 !default;
-$zindex-modal:                      1050 !default;
+$zindex-modal-backdrop:             99999 !default;
+$zindex-modal:                      100000 !default;
 $zindex-popover:                    1060 !default;
 $zindex-tooltip:                    1070 !default;
 
@@ -970,15 +970,15 @@ $modal-title-line-height:           $line-height-base !default;
 
 $modal-content-color:               null !default;
 $modal-content-bg:                  $white !default;
-$modal-content-border-color:        rgba($black, .2) !default;
+$modal-content-border-color:        transparent !default;
 $modal-content-border-width:        $border-width !default;
 $modal-content-border-radius:       $border-radius-lg !default;
 $modal-content-box-shadow-xs:       0 .25rem .5rem rgba($black, .5) !default;
 $modal-content-box-shadow-sm-up:    0 .5rem 1rem rgba($black, .5) !default;
 
 $modal-backdrop-bg:                 $black !default;
-$modal-backdrop-opacity:            .5 !default;
-$modal-header-border-color:         $border-color !default;
+$modal-backdrop-opacity:            .7 !default;
+$modal-header-border-color:         transparent !default;
 $modal-footer-border-color:         $modal-header-border-color !default;
 $modal-header-border-width:         $modal-content-border-width !default;
 $modal-footer-border-width:         $modal-header-border-width !default;
@@ -1123,10 +1123,10 @@ $spinner-border-width-sm: .2em !default;
 
 // Close
 
-$close-font-size:                   $font-size-base * 1.5 !default;
-$close-font-weight:                 $font-weight-bold !default;
+$close-font-size:                   $font-size-base * 2 !default;
+$close-font-weight:                 $font-weight-normal !default;
 $close-color:                       $black !default;
-$close-text-shadow:                 0 1px 0 $white !default;
+$close-text-shadow:                 none !default;
 
 
 // Code
