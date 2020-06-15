@@ -5,67 +5,67 @@
             @click="print"
             class="afp-html-button afp-btn afp-btn-primary afp-btn-sm"
         >{{button}}</button>
-        <hr />
-        <div v-show="show" id="afp-pdf">
-            <!-- PDF Header -->
-            <div class="afp-pdfHeader afp-mb-2">
-                <qrcode-vue class="afp-qrcode" :value="url" size="100" level="H"></qrcode-vue>
-                <h6 class="afp-mb-1 afp-html-h6">{{centerMeta.name}} - {{centerMeta.url}}</h6>
-                <h2
-                    class="afp-html-h2 afp-mb-1"
+
+        <!-- Hidden container for PDF -->
+        <div id="afp-pdf-container">
+            <div v-show="show" id="afp-pdf">
+                <!-- Title, etc -->
+                <div class="afp-pdfHeader afp-mb-2">
+                    <qrcode-vue class="afp-qrcode" :value="url" size="100" level="H"></qrcode-vue>
+                    <h6 class="afp-mb-1 afp-html-h6">{{centerMeta.name}} - {{centerMeta.url}}</h6>
+                    <h2
+                        class="afp-html-h2 afp-mb-1"
+                        v-if="data.product_type == 'forecast'"
+                    >Backcountry Avalanche Forecast</h2>
+                    <h2 class="afp-html-h2 afp-mb-1" v-else>General Avalanche Information</h2>
+                    <h3 class="afp-html-h3 afp-text-muted">{{zone}}</h3>
+                    <!-- <span>{{url}}</span> -->
+                </div>
+
+                <!-- Header -->
+                <product-header :published="data.published_time" :author="data.author" />
+
+                <!-- Warning -->
+                <avy-warning v-if="data.warning_product" :data="data.warning_product" />
+
+                <!-- Bottom line -->
+                <div v-if="data.bottom_line != ''" class="afp-bottomLine">
+                    <h4 class="afp-html-h4 afp-printHeader">The Bottom Line</h4>
+                    <div class="afp-bottomLine-text afp-tinymce" v-html="data.bottom_line"></div>
+                </div>
+
+                <!-- Danger -->
+                <avalanche-danger
                     v-if="data.product_type == 'forecast'"
-                >Backcountry Avalanche Forecast</h2>
-                <h2 class="afp-html-h2 afp-mb-1" v-else>General Avalanche Information</h2>
-                <h3 class="afp-html-h3 afp-text-muted">{{zone}}</h3>
-                <!-- <span>{{url}}</span> -->
-            </div>
-            <!-- Title -->
-            <!-- Warning -->
-            <avy-warning v-if="data.warning_product" :data="data.warning_product" />
-
-            <!-- Header -->
-            <!-- <product-header
-                :published="data.published_time"
-                :expires="data.expires_time"
-                :author="data.author"
-            />-->
-            <product-header :published="data.published_time" :author="data.author" />
-
-            <!-- Bottom line -->
-            <div v-if="data.bottom_line != ''" class="afp-bottomLine">
-                <h4 class="afp-html-h4 afp-printHeader">The Bottom Line</h4>
-                <div class="afp-bottomLine-text afp-tinymce" v-html="data.bottom_line"></div>
-            </div>
-
-            <!-- Danger -->
-            <avalanche-danger
-                v-if="data.product_type == 'forecast'"
-                :danger="data.danger"
-                class="afp-pageBreak"
-            />
-
-            <!-- problems -->
-            <avalanche-problem
-                v-for="problem in data.forecast_avalanche_problems"
-                v-bind:key="'printProblem'+problem.rank"
-                :problem="problem"
-                class="afp-pageBreak"
-            />
-
-            <!-- Weather -->
-            <div
-                v-if="data.hasOwnProperty('weather_product') && data.weather_product.weather_discussion != ''"
-            >
-                <h4 class="afp-html-h4 afp-printHeader">Weather Forecast</h4>
-                <div class="afp-tinymce afp-mb-3" v-html="data.weather_product.weather_discussion"></div>
-                <weather-table
-                    :periods="data.weather_table.periods"
-                    :data="data.weather_table.data"
-                    :zone="data.weather_table.zone_name"
+                    :danger="data.danger"
+                    class="afp-pageBreak"
                 />
+
+                <!-- problems -->
+                <avalanche-problem
+                    v-for="problem in data.forecast_avalanche_problems"
+                    v-bind:key="'printProblem'+problem.rank"
+                    :problem="problem"
+                    class="afp-pageBreak"
+                />
+
+                <!-- Weather -->
+                <div
+                    v-if="data.hasOwnProperty('weather_product') && data.weather_product.weather_discussion != ''"
+                >
+                    <h4 class="afp-html-h4 afp-printHeader">Weather Forecast</h4>
+                    <div
+                        class="afp-tinymce afp-mb-3"
+                        v-html="data.weather_product.weather_discussion"
+                    ></div>
+                    <weather-table
+                        :periods="data.weather_table.periods"
+                        :data="data.weather_table.data"
+                        :zone="data.weather_table.zone_name"
+                    />
+                </div>
             </div>
         </div>
-        <hr />
     </div>
 </template>
 
@@ -134,11 +134,11 @@ export default {
 @import "../assets/bootstrap4/_variables.scss";
 @import "../assets/bootstrap4/_mixins.scss";
 
+#afp-pdf-container {
+    // display: none;
+}
+
 #afp-pdf {
-    // .afp-pageBreak {
-    //     page-break-after: always;
-    //     break-after: always;
-    // }
     background-color: #fff;
     padding: 0 1rem;
     .afp-pdfHeader {
@@ -161,6 +161,18 @@ export default {
     &::v-deep {
         .afp-header {
             margin-bottom: 0.5 * $spacer !important;
+        }
+        .afp-warning {
+            margin-bottom: 0.5 * $spacer !important;
+            i {
+                font-family: inherit;
+                font-style: normal;
+                font-weight: 700;
+                padding-left: 0.5*$spacer;
+                &:before {
+                    content: "!";
+                }
+            }
         }
         .afp-danger {
             margin-bottom: 0 !important;
