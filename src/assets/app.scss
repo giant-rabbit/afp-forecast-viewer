@@ -106,7 +106,7 @@ html {
     padding: 0;
   }
 
-  // Box.
+  // Checkbox
   & + label:before {
     content: '';
     margin-right: .5rem;
@@ -120,23 +120,19 @@ html {
     transition: all $transition;
   }
 
-  // Box hover
   &:hover + label:before {
     border-color: $gray-700;
   }
   
-  // Box focus
   &:focus + label:before {
     box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
   }
 
-  // Box checked
   &:checked + label:before {
     background: $gray-700;
     border-color: $gray-700;
   }
 
-  // Checkmark. Could be replaced with an image
   &:checked + label:after {
     content: '';
     position: absolute;
@@ -255,47 +251,6 @@ html {
 .afp-divider {
   padding-top: 1.5 * $spacer;
   border-top: 1.5px solid $gray-200;
-}
-
-
-
-//
-// Print styles
-//
-
-@media print {
-  // @page {
-  //   size: 1200px 11in;
-  //   margin: 2cm
-  // }
-
-  table {
-    page-break-inside: avoid;
-  }
-
-  body {
-    margin: 2rem;
-    background-color: #fff !important;
-  }
-
-  .afp-forecast-view {
-    background-color: #fff !important;
-  }
-}
-
-.afp-print-hide {
-  @media print {
-    display: none;
-  }
-}
-
-.afp-print-show {
-  display: none;
-
-  @media print {
-    display: block;
-    margin-top: $spacer;
-  }
 }
 
 

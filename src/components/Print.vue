@@ -43,16 +43,7 @@
                                     type="checkbox"
                                     v-model="bottomLine"
                                 />
-                                <label for="bottomLine">Bottom Line (Recommended)</label>
-                            </div>
-                            <div v-if="data.product_type == 'forecast'">
-                                <input
-                                    class="afp-checkbox afp-html-input"
-                                    id="avyDanger"
-                                    type="checkbox"
-                                    v-model="avyDanger"
-                                />
-                                <label for="avyDanger">Avalanche Danger (Recommended)</label>
+                                <label for="bottomLine">Bottom Line & Danger (Recommended)</label>
                             </div>
                             <div v-if="data.product_type == 'forecast'">
                                 <input
@@ -121,7 +112,7 @@
                 <product-header :published="data.published_time" :author="data.author" />
 
                 <!-- Warning -->
-                <avy-warning v-if="data.warning_product" :data="data.warning_product" />
+                <avy-warning v-if="data.warning_product && bottomLine" :data="data.warning_product" />
 
                 <!-- Bottom line -->
                 <div v-if="data.bottom_line != '' && bottomLine" class="afp-bottomLine">
@@ -131,11 +122,10 @@
 
                 <!-- Danger -->
                 <avalanche-danger
-                    v-if="data.product_type == 'forecast' && avyDanger"
+                    v-if="data.product_type == 'forecast' && bottomLine"
                     :danger="data.danger"
                     class="afp-pageBreak"
                 />
-                <div v-else class="afp-pageBreak"></div>
 
                 <!-- problems -->
                 <avalanche-problem
@@ -189,7 +179,6 @@ export default {
             button: 'Print',
             modal: false,
             bottomLine: true,
-            avyDanger: true,
             discussion: true,
             problems: true,
             weather: true
