@@ -63,7 +63,7 @@
         </div>
         <figure
             v-if="problem.media.url !='' && problem.media.type == 'photo' "
-            class="afp-html-figure afp-print-hide"
+            class="afp-html-figure "
         >
             <div class="afp-imageContainer afp-image-container">
                 <img
@@ -78,7 +78,7 @@
         </figure>
         <figure
             v-if="problem.media.url !='' && problem.media.type == 'video' "
-            class="afp-html-figure afp-print-hide afp-video-modal"
+            class="afp-html-figure  afp-video-modal"
         >
             <div class="afp-imageContainer afp-image-container afp-video-container">
                 <img

@@ -8,7 +8,7 @@
         ></div>
 
         <!-- Weather tables -->
-        <div class="afp-print-hide" v-for="(zone,index) in data.weather_data" :key="zone.zone_id">
+        <div class="" v-for="(zone,index) in data.weather_data" :key="zone.zone_id">
             <weather-table
                 :periods="zone.periods"
                 :data="zone.data"

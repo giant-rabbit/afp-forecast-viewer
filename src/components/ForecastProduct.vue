@@ -97,7 +97,7 @@
 
                     <!-- media -->
                     <media-gallery
-                        class="afp-divider afp-print-hide"
+                        class="afp-divider "
                         :media="data.media"
                         v-if="data.media.length > 0"
                         key="forecast"
@@ -106,7 +106,7 @@
                     <!-- weather summary -->
                     <div
                         v-if="!preview && data.weather_table && data.product_type == 'forecast'"
-                        class="afp-divider afp-print-hide afp-mb-4"
+                        class="afp-divider  afp-mb-4"
                     >
                         <h2 class="afp-html-h2">Weather Summary</h2>
                         <weather-table
@@ -120,12 +120,6 @@
                                 class="afp-html-button afp-btn afp-btn-primary"
                             >Full Weather Forecast</button>
                         </div>
-                    </div>
-
-                    <!-- weather forecast for print -->
-                    <div class="afp-divider afp-print-show">
-                        <h2 class="afp-html-h2">Weather Forecast</h2>
-                        <weather-content v-if="data.weather_product" :data="data.weather_product" />
                     </div>
                 </div>
             </photoswipe>
@@ -141,15 +135,10 @@
                     </div>
                     <!-- media -->
                     <media-gallery
-                        class="afp-divider afp-print-hide"
+                        class="afp-divider "
                         :media="data.media"
                         v-if="data.media.length > 0"
                     />
-                    <!-- weather forecast for print -->
-                    <div class="afp-divider afp-print-show">
-                        <h2 class="afp-html-h2">Weather Forecast</h2>
-                        <weather-content v-if="data.weather_product" :data="data.weather_product" />
-                    </div>
                 </div>
             </photoswipe>
 
