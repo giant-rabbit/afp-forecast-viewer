@@ -43,7 +43,7 @@
                                     type="checkbox"
                                     v-model="bottomLine"
                                 />
-                                <label for="bottomLine">Bottom Line & Danger (Recommended)</label>
+                                <label class="afp-html-label" for="bottomLine">Bottom Line & Danger (Recommended)</label>
                             </div>
                             <div v-if="data.product_type == 'forecast'">
                                 <input
@@ -52,7 +52,7 @@
                                     type="checkbox"
                                     v-model="problems"
                                 />
-                                <label for="problems">Avalanche Problems</label>
+                                <label class="afp-html-label" for="problems">Avalanche Problems</label>
                             </div>
                             <div>
                                 <input
@@ -61,7 +61,7 @@
                                     type="checkbox"
                                     v-model="discussion"
                                 />
-                                <label for="discussion">Forecast Discussion</label>
+                                <label class="afp-html-label" for="discussion">Forecast Discussion</label>
                             </div>
                             <div>
                                 <input
@@ -70,7 +70,7 @@
                                     type="checkbox"
                                     v-model="weather"
                                 />
-                                <label for="weather">Weather Forecast</label>
+                                <label class="afp-html-label" for="weather">Weather Forecast</label>
                             </div>
                         </div>
                         <div class="afp-modal-footer">
@@ -112,7 +112,10 @@
                 <product-header :published="data.published_time" :author="data.author" />
 
                 <!-- Warning -->
-                <avy-warning v-if="data.warning_product && bottomLine" :data="data.warning_product" />
+                <avy-warning
+                    v-if="data.warning_product && bottomLine"
+                    :data="data.warning_product"
+                />
 
                 <!-- Bottom line -->
                 <div v-if="data.bottom_line != '' && bottomLine" class="afp-bottomLine">
@@ -206,16 +209,15 @@ export default {
                 margin: .4,
                 filename: 'forecast.pdf',
                 image: { type: 'jpeg', quality: 1 },
-                html2canvas: { scale: 2 },
                 jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
-                html2canvas: { useCORS: true },
+                html2canvas: { useCORS: true, scale: 2, scrollX: 0, scrollY: 0 },
                 pagebreak: { after: ['.afp-pageBreak'], avoid: ['img', 'svg'] }
             }
 
             // Change to .save() for production
-            html2pdf().set(opt).from(element).toPdf().get('pdf').save().then(pdf => {
-                // html2pdf().set(opt).from(element).toPdf().get('pdf').then(pdf => {
-                //     window.open(pdf.output('bloburl'), '_blank')
+            html2pdf().set(opt).from(element).save().then(pdf => {
+            // html2pdf().set(opt).from(element).toPdf().get('pdf').then(pdf => {
+            //     window.open(pdf.output('bloburl'), '_blank')
                 this.button = 'Print'
                 this.modal = false
             })
@@ -245,6 +247,11 @@ export default {
         .mdi-spin:before {
             animation: mdi-spin 800ms infinite linear;
             margin-right: 0.3rem;
+        }
+        .afp-html-label {
+            font-weight: normal;
+            font-size: $font-size-base;
+            margin-bottom: 0;
         }
     }
     .afp-modal-backdrop {

@@ -1,4 +1,26 @@
-<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>Public Forecast Display</title><link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel=stylesheet><script src=https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js></script><link href=https://cdn.materialdesignicons.com/5.2.45/css/materialdesignicons.min.css media=all rel=stylesheet type=text/css><style>html {
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Public Forecast Display</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://cdn.materialdesignicons.com/5.2.45/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167871391-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-167871391-1');
+    </script> -->
+
+    <style>
+        html {
             font-family: sans-serif;
             line-height: 1.15;
             -webkit-text-size-adjust: 100%;
@@ -22,8 +44,20 @@
             color: #212529;
             text-align: left;
             background-color: #fff;
-        }</style><link href=/app.css rel=preload as=style><link href=/app.js rel=preload as=script><link href=/app.css rel=stylesheet></head><body><div id=afp-public-root></div><script id=afp-public-config type=application/json>{
+        }
+    </style>
+<link href="http://localhost:8084/app.css" rel="preload" as="style"><link href="http://localhost:8084/app.js" rel="preload" as="script"><link href="http://localhost:8084/app.css" rel="stylesheet"></head>
+
+<body>
+    <div id="afp-public-root"></div>
+    <script id="afp-public-config" type="application/json">
+        {
             "center": "SNFAC",
             "color": "#0fa6a2",
             "baseUrl": "/forecasts"
-        }</script><script src=/app.js></script></body></html>
+        }
+    </script>
+    <!-- built files will be auto injected -->
+<script type="text/javascript" src="http://localhost:8084/app.js"></script></body>
+
+</html>
