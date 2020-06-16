@@ -182,9 +182,9 @@ export default {
             button: 'Print',
             modal: false,
             bottomLine: true,
-            discussion: true,
-            problems: true,
-            weather: true
+            discussion: false,
+            problems: false,
+            weather: false
         }
     },
     props: ['data', 'zone', 'danger', 'centerMeta'],
