@@ -36,9 +36,9 @@ import { ClientTable, Event } from 'vue-tables-2'
 import ForecastFilter from '../components/ForecastFilter'
 import Loader from '../components/Loader'
 import Alert from '../components/Alert'
-import tableTheme from '../vueTableTheme'
-import tableTemplate from '../vueTableTemplate'
-import moment from 'moment/src/moment.js'
+import tableTheme from '../utils/vueTableTheme'
+import tableTemplate from '../utils/vueTableTemplate'
+import moment from 'moment'
 Vue.use(ClientTable, {}, false, tableTheme, tableTemplate)
 
 

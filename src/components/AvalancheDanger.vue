@@ -137,7 +137,7 @@
 import DangerElevation from '../components/DangerElevation'
 import DangerElevationMobile from '../components/DangerElevationMobile'
 import DangerScale from '../components/DangerScale'
-import moment from 'moment/src/moment.js'
+import moment from 'moment'
 
 export default {
     data() {

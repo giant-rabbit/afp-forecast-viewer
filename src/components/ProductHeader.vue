@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import moment from 'moment/src/moment.js'
+import moment from 'moment'
 
 export default {
     props: {

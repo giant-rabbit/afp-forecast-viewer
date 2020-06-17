@@ -8,7 +8,7 @@ import moment from 'moment'
 import vbclass from 'vue-body-class'
 // import Router from 'vue-router'
 import VueGtag from "vue-gtag"
-import mixins from './mixins.js'
+import mixins from './utils/mixins.js'
 // Components
 // import Forecast from './views/Forecast'
 // import Weather from './views/Weather'

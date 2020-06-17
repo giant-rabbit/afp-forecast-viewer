@@ -2,7 +2,7 @@ import ForecastPlugin from './components/ForecastPlugin';
 import photoswipe from 'vue-pswipe'
 import InfoPopover from './components/InfoPopover'
 import VTooltip from 'v-tooltip'
-import moment from 'moment/src/moment.js'
+import moment from 'moment'
 
 export default {
     install(Vue, options) {
