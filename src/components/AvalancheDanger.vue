@@ -199,6 +199,8 @@ export default {
                 } else {
                     return moment(this.date).format('dddd, MMMM D, YYYY')
                 }
+            } else {
+                return false
             }
 
         },

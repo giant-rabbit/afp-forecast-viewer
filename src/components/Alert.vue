@@ -1,10 +1,8 @@
 <template>
-    <transition name="fade">
-        <div v-if="show" class="afp-alert afp-alert-secondary">
-            <i class="mdi mdi-alert"></i>
-            <span>There was an error loading the data.</span>
-        </div>
-    </transition>
+    <div v-if="show" class="afp-alert afp-alert-secondary">
+        <i class="mdi mdi-alert"></i>
+        <span>There was an error loading the data.</span>
+    </div>
 </template>
 
 <script>
@@ -29,5 +27,4 @@ export default {
         padding-right: $spacer * 0.5;
     }
 }
-
 </style>

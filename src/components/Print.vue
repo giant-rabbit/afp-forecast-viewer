@@ -172,7 +172,6 @@ import AvyWarning from '../components/AvyWarning'
 import AvalancheDanger from '../components/AvalancheDanger'
 import AvalancheProblem from '../components/AvalancheProblem'
 import WeatherTable from '../components/WeatherTable'
-// import html2canvas from 'html2canvas'
 import html2pdf from 'html2pdf.js'
 import QrcodeVue from 'qrcode.vue'
 

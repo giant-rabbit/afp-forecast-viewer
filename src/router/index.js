@@ -1,10 +1,15 @@
-import Forecast from './views/Forecast'
-import Weather from './views/Weather'
-import Synopsis from './views/Synopsis'
-import Archive from './views/Archive'
-import AllZonesForecast from './views/AllZonesForecast'
+import Forecast from '../views/Forecast'
+import Weather from '../views/Weather'
+import Synopsis from '../views/Synopsis'
+import Archive from '../views/Archive'
+import AllZonesForecast from '../views/AllZonesForecast'
 
-export const baseRoutes = [
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
+
+const routes = [
 	{
 		path: '/archive',
 		name: 'Archive',
@@ -60,18 +65,9 @@ export const baseRoutes = [
 	}
 ]
 
-// export const blogRoutes = [
-// 	{
-// 		path: '/blog',
-// 		name: 'Synopsis',
-// 		component: Synopsis,
-// 		meta: { bodyClass: 'afp-blog' }
-// 	},
-// 	{
-// 		path: '/blog/:date/',
-// 		name: 'ArchivedSynopsis',
-// 		component: Synopsis,
-// 		meta: { bodyClass: 'afp-blog-archived' }
-// 	}
-// ]
+const router = new VueRouter({
+	routes
+})
+
+export default router
 

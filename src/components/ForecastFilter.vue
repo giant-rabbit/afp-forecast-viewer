@@ -52,7 +52,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import { Event } from 'vue-tables-2'
 import moment from 'moment'
 
@@ -124,11 +123,11 @@ export default {
                 this.filterQuery.push(filter)
             }
             if (this.dateFilter != '') {
-                var filter = {
+                var filter2 = {
                     columnName: "start_date",
                     columnFilter: [this.dateFilter]
                 }
-                this.filterQuery.push(filter)
+                this.filterQuery.push(filter2)
             }
             Event.$emit('vue-tables.filter::multiFilter', this.filterQuery);
         },

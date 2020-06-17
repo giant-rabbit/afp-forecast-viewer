@@ -21,11 +21,14 @@
             color: {{this.$config.color}} !important;
             }
         </v-style>
-        <transition name="fade" mode="out-in">
-            <router-view
-                :key="$route.name + ($route.params.zone || '') + ($route.params.date || '') + ($route.params.product || '')"
-            ></router-view>
-        </transition>
+        <router-view
+            v-if="loaded && !error"
+            :key="$route.name + ($route.params.zone || '') + ($route.params.date || '') + ($route.params.product || '')"
+        ></router-view>
+        <loader :show="!loaded" />
+        <div v-if="error && loaded" class="afp-container afp-pt-2">
+            <alert show="true"/>
+        </div>
         <back-to-top />
     </div>
 </template>
@@ -33,15 +36,21 @@
 <script>
 import Vue from 'vue'
 import BackToTop from './components/BackToTop'
+import Loader from './components/Loader'
+import Alert from './components/Alert'
 
 export default {
     name: 'app',
     data() {
         return {
+            loaded: false,
+            error: false
         }
     },
     components: {
-        BackToTop
+        BackToTop,
+        Loader,
+        Alert
     },
     methods: {
         // Function to darken link color
@@ -63,6 +72,47 @@ export default {
         }
     },
     mounted() {
+        this.$api
+            .get('/public/avalanche-center/' + this.$centerId)
+            .then(response => {
+                Vue.prototype.$centerMeta = response.data
+                // Dummy config data
+                var config = {
+                    zoneOrder: [295, 296, 294, 293],
+                    blog: true,
+                    elevations: {
+                        upper: {
+                            title: "Upper Elevation",
+                            description: "Upper elevation description",
+                        },
+                        middle: {
+                            title: "Middle Elevation",
+                            description: "Middle elevation description",
+                        },
+                        lower: {
+                            title: "Lower Elevation",
+                            description: "Lower elevation description",
+                        }
+                    },
+                }
+                // Reorder zones if config property is set
+                if (config.zoneOrder) {
+                    var zones = []
+                    config.zoneOrder.forEach(function (item) {
+                        var zone = response.data.zones.find(zone => zone.id == item)
+                        zones.push(zone)
+                    })
+                    Vue.prototype.$centerMeta.zones = zones
+                    Vue.prototype.$centerMeta.config = config
+                }
+                this.loaded = true
+            })
+            .catch(e => {
+                console.log('error retrieving avalanche center meta')
+                this.error = true
+                this.loaded = true
+            })
+
     }
 }
 </script>

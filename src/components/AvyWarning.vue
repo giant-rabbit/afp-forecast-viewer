@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import moment from 'moment/src/moment.js'
 
 export default {
     props: ['data'],

@@ -1,13 +1,11 @@
 <template>
-    <transition name="fade">
-        <div v-if="show" class="afp-loader">
-            <div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
+    <div v-if="show" class="afp-loader">
+        <div>
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
-    </transition>
+    </div>
 </template>
 
 <script>

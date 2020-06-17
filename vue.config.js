@@ -31,5 +31,13 @@ module.exports = {
       splitChunks: false
     },
   },
-  filenameHashing: false
+  lintOnSave: false,
+  filenameHashing: false,
+  productionSourceMap: false,
 }
+
+// module.exports = {
+//   lintOnSave: false,
+//   filenameHashing: false,
+//   productionSourceMap: false,
+// }
