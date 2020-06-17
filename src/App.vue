@@ -27,7 +27,7 @@
         ></router-view>
         <loader :show="!loaded" />
         <div v-if="error && loaded" class="afp-container afp-pt-2">
-            <alert show="true"/>
+            <alert show="true" />
         </div>
         <back-to-top />
     </div>
@@ -78,7 +78,7 @@ export default {
                 Vue.prototype.$centerMeta = response.data
                 // Dummy config data
                 var config = {
-                    zoneOrder: [295, 296, 294, 293],
+                    // zoneOrder: [295, 296, 294, 293],
                     blog: true,
                     elevations: {
                         upper: {
@@ -103,8 +103,9 @@ export default {
                         zones.push(zone)
                     })
                     Vue.prototype.$centerMeta.zones = zones
-                    Vue.prototype.$centerMeta.config = config
                 }
+                Vue.prototype.$centerMeta.config = config
+                console.log(Vue.prototype.$centerMeta)
                 this.loaded = true
             })
             .catch(e => {

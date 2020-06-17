@@ -6,15 +6,8 @@ import axios from 'axios'
 import merge from 'deepmerge'
 import moment from 'moment'
 import vbclass from 'vue-body-class'
-// import Router from 'vue-router'
 import VueGtag from "vue-gtag"
 import mixins from './utils/mixins.js'
-// Components
-// import Forecast from './views/Forecast'
-// import Weather from './views/Weather'
-// import Synopsis from './views/Synopsis'
-// import Archive from './views/Archive'
-// import AllZonesForecast from './views/AllZonesForecast'
 
 
 // Load forecast view plugin
@@ -84,7 +77,7 @@ Vue.directive('closable', {
 Vue.use({
     install(Vue) {
         Vue.prototype.$api = axios.create({
-            baseURL: 'https://api.avalanche.org/v2'
+            baseURL: 'https://staging-api.avalanche.org/v2'
         })
     }
 })

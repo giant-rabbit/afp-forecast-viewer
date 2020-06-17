@@ -1,10 +1,8 @@
 <template>
     <div class="afp-danger afp-mb-4">
         <div class="afp-row">
-            <div
-                class="afp-danger-today afp-mb-3"
-                :class="{'afp-danger-noOutlook' : !outlookDanger }"
-            >
+            <!-- today's danger -->
+            <div class="afp-danger-today afp-mb-3">
                 <h2 class="afp-html-h2">
                     Avalanche Danger
                     <info :content="this.$helpContent.avalancheDanger" />
@@ -17,7 +15,10 @@
                             class="afp-dangerLabel"
                         >{{this.$dangerScale[currentDanger.upper].rating}} ({{currentDanger.upper}})</span>
                         <v-popover class="afp-dangerIcon" @show="uiClick('info pop up » danger')">
-                            <img :src="this.$dangerScale[currentDanger.upper].icon" v-tooltip="'Click to learn more'" />
+                            <img
+                                :src="this.$dangerScale[currentDanger.upper].icon"
+                                v-tooltip="'Click to learn more'"
+                            />
                             <template slot="popover">
                                 <div v-html="this.$dangerScale[currentDanger.upper].advice"></div>
                             </template>
@@ -56,7 +57,8 @@
                     <danger-elevation class="afp-dangerMountain" :danger="currentDanger"></danger-elevation>
                 </div>
             </div>
-            <div v-if="outlookDanger" class="afp-outlook">
+            <!-- outlook danger -->
+            <div v-if="outlookDanger" class="afp-danger-outlook">
                 <h2 class="afp-html-h2">
                     Outlook
                     <info :content="this.$helpContent.avalancheDangerOutlook" />
@@ -113,6 +115,29 @@
                                 <div v-html="this.$dangerScale[outlookDanger.lower].advice"></div>
                             </template>
                         </v-popover>
+                    </div>
+                </div>
+            </div>
+            <!-- no outlook -->
+            <div v-else class="afp-danger-noOutlook">
+                <div class="afp-dangerGraphic">
+                    <div class="afp-elevationOutlookBlock">
+                        <span
+                            class="afp-travel-advice"
+                            v-html="this.$dangerScale[currentDanger.upper].advice"
+                        />
+                    </div>
+                    <div class="afp-elevationOutlookBlock">
+                        <span
+                            class="afp-travel-advice"
+                            v-html="this.$dangerScale[currentDanger.middle].advice"
+                        />
+                    </div>
+                    <div class="afp-elevationOutlookBlock">
+                        <span
+                            class="afp-travel-advice"
+                            v-html="this.$dangerScale[currentDanger.lower].advice"
+                        />
                     </div>
                 </div>
             </div>
@@ -245,7 +270,7 @@ export default {
         }
     }
 
-    .afp-outlook {
+    .afp-danger-outlook {
         flex: 0 0 260px;
         max-width: 260px;
         padding-right: 15px;
@@ -257,8 +282,32 @@ export default {
         @include media-breakpoint-down(md) {
             display: none;
         }
-        @media print {
-            display: none !important;
+    }
+
+    .afp-danger-noOutlook {
+        flex: 0 0 30%;
+        max-width: 30%;
+        padding-right: 15px;
+        margin-bottom: $spacer;
+        @include media-breakpoint-down(md) {
+            display: none;
+        }
+        margin-top: 3.5rem;
+        .afp-elevationOutlookBlock {
+            margin-right: 0 !important;
+            line-height: 1.2;
+            .afp-travel-advice::v-deep {
+                padding: 0.5rem;
+                font-size: $font-size-sm;
+                font-weight: 700;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                strong,
+                br {
+                    display: none;
+                }
+            }
         }
     }
 
