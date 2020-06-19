@@ -105,7 +105,7 @@
 
                     <!-- weather summary -->
                     <div
-                        v-if="!preview && data.weather_table && data.weather_table.hasOwnProperty('columns') && data.product_type == 'forecast'"
+                        v-if="!preview && data.weather_table && data.weather_table.hasOwnProperty('columns')"
                         class="afp-divider  afp-mb-4"
                     >
                         <h2 class="afp-html-h2">Weather Summary</h2>

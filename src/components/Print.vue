@@ -364,7 +364,11 @@ export default {
                 font-size: 0.1px !important;
             }
         }
-
+        .afp-tinymce {
+            figure, img, table, iframe, video {
+                display: none;
+            }
+        }
         .afp-outlook,
         .afp-popover-trigger,
         // .afp-dangerScale,
