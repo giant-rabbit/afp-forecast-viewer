@@ -3,7 +3,7 @@
         <div class="afp-container afp-pt-2">
             <div v-if="notFound" style="min-height: 80vh;">
                 There is no current Weather Forecast product to display. View the
-                <router-link :to="{ name: 'Forecast'}">Current Avalanche Forecast</router-link>product.
+                <router-link :to="{ name: 'AllZonesForecast'}">Current Avalanche Forecast</router-link>product.
             </div>
             <loader :show="!loaded" />
         </div>
@@ -34,6 +34,7 @@ export default {
                 .get('/public/product?type=weather&center_id=' + this.$centerId + '&zone_id=' + this.zone)
                 .then(response => {
                     if (response.data.published_time == null) {
+                        this.loaded = true
                         this.notFound = true
                     } else {
                         this.data = response.data

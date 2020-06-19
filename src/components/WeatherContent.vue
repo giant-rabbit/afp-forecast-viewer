@@ -8,12 +8,10 @@
         ></div>
 
         <!-- Weather tables -->
-        <div class="" v-for="(zone,index) in data.weather_data" :key="zone.zone_id">
+        <div class="" v-for="zone in data.weather_data" :key="zone.zone_id">
             <weather-table
-                :periods="zone.periods"
-                :data="zone.data"
+                :data="zone"
                 :zone="zone.zone_name"
-                :key="index"
             />
         </div>
     </div>
