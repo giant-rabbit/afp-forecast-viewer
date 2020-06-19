@@ -114,7 +114,7 @@
 <script>
 
 export default {
-    props: ['data', 'periods', 'zone'],
+    props: ['data', 'zone'],
 }
 
 </script>
@@ -134,9 +134,10 @@ export default {
             font-size: $font-size-base;
             font-weight: $headings-font-weight;
             background-color: $gray-200;
-            width: 200px;
-            max-width: 200px;
-            min-width: 200px;
+            width: 250px;
+            max-width: 250px;
+            min-width: 250px;
+            white-space: normal !important;
         }
         td.afp-table-rowHeader {
             text-align: left;
