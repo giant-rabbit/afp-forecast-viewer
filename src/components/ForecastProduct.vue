@@ -105,14 +105,12 @@
 
                     <!-- weather summary -->
                     <div
-                        v-if="!preview && data.weather_table && data.product_type == 'forecast'"
+                        v-if="!preview && data.weather_table && data.weather_table.hasOwnProperty('columns') && data.product_type == 'forecast'"
                         class="afp-divider  afp-mb-4"
                     >
                         <h2 class="afp-html-h2">Weather Summary</h2>
                         <weather-table
-                            :periods="data.weather_table.periods"
-                            :data="data.weather_table.data"
-                            :zone="data.weather_table.zone_name"
+                            :data="data.weather_table"
                         />
                         <div class="afp-text-center">
                             <button

@@ -1,8 +1,5 @@
 <template>
-    <!-- Need:
-    Print version-->
-
-    <div class="afp-container afp-pt-3">
+    <div class="afp-container afp-all-zones afp-pt-3">
         <div class="afp-row afp-justify-content-center">
             <!-- All zones forecast -->
             <div v-if="loaded" class="afp-col-lg-9 afp-col-md-12">
@@ -233,3 +230,15 @@ export default {
     }
 }
 </script>
+
+<style scoped lang="scss">
+.afp-all-zones::v-deep {
+    .afp-danger-today {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .afp-danger-noOutlook {
+        display: none;
+    }
+}
+</style>

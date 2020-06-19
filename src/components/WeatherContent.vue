@@ -8,11 +8,8 @@
         ></div>
 
         <!-- Weather tables -->
-        <div class="" v-for="zone in data.weather_data" :key="zone.zone_id">
-            <weather-table
-                :data="zone"
-                :zone="zone.zone_name"
-            />
+        <div v-for="(zone, index) in data.weather_data" :key="'weatherTable' + index">
+            <weather-table :data="zone" />
         </div>
     </div>
 </template>

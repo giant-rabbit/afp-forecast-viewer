@@ -264,10 +264,6 @@ export default {
             flex: initial;
             max-width: 100%;
         }
-        &.afp-danger-noOutlook {
-            flex: 0 0 100%;
-            max-width: 100%;
-        }
     }
 
     .afp-danger-outlook {
