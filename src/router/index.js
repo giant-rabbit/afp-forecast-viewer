@@ -53,7 +53,7 @@ const routes = [
 		meta: { bodyClass: 'afp-forecast' }
 	},
 	{
-		path: '/:zone/:date/',
+		path: '/:zone/:id/',
 		name: 'ArchivedForecast',
 		component: Forecast,
 		meta: { bodyClass: 'afp-forecast-archived' }
