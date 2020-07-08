@@ -2,7 +2,7 @@
     <div class="afp-blog-archive">
         <forecast-filter :data="data" :blog="true" v-model="season" />
         <loader :show="!loaded" />
-        <alert :show="error"/>
+        <alert :show="error" />
         <div v-show="loaded">
             <!-- <synopsis-filter :data="data" ref="synopsisFilter" key="synopsisFilter" /> -->
             <v-client-table
@@ -17,7 +17,7 @@
                     <router-link
                         class="afp-html-a"
                         v-tooltip="'View product'"
-                        :to="{ name: 'ArchivedSynopsis', params: { date: props.row.start_date } }"
+                        :to="{ name: 'ArchivedSynopsis', params: { year: toYear(props.row.start_date), month: toMonth(props.row.start_date), day: toDay(props.row.start_date) } }"
                     >{{props.row.start_date}}</router-link>
                 </div>
             </v-client-table>

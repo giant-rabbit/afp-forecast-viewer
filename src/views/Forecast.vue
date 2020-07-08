@@ -56,7 +56,21 @@ export default {
                 this.getProducts()
             }
         },
-        '$route.params.date': {
+        '$route.params.year': {
+            handler: function () {
+                this.loaded = false
+                this.notFound = false
+                this.getProducts()
+            }
+        },
+        '$route.params.month': {
+            handler: function () {
+                this.loaded = false
+                this.notFound = false
+                this.getProducts()
+            }
+        },
+        '$route.params.day': {
             handler: function () {
                 this.loaded = false
                 this.notFound = false
@@ -71,8 +85,8 @@ export default {
             return string
         },
         async getProducts() {
-            if (this.$route.params.date != undefined) {
-                this.date = this.$route.params.date
+            if (this.$route.params.year != undefined && this.$route.params.month != undefined && this.$route.params.day != undefined) {
+                this.date = this.$route.params.year + '-' + this.$route.params.month + '-' + this.$route.params.day 
             } else {
                 this.date = ''
             }

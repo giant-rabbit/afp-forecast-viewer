@@ -35,7 +35,7 @@ const routes = [
 		meta: { bodyClass: 'afp-blog' }
 	},
 	{
-		path: '/blog/:date/',
+		path: '/blog/:year/:month/:day',
 		name: 'ArchivedSynopsis',
 		component: Synopsis,
 		meta: { bodyClass: 'afp-blog-archived' }
@@ -53,7 +53,7 @@ const routes = [
 		meta: { bodyClass: 'afp-forecast' }
 	},
 	{
-		path: '/:zone/:date/',
+		path: '/:zone/:year/:month/:day',
 		name: 'ArchivedForecast',
 		component: Forecast,
 		meta: { bodyClass: 'afp-forecast-archived' }

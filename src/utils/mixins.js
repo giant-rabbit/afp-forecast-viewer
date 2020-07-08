@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import moment from 'moment'
 
 Vue.mixin({
     methods: {
@@ -14,8 +15,15 @@ Vue.mixin({
                 'event_category': 'AFP Forecast Viewer',
                 'event_label': name
             })
-        }
-
-    
+        },
+        toYear(date) {
+            return moment(date).format('YYYY')
+        },
+        toMonth(date) {
+            return moment(date).format('MM')
+        },
+        toDay(date) {
+            return moment(date).format('DD')
+        },
     }
 })

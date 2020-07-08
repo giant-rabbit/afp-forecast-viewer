@@ -34,20 +34,32 @@ export default {
         NotFound
     },
     watch: {
-        '$route.params.date': {
+        '$route.params.year': {
             handler: function () {
                 this.loaded = false
                 this.notFound = false
                 this.getProduct()
-            },
-            deep: true,
-            immediate: true
+            }
+        },
+        '$route.params.month': {
+            handler: function () {
+                this.loaded = false
+                this.notFound = false
+                this.getProduct()
+            }
+        },
+        '$route.params.day': {
+            handler: function () {
+                this.loaded = false
+                this.notFound = false
+                this.getProduct()
+            }
         }
     },
     methods: {
         async getProduct() {
-            if (this.$route.params.date != undefined) {
-                this.date = this.$route.params.date
+            if (this.$route.params.year != undefined && this.$route.params.month != undefined && this.$route.params.day != undefined) {
+                this.date = this.$route.params.year + '-' + this.$route.params.month + '-' + this.$route.params.day 
             } else {
                 this.date = ''
             }
@@ -57,6 +69,7 @@ export default {
                 .then(response => {
                     if (response.data.published_time == null) {
                         this.notFound = true
+                        this.loaded = true
                     } else {
                         this.data = response.data
                         this.loaded = true

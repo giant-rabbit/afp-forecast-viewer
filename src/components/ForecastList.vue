@@ -15,7 +15,7 @@
                     <router-link
                         class="afp-html-a"
                         v-tooltip="'View product'"
-                        :to="{ name: 'ArchivedForecast', params: { zone: zoneName, date: props.row.start_date  }}"
+                        :to="{ name: 'ArchivedForecast', params: { zone: zoneName, year: toYear(props.row.start_date), month: toMonth(props.row.start_date), day: toDay(props.row.start_date) }}"
                     >{{props.row.start_date}}</router-link>
                 </div>
                 <span slot="danger_rating" slot-scope="props">
