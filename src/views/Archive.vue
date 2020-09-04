@@ -10,7 +10,11 @@
                 <i class="mdi mdi-arrow-left"></i> All Products
             </button>
             <h1 class="afp-html-h1">Forecast Archive</h1>
-            <h2 class="afp-html-h2 afp-gray-700 afp-zone-title" v-if="productName" v-html="productName"></h2>
+            <h2
+                class="afp-html-h2 afp-gray-700 afp-zone-title"
+                v-if="productName"
+                v-html="productName"
+            ></h2>
             <h2 class="afp-html-h2 afp-gray-700" v-else>Choose a zone or product:</h2>
         </div>
 
@@ -24,7 +28,7 @@
                     :key="zone.id"
                 >{{zone.name}}</button>
                 <button
-                v-if="centerMeta.config.blog"
+                    v-if="centerMeta.config.blog"
                     @click="$router.replace({ name: 'ArchiveProduct', params: { product: 'blog' } })"
                     class="afp-html-button afp-btn afp-btn-archive afp-mt-3"
                 >Conditions Blog</button>
@@ -38,7 +42,10 @@
                 <forecast-list v-if="product != '' && product !='blog'" :zone="product" />
 
                 <!-- Blog Archive tab -->
-                <synopsis-list v-if="product == 'blog'" />
+                <synopsis-list v-else-if="product == 'blog' && $centerMeta.config.blog" />
+                <div v-else-if="!$centerMeta.config.blog">
+                    <h4 class="afp-html-h4 afp-text-center afp-mb-3">Sorry, this product is not enabled</h4>
+                </div>
             </content-panel>
         </keep-alive>
         <disclaimer />

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="afp-container afp-pt-2">
+        <div v-if="$centerMeta.config.blog" class="afp-container afp-pt-2">
             <button
                 v-if="date != ''"
                 @click="$router.replace({ name: 'ArchiveProduct', params: { product: 'blog' } })"
@@ -11,7 +11,12 @@
             <not-found v-if="notFound" />
             <loader :show="!loaded" />
         </div>
-        <forecast-view v-if="loaded && !notFound" product="synopsis" :data="data" />
+        <forecast-view v-if="loaded && !notFound && $centerMeta.config.blog" product="synopsis" :data="data" />
+        <div v-if="!$centerMeta.config.blog" class="afp-container afp-pt-2">
+            <h4 class="afp-html-h4 afp-text-center">
+                Sorry, this product is not enabled
+            </h4>
+        </div>
     </div>
 </template>
 
