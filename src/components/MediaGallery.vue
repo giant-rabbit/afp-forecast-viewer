@@ -4,15 +4,15 @@
         <div class="afp-owl-carousel afp-owl-theme">
             <div v-for="(item, index) in media" :key="index" class="afp-galleryItem">
                 <div
-                    v-if="item.type == 'photo'"
+                    v-if="item.type == 'photo' || item.type == 'image'"
                     class="afp-image-container afp-galleryImgContainer"
                 >
                     <img
                         class="afp-galleryImg"
-                        :src="item.url"
+                        :src="getUrl(item, 'thumbnail')"
                         :alt="item.caption"
                         :data-pswp-title="item.caption"
-                        :data-pswp-src="item.url"
+                        :data-pswp-src="getUrl(item, 'original')"
                     />
                 </div>
                 <div
@@ -21,9 +21,9 @@
                 >
                     <img
                         class="afp-galleryImg"
-                        :src="'https://img.youtube.com/vi/' + item.url + '/mqdefault.jpg'"
+                        :src="getUrl(item, 'thumbnail')"
                         :alt="item.caption"
-                        :data-video-id="item.url"
+                        :data-video-id="getUrl(item, 'video_id')"
                         :data-video-caption="item.caption"
                     />
                 </div>
@@ -42,6 +42,7 @@ export default {
     },
     props: ['media'],
     methods: {
+
     },
     mounted() {
         $('.afp-owl-carousel').owlCarousel({
@@ -122,8 +123,8 @@ $gallery-height: 200px;
     &::v-deep {
         // Owl Carousel Theme
         .afp-owl-theme {
-            margin-top: .5 * $spacer;
-            margin-bottom: .5 * $spacer;
+            margin-top: 0.5 * $spacer;
+            margin-bottom: 0.5 * $spacer;
         }
 
         .afp-owl-theme .afp-owl-nav {

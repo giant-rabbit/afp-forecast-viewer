@@ -4,7 +4,6 @@
         <loader :show="!loaded" />
         <alert :show="error" />
         <div v-show="loaded">
-            <!-- <synopsis-filter :data="data" ref="synopsisFilter" key="synopsisFilter" /> -->
             <v-client-table
                 :columns="columns"
                 :data="data"

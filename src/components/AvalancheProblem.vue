@@ -62,15 +62,15 @@
             </div>
         </div>
         <figure
-            v-if="problem.media.url !='' && problem.media.type == 'photo' "
-            class="afp-html-figure "
+            v-if="problem.media.url !='' && (problem.media.type == 'photo' || problem.media.type == 'image') "
+            class="afp-html-figure"
         >
             <div class="afp-imageContainer afp-image-container">
                 <img
-                    :src="problem.media.url"
+                    :src="getUrl(problem.media, 'thumbnail')"
                     :alt="problem.media.caption"
-                    :data-pswp-src="problem.media.url"
                     :data-pswp-title="problem.media.caption"
+                    :data-pswp-src="getUrl(problem.media, 'original')"
                     class="afp-html-img"
                 />
             </div>
@@ -78,14 +78,14 @@
         </figure>
         <figure
             v-if="problem.media.url !='' && problem.media.type == 'video' "
-            class="afp-html-figure  afp-video-modal"
+            class="afp-html-figure afp-video-modal"
         >
             <div class="afp-imageContainer afp-image-container afp-video-container">
                 <img
-                    :src="'https://img.youtube.com/vi/' + problem.media.url + '/mqdefault.jpg'"
+                    :src="getUrl(problem.media, 'thumbnail')"
                     :alt="problem.media.caption"
-                    @click="videoModal = true"
-                    :data-video-id=" problem.media.url"
+                    :data-video-id="getUrl(problem.media, 'video_id')"
+                    :data-video-caption="problem.media.caption"
                     class="afp-html-img"
                 />
             </div>

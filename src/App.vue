@@ -76,10 +76,12 @@ export default {
             .get('/public/avalanche-center/' + this.$centerId)
             .then(response => {
                 var centerMeta = response.data
+                
                 // Temporarily reduce to one zone
-                var zone = centerMeta.zones[0]
-                centerMeta.zones = []
-                centerMeta.zones.push(zone)
+                // var zone = centerMeta.zones[0]
+                // centerMeta.zones = []
+                // centerMeta.zones.push(zone)
+
                 // Reorder zones if config property is set
                 if (centerMeta.config.hasOwnProperty('zone_order') && centerMeta.zones.length > 1) {
                     var zones = []

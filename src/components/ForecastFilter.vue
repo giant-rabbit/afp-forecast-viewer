@@ -152,7 +152,7 @@ export default {
         item.value = 'current'
         this.seasons.push(item)
         season--
-        while (season > 2018) {
+        while (season > 2019) {
             let item = {}
             item.name = (season - 1) + '-' + (season - 2000) + ' Season'
             item.value = season
