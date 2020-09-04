@@ -72,8 +72,29 @@ export default {
         }
     },
     mounted() {
-        this.loaded = true
-        this.error = this.$centerMeta ? false : true
+        this.$api
+            .get('/public/avalanche-center/' + this.$centerId)
+            .then(response => {
+                var centerMeta = response.data
+                // Reorder zones if config property is set
+                if (centerMeta.config.hasOwnProperty('zone_order')) {
+                    var zones = []
+                    centerMeta.config.zone_order.forEach(item => {
+                        var zone = centerMeta.zones.find(zone => zone.id == item)
+                        zones.push(zone)
+                    })
+                    centerMeta.zones = zones
+                }
+                Vue.prototype.$centerMeta = centerMeta
+                console.log(Vue.prototype.$centerMeta)
+                this.loaded = true
+            })
+            .catch(e => {
+                console.log('error retrieving avalanche center meta')
+                this.error = true
+                this.loaded = true
+            })
+
     }
 }
 </script>

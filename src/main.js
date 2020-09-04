@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import forecastView from './plugin.js'
-import routerMultiZone from './router/multiZone.js'
-import routerSingleZone from './router/singleZone.js'
+import router from './router'
 import axios from 'axios'
 import merge from 'deepmerge'
 import moment from 'moment'
@@ -78,6 +77,8 @@ Vue.use({
     }
 })
 
+// Add Body class based on route
+Vue.use(vbclass, router)
 
 // Google Analytics - gtag
 Vue.use(VueGtag, {
@@ -95,39 +96,12 @@ Vue.use(VueGtag, {
     disableScriptLoad: true,
 })
 
-// Get centermeta and mount app
-Vue.prototype.$api
-    .get('/public/avalanche-center/' + Vue.prototype.$centerId)
-    .then(response => {
-        var centerMeta = response.data
-        // Reorder zones if config property is set
-        if (centerMeta.config.hasOwnProperty('zone_order')) {
-            var zones = []
-            centerMeta.config.zone_order.forEach(item => {
-                var zone = centerMeta.zones.find(zone => zone.id == item)
-                zones.push(zone)
-            })
-            centerMeta.zones = zones
-        }
-        Vue.prototype.$centerMeta = centerMeta
-        console.log(Vue.prototype.$centerMeta)
-
-        const router = routerMultiZone
-        // Add Body class based on route
-        Vue.use(vbclass, router)
-        // Vue instance
-        window.App = new Vue({
-            el: '#afp-public-root',
-            router,
-            render: h => h(App),
-        })
-    })
-    .catch(e => {
-        Vue.prototype.$centerMeta = false
-        console.log(Vue.prototype.$centerMeta)
-        console.log('error retrieving avalanche center meta')
-    })
-
+// Vue instance
+window.App = new Vue({
+    el: '#afp-public-root',
+    router,
+    render: h => h(App),
+})
 
 
 
