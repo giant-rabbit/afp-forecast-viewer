@@ -47,6 +47,7 @@
                             :danger="forecast.danger"
                             :date="forecast.published_time"
                             :config="config"
+                            :zone="centerMeta.zones[index]"
                         />
                         <div class="afp-text-right afp-mb-2">
                             <router-link
