@@ -17,7 +17,7 @@
             :data="data"
             :config="config"
             :preview="preview"
-            :zone="zoneName"
+            :zone="zoneMeta"
         />
     </div>
 </template>
@@ -31,6 +31,7 @@ export default {
         return {
             zone: '',
             zoneName: '',
+            zoneMeta: null,
             date: '',
             centerMeta: this.$centerMeta,
             config: this.$config,
@@ -86,7 +87,7 @@ export default {
         },
         async getProducts() {
             if (this.$route.params.year != undefined && this.$route.params.month != undefined && this.$route.params.day != undefined) {
-                this.date = this.$route.params.year + '-' + this.$route.params.month + '-' + this.$route.params.day 
+                this.date = this.$route.params.year + '-' + this.$route.params.month + '-' + this.$route.params.day
             } else {
                 this.date = ''
             }
@@ -95,14 +96,15 @@ export default {
                 this.zone = this.$route.params.zone.replace(/-/g, ' ');
                 this.zone = this.zone.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')
                 let zone = this.centerMeta.zones.find(zone => zone.name == this.zone)
-                if(zone) {
+                if (zone) {
+                    this.zoneMeta = zone
                     this.zone = zone.id
                     this.zoneName = zone.name
                 } else {
                     this.notFound = true
                     this.loaded = true
                 }
-            } 
+            }
             await this.getForecast()
             if (this.data.product_type == 'forecast' || this.data.product_type == 'summary') {
                 await this.getWeather()
@@ -152,7 +154,7 @@ export default {
                         } else {
                             this.data.weather_product.weather_data = false
                         }
-                    } 
+                    }
                 })
                 .catch(e => {
                     this.data.weather_product = false

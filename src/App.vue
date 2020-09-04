@@ -75,36 +75,17 @@ export default {
         this.$api
             .get('/public/avalanche-center/' + this.$centerId)
             .then(response => {
-                Vue.prototype.$centerMeta = response.data
-                // Dummy config data
-                var config = {
-                    // zoneOrder: [295, 296, 294, 293],
-                    blog: true,
-                    elevations: {
-                        upper: {
-                            title: "Upper Elevation",
-                            description: "Upper elevation description",
-                        },
-                        middle: {
-                            title: "Middle Elevation",
-                            description: "Middle elevation description",
-                        },
-                        lower: {
-                            title: "Lower Elevation",
-                            description: "Lower elevation description",
-                        }
-                    },
-                }
+                var centerMeta = response.data
                 // Reorder zones if config property is set
-                if (config.zoneOrder) {
+                if (centerMeta.config.hasOwnProperty('zone_order')) {
                     var zones = []
-                    config.zoneOrder.forEach(function (item) {
-                        var zone = response.data.zones.find(zone => zone.id == item)
+                    centerMeta.config.zone_order.forEach(item => {
+                        var zone = centerMeta.zones.find(zone => zone.id == item)
                         zones.push(zone)
                     })
-                    Vue.prototype.$centerMeta.zones = zones
+                    centerMeta.zones = zones
                 }
-                Vue.prototype.$centerMeta.config = config
+                Vue.prototype.$centerMeta = centerMeta
                 console.log(Vue.prototype.$centerMeta)
                 this.loaded = true
             })

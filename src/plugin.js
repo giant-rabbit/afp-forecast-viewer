@@ -16,7 +16,7 @@ export default {
             if (value) {
                 return moment(value).format('dddd, MMMM D, YYYY - h:mmA')
             }
-        });
+        })
 
         Vue.filter('capitalize', function (value) {
             if (!value) return ''

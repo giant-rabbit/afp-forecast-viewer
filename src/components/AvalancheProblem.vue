@@ -27,9 +27,9 @@
                 <locator-rose
                     ref="rose"
                     class="location"
-                    :rank="problem.rank"
                     :location="problem.location"
                     :key="'rose'+problem.rank"
+                    :zone="zone"
                 ></locator-rose>
                 <h5 class="afp-html-h5">
                     Aspect/Elevation
@@ -112,7 +112,7 @@ export default {
         LocatorRose,
         ProblemSlider
     },
-    props: ['problem'],
+    props: ['problem', 'zone'],
     mounted() {
 
     }

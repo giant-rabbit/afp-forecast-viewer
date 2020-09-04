@@ -10,7 +10,7 @@
                 {{ todayDate }}
                 <div class="afp-dangerGraphic">
                     <div class="afp-elevationBlock">
-                        <span class="afp-elevationLabel">{{elevations.upper.title}}</span>
+                        <span class="afp-elevationLabel">{{zone.config.elevation_band_names.upper}}</span>
                         <span
                             class="afp-dangerLabel"
                         >{{this.$dangerScale[currentDanger.upper].rating}} ({{currentDanger.upper}})</span>
@@ -25,7 +25,7 @@
                         </v-popover>
                     </div>
                     <div class="afp-elevationBlock">
-                        <span class="afp-elevationLabel">{{elevations.middle.title}}</span>
+                        <span class="afp-elevationLabel">{{zone.config.elevation_band_names.middle}}</span>
                         <span
                             class="afp-dangerLabel"
                         >{{this.$dangerScale[currentDanger.middle].rating}} ({{currentDanger.middle}})</span>
@@ -40,7 +40,7 @@
                         </v-popover>
                     </div>
                     <div class="afp-elevationBlock">
-                        <span class="afp-elevationLabel">{{elevations.lower.title}}</span>
+                        <span class="afp-elevationLabel">{{zone.config.elevation_band_names.lower}}</span>
                         <span
                             class="afp-dangerLabel"
                         >{{this.$dangerScale[currentDanger.lower].rating}} ({{currentDanger.lower}})</span>
@@ -167,7 +167,6 @@ import moment from 'moment'
 export default {
     data() {
         return {
-            elevations: this.$centerMeta.config.elevations
         }
     },
     components: {
@@ -175,18 +174,8 @@ export default {
         DangerElevationMobile,
         DangerScale
     },
-    props: ['danger', 'date'],
+    props: ['danger', 'date', 'zone'],
     computed: {
-        // dangerIcon: function () {
-        //     var icon = []
-        //     icon[0] = require('@/assets/images/danger/no.png')
-        //     icon[1] = require('@/assets/images/danger/low.png')
-        //     icon[2] = require('@/assets/images/danger/moderate.png')
-        //     icon[3] = require('@/assets/images/danger/considerable.png')
-        //     icon[4] = require('@/assets/images/danger/high.png')
-        //     icon[5] = require('@/assets/images/danger/extreme.png')
-        //     return icon
-        // },
         currentDanger: function () {
             let current = this.danger.find(current => current.valid_day == "current");
             if (current.upper == null) {

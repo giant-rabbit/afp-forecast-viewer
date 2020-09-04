@@ -18,7 +18,7 @@
                 <h1 class="afp-html-h1" v-else>General Avalanche Information</h1>
                 <h2 class="afp-html-h2 afp-gray-700 afp-zone-title">
                     <i class="mdi mdi-map-marker"></i>
-                    {{zone}}
+                    {{zone.name}}
                 </h2>
             </div>
         </div>
@@ -80,13 +80,14 @@
                 <!-- Avalanche forecast tab -->
                 <div v-show="tabSelected == 'forecast'" class="afp-tabPane">
                     <!-- danger -->
-                    <avalanche-danger :danger="data.danger" :date="data.published_time" />
+                    <avalanche-danger :danger="data.danger" :date="data.published_time" :zone="zone" />
 
                     <!-- problems -->
                     <avalanche-problem
                         v-for="problem in data.forecast_avalanche_problems"
                         v-bind:key="'problem'+problem.rank"
                         :problem="problem"
+                        :zone="zone"
                     />
 
                     <!-- discussion -->

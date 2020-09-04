@@ -18,11 +18,6 @@ var configDefault = {
     "center": "SNFAC",
     "color": false,
     "tabs": [],
-    "elevations": {
-        "upper": "Upper Elevation",
-        "middle": "Middle Elevation",
-        "lower": "Lower Elevation"
-    },
     "assets": {
         "icons": true,
         "photoswipe": true

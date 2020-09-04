@@ -12,9 +12,9 @@
             <div class="afp-elevationMarker afp-elevationMarkerUpper"></div>
             <div class="afp-elevationMarker afp-elevationMarkerMiddle"></div>
             <div class="afp-elevationMarker afp-elevationMarkerLower"></div>
-            <div class="afp-elevationLabel afp-elevationLabelUpper">{{elevations.upper.title}}</div>
-            <div class="afp-elevationLabel afp-elevationLabelMiddle">{{elevations.middle.title}}</div>
-            <div class="afp-elevationLabel afp-elevationLabelLower">{{elevations.lower.title}}</div>
+            <div class="afp-elevationLabel afp-elevationLabelUpper">{{zone.config.elevation_band_names.upper}}</div>
+            <div class="afp-elevationLabel afp-elevationLabelMiddle">{{zone.config.elevation_band_names.middle}}</div>
+            <div class="afp-elevationLabel afp-elevationLabelLower">{{zone.config.elevation_band_names.lower}}</div>
             <svg
                 ref="rose"
                 class="afp-rose-svg"
@@ -160,10 +160,9 @@ export default {
         return {
             borderColor: '#515558',
             fillColor: '#C8CACE',
-            elevations: this.$centerMeta.config.elevations
         }
     },
-    props: ['location', 'rank', 'config'],
+    props: ['location', 'zone'],
     watch: {
         location: function () {
             this.roseColor()
@@ -171,7 +170,6 @@ export default {
     },
     methods: {
         roseColor() {
-            //var rose = document.querySelector('#problem-' + this.rank + ' .afp-rose svg')
             var rose = this.$refs.rose
             var color = this.fillColor
             this.location.forEach(function (each) {

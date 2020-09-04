@@ -34,6 +34,7 @@ import ForecastProduct from '../components/ForecastProduct'
 import WeatherProduct from '../components/WeatherProduct'
 import SynopsisProduct from '../components/SynopsisProduct'
 import VideoModal from '../components/VideoModal'
+import Vue from 'vue'
 
 export default {
     data() {
@@ -56,26 +57,8 @@ export default {
             type: String,
             default: 'forecast'
         },
-        zone: {
-            type: String,
-            default: ''
-        },
-        config: {
-            type: Object,
-            default: function () {
-                return {
-                    elevations: {
-                        upper: "Upper Elevation",
-                        middle: "Middle Elevation",
-                        lower: "Lower Elevation"
-                    },
-                    assets: {
-                        icons: true,
-                        photoswipe: true
-                    }
-                }
-            }
-        }
+        zone: Object,
+        config: Object
     },
     components: {
         ForecastProduct,

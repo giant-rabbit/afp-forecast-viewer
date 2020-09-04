@@ -104,7 +104,7 @@
                         v-if="data.product_type == 'forecast'"
                     >Backcountry Avalanche Forecast</h2>
                     <h2 class="afp-html-h2 afp-mb-1" v-else>General Avalanche Information</h2>
-                    <h3 class="afp-html-h3 afp-text-muted">{{zone}}</h3>
+                    <h3 class="afp-html-h3 afp-text-muted">{{zone.name}}</h3>
                     <!-- <span>{{url}}</span> -->
                 </div>
 
@@ -127,6 +127,8 @@
                 <avalanche-danger
                     v-if="data.product_type == 'forecast' && bottomLine"
                     :danger="data.danger"
+                    :date="data.published_time"
+                    :zone="zone"
                     class="afp-pageBreak"
                 />
 
@@ -134,8 +136,9 @@
                 <avalanche-problem
                     v-if="problems"
                     v-for="problem in data.forecast_avalanche_problems"
-                    v-bind:key="'printProblem'+problem.rank"
+                    :key="'printProblem'+problem.rank"
                     :problem="problem"
+                    :zone="zone"
                     class="afp-pageBreak"
                 />
 
