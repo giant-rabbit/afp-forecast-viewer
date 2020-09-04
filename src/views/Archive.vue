@@ -3,7 +3,7 @@
         <!-- Title -->
         <div class="afp-mb-3">
             <button
-                v-if="product"
+                v-if="product && (centerMeta.zones.length > 1 || centerMeta.config.blog)"
                 @click="$router.replace({ name: 'Archive' })"
                 class="afp-html-button afp-btn afp-btn-primary afp-mb-2"
             >
@@ -106,6 +106,11 @@ export default {
         }
     },
     mounted() {
+        // Redirect to zone forecast if only one zone
+        if(this.centerMeta.zones.length == 1 && !this.centerMeta.config.blog) {
+            var zone = this.urlString(this.centerMeta.zones[0].name)
+            this.$router.replace({ name: 'ArchiveProduct' , params: {product: zone}})
+        }
         this.getArchive()
         this.trackPage('Archive')
     }

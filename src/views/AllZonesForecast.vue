@@ -196,11 +196,16 @@ export default {
         },
     },
     async mounted() {
+        // Redirect to zone forecast if only one zone
+        if(this.centerMeta.zones.length == 1) {
+            var zone = this.urlString(this.centerMeta.zones[0].name)
+            this.$router.replace({ name: 'ZoneForecast' , params: {zone: zone}})
+        }
+    
         var promiseArray = []
         this.centerMeta.zones.forEach(zone => {
             promiseArray.push(this.getForecast(zone.id))
         })
-
         await Promise.all(promiseArray).then(data => {
             data.forEach(zone => {
                 this.data.forecasts.push(zone)
